@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+jar {
+    baseName = 'webservices-bench'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+allprojects {
+    sourceCompatibility = 1.8
+    eclipse.project {
+        natures 'org.eclipse.buildship.core.gradleprojectnature'
+    }
+}
+
+compileJava {
+  options.compilerArgs += ['-s', projectDir.absolutePath + '/src/thrift.generated/java']
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/thrift.generated/java"
+        }
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.postgresql:postgresql:42.1.1.jre7")
+    compile("org.apache.thrift:libthrift:0.10.0")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
