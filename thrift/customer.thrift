@@ -36,6 +36,7 @@ enum ErrorCode {
 
 exception CustomerException {
     1: ErrorCode code,
+    2: string message
 }
 
 service CustomerService {
@@ -72,7 +73,7 @@ service CustomerService {
      * @throws TException unexpected error
      */
     string create(1: Customer customer) throws (1: CustomerException error);
-    
+
     /**
      * Delete all customers
      *

@@ -124,10 +124,9 @@ public class CustomerDAO {
    *
    * @return the customer details
    */
-  public CustomerBean getDetails(final String id) {
-    final UUID custId = UUID.fromString(id);
+  public CustomerBean getDetails(final UUID id) {
     final CustomerBean customer = jdbc.query(REQ_GET_CUST, new Object[] {
-      custId
+      id
     }, new ResultSetExtractor<CustomerBean>() {
       @Override
       public CustomerBean extractData(final ResultSet rs) throws SQLException, DataAccessException {
@@ -135,8 +134,7 @@ public class CustomerDAO {
           return null;
         }
         final CustomerBean cust = new CustomerBean();
-        final UUID uuid = rs.getObject(1, UUID.class);
-        cust.setId(uuid.toString());
+        cust.setId(id.toString());
         cust.setId(rs.getString(1));
         cust.setFirstName(rs.getString(2));
         cust.setLastName(rs.getString(3));
@@ -147,7 +145,7 @@ public class CustomerDAO {
     });
     if(customer != null) {
       final AddressBean address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
-        custId
+        id
       }, new ResultSetExtractor<AddressBean>() {
         private void addLine(final List<String> lines, final String line) {
           if(line != null) {
@@ -180,7 +178,7 @@ public class CustomerDAO {
       customer.setAddress(address);
       final ArrayList<PhoneBean> phones = new ArrayList<>();
       jdbc.query(REQ_GET_CUST_PHONES, new Object[] {
-        custId
+        id
       }, new RowCallbackHandler() {
         @Override
         public void processRow(final ResultSet rs) throws SQLException {

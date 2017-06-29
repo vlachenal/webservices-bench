@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -89,7 +90,8 @@ public class CustomerDAOTest {
   @Test
   public void test3GetDetails() {
     assertNotNull("Customer identifier is not set", customerId);
-    final CustomerBean customer = dao.getDetails(customerId);
+    final UUID id = UUID.fromString(customerId);
+    final CustomerBean customer = dao.getDetails(id);
     LOG.info("Customer {} is {} {}", customerId, customer.getFirstName(), customer.getLastName());
     LOG.info("He has been born {}", customer.getBirthDate());
     LOG.info("His email address is {}", customer.getEmail());
