@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -26,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
@@ -147,8 +149,68 @@ public class CustomerDAOTest {
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#deleteAll()}.
    */
   @Test
-  public void test4DeleteAll() {
+  public void test5DeleteAll() {
     dao.deleteAll();
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dao.bean.CustomerBean)}.<br>
+   * This should fail due to database integrity constraints
+   */
+  @Test(expected=DataAccessException.class)
+  public void test4CreateFail() {
+    final CustomerBean cust = new CustomerBean();
+    final String uuid = dao.create(cust);
+    LOG.debug("New customer UUID is {}", uuid);
+    customerId = uuid;
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dao.bean.CustomerBean)}.<br>
+   * This should fail due to database integrity constraints.<br>
+   * This will test transction annotation.
+   */
+  @Test(expected=DataAccessException.class)
+  public void test6CreateFail() {
+    final CustomerBean cust = new CustomerBean();
+    cust.setFirstName("Chuck");
+    cust.setLastName("Norris");
+    cust.setBirthDate(Date.from(LocalDate.parse("1940-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    cust.setEmail("chuck.norris@yopmail.com");
+    final AddressBean addr = new AddressBean();
+    addr.setZipCode("46800");
+    addr.setCity("Montcuq");
+    addr.setCountry("France");
+    cust.setAddress(addr);
+    final ArrayList<PhoneBean> phones = new ArrayList<>(2);
+    PhoneBean phone = new PhoneBean();
+    phone.setType(PhoneBean.Type.MOBILE);
+    phone.setNumber("+33636656565");
+    phones.add(phone);
+    phone = new PhoneBean();
+    phone.setType(PhoneBean.Type.LANDLINE);
+    phone.setNumber("+33836656565");
+    phones.add(phone);
+    cust.setPhones(phones);
+    final String uuid = dao.create(cust);
+    LOG.debug("New customer UUID is {}", uuid);
+    customerId = uuid;
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#listAll()}.
+   */
+  @Test
+  public void test7ListAll() {
+    final List<CustomerBean> customers = dao.listAll();
+    boolean found = false;
+    for(final CustomerBean customer : customers) {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+      if(customer.getId().equals(customerId)) {
+        found = true;
+      }
+    }
+    assertFalse("New customer has not been found in database", found);
   }
   // Tests -
 
