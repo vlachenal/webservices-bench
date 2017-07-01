@@ -11,7 +11,7 @@ Apart from my wishes, the structural proposals were :
 
 This project aims to test these solutions on server side.
 
-I do these projects on my free time ; that's why they are published under Do What the Fuck You Want to Public License: you can reuse them as you want. I don't care about it.
+I have done these projects on my free time ; that's why they are published under Do What the Fuck You Want to Public License: you can reuse them as you want. I don't care about it.
 
 ## Maven
 When I began my integration tests, I began to write the pom.xml. I found it too complex and too verbose.
