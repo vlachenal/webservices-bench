@@ -9,6 +9,9 @@ Apart from my wishes, the structural proposals were :
  - switch from Tomcat/Guice to Tomcat/spring-boot
  - switch from Ant/Ivy to Maven
 
+For the department of the enterprise in which I work, the structural proposals for which I voted for are:
+ - switch from Subversion to GIT because we have a lot of feature requests on the same time: requests may not have be released on the same time and SVN branches merges are painfully.
+
 This project aims to test these solutions on server side.
 
 I have done these projects on my free time ; that's why they are published under Do What the Fuck You Want to Public License: you can reuse them as you want. I don't care about it.
