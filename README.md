@@ -13,6 +13,8 @@ This project aims to test these solutions on server side.
 
 I have done these projects on my free time ; that's why they are published under Do What the Fuck You Want to Public License: you can reuse them as you want. I don't care about it.
 
+Feel free to fork (and make pull request) to complete and/or fix my tests.
+
 ## Maven
 When I began my integration tests, I began to write the pom.xml. I found it too complex and too verbose.
 
@@ -59,6 +61,9 @@ Thrift has not been really adopted. Large majority of companies uses RESTful or 
 Thrift is not designed for client side communication.
 
 ## TODO
-SOAP
-
-Protobuf
+By priority order:
+ - Publish client side benchmark test
+ - SOAP web service
+ - Protobuf web service
+ - Nginx + PHP + Slim + Thrift
+ - unrelevant AnCH Framework SQL + Thrift tests ...
