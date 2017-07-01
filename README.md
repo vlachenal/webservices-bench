@@ -8,7 +8,7 @@ Apart from my wishes, the structural proposals were :
  - switch from Tomcat/Guice to Tomcat/spring-boot
  - switch from Ant/Ivy to Maven
 
-This project aims to test these solutions on server.
+This project aims to test these solutions on server side.
 
 ## Maven
 When I began my integration tests, I began to write the pom.xml. I found it too complex and too verbose.
