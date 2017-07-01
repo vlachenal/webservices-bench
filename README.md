@@ -11,13 +11,19 @@ Apart from my wishes, the structural proposals were :
 
 This project aims to test these solutions on server side.
 
+I do these projects on my free time ; that's why they are published under Do What the Fuck You Want to Public License: you can reuse them as you want. I don't care about it.
+
 ## Maven
 When I began my integration tests, I began to write the pom.xml. I found it too complex and too verbose.
 
 So I decided to test Gradle which is almost perfect from my point of view.
 
 ## Spring-boot
-TODO
+When spring-boot has been proposed as Guice remplacement, I thought : "Burp .. Ugly XML descriptor files again ..."
+
+I though about former Spring Framework.
+
+When I began my tests, I was immediately convinced that sping-boot will be good for our usage.
 
 ## RESTful
 I will not introduced RESTful web services. You can find informations all over web.
