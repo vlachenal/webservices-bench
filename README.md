@@ -30,7 +30,7 @@ RESTful web services use every HTTP verbs. Which is very elegant from my point o
 RESTful web services which use JSON structures are directly compatible with web client side application.
 
 ### Disadvantages
-JSON structure (it is even more relevant if you decide to use XML) is not a compact strcture like Thrift TCompactProtocol. It will induce overhead on network, serialization and deserialization.
+JSON structure (it is even more relevant if you decide to use XML) is not a compact structure like Thrift TCompactProtocol. It will induce overhead on network, serialization and deserialization.
 
 If you use JSON format for RESTful web services, you will not have structure control like in SOAP, Thrift, Protobuf, ...
 
