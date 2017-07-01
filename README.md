@@ -42,7 +42,21 @@ If you use JSON format for RESTful web services, you will not have structure con
 
 
 ## Thrift
-TODO
+Thrift is a protocol originally developped by Facebook which has been given to Apache Foundation.
+
+### Advantages
+Thrift is independent from programming language. The compiler will generate source code for almost every language ... which is not relevant for the company in which I work because we always use Java.
+
+Unlike CORBA, Thrift provides a ready to use library.
+
+Thrift provides several (de)serialization formats.
+
+Thrift provides several network protocols.
+
+### Disadvantages
+Thrift has not been really adopted. Large majority of companies uses RESTful or SOAP services.
+
+Thrift is not designed for client side communication.
 
 ## TODO
 SOAP
