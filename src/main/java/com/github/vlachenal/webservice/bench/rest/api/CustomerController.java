@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -44,22 +45,25 @@ public class CustomerController {
   /**
    * List all customers in database
    *
+   * @param requestSeq the request sequence header
+   *
    * @return customers
    */
   @RequestMapping(path="/rest/customer",method=RequestMethod.GET,produces="application/json")
-  public List<Customer> listCustomers() {
+  public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     return CustomerBridge.toRest(dao.listAll());
   }
 
   /**
    * Retrieve customer details
    *
+   * @param requestSeq the request sequence header
    * @param id the customer identifier
    *
    * @return the customer details
    */
   @RequestMapping(path="/rest/customer/{id}",method=RequestMethod.GET,produces="application/json")
-  public Customer get(@PathVariable("id") final String id) {
+  public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, @PathVariable("id") final String id) {
     UUID custId = null;
     try {
       custId = UUID.fromString(id);
@@ -76,13 +80,14 @@ public class CustomerController {
   /**
    * Create customer
    *
+   * @param requestSeq the request sequence header
    * @param customer the customer to create
    *
    * @return the new customer's identifier
    */
   @RequestMapping(path="/rest/customer",method=RequestMethod.POST,consumes="application/json")
   @ResponseStatus(HttpStatus.CREATED)
-  public String create(final Customer customer) {
+  public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, final Customer customer) {
     // Customer structure checks +
     if(customer == null) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
@@ -118,9 +123,11 @@ public class CustomerController {
 
   /**
    * Delete all customers
+   *
+   * @param requestSeq the request sequence header
    */
   @RequestMapping(path="/rest/customer",method=RequestMethod.DELETE)
-  public void deleteAll() {
+  public void deleteAll(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     dao.deleteAll();
   }
   // Methods -

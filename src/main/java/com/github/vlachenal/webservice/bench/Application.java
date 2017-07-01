@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench;
 
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
-import org.apache.thrift.server.TServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerService;
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerServiceHandler;
+import com.github.vlachenal.webservice.bench.thrift.api.TRequestSeqServlet;
 
 
 /**
@@ -74,8 +74,8 @@ public class Application extends SpringBootServletInitializer {
    */
   @Bean
   public ServletRegistrationBean thriftCustomer(final TProtocolFactory protocolFactory, final CustomerServiceHandler handler) {
-    final ServletRegistrationBean bean = new ServletRegistrationBean(new TServlet(new CustomerService.Processor<CustomerServiceHandler>(handler),
-                                                                                  protocolFactory),
+    final ServletRegistrationBean bean = new ServletRegistrationBean(new TRequestSeqServlet(new CustomerService.Processor<CustomerServiceHandler>(handler),
+                                                                                            protocolFactory),
         "/thrift/customer/");
     bean.setLoadOnStartup(1);
     return bean;
