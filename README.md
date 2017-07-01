@@ -30,6 +30,12 @@ I though about former Spring Framework.
 
 When I began my tests, I was immediately convinced that sping-boot will be good for our usage.
 
+### Advantages
+Spring-boot is very easy framework to use.
+
+### Disadvantages
+Spring-boot does magic so it may be difficult to parameterize it for specific usage. It does not happen during this test: thanks for spring-boot documentation and ~~Google~~ Qwant is your friend.
+
 ## RESTful
 I will not introduced RESTful web services. You can find informations all over web.
 
