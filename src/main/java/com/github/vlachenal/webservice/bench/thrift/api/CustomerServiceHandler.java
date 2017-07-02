@@ -46,7 +46,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   public List<Customer> listCustomers() throws CustomerException, TException {
     final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "list");
     final List<Customer> customers = CustomerBridge.toThrift(dao.listAll());
-    regitsterCall(call);
+    registerCall(call);
     return customers;
   }
 
@@ -62,15 +62,15 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     try {
       custId = UUID.fromString(id);
     } catch(final Exception e) {
-      regitsterCall(call);
+      registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + id);
     }
     final Customer cust = CustomerBridge.toThrift(dao.getDetails(custId));
     if(cust == null) {
-      regitsterCall(call);
+      registerCall(call);
       throw new CustomerException(ErrorCode.NOT_FOUND, "Customer " + id + " has not been found");
     }
-    regitsterCall(call);
+    registerCall(call);
     return cust;
   }
 
@@ -84,11 +84,11 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "create");
     // Customer structure checks +
     if(customer == null) {
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
     }
     if(customer.getFirstName() == null || customer.getLastName() == null) {
-      regitsterCall(call);
+      registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Customer first_name, last_name and brith_date has to be set: " + customer);
     }
     // Customer structure checks -
@@ -97,12 +97,12 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     if(addr != null
         && (addr.getLines() == null || addr.getLines().isEmpty()
         || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
-      regitsterCall(call);
+      registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Address lines[0], zip_code, city and country has to be set: " + customer.getAddress());
     }
     // Address structure checks -
     final String uuid = dao.create(CustomerBridge.toBean(customer));
-    regitsterCall(call);
+    registerCall(call);
     return uuid;
   }
 
@@ -115,7 +115,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   public void deleteAll() throws CustomerException, TException {
     final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "delete-all");
     dao.deleteAll();
-    regitsterCall(call);
+    registerCall(call);
   }
 
   /**

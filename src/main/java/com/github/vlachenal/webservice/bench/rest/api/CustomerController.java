@@ -65,7 +65,7 @@ public class CustomerController extends AbstractBenchService {
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     final CallBean call = initializeCall(requestSeq, "list");
     final List<Customer> customers = CustomerBridge.toRest(dao.listAll());
-    regitsterCall(call);
+    registerCall(call);
     return customers;
   }
 
@@ -90,15 +90,15 @@ public class CustomerController extends AbstractBenchService {
     try {
       custId = UUID.fromString(id);
     } catch(final IllegalArgumentException e) {
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, id + " is not an UUID");
     }
     final Customer customer = CustomerBridge.toRest(dao.getDetails(custId));
     if(customer == null) {
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.NOT_FOUND, id + " does not exist");
     }
-    regitsterCall(call);
+    registerCall(call);
     return customer;
   }
 
@@ -121,7 +121,7 @@ public class CustomerController extends AbstractBenchService {
     final CallBean call = initializeCall(requestSeq, "create");
     // Customer structure checks +
     if(customer == null) {
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
     }
     if(customer.getFirstName() == null || customer.getLastName() == null || customer.getBirthDate() == null) {
@@ -132,7 +132,7 @@ public class CustomerController extends AbstractBenchService {
       } catch(final Exception e) {
         // Nothing to do
       }
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer first_name, last_name and brith_date has to be set: " + input);
     }
     // Customer structure checks -
@@ -148,12 +148,12 @@ public class CustomerController extends AbstractBenchService {
       } catch(final Exception e) {
         // Nothing to do
       }
-      regitsterCall(call);
+      registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
     }
     // Address structure checks -
     final String uuid = dao.create(CustomerBridge.toBean(customer));
-    regitsterCall(call);
+    registerCall(call);
     return uuid;
   }
 
@@ -167,7 +167,7 @@ public class CustomerController extends AbstractBenchService {
   public void deleteAll(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     final CallBean call = initializeCall(requestSeq, "delete-all");
     dao.deleteAll();
-    regitsterCall(call);
+    registerCall(call);
   }
 
   /**

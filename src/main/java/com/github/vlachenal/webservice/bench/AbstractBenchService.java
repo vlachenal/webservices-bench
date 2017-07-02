@@ -59,7 +59,7 @@ public abstract class AbstractBenchService {
    *
    * @param call the call to register
    */
-  protected void regitsterCall(final CallBean call) {
+  protected void registerCall(final CallBean call) {
     if(call != null) {
       call.setServerEnd(System.nanoTime());
       stats.register(call);
