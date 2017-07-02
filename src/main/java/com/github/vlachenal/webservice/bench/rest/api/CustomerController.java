@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.bridge.CustomerBridge;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
+import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Address;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Customer;
 
@@ -39,9 +41,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(path="/rest/customer")
 @Api("RESTful API to manage customers")
-public class CustomerController {
+public class CustomerController extends AbstractBenchService {
 
-  // Attributes +
   /** Customer DAO */
   @Autowired
   private CustomerDAO dao;
@@ -62,7 +63,10 @@ public class CustomerController {
     @ApiResponse(code=200,message="Customers hasve been successfully retrieved")
   })
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
-    return CustomerBridge.toRest(dao.listAll());
+    final CallBean call = initializeCall(requestSeq, "list");
+    final List<Customer> customers = CustomerBridge.toRest(dao.listAll());
+    regitsterCall(call);
+    return customers;
   }
 
   /**
@@ -81,16 +85,20 @@ public class CustomerController {
     @ApiResponse(code=404,message="Customer has not been found in database")
   })
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, @PathVariable("id") final String id) {
+    final CallBean call = initializeCall(requestSeq, "get");
     UUID custId = null;
     try {
       custId = UUID.fromString(id);
     } catch(final IllegalArgumentException e) {
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, id + " is not an UUID");
     }
     final Customer customer = CustomerBridge.toRest(dao.getDetails(custId));
     if(customer == null) {
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.NOT_FOUND, id + " does not exist");
     }
+    regitsterCall(call);
     return customer;
   }
 
@@ -110,8 +118,10 @@ public class CustomerController {
     @ApiResponse(code=400,message="Missing or invalid field")
   })
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, final Customer customer) {
+    final CallBean call = initializeCall(requestSeq, "create");
     // Customer structure checks +
     if(customer == null) {
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
     }
     if(customer.getFirstName() == null || customer.getLastName() == null || customer.getBirthDate() == null) {
@@ -122,6 +132,7 @@ public class CustomerController {
       } catch(final Exception e) {
         // Nothing to do
       }
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer first_name, last_name and brith_date has to be set: " + input);
     }
     // Customer structure checks -
@@ -137,10 +148,13 @@ public class CustomerController {
       } catch(final Exception e) {
         // Nothing to do
       }
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
     }
     // Address structure checks -
-    return dao.create(CustomerBridge.toBean(customer));
+    final String uuid = dao.create(CustomerBridge.toBean(customer));
+    regitsterCall(call);
+    return uuid;
   }
 
   /**
@@ -151,7 +165,19 @@ public class CustomerController {
   @RequestMapping(method=RequestMethod.DELETE)
   @ApiOperation("Delete all customers stored in database")
   public void deleteAll(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
+    final CallBean call = initializeCall(requestSeq, "delete-all");
     dao.deleteAll();
+    regitsterCall(call);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see com.github.vlachenal.webservice.bench.AbstractBenchService#getProtocol()
+   */
+  @Override
+  public String getProtocol() {
+    return "rest";
   }
   // Methods -
 

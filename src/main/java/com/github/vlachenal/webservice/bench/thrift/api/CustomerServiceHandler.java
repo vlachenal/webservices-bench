@@ -15,8 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.RequestSequence;
 import com.github.vlachenal.webservice.bench.bridge.CustomerBridge;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
+import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 
 
 /**
@@ -25,7 +28,7 @@ import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
  * @author Vincent Lachenal
  */
 @Component
-public class CustomerServiceHandler implements CustomerService.Iface {
+public class CustomerServiceHandler extends AbstractBenchService implements CustomerService.Iface {
 
   // Attributes +
   @Autowired
@@ -41,7 +44,10 @@ public class CustomerServiceHandler implements CustomerService.Iface {
    */
   @Override
   public List<Customer> listCustomers() throws CustomerException, TException {
-    return CustomerBridge.toThrift(dao.listAll());
+    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "list");
+    final List<Customer> customers = CustomerBridge.toThrift(dao.listAll());
+    regitsterCall(call);
+    return customers;
   }
 
   /**
@@ -51,16 +57,20 @@ public class CustomerServiceHandler implements CustomerService.Iface {
    */
   @Override
   public Customer get(final String id) throws CustomerException, TException {
+    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "get");
     UUID custId = null;
     try {
       custId = UUID.fromString(id);
     } catch(final Exception e) {
+      regitsterCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + id);
     }
     final Customer cust = CustomerBridge.toThrift(dao.getDetails(custId));
     if(cust == null) {
+      regitsterCall(call);
       throw new CustomerException(ErrorCode.NOT_FOUND, "Customer " + id + " has not been found");
     }
+    regitsterCall(call);
     return cust;
   }
 
@@ -71,11 +81,14 @@ public class CustomerServiceHandler implements CustomerService.Iface {
    */
   @Override
   public String create(final Customer customer) throws CustomerException, TException {
+    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "create");
     // Customer structure checks +
     if(customer == null) {
+      regitsterCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
     }
     if(customer.getFirstName() == null || customer.getLastName() == null) {
+      regitsterCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Customer first_name, last_name and brith_date has to be set: " + customer);
     }
     // Customer structure checks -
@@ -84,10 +97,13 @@ public class CustomerServiceHandler implements CustomerService.Iface {
     if(addr != null
         && (addr.getLines() == null || addr.getLines().isEmpty()
         || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
+      regitsterCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Address lines[0], zip_code, city and country has to be set: " + customer.getAddress());
     }
     // Address structure checks -
-    return dao.create(CustomerBridge.toBean(customer));
+    final String uuid = dao.create(CustomerBridge.toBean(customer));
+    regitsterCall(call);
+    return uuid;
   }
 
   /**
@@ -97,7 +113,19 @@ public class CustomerServiceHandler implements CustomerService.Iface {
    */
   @Override
   public void deleteAll() throws CustomerException, TException {
+    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "delete-all");
     dao.deleteAll();
+    regitsterCall(call);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see com.github.vlachenal.webservice.bench.AbstractBenchService#getProtocol()
+   */
+  @Override
+  public String getProtocol() {
+    return "thrift";
   }
   // Methods -
 
