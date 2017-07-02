@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.rest.api.bean;
 
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Phone number bean
@@ -26,9 +27,11 @@ public class Phone {
 
   // Attributes +
   /** Phone type */
+  @ApiModelProperty(notes="Phone type (LANDLINE or MOBILE)")
   private Type type;
 
   /** Phone number */
+  @ApiModelProperty(notes="Phone number")
   private String number;
   // Attributes -
 
@@ -48,7 +51,7 @@ public class Phone {
    *
    * @param type the type to set
    */
-  public void setType(Type type) {
+  public void setType(final Type type) {
     this.type = type;
   }
 
@@ -66,7 +69,7 @@ public class Phone {
    *
    * @param number the phone number to set
    */
-  public void setNumber(String number) {
+  public void setNumber(final String number) {
     this.number = number;
   }
   // Accessors -

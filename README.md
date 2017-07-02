@@ -72,6 +72,7 @@ Thrift is not designed for client side communication.
 ## TODO
 By priority order:
  - Publish client side benchmark test
+ - Publish results
  - SOAP web service
  - Protobuf web service
  - Nginx + PHP + Slim + Thrift

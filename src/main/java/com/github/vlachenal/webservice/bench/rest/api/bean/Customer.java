@@ -11,6 +11,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.annotations.ApiModelProperty;
+
 
 /**
  * Customer bean
@@ -21,25 +23,32 @@ public class Customer {
 
   // Attributes +
   /** Customer identifier */
+  @ApiModelProperty(notes="Customer's UUID")
   private String id;
 
   /** Customer first name */
+  @ApiModelProperty(notes="Customer's first name",required=true)
   private String firstName;
 
   /* Customer last name */
+  @ApiModelProperty(notes="Customer's last name",required=true)
   private String lastName;
 
   /** Customer brith date */
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @ApiModelProperty(notes="Customer's birth date",required=true)
   private Date birthDate;
 
   /** Customer address */
+  @ApiModelProperty(notes="Customer's address")
   private Address address;
 
   /** Customer email address */
+  @ApiModelProperty(notes="Customer's email address")
   private String email;
 
   /** Customer phone numbers */
+  @ApiModelProperty(notes="Customer's phone numbers")
   private List<Phone> phones;
   // Attributes -
 
@@ -59,7 +68,7 @@ public class Customer {
    *
    * @param id the identifier to set
    */
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -77,7 +86,7 @@ public class Customer {
    *
    * @param firstName the first name to set
    */
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -95,7 +104,7 @@ public class Customer {
    *
    * @param lastName the last name to set
    */
-  public void setLastName(String lastName) {
+  public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
@@ -113,7 +122,7 @@ public class Customer {
    *
    * @param birthDate the birth date
    */
-  public void setBirthDate(Date birthDate) {
+  public void setBirthDate(final Date birthDate) {
     this.birthDate = birthDate;
   }
 
@@ -132,7 +141,7 @@ public class Customer {
    *
    * @param address the address to set
    */
-  public void setAddress(Address address) {
+  public void setAddress(final Address address) {
     this.address = address;
   }
 
@@ -150,7 +159,7 @@ public class Customer {
    *
    * @param email the email to set
    */
-  public void setEmail(String email) {
+  public void setEmail(final String email) {
     this.email = email;
   }
 
@@ -168,7 +177,7 @@ public class Customer {
    *
    * @param phones the phone numbers to set
    */
-  public void setPhones(List<Phone> phones) {
+  public void setPhones(final List<Phone> phones) {
     this.phones = phones;
   }
   // Accessors -

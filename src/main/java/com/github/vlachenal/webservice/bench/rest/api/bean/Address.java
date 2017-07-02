@@ -8,6 +8,8 @@ package com.github.vlachenal.webservice.bench.rest.api.bean;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiModelProperty;
+
 
 /**
  * Address bean
@@ -18,15 +20,19 @@ public class Address {
 
   // Attributes +
   /** Address lines */
+  @ApiModelProperty(notes="Address lines",required=true)
   private List<String> lines;
 
   /** Address ZIP code */
+  @ApiModelProperty(notes="ZIP code",required=true)
   private String zipCode;
 
   /** City */
+  @ApiModelProperty(notes="City",required=true)
   private String city;
 
   /** Country */
+  @ApiModelProperty(notes="Country",required=true)
   private String country;
   // Attributes -
 
@@ -46,7 +52,7 @@ public class Address {
    *
    * @param lines the lines to set
    */
-  public void setLines(List<String> lines) {
+  public void setLines(final List<String> lines) {
     this.lines = lines;
   }
 
@@ -64,7 +70,7 @@ public class Address {
    *
    * @param zipCode the ZIP code to set
    */
-  public void setZipCode(String zipCode) {
+  public void setZipCode(final String zipCode) {
     this.zipCode = zipCode;
   }
 
@@ -82,7 +88,7 @@ public class Address {
    *
    * @param city the city to set
    */
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 
@@ -100,7 +106,7 @@ public class Address {
    *
    * @param country the country to set
    */
-  public void setCountry(String country) {
+  public void setCountry(final String country) {
     this.country = country;
   }
   // Accessors -

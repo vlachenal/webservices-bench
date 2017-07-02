@@ -25,6 +25,11 @@ import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Address;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Customer;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 
 /**
  * Customer service REST endpoint
@@ -32,6 +37,8 @@ import com.github.vlachenal.webservice.bench.rest.api.bean.Customer;
  * @author Vincent Lachenal
  */
 @RestController
+@RequestMapping(path="/rest/customer")
+@Api("RESTful API to manage customers")
 public class CustomerController {
 
   // Attributes +
@@ -49,7 +56,11 @@ public class CustomerController {
    *
    * @return customers
    */
-  @RequestMapping(path="/rest/customer",method=RequestMethod.GET,produces="application/json")
+  @RequestMapping(method=RequestMethod.GET,produces="application/json")
+  @ApiOperation("List all customers stored in database")
+  @ApiResponses(value= {
+    @ApiResponse(code=200,message="Customers hasve been successfully retrieved")
+  })
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     return CustomerBridge.toRest(dao.listAll());
   }
@@ -62,7 +73,13 @@ public class CustomerController {
    *
    * @return the customer details
    */
-  @RequestMapping(path="/rest/customer/{id}",method=RequestMethod.GET,produces="application/json")
+  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces="application/json")
+  @ApiOperation("Retrieve customer details")
+  @ApiResponses(value= {
+    @ApiResponse(code=200,message="Customer has been successfully retrieved"),
+    @ApiResponse(code=400,message="Invalid customer identifier format (should be UUID)"),
+    @ApiResponse(code=404,message="Customer has not been found in database")
+  })
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, @PathVariable("id") final String id) {
     UUID custId = null;
     try {
@@ -85,8 +102,13 @@ public class CustomerController {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(path="/rest/customer",method=RequestMethod.POST,consumes="application/json")
+  @RequestMapping(method=RequestMethod.POST,consumes="application/json",produces="text/plain")
   @ResponseStatus(HttpStatus.CREATED)
+  @ApiOperation("Create new customer")
+  @ApiResponses(value= {
+    @ApiResponse(code=201,message="Customer has been successfully created"),
+    @ApiResponse(code=400,message="Missing or invalid field")
+  })
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, final Customer customer) {
     // Customer structure checks +
     if(customer == null) {
@@ -126,7 +148,8 @@ public class CustomerController {
    *
    * @param requestSeq the request sequence header
    */
-  @RequestMapping(path="/rest/customer",method=RequestMethod.DELETE)
+  @RequestMapping(method=RequestMethod.DELETE)
+  @ApiOperation("Delete all customers stored in database")
   public void deleteAll(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
     dao.deleteAll();
   }
