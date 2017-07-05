@@ -38,3 +38,38 @@ CREATE TABLE Phone (
     phone_type SMALLINT,
     number CHAR(15)
 );
+
+CREATE TABLE TestSuite (
+    id UUID PRIMARY KEY,
+    client_cpu VARCHAR(64) NOT NULL,
+    client_memory VARCHAR(64) NOT NULL,
+    client_jvm_version VARCHAR(128) NOT NULL,
+    client_jvm_vendor VARCHAR(128) NOT NULL,
+    client_os_name VARCHAR(128) NOT NULL,
+    client_os_version VARCHAR(128) NOT NULL,
+    server_cpu VARCHAR(64) NOT NULL,
+    server_memory VARCHAR(64) NOT NULL,
+    server_jvm_version VARCHAR(128) NOT NULL,
+    server_jvm_vendor VARCHAR(128) NOT NULL,
+    server_os_name VARCHAR(128) NOT NULL,
+    server_os_version VARCHAR(128) NOT NULL,
+    protocol VARCHAR(64) NOT NULL,
+    compression CHAR(8),
+    nb_threads INTEGER NOT NULL,
+    nb_calls INTEGER NOT NULL,
+    comment VARCHAR(1024)
+);
+
+CREATE TABLE TestCall (
+    request_seq INTEGER NOT NULL,
+    test_suite_id UUID NOT NULL REFERENCES TestSuite(id) ON DELETE CASCADE,
+    method VARCHAR(32) NOT NULL,
+    client_start BIGINT NOT NULL,
+    server_start BIGINT NOT NULL,
+    server_end BIGINT NOT NULL,
+    client_end BIGINT NOT NULL,
+    PRIMARY KEY (request_seq, test_suite_id, method)
+);
+CREATE INDEX TestCall_test_suite_id_idx ON TestCall(test_suite_id);
+CREATE INDEX TestCall_method_idx ON TestCall(method);
+CREATE INDEX TestCall_test_suite_id_method_idx ON TestCall(test_suite_id,method);

@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2017 Vincent Lachenal
+ * This work is free. You can redistribute it and/or modify it under the
+ * terms of the Do What The Fuck You Want To Public License, Version 2,
+ * as published by Sam Hocevar. See the COPYING file for more details.
+ */
 namespace java com.github.vlachenal.webservice.bench.thrift.api
 
 enum PhoneType {
@@ -39,6 +45,11 @@ exception CustomerException {
     2: string message
 }
 
+/**
+ * Customer service
+ *
+ * @author Vincent Lachenal
+ */
 service CustomerService {
     /**
      * List all customers in database
@@ -81,5 +92,91 @@ service CustomerService {
      * @throws TException unexpected error 
      */
     void deleteAll() throws (1: CustomerException error);
+
+}
+
+exception StatsException {
+    1: string message
+}
+
+struct ClientCall {
+    /** Request sequence identifier */
+    1: required i32 requestSeq,
+
+    /** Protocol (always 'thrift') */
+    2: string protocol = "thrift",
+
+    /** The method which has been called */
+    3: required string method,
+
+    /** Client start timestamp */
+    4: required i64 clientStart,
+
+    /** Client end timestamp */
+    5: required i64 clientEnd,
+}
+
+struct TestSuite {
+    /** Test suite UUID */
+    1: string id,
+
+    /** Number of simultaneous call */
+    2: required i32 nbThread,
+
+    /** Number of calls */
+    3: required i32 nbCalls,
+
+    /** Compression type */
+    4: optional string compression,
+
+    /** Client CPU model */
+    5: required string cpu,
+
+    /** Client RAM */
+    6: required string memory,
+
+    /** Client JVM version */
+    7: required string jvm,
+
+    /** Client JVM vendor */
+    8: required string vendor,
+
+    /** Client OS family */
+    9: required string osFamiliy,
+
+    /** Client OS version */
+    10: required string osVersion,
+
+    /** Test suite comments */
+    11: string comment,
+
+    /** Client call statistics */
+    12: required list<ClientCall> calls,
+}
+
+/**
+ * Statistics service
+ *
+ * @author Vincent Lachenal
+ */
+service StatsService {
+
+    /**
+     * Consolidate statistics
+     *
+     * @param test the test suite
+     *
+     * @throws StatsException any error
+     * @throws TException unexpected error
+     */
+    void consolidate(1: TestSuite test) throws (1: StatsException error);
+
+    /**
+     * Purge server side statistics
+     *
+     * @throws StatsException any error
+     * @throws TException unexpected error 
+     */
+    void purge() throws (1: StatsException error);
 
 }
