@@ -11,7 +11,9 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +45,7 @@ import io.swagger.annotations.ApiResponses;
 @Api("RESTful API to manage customers")
 public class CustomerController extends AbstractBenchService {
 
+  // Attributes +
   /** Customer DAO */
   @Autowired
   private CustomerDAO dao;
@@ -57,7 +60,7 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces="application/json")
+  @RequestMapping(method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ApiOperation("List all customers stored in database")
   @ApiResponses(value= {
     @ApiResponse(code=200,message="Customers hasve been successfully retrieved")
@@ -77,7 +80,7 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return the customer details
    */
-  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces="application/json")
+  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ApiOperation("Retrieve customer details")
   @ApiResponses(value= {
     @ApiResponse(code=200,message="Customer has been successfully retrieved"),
@@ -110,14 +113,14 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes="application/json",produces="text/plain")
+  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   @ApiOperation("Create new customer")
   @ApiResponses(value= {
     @ApiResponse(code=201,message="Customer has been successfully created"),
     @ApiResponse(code=400,message="Missing or invalid field")
   })
-  public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, final Customer customer) {
+  public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq, @RequestBody final Customer customer) {
     final CallBean call = initializeCall(requestSeq, "create");
     // Customer structure checks +
     if(customer == null) {
