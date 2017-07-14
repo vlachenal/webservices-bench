@@ -27,10 +27,6 @@ public class TestSuite {
   @JsonProperty(value="nb_thread",required=true)
   private Integer nbThread;
 
-  /** Number of calls */
-  @JsonProperty(value="nb_calls",required=true)
-  private Integer nbCalls;
-
   /** Compression type */
   @JsonProperty(value="compression",required=false)
   private String compression;
@@ -104,24 +100,6 @@ public class TestSuite {
    */
   public final void setNbThread(final Integer nbThread) {
     this.nbThread = nbThread;
-  }
-
-  /**
-   * Number of calls getter
-   *
-   * @return the number of calls
-   */
-  public final Integer getNbCalls() {
-    return nbCalls;
-  }
-
-  /**
-   * Number of calls setter
-   *
-   * @param nbCalls the number of call to set
-   */
-  public final void setNbCalls(final Integer nbCalls) {
-    this.nbCalls = nbCalls;
   }
 
   /**

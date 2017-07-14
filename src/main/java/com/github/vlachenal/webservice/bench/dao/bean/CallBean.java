@@ -35,6 +35,12 @@ public class CallBean {
 
   /** Client end in ns */
   private long clientEnd = -1;
+
+  /** Call status */
+  private boolean ok = false;
+
+  /** Call error message */
+  private String errMsg = null;
   // Attributes -
 
 
@@ -175,6 +181,42 @@ public class CallBean {
    */
   public void setClientEnd(final long clientEnd) {
     this.clientEnd = clientEnd;
+  }
+
+  /**
+   * Call status getter
+   *
+   * @return the call status
+   */
+  public final boolean isOk() {
+    return ok;
+  }
+
+  /**
+   * Call status setter
+   *
+   * @param ok the call status to set
+   */
+  public final void setOk(final boolean ok) {
+    this.ok = ok;
+  }
+
+  /**
+   * Error message getter
+   *
+   * @return the error message
+   */
+  public final String getErrMsg() {
+    return errMsg;
+  }
+
+  /**
+   * Error message setter
+   *
+   * @param errMsg the error message to set
+   */
+  public final void setErrMsg(final String errMsg) {
+    this.errMsg = errMsg;
   }
   // Accessors -
 

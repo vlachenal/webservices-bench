@@ -56,7 +56,6 @@ CREATE TABLE TestSuite (
     protocol VARCHAR(64) NOT NULL,
     compression CHAR(8),
     nb_threads INTEGER NOT NULL,
-    nb_calls INTEGER NOT NULL,
     comment VARCHAR(1024)
 );
 
@@ -68,6 +67,8 @@ CREATE TABLE TestCall (
     server_start BIGINT NOT NULL,
     server_end BIGINT NOT NULL,
     client_end BIGINT NOT NULL,
+    ok BOOLEAN NOT NULL,
+    error_message VARCHAR(512),
     PRIMARY KEY (request_seq, test_suite_id, method)
 );
 CREATE INDEX TestCall_test_suite_id_idx ON TestCall(test_suite_id);
