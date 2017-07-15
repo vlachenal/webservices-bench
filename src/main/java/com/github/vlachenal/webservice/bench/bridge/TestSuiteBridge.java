@@ -46,6 +46,7 @@ public final class TestSuiteBridge {
       bean.setClientOsVersion(test.getOsVersion());
       bean.setNbThreads(test.getNbThread());
       bean.setCompression(test.getCompression());
+      bean.setProtocol(test.getProtocol());
       bean.setComment(test.getComment());
     }
     return bean;

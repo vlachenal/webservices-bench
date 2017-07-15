@@ -39,7 +39,7 @@ public final class CallBridge {
     if(call != null) {
       bean = new CallBean();
       bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(bean.getClientEnd());
+      bean.setClientEnd(call.getClientEnd());
       bean.setMethod(call.getMethod());
       bean.setProtocol(call.getProtocol());
       bean.setSeq(call.getRequestSeq());
@@ -61,7 +61,7 @@ public final class CallBridge {
     if(call != null) {
       bean = new CallBean();
       bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(bean.getClientEnd());
+      bean.setClientEnd(call.getClientEnd());
       bean.setMethod(call.getMethod());
       bean.setProtocol(call.getProtocol());
       bean.setSeq(call.getRequestSeq());

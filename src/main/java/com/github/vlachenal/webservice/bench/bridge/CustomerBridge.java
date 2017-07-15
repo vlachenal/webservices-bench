@@ -47,6 +47,8 @@ public final class CustomerBridge {
       customer.setLastName(bean.getLastName());
       customer.setEmail(bean.getEmail());
       customer.setBirthDate(bean.getBirthDate());
+      customer.setAddress(AddressBridge.toRest(bean.getAddress()));
+      customer.setPhones(PhoneBridge.toRest(bean.getPhones()));
     }
     return customer;
   }
@@ -110,6 +112,8 @@ public final class CustomerBridge {
       if(bean.getBirthDate() != null) {
         customer.setBirthDate(bean.getBirthDate().getTime());
       }
+      customer.setAddress(AddressBridge.toThrift(bean.getAddress()));
+      customer.setPhones(PhoneBridge.toThrift(bean.getPhones()));
     }
     return customer;
   }

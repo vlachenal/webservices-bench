@@ -55,6 +55,10 @@ public class TestSuite {
   @JsonProperty(value="os_version",required=true)
   private String osVersion;
 
+  /** Test suite protocol */
+  @JsonProperty(value="protocol",required=true,defaultValue="rest")
+  private String protocol;
+
   /** Test suite comments */
   @JsonProperty(value="comment",required=false)
   private String comment;
@@ -226,6 +230,24 @@ public class TestSuite {
    */
   public final void setOsVersion(final String osVersion) {
     this.osVersion = osVersion;
+  }
+
+  /**
+   * Test protocol getter
+   *
+   * @return the protocol
+   */
+  public final String getProtocol() {
+    return protocol;
+  }
+
+  /**
+   * Test protocol setter
+   *
+   * @param protocol the protocol to set
+   */
+  public final void setProtocol(final String protocol) {
+    this.protocol = protocol;
   }
 
   /**
