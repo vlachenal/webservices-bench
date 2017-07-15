@@ -6,13 +6,30 @@
  */
 package com.github.vlachenal.webservice.bench.rest.api;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
+import com.github.vlachenal.webservice.bench.bridge.CallBridge;
+import com.github.vlachenal.webservice.bench.bridge.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
+import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
+import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
+import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall;
 import com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 /**
@@ -25,6 +42,10 @@ import com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite;
 public class StatsController {
 
   // Attributes +
+  /** Statistics DAO */
+  @Autowired
+  private StatisticsDAO dao;
+
   /** Statistics cache */
   @Autowired
   private StatisticsCache cache;
@@ -37,15 +58,45 @@ public class StatsController {
    *
    * @param the client-side test suite to consolidate
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes="application/json")
-  public void consolidate(final TestSuite test) {
-    // TODO get statistics
+  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
+  @ResponseStatus(HttpStatus.CREATED)
+  @ApiOperation("Consolidate client/server statistics")
+  @ApiResponses(value= {
+    @ApiResponse(code=201,message="Customer has been successfully created"),
+    @ApiResponse(code=400,message="Missing or invalid field")
+  })
+  public void consolidate(@RequestBody final TestSuite test) {
+    if(test == null) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Test suite is null");
+    }
+    if(test.getCpu() == null || test.getMemory() == null || test.getJvm() == null
+        || test.getVendor() == null || test.getOsFamily() == null || test.getOsVersion() == null) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid test suite information");
+    }
+    if(test.getCalls() == null || test.getCalls().isEmpty()) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No calls to consolidate");
+    }
+    final TestSuiteBean suite = TestSuiteBridge.toBean(test);
+    final ArrayList<CallBean> calls = new ArrayList<>();
+    for(final ClientCall ccall : test.getCalls()) {
+      CallBean call = CallBridge.toBean(ccall);
+      if(ccall == null) {
+        continue;
+      }
+      call = cache.mergeCall(call);
+      if(call != null) {
+        calls.add(call);
+      }
+    }
+    suite.setCalls(calls);
+    dao.save(suite);
   }
 
   /**
    * Purge statistics cache
    */
   @RequestMapping(method=RequestMethod.DELETE)
+  @ApiOperation("Purge gathered statistcs")
   public void purge() {
     cache.clean();
   }

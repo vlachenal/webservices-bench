@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench;
 
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
+import org.apache.thrift.server.TServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,8 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerService;
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerServiceHandler;
+import com.github.vlachenal.webservice.bench.thrift.api.StatisticsServiceHandler;
+import com.github.vlachenal.webservice.bench.thrift.api.StatsService;
 import com.github.vlachenal.webservice.bench.thrift.api.TRequestSeqServlet;
 
 
@@ -79,6 +82,23 @@ public class Application extends SpringBootServletInitializer {
     final ServletRegistrationBean bean = new ServletRegistrationBean(new TRequestSeqServlet(new CustomerService.Processor<CustomerServiceHandler>(handler),
                                                                                             protocolFactory),
         "/thrift/customer/");
+    bean.setLoadOnStartup(1);
+    return bean;
+  }
+
+  /**
+   * Thrift protocol servlet provider
+   *
+   * @param protocolFactory the protocol factory to use
+   * @param handler the Thrift service implementation
+   *
+   * @return the Thrift servlet
+   */
+  @Bean
+  public ServletRegistrationBean thriftStats(final TProtocolFactory protocolFactory, final StatisticsServiceHandler handler) {
+    final ServletRegistrationBean bean = new ServletRegistrationBean(new TServlet(new StatsService.Processor<StatisticsServiceHandler>(handler),
+                                                                                  protocolFactory),
+        "/thrift/statistics/");
     bean.setLoadOnStartup(1);
     return bean;
   }

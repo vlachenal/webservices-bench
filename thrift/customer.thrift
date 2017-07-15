@@ -114,6 +114,12 @@ struct ClientCall {
 
     /** Client end timestamp */
     5: required i64 clientEnd,
+
+    /** Call status */
+    6: required bool ok,
+
+    /** Error message */
+    7: string errMsg,
 }
 
 struct TestSuite {
@@ -123,35 +129,32 @@ struct TestSuite {
     /** Number of simultaneous call */
     2: required i32 nbThread,
 
-    /** Number of calls */
-    3: required i32 nbCalls,
-
     /** Compression type */
-    4: optional string compression,
+    3: optional string compression,
 
     /** Client CPU model */
-    5: required string cpu,
+    4: required string cpu,
 
     /** Client RAM */
-    6: required string memory,
+    5: required string memory,
 
     /** Client JVM version */
-    7: required string jvm,
+    6: required string jvm,
 
     /** Client JVM vendor */
-    8: required string vendor,
+    7: required string vendor,
 
     /** Client OS family */
-    9: required string osFamiliy,
+    8: required string osFamiliy,
 
     /** Client OS version */
-    10: required string osVersion,
+    9: required string osVersion,
 
     /** Test suite comments */
-    11: string comment,
+    10: string comment,
 
     /** Client call statistics */
-    12: required list<ClientCall> calls,
+    11: required list<ClientCall> calls,
 }
 
 /**

@@ -17,7 +17,17 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
  *
  * @author Vincent Lachenal
  */
-public class PhoneBridge {
+public final class PhoneBridge {
+
+  // Constructors +
+  /**
+   * {@link PhoneBridge} private construtor
+   */
+  private PhoneBridge() {
+    // Nothing to do
+  }
+  // Constructors -
+
 
   // Methods +
   /**

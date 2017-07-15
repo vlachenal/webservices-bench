@@ -18,7 +18,17 @@ import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
  *
  * @author Vincent Lachenal
  */
-public class CustomerBridge {
+public final class CustomerBridge {
+
+  // Constructors +
+  /**
+   * {@link CustomerBridge} private construtor
+   */
+  private CustomerBridge() {
+    // Nothing to do
+  }
+  // Constructors -
+
 
   // Methods +
   /**

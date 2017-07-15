@@ -49,6 +49,24 @@ public class StatisticsCache {
   }
 
   /**
+   * Merge call
+   *
+   * @param call the client call statistic
+   *
+   * @return the complete call if found, <code>null</code> otherwise
+   */
+  public CallBean mergeCall(final CallBean call) {
+    final CallBean regCall = calls.get(call.getKey());
+    if(regCall != null) {
+      regCall.setClientStart(call.getClientStart());
+      regCall.setClientEnd(call.getClientEnd());
+      regCall.setOk(call.isOk());
+      regCall.setErrMsg(call.getErrMsg());
+    }
+    return regCall;
+  }
+
+  /**
    * Clean cache
    */
   public synchronized void clean() {

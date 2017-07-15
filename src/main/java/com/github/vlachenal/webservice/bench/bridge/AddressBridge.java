@@ -14,7 +14,17 @@ import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
  *
  * @author Vincent Lachenal
  */
-public class AddressBridge {
+public final class AddressBridge {
+
+  // Constructors +
+  /**
+   * {@link AddressBridge} private construtor
+   */
+  private AddressBridge() {
+    // Nothing to do
+  }
+  // Constructors -
+
 
   // Methods +
   /**
