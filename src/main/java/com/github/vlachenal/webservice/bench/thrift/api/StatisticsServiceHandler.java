@@ -51,7 +51,7 @@ public class StatisticsServiceHandler implements StatsService.Iface {
       throw new StatsException("Test suite is null");
     }
     if(test.getCpu() == null || test.getMemory() == null || test.getJvm() == null
-        || test.getVendor() == null || test.getOsFamiliy() == null || test.getOsVersion() == null) {
+        || test.getVendor() == null || test.getOsFamily() == null || test.getOsVersion() == null) {
       throw new StatsException("Invalid test suite information");
     }
     if(test.getCalls() == null || test.getCalls().isEmpty()) {

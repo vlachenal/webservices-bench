@@ -66,7 +66,7 @@ public final class TestSuiteBridge {
       bean.setClientMemory(test.getMemory());
       bean.setClientJvmVersion(test.getJvm());
       bean.setClientJvmVendor(test.getVendor());
-      bean.setClientOsName(test.getOsFamiliy());
+      bean.setClientOsName(test.getOsFamily());
       bean.setClientOsVersion(test.getOsVersion());
       bean.setNbThreads(test.getNbThread());
       bean.setCompression(test.getCompression());

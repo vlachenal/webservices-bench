@@ -145,7 +145,7 @@ struct TestSuite {
     7: required string vendor,
 
     /** Client OS family */
-    8: required string osFamiliy,
+    8: required string osFamily,
 
     /** Client OS version */
     9: required string osVersion,
