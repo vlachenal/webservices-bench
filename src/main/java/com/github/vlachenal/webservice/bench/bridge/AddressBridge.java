@@ -47,6 +47,25 @@ public final class AddressBridge {
   }
 
   /**
+   * Convert REST address to bean
+   *
+   * @param address the REST address
+   *
+   * @return the bean
+   */
+  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
+    AddressBean bean = null;
+    if(address != null) {
+      bean = new AddressBean();
+      bean.setLines(address.getLines());
+      bean.setZipCode(address.getZipCode());
+      bean.setCity(address.getCity());
+      bean.setCountry(address.getCountry());
+    }
+    return bean;
+  }
+
+  /**
    * Convert address bean to Thift structure
    *
    * @param bean the bean to convert
@@ -63,6 +82,25 @@ public final class AddressBridge {
       address.setCountry(bean.getCountry());
     }
     return address;
+  }
+
+  /**
+   * Convert Thrift address to bean
+   *
+   * @param address the Thrift address
+   *
+   * @return the bean
+   */
+  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
+    AddressBean bean = null;
+    if(address != null) {
+      bean = new AddressBean();
+      bean.setLines(address.getLines());
+      bean.setZipCode(address.getZipCode());
+      bean.setCity(address.getCity());
+      bean.setCountry(address.getCountry());
+    }
+    return bean;
   }
   // Methods -
 

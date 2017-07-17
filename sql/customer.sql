@@ -36,7 +36,7 @@ CREATE TABLE Phone (
     id SERIAL PRIMARY KEY,
     customer_id UUID NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
     phone_type SMALLINT,
-    number CHAR(15)
+    number CHAR(32)
 );
 
 CREATE TABLE TestSuite (

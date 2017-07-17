@@ -69,6 +69,8 @@ public final class CustomerBridge {
       bean.setLastName(customer.getLastName());
       bean.setEmail(customer.getEmail());
       bean.setBirthDate(customer.getBirthDate());
+      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
+      bean.setPhones(PhoneBridge.toBeanRList(customer.getPhones()));
     }
     return bean;
   }
@@ -129,13 +131,15 @@ public final class CustomerBridge {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
-      bean.setId(bean.getId());
-      bean.setFirstName(bean.getFirstName());
-      bean.setLastName(bean.getLastName());
-      bean.setEmail(bean.getEmail());
+      bean.setId(customer.getId());
+      bean.setFirstName(customer.getFirstName());
+      bean.setLastName(customer.getLastName());
+      bean.setEmail(customer.getEmail());
       if(customer.getBirthDate() != 0) {
         bean.setBirthDate(new Date(customer.getBirthDate()));
       }
+      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
+      bean.setPhones(PhoneBridge.toBeanTList(customer.getPhones()));
     }
     return bean;
   }

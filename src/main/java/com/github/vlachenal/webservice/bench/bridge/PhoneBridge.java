@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
+import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean.Type;
 
 
 /**
@@ -78,6 +79,50 @@ public final class PhoneBridge {
   }
 
   /**
+   * Convert REST phone to bean
+   *
+   * @param phone the REST phone
+   *
+   * @return the bean
+   */
+  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
+    PhoneBean bean = null;
+    if(phone != null) {
+      bean = new PhoneBean();
+      bean.setNumber(phone.getNumber());
+      switch(phone.getType()) {
+        case LANDLINE:
+          bean.setType(Type.LANDLINE);
+          break;
+        case MOBILE:
+          bean.setType(Type.MOBILE);
+          break;
+        default:
+          // Nothing to do
+      }
+    }
+    return bean;
+  }
+
+  /**
+   * Convert REST phone list to bean list
+   *
+   * @param phones the REST phone list
+   *
+   * @return the bean list
+   */
+  public static List<PhoneBean> toBeanRList(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
+    List<PhoneBean> bean = null;
+    if(phones != null) {
+      bean = new ArrayList<>();
+      for(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone : phones) {
+        bean.add(toBean(phone));
+      }
+    }
+    return bean;
+  }
+
+  /**
    * Convert phone bean to Thift structure
    *
    * @param bean the bean to convert
@@ -122,6 +167,50 @@ public final class PhoneBridge {
       }
     }
     return phones;
+  }
+
+  /**
+   * Convert Thrift phone to bean
+   *
+   * @param phone the Thrift phone
+   *
+   * @return the bean
+   */
+  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
+    PhoneBean bean = null;
+    if(phone != null) {
+      bean = new PhoneBean();
+      bean.setNumber(phone.getNumber());
+      switch(phone.getType()) {
+        case LANDLINE:
+          bean.setType(Type.LANDLINE);
+          break;
+        case MOBILE:
+          bean.setType(Type.MOBILE);
+          break;
+        default:
+          // Nothing to do
+      }
+    }
+    return bean;
+  }
+
+  /**
+   * Convert Thrift phone list to bean list
+   *
+   * @param phones the Thrift phone list
+   *
+   * @return the bean list
+   */
+  public static List<PhoneBean> toBeanTList(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
+    List<PhoneBean> bean = null;
+    if(phones != null) {
+      bean = new ArrayList<>();
+      for(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone : phones) {
+        bean.add(toBean(phone));
+      }
+    }
+    return bean;
   }
   // Methods -
 

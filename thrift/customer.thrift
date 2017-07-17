@@ -116,7 +116,7 @@ struct ClientCall {
     5: required i64 clientEnd,
 
     /** Call status */
-    6: required bool ok,
+    6: required bool ok = false,
 
     /** Error message */
     7: string errMsg,
@@ -150,11 +150,14 @@ struct TestSuite {
     /** Client OS version */
     9: required string osVersion,
 
+    /** Protocol */
+    10: string protocol;
+
     /** Test suite comments */
-    10: string comment,
+    11: string comment,
 
     /** Client call statistics */
-    11: required list<ClientCall> calls,
+    12: required list<ClientCall> calls,
 }
 
 /**
