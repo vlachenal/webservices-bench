@@ -4,19 +4,17 @@
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
-package com.github.vlachenal.webservice.bench.rest.api;
+package com.github.vlachenal.webservice.bench.soap.api;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.github.vlachenal.webservice.bench.bridge.CallBridge;
 import com.github.vlachenal.webservice.bench.bridge.TestSuiteBridge;
@@ -24,24 +22,20 @@ import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
-import com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall;
-import com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 
 /**
- * Statistics REST API entry point
+ * Statistics SOAP service
  *
  * @author Vincent Lachenal
  */
-@RestController
-@RequestMapping(path="/rest/stats")
-public class StatsController {
+@Endpoint
+public class StatisticsEndpoint {
 
   // Attributes +
+  /** Namespace URI */
+  private static final String NAMESPACE_URI = "http://github.com/vlachenal/webservices-bench";
+
   /** Statistics DAO */
   @Autowired
   private StatisticsDAO dao;
@@ -57,15 +51,13 @@ public class StatsController {
    * Consolidate REST API statistics from cache
    *
    * @param test the client-side test suite to consolidate
+   *
+   * @return the (empty) response
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
-  @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation("Consolidate client/server statistics")
-  @ApiResponses(value= {
-    @ApiResponse(code=201,message="Customer has been successfully created"),
-    @ApiResponse(code=400,message="Missing or invalid field")
-  })
-  public void consolidate(@RequestBody final TestSuite test) {
+  @PayloadRoot(namespace=NAMESPACE_URI, localPart="consolidateRequest")
+  @ResponsePayload
+  public ConsolidateResponse consolidate(@RequestPayload final ConsolidateRequest request) {
+    final TestSuite test = request.getTest();
     if(test == null) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Test suite is null");
     }
@@ -90,15 +82,21 @@ public class StatsController {
     }
     suite.setCalls(calls);
     dao.save(suite);
+    return new ConsolidateResponse();
   }
 
   /**
    * Purge statistics cache
+   *
+   * @param request the (empty) request
+   *
+   * @return the (empty) response
    */
-  @RequestMapping(method=RequestMethod.DELETE)
-  @ApiOperation("Purge gathered statistcs")
-  public void purge() {
+  @PayloadRoot(namespace=NAMESPACE_URI, localPart="purgeRequest")
+  @ResponsePayload
+  public PurgeResponse purge(@RequestPayload final PurgeRequest request) {
     cache.clean();
+    return new PurgeResponse();
   }
   // Methods -
 

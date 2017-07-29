@@ -1,0 +1,12 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://github.com/vlachenal/webservices-bench" targetNamespace="http://github.com/vlachenal/webservices-bench"
+  elementFormDefault="qualified">
+
+  <xs:element name="request-header">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="request-seq" type="xs:int" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

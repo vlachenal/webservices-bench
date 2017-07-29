@@ -1,0 +1,97 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://github.com/vlachenal/webservices-bench" targetNamespace="http://github.com/vlachenal/webservices-bench"
+  elementFormDefault="qualified">
+
+  <xs:element name="listCustomersRequest">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="listCustomersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="customer" type="tns:customer" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getDetailsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="customer" type="tns:customer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="customer" type="tns:customer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteAllRequest">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteAllResponse">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="customer">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0" />
+      <xs:element name="first-name" type="xs:string" />
+      <xs:element name="last-name" type="xs:string" />
+      <xs:element name="birth-date" type="xs:date" />
+      <xs:element name="email" type="xs:string" minOccurs="0" />
+      <xs:element name="address" type="tns:address" minOccurs="0" />
+      <xs:element name="phones" type="tns:phone" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element name="lines" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="zip-code" type="xs:string" />
+      <xs:element name="city" type="xs:string" />
+      <xs:element name="country" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="phone">
+    <xs:sequence>
+      <xs:element name="number" type="xs:string" />
+      <xs:element name="phone-type" type="tns:phone-type" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="phone-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LANDLINE" />
+      <xs:enumeration value="MOBILE" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

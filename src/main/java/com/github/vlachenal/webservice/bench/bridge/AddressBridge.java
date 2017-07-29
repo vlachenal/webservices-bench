@@ -102,6 +102,46 @@ public final class AddressBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert addres bean to SOAP structure
+   *
+   * @param bean the bean to convert
+   *
+   * @return the SOAP structure
+   */
+  public static com.github.vlachenal.webservice.bench.soap.api.Address toSoap(final AddressBean bean) {
+    com.github.vlachenal.webservice.bench.soap.api.Address address = null;
+    if(bean != null) {
+      address = new com.github.vlachenal.webservice.bench.soap.api.Address();
+      if(bean.getLines() != null) {
+        address.getLines().addAll(bean.getLines());
+      }
+      address.setZipCode(bean.getZipCode());
+      address.setCity(bean.getCity());
+      address.setCountry(bean.getCountry());
+    }
+    return address;
+  }
+
+  /**
+   * Convert SOAP address to bean
+   *
+   * @param address the SOAP address
+   *
+   * @return the bean
+   */
+  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
+    AddressBean bean = null;
+    if(address != null) {
+      bean = new AddressBean();
+      bean.setLines(address.getLines());
+      bean.setZipCode(address.getZipCode());
+      bean.setCity(address.getCity());
+      bean.setCountry(address.getCountry());
+    }
+    return bean;
+  }
   // Methods -
 
 }

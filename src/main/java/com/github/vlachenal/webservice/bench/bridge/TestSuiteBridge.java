@@ -76,6 +76,31 @@ public final class TestSuiteBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert Thrift test suite to bean
+   *
+   * @param test the Thrift test suite
+   *
+   * @return the bean
+   */
+  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
+    TestSuiteBean bean = null;
+    if(test != null) {
+      bean = new TestSuiteBean();
+      bean.setClientCpu(test.getCpu());
+      bean.setClientMemory(test.getMemory());
+      bean.setClientJvmVersion(test.getJvm());
+      bean.setClientJvmVendor(test.getVendor());
+      bean.setClientOsName(test.getOsFamily());
+      bean.setClientOsVersion(test.getOsVersion());
+      bean.setNbThreads(test.getNbThread());
+      bean.setProtocol(test.getProtocol());
+      bean.setCompression(test.getCompression());
+      bean.setComment(test.getComment());
+    }
+    return bean;
+  }
   // Methods -
 
 }

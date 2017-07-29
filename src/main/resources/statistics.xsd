@@ -1,0 +1,59 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://github.com/vlachenal/webservices-bench" targetNamespace="http://github.com/vlachenal/webservices-bench"
+  elementFormDefault="qualified">
+
+  <xs:element name="purgeRequest">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="purgeResponse">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="consolidateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="test" type="tns:test-suite" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="consolidateResponse">
+    <xs:complexType>
+      <!-- Nothing for now -->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="test-suite">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0" />
+      <xs:element name="nb-thread" type="xs:int" />
+      <xs:element name="compression" type="xs:string" minOccurs="0"/>
+      <xs:element name="cpu" type="xs:string" />
+      <xs:element name="memory" type="xs:string" />
+      <xs:element name="jvm" type="xs:string" />
+      <xs:element name="vendor" type="xs:string" />
+      <xs:element name="os-family" type="xs:string" />
+      <xs:element name="os-version" type="xs:string" />
+      <xs:element name="protocol" type="xs:string" />
+      <xs:element name="comment" type="xs:string" />
+      <xs:element name="calls" type="tns:client-call" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="client-call">
+    <xs:sequence>
+      <xs:element name="request-seq" type="xs:int" />
+      <xs:element name="protocol" type="xs:string" />
+      <xs:element name="method" type="xs:string" />
+      <xs:element name="client-start" type="xs:long" />
+      <xs:element name="client-end" type="xs:long" />
+      <xs:element name="ok" type="xs:boolean" />
+      <xs:element name="err-msg" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

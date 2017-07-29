@@ -212,6 +212,97 @@ public final class PhoneBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert phone bean to SOAP structure
+   *
+   * @param bean the bean to convert
+   *
+   * @return the SOAP structure
+   */
+  public static com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(final PhoneBean bean) {
+    com.github.vlachenal.webservice.bench.soap.api.Phone phone = null;
+    if(bean != null) {
+      phone = new com.github.vlachenal.webservice.bench.soap.api.Phone();
+      phone.setNumber(bean.getNumber());
+      if(bean.getType() != null) {
+        switch(bean.getType()) {
+          case LANDLINE:
+            phone.setPhoneType(com.github.vlachenal.webservice.bench.soap.api.PhoneType.LANDLINE);
+          case MOBILE:
+            phone.setPhoneType(com.github.vlachenal.webservice.bench.soap.api.PhoneType.MOBILE);
+          default:
+            // Nothing to do
+        }
+      }
+    }
+    return phone;
+  }
+
+  /**
+   * Convert phone beans to SOAP structures
+   *
+   * @param bean the beans to convert
+   *
+   * @return the SOAP structures
+   */
+  public static List<com.github.vlachenal.webservice.bench.soap.api.Phone> toSoap(final List<PhoneBean> bean) {
+    List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones = null;
+    if(bean != null) {
+      phones = new ArrayList<com.github.vlachenal.webservice.bench.soap.api.Phone>();
+      for(final PhoneBean phone : bean) {
+        final com.github.vlachenal.webservice.bench.soap.api.Phone soap = toSoap(phone);
+        if(soap != null) {
+          phones.add(soap);
+        }
+      }
+    }
+    return phones;
+  }
+
+  /**
+   * Convert SOAP phone to bean
+   *
+   * @param phone the SOAP phone
+   *
+   * @return the bean
+   */
+  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
+    PhoneBean bean = null;
+    if(phone != null) {
+      bean = new PhoneBean();
+      bean.setNumber(phone.getNumber());
+      switch(phone.getPhoneType()) {
+        case LANDLINE:
+          bean.setType(Type.LANDLINE);
+          break;
+        case MOBILE:
+          bean.setType(Type.MOBILE);
+          break;
+        default:
+          // Nothing to do
+      }
+    }
+    return bean;
+  }
+
+  /**
+   * Convert SOAP phone list to bean list
+   *
+   * @param phones the SOAP phone list
+   *
+   * @return the bean list
+   */
+  public static List<PhoneBean> toBeanSList(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
+    List<PhoneBean> bean = null;
+    if(phones != null) {
+      bean = new ArrayList<>();
+      for(final com.github.vlachenal.webservice.bench.soap.api.Phone phone : phones) {
+        bean.add(toBean(phone));
+      }
+    }
+    return bean;
+  }
   // Methods -
 
 }
