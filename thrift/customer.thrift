@@ -6,43 +6,135 @@
  */
 namespace java com.github.vlachenal.webservice.bench.thrift.api
 
+/**
+ * Phone type
+ */
 enum PhoneType {
+    /** Landline phone */
     LANDLINE = 1,
+
+    /** Mobile phone */
     MOBILE = 2
 }
 
+/**
+ * Phone
+ */
 struct Phone {
+    /** Phone type */
     1: PhoneType type,
+
+    /** Phone number */
     2: string number
 }
 
+/**
+ * Address
+ */
 struct Address {
+    /** Lines */
     1: list<string> lines,
+
+    /** ZIP code */
     2: string zipCode,
+
+    /** City */
     3: string city,
+
+    /** Country */
     4: string country
 }
 
+/**
+ * Customer
+ */
 struct Customer {
+    /** Identifier */
     1: string id,
+
+    /** First name */
     2: string firstName,
+
+    /** Last name */
     3: string lastName,
+
+    /** Brith date */
     4: i64 birthDate,
+
+    /** Email address */
     5: string email,
+
+    /** Address */
     6: Address address,
+
+    /** Phones */
     7: list<Phone> phones
 }
 
+/**
+ * Error code
+ */
 enum ErrorCode {
+    /** Missing or invalid paramter */
     PARAMETER = 1,
+
+    /** Not found */
     NOT_FOUND = 2,
+
+    /** Customer already exists */
     ALREADY_EXISTS = 3,
+
+    /** Unexpected error */
     SERVER = 99
 }
 
+/**
+ * Customer service error
+ */
 exception CustomerException {
+    /** Error code */
     1: ErrorCode code,
+
+    /** Error message */
     2: string message
+}
+
+/**
+ * Request header
+ */
+struct Header {
+    /** Request sequence */
+    1: i32 requestSeq,
+}
+
+/**
+ * Create customer request
+ */
+struct CreateRequest {
+    /** Request header */
+    1: Header header,
+
+    /** Customer to create */
+    2: Customer customer,
+}
+
+/**
+ * Get details request
+ */
+struct GetRequest {
+    /** Header */
+    1: Header header,
+
+    /** Customer to retrieve identifier */
+    2: string id,
+}
+
+/**
+ * List all customers request
+ */
+struct ListAllRequest {
+    /** Request header */
+    1: Header header,
 }
 
 /**
@@ -54,36 +146,38 @@ service CustomerService {
     /**
      * List all customers in database
      *
+     * @param request the request
+     *
      * @return customers
      *
      * @throws CustomerException any error
      * @throws TException unexpected error
      */
-    list<Customer> listCustomers() throws (1: CustomerException error);
+    list<Customer> listCustomers(1: ListAllRequest request) throws (1: CustomerException error);
 
     /**
      * Retrieve customer details
      *
-     * @param id the customer identifier
+     * @param request the get details request
      *
      * @return the customer details
      *
      * @throws CustomerException any error
      * @throws TException unexpected error
      */
-    Customer get(1: string id) throws (1: CustomerException error);
+    Customer get(1: GetRequest request) throws (1: CustomerException error);
 
     /**
      * Create customer
      *
-     * @param customer the customer to create
+     * @param request the create request
      *
      * @return the new customer's identifier
      *
      * @throws CustomerException any error
      * @throws TException unexpected error
      */
-    string create(1: Customer customer) throws (1: CustomerException error);
+    string create(1: CreateRequest request) throws (1: CustomerException error);
 
     /**
      * Delete all customers

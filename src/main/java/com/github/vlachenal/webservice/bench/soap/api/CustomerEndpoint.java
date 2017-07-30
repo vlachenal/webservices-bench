@@ -141,12 +141,6 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="createRequest")
   @ResponsePayload
   public CreateResponse create(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final CreateRequest request) {
-    //    System.err.println("Begin create ... " + REQ_HEADER);
-    //    final Iterator<SoapHeaderElement> elems = header.examineAllHeaderElements();
-    //    while(elems.hasNext()) {
-    //      final SoapHeaderElement elem = elems.next();
-    //      System.err.println(elem.getName() + " plop");
-    //    }
     final RequestHeader reqHeader = getRequestHeader(header);
     int reqSeq = -1;
     if(reqHeader != null && reqHeader.getRequestSeq() != null) {
@@ -205,14 +199,7 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="deleteAllRequest")
   @ResponsePayload
   public DeleteAllResponse deleteAll(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final DeleteAllRequest request) {
-    final RequestHeader reqHeader = getRequestHeader(header);
-    int reqSeq = -1;
-    if(reqHeader != null && reqHeader.getRequestSeq() != null) {
-      reqSeq = reqHeader.getRequestSeq();
-    }
-    final CallBean call = initializeCall(reqSeq, "delete-all");
     dao.deleteAll();
-    registerCall(call);
     return new DeleteAllResponse();
   }
 

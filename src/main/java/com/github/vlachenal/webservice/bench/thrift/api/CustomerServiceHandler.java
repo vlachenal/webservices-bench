@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
-import com.github.vlachenal.webservice.bench.RequestSequence;
 import com.github.vlachenal.webservice.bench.bridge.CustomerBridge;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
@@ -40,11 +39,15 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   /**
    * {@inheritDoc}
    *
-   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#listCustomers()
+   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#listCustomers(com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest)
    */
   @Override
-  public List<Customer> listCustomers() throws CustomerException, TException {
-    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "list");
+  public List<Customer> listCustomers(final ListAllRequest request) throws CustomerException, TException {
+    int reqSeq = -1;
+    if(request != null && request.isSetHeader() && request.getHeader().isSetRequestSeq()) {
+      reqSeq = request.getHeader().getRequestSeq();
+    }
+    final CallBean call = initializeCall(reqSeq, "list");
     final List<Customer> customers = CustomerBridge.toThrift(dao.listAll());
     registerCall(call);
     return customers;
@@ -53,22 +56,32 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   /**
    * {@inheritDoc}
    *
-   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#get(java.lang.String)
+   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#get(com.github.vlachenal.webservice.bench.thrift.api.GetRequest)
    */
   @Override
-  public Customer get(final String id) throws CustomerException, TException {
-    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "get");
+  public Customer get(final GetRequest request) throws CustomerException, TException {
+    if(request == null) {
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
+    }
+    if(!request.isSetId()) {
+      throw new CustomerException(ErrorCode.PARAMETER, "Customer identifier is not set");
+    }
+    int reqSeq = -1;
+    if(request.isSetHeader() && request.getHeader().isSetRequestSeq()) {
+      reqSeq = request.getHeader().getRequestSeq();
+    }
+    final CallBean call = initializeCall(reqSeq, "get");
     UUID custId = null;
     try {
-      custId = UUID.fromString(id);
+      custId = UUID.fromString(request.getId());
     } catch(final Exception e) {
       registerCall(call);
-      throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + id);
+      throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + request.getId());
     }
     final Customer cust = CustomerBridge.toThrift(dao.getDetails(custId));
     if(cust == null) {
       registerCall(call);
-      throw new CustomerException(ErrorCode.NOT_FOUND, "Customer " + id + " has not been found");
+      throw new CustomerException(ErrorCode.NOT_FOUND, "Customer " + request.getId() + " has not been found");
     }
     registerCall(call);
     return cust;
@@ -77,11 +90,19 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   /**
    * {@inheritDoc}
    *
-   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#create(com.github.vlachenal.webservice.bench.thrift.api.Customer)
+   * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#create(com.github.vlachenal.webservice.bench.thrift.api.CreateRequest)
    */
   @Override
-  public String create(final Customer customer) throws CustomerException, TException {
-    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "create");
+  public String create(final CreateRequest request) throws CustomerException, TException {
+    if(request == null) {
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
+    }
+    int reqSeq = -1;
+    if(request.isSetHeader() && request.getHeader().isSetRequestSeq()) {
+      reqSeq = request.getHeader().getRequestSeq();
+    }
+    final CallBean call = initializeCall(reqSeq, "create");
+    final Customer customer = request.getCustomer();
     // Customer structure checks +
     if(customer == null) {
       registerCall(call);
@@ -113,9 +134,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public void deleteAll() throws CustomerException, TException {
-    final CallBean call = initializeCall(RequestSequence.getRequestSequence(), "delete-all");
     dao.deleteAll();
-    registerCall(call);
   }
 
   /**

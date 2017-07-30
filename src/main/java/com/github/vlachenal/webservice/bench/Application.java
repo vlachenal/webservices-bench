@@ -24,7 +24,6 @@ import com.github.vlachenal.webservice.bench.thrift.api.CustomerService;
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerServiceHandler;
 import com.github.vlachenal.webservice.bench.thrift.api.StatisticsServiceHandler;
 import com.github.vlachenal.webservice.bench.thrift.api.StatsService;
-import com.github.vlachenal.webservice.bench.thrift.api.TRequestSeqServlet;
 
 
 /**
@@ -70,7 +69,7 @@ public class Application extends SpringBootServletInitializer {
   }
 
   /**
-   * Thrift protocol servlet provider
+   * Thrift customer service servlet provider
    *
    * @param protocolFactory the protocol factory to use
    * @param handler the Thrift service implementation
@@ -79,15 +78,13 @@ public class Application extends SpringBootServletInitializer {
    */
   @Bean
   public ServletRegistrationBean thriftCustomer(final TProtocolFactory protocolFactory, final CustomerServiceHandler handler) {
-    final ServletRegistrationBean bean = new ServletRegistrationBean(new TRequestSeqServlet(new CustomerService.Processor<CustomerServiceHandler>(handler),
-                                                                                            protocolFactory),
-        "/thrift/customer/");
-    bean.setLoadOnStartup(1);
-    return bean;
+    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new CustomerService.Processor<CustomerServiceHandler>(handler), protocolFactory), "/thrift/customer");
+    servletReg.setName("thriftCustomer");
+    return servletReg;
   }
 
   /**
-   * Thrift protocol servlet provider
+   * Thrift statistics service servlet provider
    *
    * @param protocolFactory the protocol factory to use
    * @param handler the Thrift service implementation
@@ -96,11 +93,9 @@ public class Application extends SpringBootServletInitializer {
    */
   @Bean
   public ServletRegistrationBean thriftStats(final TProtocolFactory protocolFactory, final StatisticsServiceHandler handler) {
-    final ServletRegistrationBean bean = new ServletRegistrationBean(new TServlet(new StatsService.Processor<StatisticsServiceHandler>(handler),
-                                                                                  protocolFactory),
-        "/thrift/statistics/");
-    bean.setLoadOnStartup(1);
-    return bean;
+    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new StatsService.Processor<StatisticsServiceHandler>(handler), protocolFactory), "/thrift/statistics");
+    servletReg.setName("thriftStatistics");
+    return servletReg;
   }
   // Methods -
 

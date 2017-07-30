@@ -162,15 +162,11 @@ public class CustomerController extends AbstractBenchService {
 
   /**
    * Delete all customers
-   *
-   * @param requestSeq the request sequence header
    */
   @RequestMapping(method=RequestMethod.DELETE)
   @ApiOperation("Delete all customers stored in database")
-  public void deleteAll(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq) {
-    final CallBean call = initializeCall(requestSeq, "delete-all");
+  public void deleteAll() {
     dao.deleteAll();
-    registerCall(call);
   }
 
   /**
