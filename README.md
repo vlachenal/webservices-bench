@@ -18,6 +18,18 @@ I have done these projects on my free time ; that's why they are published under
 
 Feel free to fork (and make pull request) to complete and/or fix my tests.
 
+### Differences between implementation
+
+Although I tried to have the same implementation between the different protocols, there are several notable differences:
+ - headers:
+     - RESTful service uses HTTP headers
+     - Thrift service uses header structure in request
+     - SOAP service uses SOAP headers
+ - dates:
+     - RESTful service uses Date which are serialize as java.util.String
+     - Thrift service uses i64 which is translated into long
+     - SOAP service uses xsd:date which is translated into XMLGregorianCalendar and serialize as java.util.String
+
 ## Maven
 When I began my integration tests, I began to write the pom.xml. I found it too complex and too verbose.
 
