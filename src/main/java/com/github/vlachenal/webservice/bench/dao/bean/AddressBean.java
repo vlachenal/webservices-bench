@@ -46,7 +46,7 @@ public class AddressBean {
    *
    * @param lines the lines to set
    */
-  public void setLines(List<String> lines) {
+  public void setLines(final List<String> lines) {
     this.lines = lines;
   }
 
@@ -64,7 +64,7 @@ public class AddressBean {
    *
    * @param zipCode the ZIP code to set
    */
-  public void setZipCode(String zipCode) {
+  public void setZipCode(final String zipCode) {
     this.zipCode = zipCode;
   }
 
@@ -82,7 +82,7 @@ public class AddressBean {
    *
    * @param city the city to set
    */
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 
@@ -100,7 +100,7 @@ public class AddressBean {
    *
    * @param country the country to set
    */
-  public void setCountry(String country) {
+  public void setCountry(final String country) {
     this.country = country;
   }
   // Accessors -

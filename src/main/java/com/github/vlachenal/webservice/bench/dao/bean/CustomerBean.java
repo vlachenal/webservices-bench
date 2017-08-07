@@ -56,7 +56,7 @@ public class CustomerBean {
    *
    * @param id the identifier to set
    */
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -74,7 +74,7 @@ public class CustomerBean {
    *
    * @param firstName the first name to set
    */
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -92,7 +92,7 @@ public class CustomerBean {
    *
    * @param lastName the last name to set
    */
-  public void setLastName(String lastName) {
+  public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
@@ -110,7 +110,7 @@ public class CustomerBean {
    *
    * @param birthDate the birth date
    */
-  public void setBirthDate(Date birthDate) {
+  public void setBirthDate(final Date birthDate) {
     this.birthDate = birthDate;
   }
 
@@ -129,7 +129,7 @@ public class CustomerBean {
    *
    * @param address the address to set
    */
-  public void setAddress(AddressBean address) {
+  public void setAddress(final AddressBean address) {
     this.address = address;
   }
 
@@ -147,7 +147,7 @@ public class CustomerBean {
    *
    * @param email the email to set
    */
-  public void setEmail(String email) {
+  public void setEmail(final String email) {
     this.email = email;
   }
 
@@ -165,7 +165,7 @@ public class CustomerBean {
    *
    * @param phones the phone numbers to set
    */
-  public void setPhones(List<PhoneBean> phones) {
+  public void setPhones(final List<PhoneBean> phones) {
     this.phones = phones;
   }
   // Accessors -
