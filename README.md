@@ -82,7 +82,7 @@ Thrift has not been really adopted. Large majority of companies uses RESTful or 
 Thrift is not designed for client side communication.
 
 ## Mapping
-As project will test several protocols, it is relevant to test several mapping technology ...
+As project will test several protocols, it is relevant to test several mapping technologies ...
 
 ### Manual mapping
 Manual mapping can induce an overload of work but it permits to have a clear way of what is done.
