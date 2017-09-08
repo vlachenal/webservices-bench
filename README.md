@@ -81,11 +81,23 @@ Thrift has not been really adopted. Large majority of companies uses RESTful or 
 
 Thrift is not designed for client side communication.
 
+## Mapping
+As project will test several protocols, it is relevant to test several mapping technology ...
+
+### Manual mapping
+Manual mapping can induce an overload of work but it permits to have a clear way of what is done.
+
+### Dozer
+
+### MapStruct
+
 ## TODO
 By priority order:
  - ~~Publish client side benchmark test~~ => [webservices-bench-client project](https://github.com/vlachenal/webservices-bench-client)
  - Publish results
  - ~~SOAP web service~~
+ - Implements Dozer mapping
+ - Implements MapStruct mapping
  - Protobuf web service
  - Nginx + PHP + Slim + Thrift
  - unrelevant AnCH Framework SQL + Thrift tests ...
