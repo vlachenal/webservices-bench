@@ -10,11 +10,23 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 apply plugin: 'com.github.jacobono.jaxb'
+
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', version: '3.0'
+            def oldJstWebFacet = facets.findAll {
+                it.name == 'jst.web' && it.version == '2.4'
+            }
+            facets.removeAll(oldJstWebFacet)
+        }
+    }
+}
 
 jar {
     baseName = 'webservices-bench'
@@ -72,6 +84,8 @@ dependencies {
     // SOAP
     compile("org.springframework.boot:spring-boot-starter-web-services")
     compile("wsdl4j:wsdl4j:1.6.1")
+    // Dozer
+    compile 'com.github.dozermapper:dozer-core:6.1.0'
     // tests
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile('org.springframework.boot:spring-boot-starter-test')
