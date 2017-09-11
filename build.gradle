@@ -2,10 +2,14 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
         classpath("com.github.jacobono:gradle-jaxb-plugin:1.3.6")
+        classpath("net.ltgt.gradle:gradle-apt-plugin:0.12")
     }
 }
 
@@ -15,6 +19,15 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 apply plugin: 'com.github.jacobono.jaxb'
+apply plugin: 'net.ltgt.apt'
+
+ext {
+    mapstructVersion = "1.2.0.CR2"
+}
+
+configurations {
+    mapstruct
+}
 
 eclipse {
     wtp {
@@ -45,6 +58,10 @@ allprojects {
     eclipse.project {
         natures 'org.eclipse.buildship.core.gradleprojectnature'
     }
+    project.plugins.withId("net.ltgt.apt") {
+        // automatically apply net.ltgt.apt-eclipse whenever net.ltgt.apt is used
+        project.apply plugin: "net.ltgt.apt-eclipse"
+    }
 }
 
 compileJava {
@@ -71,6 +88,12 @@ jaxb {
   }
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true'
+    ]
+}
+
 dependencies {
     // REST 
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -86,6 +109,9 @@ dependencies {
     compile("wsdl4j:wsdl4j:1.6.1")
     // Dozer
     compile 'com.github.dozermapper:dozer-core:6.1.0'
+    // MapStruct
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+    apt "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     // tests
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile('org.springframework.boot:spring-boot-starter-test')

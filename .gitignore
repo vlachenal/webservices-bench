@@ -6,3 +6,4 @@ build/
 WEB-INF/
 bin/
 **/*~
+/.apt_generated/
