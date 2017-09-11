@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
+import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 
 
 /**
