@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
@@ -31,6 +34,9 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
 public abstract class AbstractMappingTest {
 
   // Attributes +
+  /** {@link AbstractMappingTest logger instance */
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractMappingTest.class);
+
   /** Date formatter */
   private static final DateTimeFormatter DFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   // Attributes -
@@ -77,10 +83,15 @@ public abstract class AbstractMappingTest {
    * @param customer the SOAP customer
    */
   protected void compareCustomer(final CustomerBean bean, final com.github.vlachenal.webservice.bench.soap.api.Customer customer) {
+    LOG.info("Customer id: bean = {} ; SOAP = {}", bean.getId(), customer.getId());
     assertEquals("Identifiers are differents", bean.getId(), customer.getId());
+    LOG.info("Customer first name: bean = {} ; SOAP = {}", bean.getFirstName(), customer.getFirstName());
     assertEquals("Firstnames are differents", bean.getFirstName(), customer.getFirstName());
+    LOG.info("Customer last name: bean = {} ; SOAP = {}", bean.getLastName(), customer.getLastName());
     assertEquals("Lastnames are differents", bean.getLastName(), customer.getLastName());
+    LOG.info("Customer email: bean = {} ; SOAP = {}", bean.getEmail(), customer.getEmail());
     assertEquals("Email addresses are differents", bean.getEmail(), customer.getEmail());
+    LOG.info("Customer birthdate: bean = {} ; SOAP = {}", bean.getBirthDate(), customer.getBirthDate());
     assertEquals("Birthdates are differents", bean.getBirthDate(), customer.getBirthDate().toGregorianCalendar().getTime());
     compareAddress(bean.getAddress(), customer.getAddress());
     compareSPhones(bean.getPhones(), customer.getPhones());
@@ -93,9 +104,13 @@ public abstract class AbstractMappingTest {
    * @param address the SOAP address
    */
   protected void compareAddress(final AddressBean bean, final com.github.vlachenal.webservice.bench.soap.api.Address address) {
+    LOG.info("Address lines: bean = {} ; SOAP = {}", bean.getLines(), address.getLines());
     assertEquals("Lines are different", bean.getLines(), address.getLines());
+    LOG.info("Address ZIP code: bean = {} ; SOAP = {}", bean.getZipCode(), address.getZipCode());
     assertEquals("ZIP codes are different", bean.getZipCode(), address.getZipCode());
+    LOG.info("Address city: bean = {} ; SOAP = {}", bean.getCity(), address.getCity());
     assertEquals("Cities are different", bean.getCity(), address.getCity());
+    LOG.info("Address country: bean = {} ; SOAP = {}", bean.getCountry(), address.getCountry());
     assertEquals("Countries are different", bean.getCountry(), address.getCountry());
   }
 
@@ -122,7 +137,9 @@ public abstract class AbstractMappingTest {
    * @param phone the SOAP phone
    */
   protected void comparePhone(final PhoneBean bean, final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
+    LOG.info("Phone number: bean = {} ; SOAP = {}", bean.getNumber(), phone.getNumber());
     assertEquals(bean.getNumber(), phone.getNumber());
+    LOG.info("Phone type: bean = {} ; SOAP = {}", bean.getType(), phone.getPhoneType());
     switch(bean.getType()) {
       case LANDLINE:
         assertEquals(com.github.vlachenal.webservice.bench.soap.api.PhoneType.LANDLINE, phone.getPhoneType());
@@ -142,10 +159,15 @@ public abstract class AbstractMappingTest {
    * @param customer the Thrift customer
    */
   protected void compareCustomer(final CustomerBean bean, final com.github.vlachenal.webservice.bench.thrift.api.Customer customer) {
+    LOG.info("Customer id: bean = {} ; Thrift = {}", bean.getId(), customer.getId());
     assertEquals("Identifiers are differents", bean.getId(), customer.getId());
+    LOG.info("Customer first name: bean = {} ; Thrift = {}", bean.getFirstName(), customer.getFirstName());
     assertEquals("Firstnames are differents", bean.getFirstName(), customer.getFirstName());
+    LOG.info("Customer last name: bean = {} ; Thrift = {}", bean.getLastName(), customer.getLastName());
     assertEquals("Lastnames are differents", bean.getLastName(), customer.getLastName());
+    LOG.info("Customer email: bean = {} ; Thrift = {}", bean.getEmail(), customer.getEmail());
     assertEquals("Email addresses are differents", bean.getEmail(), customer.getEmail());
+    LOG.info("Customer birthdate: bean = {} ; Thrift = {}", bean.getBirthDate(), customer.getBirthDate());
     assertEquals("Birthdates are differents", bean.getBirthDate(), new Date(customer.getBirthDate()));
     compareAddress(bean.getAddress(), customer.getAddress());
     compareTPhones(bean.getPhones(), customer.getPhones());
@@ -155,20 +177,24 @@ public abstract class AbstractMappingTest {
    * Compare Thrift/bean address
    *
    * @param bean the bean
-   * @param address the SOAP address
+   * @param address the Thrift address
    */
   protected void compareAddress(final AddressBean bean, final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
+    LOG.info("Address lines: bean = {} ; Thrift = {}", bean.getLines(), address.getLines());
     assertEquals("Lines are different", bean.getLines(), address.getLines());
+    LOG.info("Address ZIP code: bean = {} ; Thrift = {}", bean.getZipCode(), address.getZipCode());
     assertEquals("ZIP codes are different", bean.getZipCode(), address.getZipCode());
+    LOG.info("Address city: bean = {} ; Thrift = {}", bean.getCity(), address.getCity());
     assertEquals("Cities are different", bean.getCity(), address.getCity());
+    LOG.info("Address country: bean = {} ; Thrift = {}", bean.getCountry(), address.getCountry());
     assertEquals("Countries are different", bean.getCountry(), address.getCountry());
   }
 
   /**
-   * Compare SOAP/bean phones
+   * Compare Thrift/bean phones
    *
    * @param beans the bean list
-   * @param phones the SOAP phone list
+   * @param phones the Thrift phone list
    */
   protected void compareTPhones(final List<PhoneBean> beans, final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
     if(beans != null) {
@@ -181,13 +207,15 @@ public abstract class AbstractMappingTest {
   }
 
   /**
-   * Compare SOAP/bean phone
+   * Compare Thrift/bean phone
    *
    * @param bean the bean
-   * @param phone the SOAP phone
+   * @param phone the Thrift phone
    */
   protected void comparePhone(final PhoneBean bean, final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
+    LOG.info("Phone number: bean = {} ; Thrift = {}", bean.getNumber(), phone.getNumber());
     assertEquals(bean.getNumber(), phone.getNumber());
+    LOG.info("Phone type: bean = {} ; Thrift = {}", bean.getType(), phone.getType());
     switch(bean.getType()) {
       case LANDLINE:
         assertEquals(com.github.vlachenal.webservice.bench.thrift.api.PhoneType.LANDLINE, phone.getType());
@@ -201,43 +229,52 @@ public abstract class AbstractMappingTest {
   }
 
   /**
-   * Compare Thrift/bean customer
+   * Compare REST/bean customer
    *
    * @param bean the bean
-   * @param customer the Thrift customer
+   * @param customer the REST customer
    */
   protected void compareCustomer(final CustomerBean bean, final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
+    LOG.info("Customer id: bean = {} ; REST = {}", bean.getId(), customer.getId());
     assertEquals("Identifiers are differents", bean.getId(), customer.getId());
+    LOG.info("Customer first name: bean = {} ; REST = {}", bean.getFirstName(), customer.getFirstName());
     assertEquals("Firstnames are differents", bean.getFirstName(), customer.getFirstName());
+    LOG.info("Customer last name: bean = {} ; REST = {}", bean.getLastName(), customer.getLastName());
     assertEquals("Lastnames are differents", bean.getLastName(), customer.getLastName());
+    LOG.info("Customer email: bean = {} ; REST = {}", bean.getEmail(), customer.getEmail());
     assertEquals("Email addresses are differents", bean.getEmail(), customer.getEmail());
+    LOG.info("Customer birthdate: bean = {} ; REST = {}", bean.getBirthDate(), customer.getBirthDate());
     assertEquals("Birthdates are differents", bean.getBirthDate(), customer.getBirthDate());
     compareAddress(bean.getAddress(), customer.getAddress());
     compareRPhones(bean.getPhones(), customer.getPhones());
   }
 
   /**
-   * Compare Thrift/bean address
+   * Compare REST/bean address
    *
    * @param bean the bean
-   * @param address the SOAP address
+   * @param address the REST address
    */
   protected void compareAddress(final AddressBean bean, final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
+    LOG.info("Address lines: bean = {} ; REST = {}", bean.getLines(), address.getLines());
     assertEquals("Lines are different", bean.getLines(), address.getLines());
+    LOG.info("Address ZIP code: bean = {} ; REST = {}", bean.getZipCode(), address.getZipCode());
     assertEquals("ZIP codes are different", bean.getZipCode(), address.getZipCode());
+    LOG.info("Address city: bean = {} ; REST = {}", bean.getCity(), address.getCity());
     assertEquals("Cities are different", bean.getCity(), address.getCity());
+    LOG.info("Address country: bean = {} ; REST = {}", bean.getCountry(), address.getCountry());
     assertEquals("Countries are different", bean.getCountry(), address.getCountry());
   }
 
   /**
-   * Compare SOAP/bean phones
+   * Compare REST/bean phones
    *
    * @param beans the bean list
-   * @param phones the SOAP phone list
+   * @param phones the REST phone list
    */
   protected void compareRPhones(final List<PhoneBean> beans, final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
     if(beans != null) {
-      assertNotNull("SOAP phone list is null", phones);
+      assertNotNull("REST phone list is null", phones);
       assertEquals("Number of phones is different", beans.size(), phones.size());
       for(int i = 0 ; i < beans.size() ; ++i) {
         comparePhone(beans.get(i), phones.get(i));
@@ -246,13 +283,15 @@ public abstract class AbstractMappingTest {
   }
 
   /**
-   * Compare SOAP/bean phone
+   * Compare REST/bean phone
    *
    * @param bean the bean
-   * @param phone the SOAP phone
+   * @param phone the REST phone
    */
   protected void comparePhone(final PhoneBean bean, final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
+    LOG.info("Phone number: bean = {} ; REST = {}", bean.getNumber(), phone.getNumber());
     assertEquals(bean.getNumber(), phone.getNumber());
+    LOG.info("Phone type: bean = {} ; REST = {}", bean.getType(), phone.getType());
     switch(bean.getType()) {
       case LANDLINE:
         assertEquals(com.github.vlachenal.webservice.bench.rest.api.bean.Phone.Type.LANDLINE, phone.getType());
