@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
 
@@ -17,7 +18,7 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
  *
  * @author Vincent Lachenal
  */
-@Mapper(componentModel="spring")
+@Mapper(componentModel="spring",unmappedTargetPolicy=ReportingPolicy.IGNORE)
 public interface PhoneMapper {
 
   /**

@@ -58,10 +58,12 @@ allprojects {
     eclipse.project {
         natures 'org.eclipse.buildship.core.gradleprojectnature'
     }
+    // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct +
     project.plugins.withId("net.ltgt.apt") {
         // automatically apply net.ltgt.apt-eclipse whenever net.ltgt.apt is used
         project.apply plugin: "net.ltgt.apt-eclipse"
     }
+    // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct -
 }
 
 compileJava {

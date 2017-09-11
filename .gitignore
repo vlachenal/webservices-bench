@@ -7,3 +7,4 @@ WEB-INF/
 bin/
 **/*~
 /.apt_generated/
+.factorypath
