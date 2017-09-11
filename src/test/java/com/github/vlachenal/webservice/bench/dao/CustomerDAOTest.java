@@ -62,6 +62,9 @@ public class CustomerDAOTest {
 
 
   // Unit tests (un)initialization +
+  /**
+   * Unit tests initialization
+   */
   @BeforeClass
   public static void setUpBeforeClass() {
     dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
