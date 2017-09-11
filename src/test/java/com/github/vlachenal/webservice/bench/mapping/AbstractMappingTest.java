@@ -10,8 +10,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
@@ -25,7 +30,46 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
  */
 public abstract class AbstractMappingTest {
 
+  // Attributes +
+  /** Date formatter */
+  private static final DateTimeFormatter DFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  // Attributes -
+
+
   // Methods +
+  /**
+   * Make customer bean for unit test
+   *
+   * @return the customer bean
+   */
+  protected CustomerBean makeCustomerBean() {
+    final CustomerBean bean = new CustomerBean();
+    bean.setId(UUID.randomUUID().toString());
+    bean.setFirstName("Chuck");
+    bean.setLastName("Norris");
+    bean.setBirthDate(Date.from(LocalDate.parse("1940-03-10", DFORMAT).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    bean.setEmail("chuck.norris@yopmail.com");
+    final AddressBean addr = new AddressBean();
+    final ArrayList<String> lines = new ArrayList<>(1);
+    lines.add("1 rue du Petit-Rapporteur");
+    addr.setLines(lines);
+    addr.setZipCode("46800");
+    addr.setCity("Montcuq");
+    addr.setCountry("France");
+    bean.setAddress(addr);
+    final ArrayList<PhoneBean> phones = new ArrayList<>(2);
+    PhoneBean phone = new PhoneBean();
+    phone.setType(PhoneBean.Type.MOBILE);
+    phone.setNumber("+33636656565");
+    phones.add(phone);
+    phone = new PhoneBean();
+    phone.setType(PhoneBean.Type.LANDLINE);
+    phone.setNumber("+33836656565");
+    phones.add(phone);
+    bean.setPhones(phones);
+    return bean;
+  }
+
   /**
    * Compare SOAP/bean customer
    *
