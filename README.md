@@ -88,8 +88,18 @@ As project will test several protocols, it is relevant to test several mapping t
 Manual mapping can induce an overload of work but it permits to have a clear way of what is done.
 
 ### Dozer
+As long as mapping is trivial, Dozer is the easier to use. It will map the structures silently without any configuration.
+
+For complex mapping, it is not friendly. Its API is not easy to use.
+
+Dozer will resolve mapping on runtime by introspection: it will certainly induce overhead.
 
 ### MapStruct
+MapStruct is easy to use: you just have to declare mapping interface for basic mapping.
+
+For complex mapping, you just have to declare implementation in another class and refernce it in mapper interface.
+
+MapStruct will generate implementation on compile time and implementations are closed to what you did in manual mapping ... so I don't think there will be any overhead.
 
 ## TODO
 By priority order:
