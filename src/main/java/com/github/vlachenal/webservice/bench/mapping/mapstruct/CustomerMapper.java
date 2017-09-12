@@ -6,6 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -75,5 +77,14 @@ public interface CustomerMapper {
    * @return the REST customer
    */
   com.github.vlachenal.webservice.bench.rest.api.bean.Customer beanToRest(CustomerBean customer);
+
+  /**
+   * Convert bean customer to REST
+   *
+   * @param customer the bean customer
+   *
+   * @return the REST customer
+   */
+  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> beanListToRest(List<CustomerBean> customer);
 
 }

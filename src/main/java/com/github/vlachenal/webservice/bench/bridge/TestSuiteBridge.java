@@ -48,6 +48,21 @@ public final class TestSuiteBridge {
       bean.setCompression(test.getCompression());
       bean.setProtocol(test.getProtocol());
       bean.setComment(test.getComment());
+      String mapper = "manual";
+      if(test.getMapper() != null) {
+        switch(test.getMapper()) {
+          case DOZER:
+            mapper = "dozer";
+            break;
+          case MAPSTRUCT:
+            mapper = "mapstruct";
+            break;
+          default:
+            // Nothing to do
+
+        }
+      }
+      bean.setMapper(mapper);
     }
     return bean;
   }
@@ -73,6 +88,21 @@ public final class TestSuiteBridge {
       bean.setProtocol(test.getProtocol());
       bean.setCompression(test.getCompression());
       bean.setComment(test.getComment());
+      String mapper = "manual";
+      if(test.getMapper() != null) {
+        switch(test.getMapper()) {
+          case DOZER:
+            mapper = "dozer";
+            break;
+          case MAPSTRUCT:
+            mapper = "mapstruct";
+            break;
+          default:
+            // Nothing to do
+
+        }
+      }
+      bean.setMapper(mapper);
     }
     return bean;
   }
@@ -98,6 +128,21 @@ public final class TestSuiteBridge {
       bean.setProtocol(test.getProtocol());
       bean.setCompression(test.getCompression());
       bean.setComment(test.getComment());
+      String mapper = "manual";
+      if(test.getMapper() != null) {
+        switch(test.getMapper()) {
+          case DOZER:
+            mapper = "dozer";
+            break;
+          case MAPSTRUCT:
+            mapper = "mapstruct";
+            break;
+          default:
+            // Nothing to do
+
+        }
+      }
+      bean.setMapper(mapper);
     }
     return bean;
   }

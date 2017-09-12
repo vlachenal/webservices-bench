@@ -1,6 +1,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://github.com/vlachenal/webservices-bench" targetNamespace="http://github.com/vlachenal/webservices-bench"
   elementFormDefault="qualified">
 
+  <!-- Work with Eclipse but not with xjc task ... -->
+  <!-- <xs:include schemaLocation="./header.xsd"/> -->
+
   <xs:element name="purgeRequest">
     <xs:complexType>
       <!-- Nothing for now -->
@@ -41,6 +44,7 @@
       <xs:element name="protocol" type="xs:string" />
       <xs:element name="comment" type="xs:string" />
       <xs:element name="calls" type="tns:client-call" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="mapper" type="tns:mapper" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 

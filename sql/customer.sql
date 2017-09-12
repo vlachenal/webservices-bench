@@ -56,7 +56,8 @@ CREATE TABLE TestSuite (
     protocol VARCHAR(64) NOT NULL,
     compression CHAR(8),
     nb_threads INTEGER NOT NULL,
-    comment VARCHAR(1024)
+    comment VARCHAR(1024),
+    mapper CHAR(16) NOT NULL DEFAULT 'manual'
 );
 
 CREATE TABLE TestCall (

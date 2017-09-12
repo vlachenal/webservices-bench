@@ -87,6 +87,7 @@ jaxb {
   xjc {
     destinationDir = "src/soap.generated/java"
     generatePackage = "com.github.vlachenal.webservice.bench.soap.api"
+    //header = false
   }
 }
 

@@ -69,6 +69,9 @@ public class TestSuiteBean {
 
   /** Calls */
   private List<CallBean> calls;
+
+  /** The mapper which has been used */
+  private String mapper;
   // Attributes -
 
 
@@ -395,6 +398,24 @@ public class TestSuiteBean {
    */
   public final void setCalls(final List<CallBean> calls) {
     this.calls = calls;
+  }
+
+  /**
+   * Mapper getter
+   *
+   * @return the mapper
+   */
+  public final String getMapper() {
+    return mapper;
+  }
+
+  /**
+   * Mapper setter
+   *
+   * @param mapper the mapper to set
+   */
+  public final void setMapper(final String mapper) {
+    this.mapper = mapper;
   }
   // Accessors -
 

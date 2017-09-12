@@ -5,8 +5,17 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="request-seq" type="xs:int" minOccurs="0"/>
+        <xs:element name="mapper" type="tns:mapper" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:simpleType name="mapper">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MANUAL" />
+      <xs:enumeration value="DOZER" />
+      <xs:enumeration value="MAPSTRUCT" />
+    </xs:restriction>
+  </xs:simpleType>
 
 </xs:schema>

@@ -100,11 +100,28 @@ exception CustomerException {
 }
 
 /**
+ * Mapper type
+ */
+enum Mapper {
+    /** Manual mapping */
+    MANUAL = 1,
+
+    /** Dozer mapper */
+    DOZER = 2,
+
+    /** MapStruct */
+    MAPSTRUCT = 3
+}
+
+/**
  * Request header
  */
 struct Header {
     /** Request sequence */
     1: i32 requestSeq,
+
+    /** Mapper to use */
+    2: Mapper mapper,
 }
 
 /**
@@ -252,6 +269,9 @@ struct TestSuite {
 
     /** Client call statistics */
     12: required list<ClientCall> calls,
+
+    /** Mapper which has been used */
+    13: Mapper mapper,
 }
 
 /**
