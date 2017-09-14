@@ -85,6 +85,7 @@ public class StatisticsDAOTest {
     call.setMethod("get");
     calls.add(call);
     testSuite.setCalls(calls);
+    testSuite.setMapper("manual");
     dao.save(testSuite);
     LOG.debug("Exit testSave");
   }

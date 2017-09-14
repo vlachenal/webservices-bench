@@ -38,7 +38,7 @@ public class StatisticsDAO {
       + "(id, client_cpu, client_memory, client_jvm_version, client_jvm_vendor, client_os_name, "
       + "client_os_version, server_cpu, server_memory, server_jvm_version, server_jvm_vendor, "
       + "server_os_name, server_os_version, protocol, compression, nb_threads, comment, mapper) "
-      + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   /** Insert test call */
   private static final String INS_TEST_CALL = "INSERT INTO TestCall "

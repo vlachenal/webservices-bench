@@ -166,7 +166,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         customer = mapstruct.customer().beanToSoap(cust);
         break;
       default:
-        CustomerBridge.toSoap(cust);
+        customer = CustomerBridge.toSoap(cust);
     }
     if(customer == null) {
       registerCall(call);
@@ -243,7 +243,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         cust = mapstruct.customer().soapToBean(customer);
         break;
       default:
-        CustomerBridge.toBean(customer);
+        cust = CustomerBridge.toBean(customer);
     }
     final String uuid = dao.create(cust);
     final CreateResponse res = new CreateResponse();
