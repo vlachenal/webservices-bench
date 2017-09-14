@@ -101,10 +101,15 @@ For complex mapping, you just have to declare implementation in another class an
 
 MapStruct will generate implementation on compile time and implementations are closed to what you did in manual mapping ... so I don't think there will be any overhead.
 
+## Results
+You can consult result for my configuration (Latop Core i7-4510U, RAM 8GB, SSD) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md)
+
+## Conclusions
+
 ## TODO
 By priority order:
  - ~~Publish client side benchmark test~~ => [webservices-bench-client project](https://github.com/vlachenal/webservices-bench-client)
- - Publish results
+ - ~~Publish results~~
  - ~~SOAP web service~~
  - ~~Implements Dozer mapping~~
  - ~~Implements MapStruct mapping~~
