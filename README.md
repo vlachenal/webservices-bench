@@ -106,8 +106,8 @@ By priority order:
  - ~~Publish client side benchmark test~~ => [webservices-bench-client project](https://github.com/vlachenal/webservices-bench-client)
  - Publish results
  - ~~SOAP web service~~
- - Implements Dozer mapping
- - Implements MapStruct mapping
+ - ~~Implements Dozer mapping~~
+ - ~~Implements MapStruct mapping~~
  - Protobuf web service
  - Nginx + PHP + Slim + Thrift
  - unrelevant AnCH Framework SQL + Thrift tests ...
