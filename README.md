@@ -102,7 +102,7 @@ For complex mapping, you just have to declare implementation in another class an
 MapStruct will generate implementation on compile time and implementations are closed to what you did in manual mapping ... so I don't think there will be any overhead.
 
 ## Results
-You can consult result for my configuration (Laptop Core i7-4510U, RAM 8GB, SSD) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md)
+You can consult results for my configuration (Laptop Core i7-4510U, RAM 8GB, SSD) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md)
 
 ## Conclusions
 Don't use SOAP and don't use Dozer.
