@@ -18,7 +18,7 @@ I have done these projects on my free time ; that's why they are published under
 
 Feel free to fork (and make pull request) to complete and/or fix my tests.
 
-### Differences between implementation
+### Differences between implementations
 
 Although I tried to have the same implementation between the different protocols, there are several notable differences:
  - headers:
@@ -46,7 +46,7 @@ When I began my tests, I was immediately convinced that sping-boot will be good 
 Spring-boot is very easy framework to use.
 
 ### Disadvantages
-Spring-boot does magic so it may be difficult to parameterize it for specific usage. It does not happen during this test: thanks for spring-boot documentation and ~~Google~~ Qwant is your friend.
+Spring-boot does magic so it may be difficult to parameterize it for specific usage. It happened during my tests for Thrift servlet declarations ("bean" names are deduced from class ... so they override each other if you don't set them) but ~~Google~~ [Qwant](https://www.qwant.com/) is your friend.
 
 ## RESTful
 I will not introduced RESTful web services. You can find informations all over web.
@@ -99,7 +99,7 @@ MapStruct is easy to use: you just have to declare mapping interface for basic m
 
 For complex mapping, you just have to declare implementation in another class and reference it in mapper interface.
 
-MapStruct will generate implementation on compile time and implementations are closed to what you did in manual mapping ... so I don't think there will be any overhead.
+MapStruct will generate implementation on compile time and it is closed to what if you map structures manually ... so I don't think there will be any overhead.
 
 ## Results
 You can consult results for my configuration (Laptop Core i7-4510U, RAM 8GB, SSD) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md)
@@ -109,12 +109,12 @@ Don't use SOAP and don't use Dozer.
 
 SOAP has an really heavy overhead for serialization and deserialization.
 
-Overhead with Dozer signficant enough not to use it.
+Overhead with Dozer is significant enough not to use it.
 
 According to operation, REST service has little overhead comparing to Thrift ... so you can choose one or the other according what you want to do (Thrift will offer structure control but is not used by many ; REST is ready to use on client side ...).
 Tests are not finished since I have to launch tests on Tomcat with native network library and compression. So conclusion may changed.
 
-For mapping, I will use MapStruct because it has no overhead compared to manual mapping and the library usage is easy.
+For mapping, I will use MapStruct because it has no overhead compared to manual mapping and the library is easy to use.
 
 ## TODO
 By priority order:
