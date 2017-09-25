@@ -97,7 +97,7 @@ Dozer will resolve mapping on runtime by introspection: it will certainly induce
 ### MapStruct
 MapStruct is easy to use: you just have to declare mapping interface for basic mapping.
 
-For complex mapping, you just have to declare implementation in another class and refernce it in mapper interface.
+For complex mapping, you just have to declare implementation in another class and reference it in mapper interface.
 
 MapStruct will generate implementation on compile time and implementations are closed to what you did in manual mapping ... so I don't think there will be any overhead.
 
