@@ -88,12 +88,9 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public Customer get(final GetRequest request) throws CustomerException, TException {
-    if(request == null) {
-      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
-    }
     int reqSeq = -1;
     Mapper mapper = Mapper.MANUAL;
-    if(request.isSetHeader()) {
+    if(request != null && request.isSetHeader()) {
       if(request.getHeader().isSetRequestSeq()) {
         reqSeq = request.getHeader().getRequestSeq();
       }
@@ -102,6 +99,10 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       }
     }
     final CallBean call = initializeCall(reqSeq, "get");
+    if(request == null) {
+      registerCall(call);
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
+    }
     if(!request.isSetId()) {
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Customer identifier is not set");
@@ -140,12 +141,9 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public String create(final CreateRequest request) throws CustomerException, TException {
-    if(request == null) {
-      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
-    }
     int reqSeq = -1;
     Mapper mapper = Mapper.MANUAL;
-    if(request.isSetHeader()) {
+    if(request != null && request.isSetHeader()) {
       if(request.getHeader().isSetRequestSeq()) {
         reqSeq = request.getHeader().getRequestSeq();
       }
@@ -154,6 +152,10 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       }
     }
     final CallBean call = initializeCall(reqSeq, "create");
+    if(request == null) {
+      registerCall(call);
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
+    }
     final Customer customer = request.getCustomer();
     // Customer structure checks +
     if(customer == null) {
