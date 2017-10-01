@@ -78,7 +78,7 @@ public class Application extends SpringBootServletInitializer {
    */
   @Bean
   public ServletRegistrationBean thriftCustomer(final TProtocolFactory protocolFactory, final CustomerServiceHandler handler) {
-    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new CustomerService.Processor<CustomerServiceHandler>(handler), protocolFactory), "/thrift/customer");
+    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new CustomerService.Processor<>(handler), protocolFactory), "/thrift/customer");
     servletReg.setName("thriftCustomer");
     return servletReg;
   }
@@ -93,7 +93,7 @@ public class Application extends SpringBootServletInitializer {
    */
   @Bean
   public ServletRegistrationBean thriftStats(final TProtocolFactory protocolFactory, final StatisticsServiceHandler handler) {
-    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new StatsService.Processor<StatisticsServiceHandler>(handler), protocolFactory), "/thrift/statistics");
+    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new StatsService.Processor<>(handler), protocolFactory), "/thrift/statistics");
     servletReg.setName("thriftStatistics");
     return servletReg;
   }

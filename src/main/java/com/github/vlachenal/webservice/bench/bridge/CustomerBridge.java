@@ -89,7 +89,7 @@ public final class CustomerBridge {
   public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRest(final List<CustomerBean> bean) {
     List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> customers = null;
     if(bean != null) {
-      customers = new ArrayList<com.github.vlachenal.webservice.bench.rest.api.bean.Customer>();
+      customers = new ArrayList<>();
       for(final CustomerBean customer : bean) {
         final com.github.vlachenal.webservice.bench.rest.api.bean.Customer json = toRest(customer);
         if(json != null) {
@@ -158,7 +158,7 @@ public final class CustomerBridge {
   public static List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThrift(final List<CustomerBean> bean) {
     List<com.github.vlachenal.webservice.bench.thrift.api.Customer> customers = null;
     if(bean != null) {
-      customers = new ArrayList<com.github.vlachenal.webservice.bench.thrift.api.Customer>();
+      customers = new ArrayList<>();
       for(final CustomerBean customer : bean) {
         final com.github.vlachenal.webservice.bench.thrift.api.Customer thrift = toThrift(customer);
         if(thrift != null) {
@@ -235,7 +235,7 @@ public final class CustomerBridge {
   public static List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoap(final List<CustomerBean> bean) {
     List<com.github.vlachenal.webservice.bench.soap.api.Customer> customers = null;
     if(bean != null) {
-      customers = new ArrayList<com.github.vlachenal.webservice.bench.soap.api.Customer>();
+      customers = new ArrayList<>();
       for(final CustomerBean customer : bean) {
         final com.github.vlachenal.webservice.bench.soap.api.Customer json = toSoap(customer);
         if(json != null) {
