@@ -107,6 +107,18 @@ You can consult results for my laptop configuration (Laptop Core i7-4510U, RAM 8
 You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md)
 
 ## Conclusions
+
+### Server
+On server side, spring-boot is really easy to use. It fulfills perfectly web services development needs.
+
+I personally will not use Maven but Gradle: its syntax is more compact and human readable.
+
+### Client
+On client side, spring-boot offers a good way to make a batch application through the 'bootRepackage' task.
+
+However, I will prefer Apache CXF for REST and SOAP clients. I find it more intuitive.
+
+### Performances
 Don't use SOAP and don't use Dozer.
 
 SOAP has an really heavy overhead for serialization and deserialization.
