@@ -101,25 +101,25 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     // REST 
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("io.springfox:springfox-swagger2:2.7.0")
-    compile("io.springfox:springfox-swagger-ui:2.7.0")
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'io.springfox:springfox-swagger2:2.7.0'
+    compile 'io.springfox:springfox-swagger-ui:2.7.0'
     // SQL
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.postgresql:postgresql:42.1.1.jre7")
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.postgresql:postgresql:42.1.1.jre7'
     // Thrift
-    compile("org.apache.thrift:libthrift:0.10.0")
+    compile 'org.apache.thrift:libthrift:0.10.0'
     // SOAP
-    compile("org.springframework.boot:spring-boot-starter-web-services")
-    compile("wsdl4j:wsdl4j:1.6.1")
+    compile 'org.springframework.boot:spring-boot-starter-web-services'
+    compile 'wsdl4j:wsdl4j:1.6.1'
     // Dozer
     compile 'com.github.dozermapper:dozer-core:6.1.0'
     // MapStruct
     compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     apt "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     // tests
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
     // JAXB task
     jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.7-b41' //jaxws 2.2.6 uses jaxb 2.2.5, but can't dL 2.2.5 from maven the pom is off TODO
     jaxb 'com.sun.xml.bind:jaxb-impl:2.2.7-b41'
