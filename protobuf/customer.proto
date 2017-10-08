@@ -12,45 +12,6 @@ option java_package = "com.github.vlachenal.webservice.bench.protobuf.api";
 option java_multiple_files = true;
 
 /**
- * Phone type
- */
-enum PhoneType {
-    /** Landline phone */
-    LANDLINE = 0;
-
-    /** Mobile phone */
-    MOBILE = 1;
-}
-
-/**
- * Phone
- */
-message Phone {
-    /** Phone type */
-    PhoneType type = 1;
-
-    /** Phone number */
-    string number = 2;
-}
-
-/**
- * Address
- */
-message Address {
-    /** Lines */
-    repeated string lines = 1;
-
-    /** ZIP code */
-    string zipCode = 2;
-
-    /** City */
-    string city = 3;
-
-    /** Country */
-    string country = 4;
-}
-
-/**
  * Customer
  */
 message Customer {
@@ -69,40 +30,48 @@ message Customer {
     /** Email address */
     string email = 5;
 
+    /**
+     * Address
+     */
+    message Address {
+        /** Lines */
+        repeated string lines = 1;
+    
+        /** ZIP code */
+        string zipCode = 2;
+    
+        /** City */
+        string city = 3;
+    
+        /** Country */
+        string country = 4;
+    }
     /** Address */
     Address address = 6;
 
+    /**
+     * Phone
+     */
+    message Phone {
+        /**
+         * Phone type
+         */
+        enum PhoneType {
+            /** Landline phone */
+            LANDLINE = 0;
+    
+            /** Mobile phone */
+            MOBILE = 1;
+        }
+        /** Phone type */
+        PhoneType type = 1;
+    
+        /** Phone number */
+        string number = 2;
+    }
     /** Phones */
     repeated Phone phones = 7;
 }
-
-/**
- * Error code
- */
-//enum ErrorCode {
-//    /** Missing or invalid paramter */
-//    PARAMETER = 1;
-//
-//    /** Not found */
-//    NOT_FOUND = 2;
-//
-//    /** Customer already exists */
-//    ALREADY_EXISTS = 3;
-//
-//    /** Unexpected error */
-//    SERVER = 10;
-//}
-
-/**
- * Customer service error
- */
-//exception CustomerException {
-//    /** Error code */
-//    ErrorCode code = 1;
-//
-//    /** Error message */
-//    string message = 2;
-//}
 
 /**
  * Mapper type
@@ -119,146 +88,11 @@ enum Mapper {
 }
 
 /**
- * Request header
- */
-message Header {
-    /** Request sequence */
-    int32 requestSeq = 1;
-
-    /** Mapper to use */
-    Mapper mapper = 2;
-}
-
-/**
- * Create customer request
- */
-message CreateRequest {
-    /** Request header */
-    Header header = 1;
-
-    /** Customer to create */
-    Customer customer = 2;
-}
-
-/**
- * Create customer response
- */
-message CreateResponse {
-    string id = 1;
-}
-
-/**
- * Get details request
- */
-message GetRequest {
-    /** Header */
-    Header header = 1;
-
-    /** Customer to retrieve identifier */
-    string id = 2;
-}
-
-/**
- * List all customers request
- */
-message ListAllRequest {
-    /** Request header */
-    Header header = 1;
-}
-
-/**
  * List all customers response
  */
 message ListAllResponse {
     /** Request header */
     repeated Customer customers = 1;
-}
-
-message DeleteAllRequest {}
-
-message DeleteAllResponse {}
-
-/**
- * Customer service
- *
- * @author Vincent Lachenal
- */
-service CustomerService {
-    /**
-     * List all customers in database
-     *
-     * @param request the request
-     *
-     * @return customers
-     *
-     * @throws CustomerException any error
-     * @throws TException unexpected error
-     */
-    //list<Customer> listCustomers(1: ListAllRequest request) throws (1: CustomerException error);
-    rpc listAll(ListAllRequest) returns (ListAllResponse);
-
-    /**
-     * Retrieve customer details
-     *
-     * @param request the get details request
-     *
-     * @return the customer details
-     *
-     * @throws CustomerException any error
-     * @throws TException unexpected error
-     */
-    //Customer get(1: GetRequest request) throws (1: CustomerException error);
-    rpc get(GetRequest) returns (Customer);
-
-    /**
-     * Create customer
-     *
-     * @param request the create request
-     *
-     * @return the new customer's identifier
-     *
-     * @throws CustomerException any error
-     * @throws TException unexpected error
-     */
-    //string create(1: CreateRequest request) throws (1: CustomerException error);
-    rpc create(CreateRequest) returns (CreateResponse);
-
-    /**
-     * Delete all customers
-     *
-     * @throws CustomerException any error
-     * @throws TException unexpected error
-     */
-    //void deleteAll() throws (1: CustomerException error);
-    rpc deleteAll(DeleteAllRequest) returns (DeleteAllResponse);
-
-}
-
-/*exception StatsException {
-    1: string message
-}*/
-
-message ClientCall {
-    /** Request sequence identifier */
-    int32 requestSeq = 1;
-
-    /** Protocol (always 'protobuf') */
-    string protocol = 2;
-
-    /** The method which has been called */
-    string method = 3;
-
-    /** Client start timestamp */
-    int64 clientStart = 4;
-
-    /** Client end timestamp */
-    int64 clientEnd = 5;
-
-    /** Call status */
-    bool ok = 6;
-
-    /** Error message */
-    string errMsg = 7;
 }
 
 message TestSuite {
@@ -295,42 +129,31 @@ message TestSuite {
     /** Test suite comments */
     string comment = 11;
 
+    message ClientCall {
+        /** Request sequence identifier */
+        int32 requestSeq = 1;
+    
+        /** Protocol (always 'protobuf') */
+        string protocol = 2;
+    
+        /** The method which has been called */
+        string method = 3;
+    
+        /** Client start timestamp */
+        int64 clientStart = 4;
+    
+        /** Client end timestamp */
+        int64 clientEnd = 5;
+    
+        /** Call status */
+        bool ok = 6;
+    
+        /** Error message */
+        string errMsg = 7;
+    }
     /** Client call statistics */
     repeated ClientCall calls = 12;
 
     /** Mapper which has been used */
     Mapper mapper = 13;
-}
-
-message TestSuiteResponse {}
-message PurgeRequest {}
-message PurgeResponse {}
-
-/**
- * Statistics service
- *
- * @author Vincent Lachenal
- */
-service StatsService {
-
-    /**
-     * Consolidate statistics
-     *
-     * @param test the test suite
-     *
-     * @throws StatsException any error
-     * @throws TException unexpected error
-     */
-    //void consolidate(1: TestSuite test) throws (1: StatsException error);
-    rpc consolidate(TestSuite) returns (TestSuiteResponse);
-
-    /**
-     * Purge server side statistics
-     *
-     * @throws StatsException any error
-     * @throws TException unexpected error
-     */
-    //void purge() throws (1: StatsException error);
-    rpc purge(PurgeRequest) returns (PurgeResponse);
-
 }

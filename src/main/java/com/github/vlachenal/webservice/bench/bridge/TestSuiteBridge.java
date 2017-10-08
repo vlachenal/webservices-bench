@@ -108,13 +108,53 @@ public final class TestSuiteBridge {
   }
 
   /**
-   * Convert Thrift test suite to bean
+   * Convert SOAP test suite to bean
    *
-   * @param test the Thrift test suite
+   * @param test the SOAP test suite
    *
    * @return the bean
    */
   public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
+    TestSuiteBean bean = null;
+    if(test != null) {
+      bean = new TestSuiteBean();
+      bean.setClientCpu(test.getCpu());
+      bean.setClientMemory(test.getMemory());
+      bean.setClientJvmVersion(test.getJvm());
+      bean.setClientJvmVendor(test.getVendor());
+      bean.setClientOsName(test.getOsFamily());
+      bean.setClientOsVersion(test.getOsVersion());
+      bean.setNbThreads(test.getNbThread());
+      bean.setProtocol(test.getProtocol());
+      bean.setCompression(test.getCompression());
+      bean.setComment(test.getComment());
+      String mapper = "manual";
+      if(test.getMapper() != null) {
+        switch(test.getMapper()) {
+          case DOZER:
+            mapper = "dozer";
+            break;
+          case MAPSTRUCT:
+            mapper = "mapstruct";
+            break;
+          default:
+            // Nothing to do
+
+        }
+      }
+      bean.setMapper(mapper);
+    }
+    return bean;
+  }
+
+  /**
+   * Convert Protocol buffer test suite to bean
+   *
+   * @param test the Protocol buffer test suite
+   *
+   * @return the bean
+   */
+  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();

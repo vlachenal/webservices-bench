@@ -15,85 +15,35 @@ public final class CustomerOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_Phone_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_Phone_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_Address_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_Address_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_webservicebench_Customer_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_webservicebench_Customer_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_Header_descriptor;
+    internal_static_webservicebench_Customer_Address_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_Header_fieldAccessorTable;
+      internal_static_webservicebench_Customer_Address_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_CreateRequest_descriptor;
+    internal_static_webservicebench_Customer_Phone_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_CreateRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_CreateResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_CreateResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_GetRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_GetRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_ListAllRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_ListAllRequest_fieldAccessorTable;
+      internal_static_webservicebench_Customer_Phone_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_webservicebench_ListAllResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_webservicebench_ListAllResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_DeleteAllRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_DeleteAllRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_DeleteAllResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_DeleteAllResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_ClientCall_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_ClientCall_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_webservicebench_TestSuite_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_webservicebench_TestSuite_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_TestSuiteResponse_descriptor;
+    internal_static_webservicebench_TestSuite_ClientCall_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_TestSuiteResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_PurgeRequest_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_PurgeRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_webservicebench_PurgeResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_webservicebench_PurgeResponse_fieldAccessorTable;
+      internal_static_webservicebench_TestSuite_ClientCall_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -103,54 +53,32 @@ public final class CustomerOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016customer.proto\022\017webservicebench\"A\n\005Pho" +
-      "ne\022(\n\004type\030\001 \001(\0162\032.webservicebench.Phone" +
-      "Type\022\016\n\006number\030\002 \001(\t\"H\n\007Address\022\r\n\005lines" +
-      "\030\001 \003(\t\022\017\n\007zipCode\030\002 \001(\t\022\014\n\004city\030\003 \001(\t\022\017\n" +
-      "\007country\030\004 \001(\t\"\260\001\n\010Customer\022\n\n\002id\030\001 \001(\t\022" +
-      "\021\n\tfirstName\030\002 \001(\t\022\020\n\010lastName\030\003 \001(\t\022\021\n\t" +
-      "birthDate\030\004 \001(\003\022\r\n\005email\030\005 \001(\t\022)\n\007addres" +
-      "s\030\006 \001(\0132\030.webservicebench.Address\022&\n\006pho" +
-      "nes\030\007 \003(\0132\026.webservicebench.Phone\"E\n\006Hea" +
-      "der\022\022\n\nrequestSeq\030\001 \001(\005\022\'\n\006mapper\030\002 \001(\0162",
-      "\027.webservicebench.Mapper\"e\n\rCreateReques" +
-      "t\022\'\n\006header\030\001 \001(\0132\027.webservicebench.Head" +
-      "er\022+\n\010customer\030\002 \001(\0132\031.webservicebench.C" +
-      "ustomer\"\034\n\016CreateResponse\022\n\n\002id\030\001 \001(\t\"A\n" +
-      "\nGetRequest\022\'\n\006header\030\001 \001(\0132\027.webservice" +
-      "bench.Header\022\n\n\002id\030\002 \001(\t\"9\n\016ListAllReque" +
-      "st\022\'\n\006header\030\001 \001(\0132\027.webservicebench.Hea" +
-      "der\"?\n\017ListAllResponse\022,\n\tcustomers\030\001 \003(" +
-      "\0132\031.webservicebench.Customer\"\022\n\020DeleteAl" +
-      "lRequest\"\023\n\021DeleteAllResponse\"\206\001\n\nClient",
-      "Call\022\022\n\nrequestSeq\030\001 \001(\005\022\020\n\010protocol\030\002 \001" +
-      "(\t\022\016\n\006method\030\003 \001(\t\022\023\n\013clientStart\030\004 \001(\003\022" +
-      "\021\n\tclientEnd\030\005 \001(\003\022\n\n\002ok\030\006 \001(\010\022\016\n\006errMsg" +
-      "\030\007 \001(\t\"\225\002\n\tTestSuite\022\n\n\002id\030\001 \001(\t\022\020\n\010nbTh" +
-      "read\030\002 \001(\005\022\023\n\013compression\030\003 \001(\t\022\013\n\003cpu\030\004" +
-      " \001(\t\022\016\n\006memory\030\005 \001(\t\022\013\n\003jvm\030\006 \001(\t\022\016\n\006ven" +
-      "dor\030\007 \001(\t\022\020\n\010osFamily\030\010 \001(\t\022\021\n\tosVersion" +
-      "\030\t \001(\t\022\020\n\010protocol\030\n \001(\t\022\017\n\007comment\030\013 \001(" +
-      "\t\022*\n\005calls\030\014 \003(\0132\033.webservicebench.Clien" +
-      "tCall\022\'\n\006mapper\030\r \001(\0162\027.webservicebench.",
-      "Mapper\"\023\n\021TestSuiteResponse\"\016\n\014PurgeRequ" +
-      "est\"\017\n\rPurgeResponse*%\n\tPhoneType\022\014\n\010LAN" +
-      "DLINE\020\000\022\n\n\006MOBILE\020\001*.\n\006Mapper\022\n\n\006MANUAL\020" +
-      "\000\022\t\n\005DOZER\020\001\022\r\n\tMAPSTRUCT\020\0022\275\002\n\017Customer" +
-      "Service\022L\n\007listAll\022\037.webservicebench.Lis" +
-      "tAllRequest\032 .webservicebench.ListAllRes" +
-      "ponse\022=\n\003get\022\033.webservicebench.GetReques" +
-      "t\032\031.webservicebench.Customer\022I\n\006create\022\036" +
-      ".webservicebench.CreateRequest\032\037.webserv" +
-      "icebench.CreateResponse\022R\n\tdeleteAll\022!.w",
-      "ebservicebench.DeleteAllRequest\032\".webser" +
-      "vicebench.DeleteAllResponse2\245\001\n\014StatsSer" +
-      "vice\022M\n\013consolidate\022\032.webservicebench.Te" +
-      "stSuite\032\".webservicebench.TestSuiteRespo" +
-      "nse\022F\n\005purge\022\035.webservicebench.PurgeRequ" +
-      "est\032\036.webservicebench.PurgeResponseB6\n2c" +
-      "om.github.vlachenal.webservice.bench.pro" +
-      "tobuf.apiP\001b\006proto3"
+      "\n\016customer.proto\022\017webservicebench\"\205\003\n\010Cu" +
+      "stomer\022\n\n\002id\030\001 \001(\t\022\021\n\tfirstName\030\002 \001(\t\022\020\n" +
+      "\010lastName\030\003 \001(\t\022\021\n\tbirthDate\030\004 \001(\003\022\r\n\005em" +
+      "ail\030\005 \001(\t\0222\n\007address\030\006 \001(\0132!.webserviceb" +
+      "ench.Customer.Address\022/\n\006phones\030\007 \003(\0132\037." +
+      "webservicebench.Customer.Phone\032H\n\007Addres" +
+      "s\022\r\n\005lines\030\001 \003(\t\022\017\n\007zipCode\030\002 \001(\t\022\014\n\004cit" +
+      "y\030\003 \001(\t\022\017\n\007country\030\004 \001(\t\032w\n\005Phone\0227\n\004typ" +
+      "e\030\001 \001(\0162).webservicebench.Customer.Phone" +
+      ".PhoneType\022\016\n\006number\030\002 \001(\t\"%\n\tPhoneType\022",
+      "\014\n\010LANDLINE\020\000\022\n\n\006MOBILE\020\001\"?\n\017ListAllResp" +
+      "onse\022,\n\tcustomers\030\001 \003(\0132\031.webservicebenc" +
+      "h.Customer\"\250\003\n\tTestSuite\022\n\n\002id\030\001 \001(\t\022\020\n\010" +
+      "nbThread\030\002 \001(\005\022\023\n\013compression\030\003 \001(\t\022\013\n\003c" +
+      "pu\030\004 \001(\t\022\016\n\006memory\030\005 \001(\t\022\013\n\003jvm\030\006 \001(\t\022\016\n" +
+      "\006vendor\030\007 \001(\t\022\020\n\010osFamily\030\010 \001(\t\022\021\n\tosVer" +
+      "sion\030\t \001(\t\022\020\n\010protocol\030\n \001(\t\022\017\n\007comment\030" +
+      "\013 \001(\t\0224\n\005calls\030\014 \003(\0132%.webservicebench.T" +
+      "estSuite.ClientCall\022\'\n\006mapper\030\r \001(\0162\027.we" +
+      "bservicebench.Mapper\032\206\001\n\nClientCall\022\022\n\nr",
+      "equestSeq\030\001 \001(\005\022\020\n\010protocol\030\002 \001(\t\022\016\n\006met" +
+      "hod\030\003 \001(\t\022\023\n\013clientStart\030\004 \001(\003\022\021\n\tclient" +
+      "End\030\005 \001(\003\022\n\n\002ok\030\006 \001(\010\022\016\n\006errMsg\030\007 \001(\t*.\n" +
+      "\006Mapper\022\n\n\006MANUAL\020\000\022\t\n\005DOZER\020\001\022\r\n\tMAPSTR" +
+      "UCT\020\002B6\n2com.github.vlachenal.webservice" +
+      ".bench.protobuf.apiP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -164,102 +92,42 @@ public final class CustomerOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_webservicebench_Phone_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_webservicebench_Phone_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_Phone_descriptor,
-        new java.lang.String[] { "Type", "Number", });
-    internal_static_webservicebench_Address_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_webservicebench_Address_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_Address_descriptor,
-        new java.lang.String[] { "Lines", "ZipCode", "City", "Country", });
     internal_static_webservicebench_Customer_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_webservicebench_Customer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_webservicebench_Customer_descriptor,
         new java.lang.String[] { "Id", "FirstName", "LastName", "BirthDate", "Email", "Address", "Phones", });
-    internal_static_webservicebench_Header_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_webservicebench_Header_fieldAccessorTable = new
+    internal_static_webservicebench_Customer_Address_descriptor =
+      internal_static_webservicebench_Customer_descriptor.getNestedTypes().get(0);
+    internal_static_webservicebench_Customer_Address_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_Header_descriptor,
-        new java.lang.String[] { "RequestSeq", "Mapper", });
-    internal_static_webservicebench_CreateRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_webservicebench_CreateRequest_fieldAccessorTable = new
+        internal_static_webservicebench_Customer_Address_descriptor,
+        new java.lang.String[] { "Lines", "ZipCode", "City", "Country", });
+    internal_static_webservicebench_Customer_Phone_descriptor =
+      internal_static_webservicebench_Customer_descriptor.getNestedTypes().get(1);
+    internal_static_webservicebench_Customer_Phone_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_CreateRequest_descriptor,
-        new java.lang.String[] { "Header", "Customer", });
-    internal_static_webservicebench_CreateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_webservicebench_CreateResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_CreateResponse_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_webservicebench_GetRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_webservicebench_GetRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_GetRequest_descriptor,
-        new java.lang.String[] { "Header", "Id", });
-    internal_static_webservicebench_ListAllRequest_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_webservicebench_ListAllRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_ListAllRequest_descriptor,
-        new java.lang.String[] { "Header", });
+        internal_static_webservicebench_Customer_Phone_descriptor,
+        new java.lang.String[] { "Type", "Number", });
     internal_static_webservicebench_ListAllResponse_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_webservicebench_ListAllResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_webservicebench_ListAllResponse_descriptor,
         new java.lang.String[] { "Customers", });
-    internal_static_webservicebench_DeleteAllRequest_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_webservicebench_DeleteAllRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_DeleteAllRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_webservicebench_DeleteAllResponse_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_webservicebench_DeleteAllResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_DeleteAllResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_webservicebench_ClientCall_descriptor =
-      getDescriptor().getMessageTypes().get(11);
-    internal_static_webservicebench_ClientCall_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_ClientCall_descriptor,
-        new java.lang.String[] { "RequestSeq", "Protocol", "Method", "ClientStart", "ClientEnd", "Ok", "ErrMsg", });
     internal_static_webservicebench_TestSuite_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_webservicebench_TestSuite_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_webservicebench_TestSuite_descriptor,
         new java.lang.String[] { "Id", "NbThread", "Compression", "Cpu", "Memory", "Jvm", "Vendor", "OsFamily", "OsVersion", "Protocol", "Comment", "Calls", "Mapper", });
-    internal_static_webservicebench_TestSuiteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
-    internal_static_webservicebench_TestSuiteResponse_fieldAccessorTable = new
+    internal_static_webservicebench_TestSuite_ClientCall_descriptor =
+      internal_static_webservicebench_TestSuite_descriptor.getNestedTypes().get(0);
+    internal_static_webservicebench_TestSuite_ClientCall_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_TestSuiteResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_webservicebench_PurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
-    internal_static_webservicebench_PurgeRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_PurgeRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_webservicebench_PurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
-    internal_static_webservicebench_PurgeResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_webservicebench_PurgeResponse_descriptor,
-        new java.lang.String[] { });
+        internal_static_webservicebench_TestSuite_ClientCall_descriptor,
+        new java.lang.String[] { "RequestSeq", "Protocol", "Method", "ClientStart", "ClientEnd", "Ok", "ErrMsg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

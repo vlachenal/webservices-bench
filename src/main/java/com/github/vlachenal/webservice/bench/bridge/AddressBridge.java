@@ -142,6 +142,53 @@ public final class AddressBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert addres bean to Protocol buffer structure
+   *
+   * @param bean the bean to convert
+   *
+   * @return the Protocol buffer structure
+   */
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address toProtobuf(final AddressBean bean) {
+    com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address = null;
+    if(bean != null) {
+      final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.newBuilder();
+      if(bean.getLines() != null) {
+        builder.addAllLines(bean.getLines());
+      }
+      if(bean.getZipCode() != null) {
+        builder.setZipCode(bean.getZipCode());
+      }
+      if(bean.getCity() != null) {
+        builder.setCity(bean.getCity());
+      }
+      if(bean.getCountry() != null) {
+        builder.setCountry(bean.getCountry());
+      }
+      address = builder.build();
+    }
+    return address;
+  }
+
+  /**
+   * Convert Protocol buffer address to bean
+   *
+   * @param address the Protocol buffer address
+   *
+   * @return the bean
+   */
+  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
+    AddressBean bean = null;
+    if(address != null) {
+      bean = new AddressBean();
+      bean.setLines(address.getLinesList());
+      bean.setZipCode(address.getZipCode());
+      bean.setCity(address.getCity());
+      bean.setCountry(address.getCountry());
+    }
+    return bean;
+  }
   // Methods -
 
 }

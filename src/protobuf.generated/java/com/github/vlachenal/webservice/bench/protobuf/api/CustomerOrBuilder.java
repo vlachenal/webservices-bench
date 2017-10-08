@@ -93,7 +93,7 @@ public interface CustomerOrBuilder extends
    ** Address 
    * </pre>
    *
-   * <code>.webservicebench.Address address = 6;</code>
+   * <code>.webservicebench.Customer.Address address = 6;</code>
    */
   boolean hasAddress();
   /**
@@ -101,41 +101,41 @@ public interface CustomerOrBuilder extends
    ** Address 
    * </pre>
    *
-   * <code>.webservicebench.Address address = 6;</code>
+   * <code>.webservicebench.Customer.Address address = 6;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.Address getAddress();
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address getAddress();
   /**
    * <pre>
    ** Address 
    * </pre>
    *
-   * <code>.webservicebench.Address address = 6;</code>
+   * <code>.webservicebench.Customer.Address address = 6;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.AddressOrBuilder getAddressOrBuilder();
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.AddressOrBuilder getAddressOrBuilder();
 
   /**
    * <pre>
    ** Phones 
    * </pre>
    *
-   * <code>repeated .webservicebench.Phone phones = 7;</code>
+   * <code>repeated .webservicebench.Customer.Phone phones = 7;</code>
    */
-  java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.Phone> 
+  java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> 
       getPhonesList();
   /**
    * <pre>
    ** Phones 
    * </pre>
    *
-   * <code>repeated .webservicebench.Phone phones = 7;</code>
+   * <code>repeated .webservicebench.Customer.Phone phones = 7;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.Phone getPhones(int index);
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone getPhones(int index);
   /**
    * <pre>
    ** Phones 
    * </pre>
    *
-   * <code>repeated .webservicebench.Phone phones = 7;</code>
+   * <code>repeated .webservicebench.Customer.Phone phones = 7;</code>
    */
   int getPhonesCount();
   /**
@@ -143,17 +143,17 @@ public interface CustomerOrBuilder extends
    ** Phones 
    * </pre>
    *
-   * <code>repeated .webservicebench.Phone phones = 7;</code>
+   * <code>repeated .webservicebench.Customer.Phone phones = 7;</code>
    */
-  java.util.List<? extends com.github.vlachenal.webservice.bench.protobuf.api.PhoneOrBuilder> 
+  java.util.List<? extends com.github.vlachenal.webservice.bench.protobuf.api.Customer.PhoneOrBuilder> 
       getPhonesOrBuilderList();
   /**
    * <pre>
    ** Phones 
    * </pre>
    *
-   * <code>repeated .webservicebench.Phone phones = 7;</code>
+   * <code>repeated .webservicebench.Customer.Phone phones = 7;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.PhoneOrBuilder getPhonesOrBuilder(
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.PhoneOrBuilder getPhonesOrBuilder(
       int index);
 }

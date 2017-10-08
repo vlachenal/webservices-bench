@@ -226,11 +226,11 @@ public final class CustomerBridge {
   }
 
   /**
-   * Convert customer beans to REST/JSON structures
+   * Convert customer beans to SOAP structures
    *
    * @param bean the beans to convert
    *
-   * @return the JSON structures
+   * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoap(final List<CustomerBean> bean) {
     List<com.github.vlachenal.webservice.bench.soap.api.Customer> customers = null;
@@ -238,6 +238,88 @@ public final class CustomerBridge {
       customers = new ArrayList<>();
       for(final CustomerBean customer : bean) {
         final com.github.vlachenal.webservice.bench.soap.api.Customer json = toSoap(customer);
+        if(json != null) {
+          customers.add(json);
+        }
+      }
+    }
+    return customers;
+  }
+
+  /**
+   * Convert customer bean to Protocol buffer structure
+   *
+   * @param bean the bean to convert
+   *
+   * @return the Protocol buffer structure
+   */
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer toProtobuf(final CustomerBean bean) {
+    com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = null;
+    if(bean != null) {
+      final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.newBuilder();
+      if(bean.getId() != null) {
+        builder.setId(bean.getId());
+      }
+      if(bean.getFirstName() != null) {
+        builder.setFirstName(bean.getFirstName());
+      }
+      if(bean.getLastName() != null) {
+        builder.setLastName(bean.getLastName());
+      }
+      if(bean.getEmail() != null) {
+        builder.setEmail(bean.getEmail());
+      }
+      if(bean.getBirthDate() != null) {
+        builder.setBirthDate(bean.getBirthDate().getTime());
+      }
+      if(bean.getAddress() != null) {
+        builder.setAddress(AddressBridge.toProtobuf(bean.getAddress()));
+      }
+      if(bean.getPhones() != null) {
+        builder.addAllPhones(PhoneBridge.toProtobuf(bean.getPhones()));
+      }
+      customer = builder.build();
+    }
+    return customer;
+  }
+
+  /**
+   * Convert customer Protocol buffer structure to bean
+   *
+   * @param bean the Protocol buffer structure to convert
+   *
+   * @return the bean
+   */
+  public static CustomerBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
+    CustomerBean bean = null;
+    if(customer != null) {
+      bean = new CustomerBean();
+      bean.setId(customer.getId());
+      bean.setFirstName(customer.getFirstName());
+      bean.setLastName(customer.getLastName());
+      bean.setEmail(customer.getEmail());
+      if(customer.getBirthDate() != 0) {
+        bean.setBirthDate(new Date(customer.getBirthDate()));
+      }
+      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
+      bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
+    }
+    return bean;
+  }
+
+  /**
+   * Convert customer beans to Protocol buffer structures
+   *
+   * @param bean the beans to convert
+   *
+   * @return the Protocol buffer structures
+   */
+  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> toProtobuf(final List<CustomerBean> bean) {
+    List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> customers = null;
+    if(bean != null) {
+      customers = new ArrayList<>();
+      for(final CustomerBean customer : bean) {
+        final com.github.vlachenal.webservice.bench.protobuf.api.Customer json = toProtobuf(customer);
         if(json != null) {
           customers.add(json);
         }

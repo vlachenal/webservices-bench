@@ -113,7 +113,7 @@ public enum Mapper
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return com.github.vlachenal.webservice.bench.protobuf.api.CustomerOuterClass.getDescriptor().getEnumTypes().get(1);
+    return com.github.vlachenal.webservice.bench.protobuf.api.CustomerOuterClass.getDescriptor().getEnumTypes().get(0);
   }
 
   private static final Mapper[] VALUES = values();

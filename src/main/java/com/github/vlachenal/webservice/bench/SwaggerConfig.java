@@ -6,13 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench;
 
-import static springfox.documentation.builders.PathSelectors.regex;
-
 import java.util.ArrayList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.swagger.annotations.Api;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -39,8 +38,8 @@ public class SwaggerConfig {
   @Bean
   public Docket providesCustomerAPI() {
     return new Docket(DocumentationType.SWAGGER_2)
-        .select().apis(RequestHandlerSelectors.basePackage("com.github.vlachenal.webservice.bench.rest.api"))
-        .paths(regex("/rest/customer.*"))
+        .select()
+        .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
         .build()
         .apiInfo(metaData());
   }

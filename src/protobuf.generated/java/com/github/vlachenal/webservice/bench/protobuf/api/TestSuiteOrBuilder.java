@@ -201,24 +201,24 @@ public interface TestSuiteOrBuilder extends
    ** Client call statistics 
    * </pre>
    *
-   * <code>repeated .webservicebench.ClientCall calls = 12;</code>
+   * <code>repeated .webservicebench.TestSuite.ClientCall calls = 12;</code>
    */
-  java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.ClientCall> 
+  java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall> 
       getCallsList();
   /**
    * <pre>
    ** Client call statistics 
    * </pre>
    *
-   * <code>repeated .webservicebench.ClientCall calls = 12;</code>
+   * <code>repeated .webservicebench.TestSuite.ClientCall calls = 12;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.ClientCall getCalls(int index);
+  com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall getCalls(int index);
   /**
    * <pre>
    ** Client call statistics 
    * </pre>
    *
-   * <code>repeated .webservicebench.ClientCall calls = 12;</code>
+   * <code>repeated .webservicebench.TestSuite.ClientCall calls = 12;</code>
    */
   int getCallsCount();
   /**
@@ -226,18 +226,18 @@ public interface TestSuiteOrBuilder extends
    ** Client call statistics 
    * </pre>
    *
-   * <code>repeated .webservicebench.ClientCall calls = 12;</code>
+   * <code>repeated .webservicebench.TestSuite.ClientCall calls = 12;</code>
    */
-  java.util.List<? extends com.github.vlachenal.webservice.bench.protobuf.api.ClientCallOrBuilder> 
+  java.util.List<? extends com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCallOrBuilder> 
       getCallsOrBuilderList();
   /**
    * <pre>
    ** Client call statistics 
    * </pre>
    *
-   * <code>repeated .webservicebench.ClientCall calls = 12;</code>
+   * <code>repeated .webservicebench.TestSuite.ClientCall calls = 12;</code>
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.ClientCallOrBuilder getCallsOrBuilder(
+  com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCallOrBuilder getCallsOrBuilder(
       int index);
 
   /**

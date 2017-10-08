@@ -303,6 +303,100 @@ public final class PhoneBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert phone bean to Protocol buffer structure
+   *
+   * @param bean the bean to convert
+   *
+   * @return the Protocol buffer structure
+   */
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone toProtobuf(final PhoneBean bean) {
+    com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone = null;
+    if(bean != null) {
+      final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.newBuilder();
+      if(bean.getNumber() != null) {
+        builder.setNumber(bean.getNumber());
+      }
+      if(bean.getType() != null) {
+        switch(bean.getType()) {
+          case LANDLINE:
+            builder.setType(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.LANDLINE);
+          case MOBILE:
+            builder.setType(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.MOBILE);
+          default:
+            // Nothing to do
+        }
+      }
+      phone = builder.build();
+    }
+    return phone;
+  }
+
+  /**
+   * Convert phone beans to Protocol buffer structures
+   *
+   * @param bean the beans to convert
+   *
+   * @return the SOAP structures
+   */
+  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> toProtobuf(final List<PhoneBean> bean) {
+    List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones = null;
+    if(bean != null) {
+      phones = new ArrayList<>();
+      for(final PhoneBean phone : bean) {
+        final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone protobuf = toProtobuf(phone);
+        if(protobuf != null) {
+          phones.add(protobuf);
+        }
+      }
+    }
+    return phones;
+  }
+
+  /**
+   * Convert Protocol buffer phone to bean
+   *
+   * @param phone the Protocol buffer phone
+   *
+   * @return the bean
+   */
+  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
+    PhoneBean bean = null;
+    if(phone != null) {
+      bean = new PhoneBean();
+      bean.setNumber(phone.getNumber());
+      switch(phone.getType()) {
+        case LANDLINE:
+          bean.setType(Type.LANDLINE);
+          break;
+        case MOBILE:
+          bean.setType(Type.MOBILE);
+          break;
+        default:
+          // Nothing to do
+      }
+    }
+    return bean;
+  }
+
+  /**
+   * Convert Protocol buffer phone list to bean list
+   *
+   * @param phones the Protocol buffer phone list
+   *
+   * @return the bean list
+   */
+  public static List<PhoneBean> toBeanPList(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
+    List<PhoneBean> bean = null;
+    if(phones != null) {
+      bean = new ArrayList<>();
+      for(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone : phones) {
+        bean.add(toBean(phone));
+      }
+    }
+    return bean;
+  }
   // Methods -
 
 }

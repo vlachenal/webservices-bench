@@ -30,6 +30,10 @@ public class MapStructMappers {
   /** Phone mapper */
   @Autowired
   private PhoneMapper phone;
+
+  /** Protocol Buffer mapper */
+  @Autowired
+  private ProtobufMapper protobuf;
   // Attributes -
 
 
@@ -59,6 +63,15 @@ public class MapStructMappers {
    */
   public PhoneMapper phone() {
     return phone;
+  }
+
+  /**
+   * Protobuf mapper
+   *
+   * @return the mapper
+   */
+  public ProtobufMapper protobuf() {
+    return protobuf;
   }
   // Methods -
 

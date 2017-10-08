@@ -17,7 +17,10 @@ import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
  *
  * @author Vincent Lachenal
  */
-@Mapper(componentModel="spring",unmappedTargetPolicy=ReportingPolicy.IGNORE)
+@Mapper(
+        componentModel="spring",
+        unmappedTargetPolicy=ReportingPolicy.IGNORE
+    )
 public interface AddressMapper {
 
   /**

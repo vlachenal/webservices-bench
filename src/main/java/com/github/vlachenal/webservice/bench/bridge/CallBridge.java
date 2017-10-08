@@ -92,6 +92,28 @@ public final class CallBridge {
     }
     return bean;
   }
+
+  /**
+   * Convert Protocol buffer client call to bean
+   *
+   * @param call the Protocol buffer client call
+   *
+   * @return the bean
+   */
+  public static CallBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
+    CallBean bean = null;
+    if(call != null) {
+      bean = new CallBean();
+      bean.setClientStart(call.getClientStart());
+      bean.setClientEnd(call.getClientEnd());
+      bean.setMethod(call.getMethod());
+      bean.setProtocol(call.getProtocol());
+      bean.setSeq(call.getRequestSeq());
+      bean.setOk(call.getOk());
+      bean.setErrMsg(call.getErrMsg());
+    }
+    return bean;
+  }
   // Methods -
 
 }
