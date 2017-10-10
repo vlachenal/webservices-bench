@@ -39,7 +39,7 @@ public class DozerConfig {
   private static final String SOAP_DATE_CONV = "soap-date-converter";
 
   /** Thrift date converter identifier */
-  private static final String THRIFT_DATE_CONV = "thrift-date-converter";
+  private static final String LONG_DATE_CONV = "long-date-converter";
   // Attributes -
 
 
@@ -53,7 +53,7 @@ public class DozerConfig {
   public Mapper dozer() {
     return DozerBeanMapperBuilder.create()
         .withCustomConverterWithId(SOAP_DATE_CONV, new DateXMLGregorianCalendarConverter())
-        .withCustomConverterWithId(THRIFT_DATE_CONV, new DateLongConverter())
+        .withCustomConverterWithId(LONG_DATE_CONV, new DateLongConverter())
         .withMappingBuilder(soapAddress())
         .withMappingBuilder(soapPhone())
         .withMappingBuilder(soapCustomer())
@@ -120,7 +120,7 @@ public class DozerConfig {
       @Override
       protected void configure() {
         mapping(CustomerBean.class, com.github.vlachenal.webservice.bench.thrift.api.Customer.class)
-        .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(THRIFT_DATE_CONV))
+        .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
         .exclude("__isset_bitfield");
       }
     };
