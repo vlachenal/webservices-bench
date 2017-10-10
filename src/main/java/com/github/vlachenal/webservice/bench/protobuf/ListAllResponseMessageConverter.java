@@ -13,15 +13,16 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 import com.github.vlachenal.webservice.bench.protobuf.api.Customer;
+import com.github.vlachenal.webservice.bench.protobuf.api.ListAllResponse;
 import com.google.protobuf.util.JsonFormat;
 
 
 /**
- * Protobuf customer message converter
+ * Protobuf list all response message converter
  *
  * @author Vincent Lachenal
  */
-public class CustomerMessageConverter extends ProtobufMessageConverter<Customer> {
+public class ListAllResponseMessageConverter extends ProtobufMessageConverter<ListAllResponse> {
 
   // Methods +
   /**
@@ -40,8 +41,8 @@ public class CustomerMessageConverter extends ProtobufMessageConverter<Customer>
    * @see com.github.vlachenal.webservice.bench.protobuf.ProtobufMessageConverter#fromProtobuf(java.io.InputStream)
    */
   @Override
-  protected Customer fromProtobuf(final InputStream input) throws IOException {
-    return Customer.parseFrom(input);
+  protected ListAllResponse fromProtobuf(final InputStream input) throws IOException {
+    return ListAllResponse.parseFrom(input);
   }
 
   /**
@@ -50,8 +51,8 @@ public class CustomerMessageConverter extends ProtobufMessageConverter<Customer>
    * @see com.github.vlachenal.webservice.bench.protobuf.ProtobufMessageConverter#fromJSON(java.io.InputStream)
    */
   @Override
-  protected Customer fromJSON(final InputStream input) throws IOException {
-    final Customer.Builder builder = Customer.newBuilder();
+  protected ListAllResponse fromJSON(final InputStream input) throws IOException {
+    final ListAllResponse.Builder builder = ListAllResponse.newBuilder();
     JsonFormat.parser().merge(new InputStreamReader(input), builder);
     return builder.build();
   }
@@ -62,7 +63,7 @@ public class CustomerMessageConverter extends ProtobufMessageConverter<Customer>
    * @see com.github.vlachenal.webservice.bench.protobuf.ProtobufMessageConverter#writeJSON(com.google.protobuf.GeneratedMessageV3, java.io.OutputStream)
    */
   @Override
-  protected void writeJSON(final Customer customer, final OutputStream out) throws IOException {
+  protected void writeJSON(final ListAllResponse customer, final OutputStream out) throws IOException {
     JsonFormat.printer().appendTo(customer, new OutputStreamWriter(out));
   }
   // Methods -

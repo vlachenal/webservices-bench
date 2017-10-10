@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
- * Protocol buffer message converter converter
+ * Protocol buffer messages converter definition
  *
  * @author Vincent Lachenal
  */
@@ -21,6 +21,16 @@ public class ProtobufMessageConverterConfig {
   @Bean
   public CustomerMessageConverter protobufCustomerConverter() {
     return new CustomerMessageConverter();
+  }
+
+  /**
+   * Protocol buffer list all response message converter
+   *
+   * @return the message converter
+   */
+  @Bean
+  public ListAllResponseMessageConverter protobufListAllResponseConverter() {
+    return new ListAllResponseMessageConverter();
   }
   // Methods -
 

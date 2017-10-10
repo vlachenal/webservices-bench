@@ -25,6 +25,8 @@ import com.google.protobuf.GeneratedMessageV3;
 /**
  * Protobuf message converter
  *
+ * @param <T> the Protocol Buffer message type
+ *
  * @author Vincent Lachenal
  */
 public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> implements HttpMessageConverter<T> {
@@ -71,11 +73,37 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
     return Arrays.asList(ProtobufType.PROTOBUF, MediaType.APPLICATION_JSON_UTF8);
   }
 
+  /**
+   * Convert input stream to message
+   *
+   * @param input the input stream
+   *
+   * @return the message
+   *
+   * @throws IOException I/O error
+   */
   protected abstract T fromProtobuf(InputStream input) throws IOException;
 
+  /**
+   * Convert JSON input stream to message
+   *
+   * @param input the JSON input stream
+   *
+   * @return the message
+   *
+   * @throws IOException I/O error
+   */
   protected abstract T fromJSON(InputStream input) throws IOException;
 
-  protected abstract void writeJSON(T t, OutputStream out);
+  /**
+   * Write message on output stream in JSON format
+   *
+   * @param message the message
+   * @param out the output stream
+   *
+   * @throws IOException I/O error
+   */
+  protected abstract void writeJSON(T message, OutputStream out) throws IOException;
 
   /**
    * {@inheritDoc}
@@ -84,15 +112,15 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    */
   @Override
   public T read(final Class<? extends T> clazz, final HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
-    T object = null;
+    T message = null;
     if(MediaType.APPLICATION_JSON_UTF8.equals(inputMessage.getHeaders().getContentType())) {
-      object = fromJSON(inputMessage.getBody());
+      message = fromJSON(inputMessage.getBody());
     } else if(ProtobufType.PROTOBUF.equals(inputMessage.getHeaders().getContentType())) {
-      object = fromProtobuf(inputMessage.getBody());
+      message = fromProtobuf(inputMessage.getBody());
     } else {
       throw new HttpMessageNotReadableException("Invalid content type: " + inputMessage.getHeaders().getContentType().toString());
     }
-    return object;
+    return message;
   }
 
   /**
@@ -101,12 +129,12 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    * @see org.springframework.http.converter.HttpMessageConverter#write(java.lang.Object, org.springframework.http.MediaType, org.springframework.http.HttpOutputMessage)
    */
   @Override
-  public void write(final T t, final MediaType contentType, final HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-    t.writeTo(outputMessage.getBody());
+  public void write(final T message, final MediaType contentType, final HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+    message.writeTo(outputMessage.getBody());
     if(MediaType.APPLICATION_JSON_UTF8.equals(contentType)) {
-      writeJSON(t, outputMessage.getBody());
+      writeJSON(message, outputMessage.getBody());
     } else if(ProtobufType.PROTOBUF.equals(contentType)) {
-      t.writeTo(outputMessage.getBody());
+      message.writeTo(outputMessage.getBody());
     } else {
       throw new HttpMessageNotWritableException("Invalid content type: " + contentType.toString());
     }
