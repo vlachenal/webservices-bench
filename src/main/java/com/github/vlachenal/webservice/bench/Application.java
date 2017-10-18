@@ -55,6 +55,7 @@ public class Application extends SpringBootServletInitializer {
    */
   @Override
   protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
+    setRegisterErrorPageFilter(false); // Let servlet container manage error code
     return builder.sources(Application.class);
   }
 
