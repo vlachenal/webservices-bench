@@ -104,13 +104,27 @@ public final class CallBridge {
     CallBean bean = null;
     if(call != null) {
       bean = new CallBean();
-      bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(call.getClientEnd());
-      bean.setMethod(call.getMethod());
-      bean.setProtocol(call.getProtocol());
-      bean.setSeq(call.getRequestSeq());
-      bean.setOk(call.getOk());
-      bean.setErrMsg(call.getErrMsg());
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
+        bean.setClientStart(call.getClientStart());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER))) {
+        bean.setClientEnd(call.getClientEnd());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER))) {
+        bean.setMethod(call.getMethod());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER))) {
+        bean.setProtocol(call.getProtocol());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER))) {
+        bean.setSeq(call.getRequestSeq());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER))) {
+        bean.setOk(call.getOk());
+      }
+      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER))) {
+        bean.setErrMsg(call.getErrMsg());
+      }
     }
     return bean;
   }

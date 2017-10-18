@@ -158,18 +158,39 @@ public final class TestSuiteBridge {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();
-      bean.setClientCpu(test.getCpu());
-      bean.setClientMemory(test.getMemory());
-      bean.setClientJvmVersion(test.getJvm());
-      bean.setClientJvmVendor(test.getVendor());
-      bean.setClientOsName(test.getOsFamily());
-      bean.setClientOsVersion(test.getOsVersion());
-      bean.setNbThreads(test.getNbThread());
-      bean.setProtocol(test.getProtocol());
-      bean.setCompression(test.getCompression());
-      bean.setComment(test.getComment());
+
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CPU_FIELD_NUMBER))) {
+        bean.setClientCpu(test.getCpu());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MEMORY_FIELD_NUMBER))) {
+        bean.setClientMemory(test.getMemory());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.JVM_FIELD_NUMBER))) {
+        bean.setClientJvmVersion(test.getJvm());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.VENDOR_FIELD_NUMBER))) {
+        bean.setClientJvmVendor(test.getVendor());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSFAMILY_FIELD_NUMBER))) {
+        bean.setClientOsName(test.getOsFamily());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSVERSION_FIELD_NUMBER))) {
+        bean.setClientOsVersion(test.getOsVersion());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.NBTHREAD_FIELD_NUMBER))) {
+        bean.setNbThreads(test.getNbThread());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.PROTOCOL_FIELD_NUMBER))) {
+        bean.setProtocol(test.getProtocol());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMPRESSION_FIELD_NUMBER))) {
+        bean.setCompression(test.getCompression());
+      }
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMMENT_FIELD_NUMBER))) {
+        bean.setComment(test.getComment());
+      }
       String mapper = "manual";
-      if(test.getMapper() != null) {
+      if(test.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MAPPER_FIELD_NUMBER))) {
         switch(test.getMapper()) {
           case DOZER:
             mapper = "dozer";

@@ -182,10 +182,18 @@ public final class AddressBridge {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
-      bean.setLines(address.getLinesList());
-      bean.setZipCode(address.getZipCode());
-      bean.setCity(address.getCity());
-      bean.setCountry(address.getCountry());
+      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER))) {
+        bean.setLines(address.getLinesList());
+      }
+      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
+        bean.setZipCode(address.getZipCode());
+      }
+      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER))) {
+        bean.setCity(address.getCity());
+      }
+      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER))) {
+        bean.setCountry(address.getCountry());
+      }
     }
     return bean;
   }

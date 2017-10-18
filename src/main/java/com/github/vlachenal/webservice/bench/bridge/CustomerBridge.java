@@ -294,15 +294,27 @@ public final class CustomerBridge {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
-      bean.setId(customer.getId());
-      bean.setFirstName(customer.getFirstName());
-      bean.setLastName(customer.getLastName());
-      bean.setEmail(customer.getEmail());
-      if(customer.getBirthDate() != 0) {
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER))) {
+        bean.setId(customer.getId());
+      }
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.FIRSTNAME_FIELD_NUMBER))) {
+        bean.setFirstName(customer.getFirstName());
+      }
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.LASTNAME_FIELD_NUMBER))) {
+        bean.setLastName(customer.getLastName());
+      }
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.EMAIL_FIELD_NUMBER))) {
+        bean.setEmail(customer.getEmail());
+      }
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.BIRTHDATE_FIELD_NUMBER))) {
         bean.setBirthDate(new Date(customer.getBirthDate()));
       }
-      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
-      bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ADDRESS_FIELD_NUMBER))) {
+        bean.setAddress(AddressBridge.toBean(customer.getAddress()));
+      }
+      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.PHONES_FIELD_NUMBER))) {
+        bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
+      }
     }
     return bean;
   }
