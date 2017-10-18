@@ -59,7 +59,6 @@ public final class TestSuiteBridge {
             break;
           default:
             // Nothing to do
-
         }
       }
       bean.setMapper(mapper);
@@ -99,7 +98,6 @@ public final class TestSuiteBridge {
             break;
           default:
             // Nothing to do
-
         }
       }
       bean.setMapper(mapper);
@@ -139,7 +137,6 @@ public final class TestSuiteBridge {
             break;
           default:
             // Nothing to do
-
         }
       }
       bean.setMapper(mapper);
@@ -200,7 +197,6 @@ public final class TestSuiteBridge {
             break;
           default:
             // Nothing to do
-
         }
       }
       bean.setMapper(mapper);
