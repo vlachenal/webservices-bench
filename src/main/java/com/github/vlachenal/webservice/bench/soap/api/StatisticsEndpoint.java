@@ -16,12 +16,12 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import com.github.vlachenal.webservice.bench.bridge.CallBridge;
-import com.github.vlachenal.webservice.bench.bridge.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
+import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
 
 /**

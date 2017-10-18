@@ -4,7 +4,7 @@
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
-package com.github.vlachenal.webservice.bench.bridge;
+package com.github.vlachenal.webservice.bench.mapping.manual;
 
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
 

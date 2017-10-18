@@ -24,10 +24,10 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
-import com.github.vlachenal.webservice.bench.bridge.CustomerBridge;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
+import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Address;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Customer;

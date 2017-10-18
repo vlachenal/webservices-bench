@@ -80,6 +80,7 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
+  //  @Mapping(source="lines",target="linesList")
   com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder beanToProtobufForBuilder(AddressBean address);
 
   /**
@@ -94,9 +95,9 @@ public interface ProtobufMapper {
   }
 
   /**
-   * Convert SOAP customer to bean
+   * Convert Protocol buffer customer to bean
    *
-   * @param customer the SOAP customer
+   * @param customer the Protocol buffer customer
    *
    * @return the bean
    */
@@ -109,6 +110,7 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
+  //  @Mapping(source="phones",target="phonesList")
   com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder beanToProtobufForBuilder(CustomerBean customer);
 
   /**

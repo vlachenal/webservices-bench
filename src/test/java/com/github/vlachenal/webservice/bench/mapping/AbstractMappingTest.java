@@ -303,6 +303,82 @@ public abstract class AbstractMappingTest {
         fail("Unexpected type: " + bean.getType());
     }
   }
+
+  /**
+   * Compare Protocol Buffer/bean customer
+   *
+   * @param bean the bean
+   * @param customer the REST customer
+   */
+  protected void compareCustomer(final CustomerBean bean, final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
+    LOG.info("Customer id: bean = {} ; Protocol Buffer = {}", bean.getId(), customer.getId());
+    assertEquals("Identifiers are differents", bean.getId(), customer.getId());
+    LOG.info("Customer first name: bean = {} ; Protocol Buffer = {}", bean.getFirstName(), customer.getFirstName());
+    assertEquals("Firstnames are differents", bean.getFirstName(), customer.getFirstName());
+    LOG.info("Customer last name: bean = {} ; Protocol Buffer = {}", bean.getLastName(), customer.getLastName());
+    assertEquals("Lastnames are differents", bean.getLastName(), customer.getLastName());
+    LOG.info("Customer email: bean = {} ; Protocol Buffer = {}", bean.getEmail(), customer.getEmail());
+    assertEquals("Email addresses are differents", bean.getEmail(), customer.getEmail());
+    LOG.info("Customer birthdate: bean = {} ; Protocol Buffer = {}", bean.getBirthDate(), customer.getBirthDate());
+    assertEquals("Birthdates are differents", bean.getBirthDate(), new Date(customer.getBirthDate()));
+    compareAddress(bean.getAddress(), customer.getAddress());
+    comparePbPhones(bean.getPhones(), customer.getPhonesList());
+  }
+
+  /**
+   * Compare Protocol Buffer/bean address
+   *
+   * @param bean the bean
+   * @param address the Protocol Buffer address
+   */
+  protected void compareAddress(final AddressBean bean, final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
+    LOG.info("Address lines: bean = {} ; Protocol Buffer = {}", bean.getLines(), address.getLinesList());
+    assertEquals("Lines are different", bean.getLines(), address.getLinesList());
+    LOG.info("Address ZIP code: bean = {} ; Protocol Buffer = {}", bean.getZipCode(), address.getZipCode());
+    assertEquals("ZIP codes are different", bean.getZipCode(), address.getZipCode());
+    LOG.info("Address city: bean = {} ; Protocol Buffer = {}", bean.getCity(), address.getCity());
+    assertEquals("Cities are different", bean.getCity(), address.getCity());
+    LOG.info("Address country: bean = {} ; Protocol Buffer = {}", bean.getCountry(), address.getCountry());
+    assertEquals("Countries are different", bean.getCountry(), address.getCountry());
+  }
+
+  /**
+   * Compare Protocol Buffer/bean phones
+   *
+   * @param beans the bean list
+   * @param phones the Protocol Buffer phone list
+   */
+  protected void comparePbPhones(final List<PhoneBean> beans, final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
+    if(beans != null) {
+      assertNotNull("Protocol Buffer phone list is null", phones);
+      assertEquals("Number of phones is different", beans.size(), phones.size());
+      for(int i = 0 ; i < beans.size() ; ++i) {
+        comparePhone(beans.get(i), phones.get(i));
+      }
+    }
+  }
+
+  /**
+   * Compare Protocol Buffer/bean phone
+   *
+   * @param bean the bean
+   * @param phone the Protocol Buffer phone
+   */
+  protected void comparePhone(final PhoneBean bean, final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
+    LOG.info("Phone number: bean = {} ; Protocol Buffer = {}", bean.getNumber(), phone.getNumber());
+    assertEquals(bean.getNumber(), phone.getNumber());
+    LOG.info("Phone type: bean = {} ; Protocol Buffer = {}", bean.getType(), phone.getType());
+    switch(bean.getType()) {
+      case LANDLINE:
+        assertEquals(com.github.vlachenal.webservice.bench.rest.api.bean.Phone.Type.LANDLINE, phone.getType());
+        break;
+      case MOBILE:
+        assertEquals(com.github.vlachenal.webservice.bench.rest.api.bean.Phone.Type.MOBILE, phone.getType());
+        break;
+      default:
+        fail("Unexpected type: " + bean.getType());
+    }
+  }
   // Methods -
 
 }

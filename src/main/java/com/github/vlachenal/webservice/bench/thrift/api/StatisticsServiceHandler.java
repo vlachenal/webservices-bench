@@ -12,12 +12,12 @@ import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.bridge.CallBridge;
-import com.github.vlachenal.webservice.bench.bridge.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
+import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
 
 /**

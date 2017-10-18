@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.github.vlachenal.webservice.bench.bridge.CallBridge;
-import com.github.vlachenal.webservice.bench.bridge.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
+import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall;
 import com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite;
 

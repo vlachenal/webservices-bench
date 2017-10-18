@@ -61,23 +61,35 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerBean bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().beanToThrift(bean);
-    assertNotNull("SOAP customer is null", customer);
+    assertNotNull("Thrift customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToThriftCustomer");
   }
 
-
   /**
-   * Customer bean to Thrift conversion unit test
+   * Customer bean to REST conversion unit test
    */
   @Test
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerBean bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = mapstruct.customer().beanToRest(bean);
-    assertNotNull("SOAP customer is null", customer);
+    assertNotNull("REST customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToRESTCustomer");
+  }
+
+  /**
+   * Customer bean to Protocol Buffer conversion unit test
+   */
+  @Test
+  public void testBeanToProtobufCustomer() {
+    LOG.debug("Enter in testBeanToProtobufCustomer");
+    final CustomerBean bean = makeCustomerBean();
+    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().beanToProtobuf(bean);
+    assertNotNull("SOAP customer is null", customer);
+    compareCustomer(bean, customer);
+    LOG.debug("Exit testBeanToProtobufCustomer");
   }
   // Tests -
 
