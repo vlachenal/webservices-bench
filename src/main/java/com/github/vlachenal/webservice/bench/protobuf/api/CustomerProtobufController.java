@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench.protobuf.api;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,6 @@ import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
-import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.protobuf.ProtobufType;
 
 import io.swagger.annotations.Api;
@@ -51,14 +49,6 @@ public class CustomerProtobufController extends AbstractBenchService {
   /** Customer DAO */
   @Autowired
   private CustomerDAO dao;
-
-  /** Dozer mapper */
-  @Autowired
-  private org.dozer.Mapper dozer;
-
-  /** MapStruct mappers */
-  @Autowired
-  private MapStructMappers mapstruct;
   // Attributes -
 
 
@@ -83,11 +73,9 @@ public class CustomerProtobufController extends AbstractBenchService {
     List<Customer> customers = null;
     switch(mapper) {
       case MAPSTRUCT:
-        customers = mapstruct.protobuf().beanListToProtobuf(res);
-        break;
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
       case DOZER:
-        customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
-        break;
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         customers = CustomerBridge.toProtobuf(res);
     }
@@ -130,12 +118,10 @@ public class CustomerProtobufController extends AbstractBenchService {
     final CustomerBean res = dao.getDetails(custId);
     Customer customer = null;
     switch(mapper) {
-      case DOZER:
-        customer = dozer.map(res, Customer.class);
-        break;
       case MAPSTRUCT:
-        customer = mapstruct.protobuf().beanToProtobuf(res);
-        break;
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+      case DOZER:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         customer = CustomerBridge.toProtobuf(res);
     }
@@ -202,12 +188,10 @@ public class CustomerProtobufController extends AbstractBenchService {
     // Address structure checks -
     CustomerBean bean = null;
     switch(mapper) {
-      case DOZER:
-        bean = dozer.map(customer, CustomerBean.class);
-        break;
       case MAPSTRUCT:
-        bean = mapstruct.protobuf().protobufToBean(customer);
-        break;
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+      case DOZER:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         bean = CustomerBridge.toBean(customer);
     }
