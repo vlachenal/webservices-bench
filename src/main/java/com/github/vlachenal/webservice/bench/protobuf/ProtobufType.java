@@ -6,6 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.protobuf;
 
+import java.nio.charset.Charset;
+
 import org.springframework.http.MediaType;
 
 
@@ -20,8 +22,14 @@ public final class ProtobufType {
   /** Protocol buffer media type defintion */
   public static final MediaType PROTOBUF = new MediaType("application", "x-protobuf");
 
+  /** Protocol buffer media type defintion */
+  public static final MediaType PROTOBUF_UTF8 = new MediaType("application", "x-protobuf", Charset.defaultCharset());
+
   /** Protocol buffer media type string */
   public static final String PROTOBUF_VALUE = "application/x-protobuf";
+
+  /** Protocol buffer media type string */
+  public static final String PROTOBUF_UTF8_VALUE = "application/x-protobuf;charset=UTF-8";
   // Attributes -
 
 

@@ -365,10 +365,10 @@ public final class PhoneBridge {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
-      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
+      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
         bean.setNumber(phone.getNumber());
       }
-      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.TYPE_FIELD_NUMBER))) {
+      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.TYPE_FIELD_NUMBER))) {
         switch(phone.getType()) {
           case LANDLINE:
             bean.setType(Type.LANDLINE);

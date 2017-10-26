@@ -57,7 +57,7 @@ public class StatsProtobufController {
    *
    * @param test the client-side test suite to consolidate
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_VALUE})
+  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ApiOperation("Consolidate client/server statistics")
   @ApiResponses(value= {

@@ -61,7 +61,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_VALUE})
+  @RequestMapping(method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE})
   @ApiOperation("List all customers stored in database")
   @ApiResponses(value= {
     @ApiResponse(code=200,message="Customers hasve been successfully retrieved")
@@ -97,7 +97,10 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the customer details
    */
-  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_VALUE})
+  @RequestMapping(path = "/{id}",
+      method = RequestMethod.GET,
+      produces = { MediaType.APPLICATION_JSON_UTF8_VALUE, ProtobufType.PROTOBUF_UTF8_VALUE }
+      )
   @ApiOperation("Retrieve customer details")
   @ApiResponses(value= {
     @ApiResponse(code=200,message="Customer has been successfully retrieved"),
@@ -142,7 +145,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
+  @RequestMapping(method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   @ApiOperation("Create new customer")
   @ApiResponses(value= {

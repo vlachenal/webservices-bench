@@ -312,7 +312,7 @@ public final class CustomerBridge {
       if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ADDRESS_FIELD_NUMBER))) {
         bean.setAddress(AddressBridge.toBean(customer.getAddress()));
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.PHONES_FIELD_NUMBER))) {
+      if(customer.getRepeatedFieldCount(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.PHONES_FIELD_NUMBER)) > 0) {
         bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
       }
     }

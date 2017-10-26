@@ -49,7 +49,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    */
   @Override
   public boolean canRead(final Class<?> clazz, final MediaType mediaType) {
-    return checkClass(clazz) && (ProtobufType.PROTOBUF.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType));
+    return checkClass(clazz) && (ProtobufType.PROTOBUF.includes(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType));
   }
 
   /**
@@ -60,7 +60,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    */
   @Override
   public boolean canWrite(final Class<?> clazz, final MediaType mediaType) {
-    return checkClass(clazz) && (ProtobufType.PROTOBUF.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType));
+    return checkClass(clazz) && (ProtobufType.PROTOBUF.includes(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType));
   }
 
   /**
@@ -70,7 +70,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    */
   @Override
   public List<MediaType> getSupportedMediaTypes() {
-    return Arrays.asList(ProtobufType.PROTOBUF, MediaType.APPLICATION_JSON_UTF8);
+    return Arrays.asList(ProtobufType.PROTOBUF, ProtobufType.PROTOBUF_UTF8, MediaType.APPLICATION_JSON_UTF8);
   }
 
   /**
@@ -115,7 +115,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
     T message = null;
     if(MediaType.APPLICATION_JSON_UTF8.equals(inputMessage.getHeaders().getContentType())) {
       message = fromJSON(inputMessage.getBody());
-    } else if(ProtobufType.PROTOBUF.equals(inputMessage.getHeaders().getContentType())) {
+    } else if(ProtobufType.PROTOBUF.includes(inputMessage.getHeaders().getContentType())) {
       message = fromProtobuf(inputMessage.getBody());
     } else {
       throw new HttpMessageNotReadableException("Invalid content type: " + inputMessage.getHeaders().getContentType().toString());
@@ -133,7 +133,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
     message.writeTo(outputMessage.getBody());
     if(MediaType.APPLICATION_JSON_UTF8.equals(contentType)) {
       writeJSON(message, outputMessage.getBody());
-    } else if(ProtobufType.PROTOBUF.equals(contentType)) {
+    } else if(ProtobufType.PROTOBUF.includes(contentType)) {
       message.writeTo(outputMessage.getBody());
     } else {
       throw new HttpMessageNotWritableException("Invalid content type: " + contentType.toString());

@@ -182,7 +182,7 @@ public final class AddressBridge {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
-      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER))) {
+      if(address.getRepeatedFieldCount(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
         bean.setLines(address.getLinesList());
       }
       if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
