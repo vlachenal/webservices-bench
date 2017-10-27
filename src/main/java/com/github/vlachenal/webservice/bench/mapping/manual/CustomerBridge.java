@@ -15,6 +15,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
+import com.google.protobuf.Descriptors.Descriptor;
 
 
 /**
@@ -23,6 +24,12 @@ import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
  * @author Vincent Lachenal
  */
 public final class CustomerBridge {
+
+  // Attributes +
+  /** Protocol Buffer customer descriptor */
+  private static final Descriptor CUSTOMER_DESC = com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor();
+  // Attributes -
+
 
   // Constructors +
   /**
@@ -294,25 +301,25 @@ public final class CustomerBridge {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER))) {
         bean.setId(customer.getId());
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.FIRSTNAME_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.FIRSTNAME_FIELD_NUMBER))) {
         bean.setFirstName(customer.getFirstName());
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.LASTNAME_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.LASTNAME_FIELD_NUMBER))) {
         bean.setLastName(customer.getLastName());
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.EMAIL_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.EMAIL_FIELD_NUMBER))) {
         bean.setEmail(customer.getEmail());
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.BIRTHDATE_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.BIRTHDATE_FIELD_NUMBER))) {
         bean.setBirthDate(new Date(customer.getBirthDate()));
       }
-      if(customer.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ADDRESS_FIELD_NUMBER))) {
+      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ADDRESS_FIELD_NUMBER))) {
         bean.setAddress(AddressBridge.toBean(customer.getAddress()));
       }
-      if(customer.getRepeatedFieldCount(com.github.vlachenal.webservice.bench.protobuf.api.Customer.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.PHONES_FIELD_NUMBER)) > 0) {
+      if(customer.getPhonesCount() > 0) {
         bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
       }
     }

@@ -7,6 +7,7 @@
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
+import com.google.protobuf.Descriptors.Descriptor;
 
 
 /**
@@ -15,6 +16,12 @@ import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
  * @author Vincent Lachenal
  */
 public final class AddressBridge {
+
+  // Attributes +
+  /** Protocol Buffer address descriptor */
+  private static final Descriptor ADDRESS_DESC = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor();
+  // Attributes -
+
 
   // Constructors +
   /**
@@ -182,16 +189,16 @@ public final class AddressBridge {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
-      if(address.getRepeatedFieldCount(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
+      if(address.getRepeatedFieldCount(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
         bean.setLines(address.getLinesList());
       }
-      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
+      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
         bean.setZipCode(address.getZipCode());
       }
-      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER))) {
+      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER))) {
         bean.setCity(address.getCity());
       }
-      if(address.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER))) {
+      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER))) {
         bean.setCountry(address.getCountry());
       }
     }

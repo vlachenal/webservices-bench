@@ -53,21 +53,24 @@ message Customer {
      * Phone
      */
     message Phone {
+        /** Phone number */
+        string number = 1;
+
         /**
          * Phone type
          */
         enum PhoneType {
+            /** TEST */
+            UNKNOWN = 0;
+
             /** Landline phone */
-            LANDLINE = 0;
+            LANDLINE = 1;
     
             /** Mobile phone */
-            MOBILE = 1;
+            MOBILE = 2;
         }
         /** Phone type */
-        PhoneType type = 1;
-    
-        /** Phone number */
-        string number = 2;
+        PhoneType type = 2;
     }
     /** Phones */
     repeated Phone phones = 7;

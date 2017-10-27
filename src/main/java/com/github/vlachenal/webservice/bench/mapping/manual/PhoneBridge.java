@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
 import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean.Type;
+import com.google.protobuf.Descriptors.Descriptor;
 
 
 /**
@@ -19,6 +20,12 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean.Type;
  * @author Vincent Lachenal
  */
 public final class PhoneBridge {
+
+  // Attributes +
+  /** Protocol Buffer phone descriptor */
+  private static final Descriptor PHONE_DESC = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.getDescriptor();
+  // Attributes -
+
 
   // Constructors +
   /**
@@ -365,10 +372,10 @@ public final class PhoneBridge {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
-      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
+      if(phone.hasField(PHONE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
         bean.setNumber(phone.getNumber());
       }
-      if(phone.hasField(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.TYPE_FIELD_NUMBER))) {
+      if(phone.hasField(PHONE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.TYPE_FIELD_NUMBER))) {
         switch(phone.getType()) {
           case LANDLINE:
             bean.setType(Type.LANDLINE);
