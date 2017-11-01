@@ -73,8 +73,10 @@ public class CustomerProtobufController extends AbstractBenchService {
     List<Customer> customers = null;
     switch(mapper) {
       case MAPSTRUCT:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
       case DOZER:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         customers = CustomerBridge.toProtobuf(res);
@@ -122,8 +124,10 @@ public class CustomerProtobufController extends AbstractBenchService {
     Customer customer = null;
     switch(mapper) {
       case MAPSTRUCT:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
       case DOZER:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         customer = CustomerBridge.toProtobuf(res);
@@ -192,8 +196,10 @@ public class CustomerProtobufController extends AbstractBenchService {
     CustomerBean bean = null;
     switch(mapper) {
       case MAPSTRUCT:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
       case DOZER:
+        registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
         bean = CustomerBridge.toBean(customer);

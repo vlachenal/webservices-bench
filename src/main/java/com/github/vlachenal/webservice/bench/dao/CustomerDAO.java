@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -55,15 +56,6 @@ public class CustomerDAO {
   /** Delete all customer SQL request */
   private static final String REQ_DELETE_ALL = "DELETE FROM Customer";
 
-  /** Vacuum customer table SQL request */
-  private static final String REQ_VACCUM_CUST = "VACUUM FULL ANALYZE customer";
-
-  /** Vacuum addres table SQL request */
-  private static final String REQ_VACCUM_ADDR = "VACUUM FULL ANALYZE address";
-
-  /** Vacuum address table SQL request */
-  private static final String REQ_VACCUM_PHONE = "VACUUM FULL ANALYZE phone";
-
   /** Insert customer in database */
   private static final String ADD_CUSTOMER = "INSERT INTO customer "
       + "(id,first_name,last_name,birth_date,email) "
@@ -78,6 +70,10 @@ public class CustomerDAO {
   private static final String ADD_PHONE = "INSERT INTO phone "
       + "(customer_id,phone_type,number) "
       + "VALUES (?,?,?)";
+
+  /** Vacuum requests */
+  @Value("${DS.customer.vacuum}")
+  private String vacuumReqs;
   // SQL request -
 
   /** JDBC template */
@@ -269,7 +265,9 @@ public class CustomerDAO {
    */
   public void deleteAll() {
     jdbc.update(REQ_DELETE_ALL);
-    jdbc.batchUpdate(REQ_VACCUM_CUST, REQ_VACCUM_ADDR, REQ_VACCUM_PHONE);
+    if(vacuumReqs != null && !vacuumReqs.isEmpty()) {
+      jdbc.batchUpdate(vacuumReqs.split(";"));
+    }
   }
   // Methods -
 
