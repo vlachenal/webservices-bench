@@ -81,6 +81,27 @@ Thrift has not been really adopted. Large majority of companies uses RESTful or 
 
 Thrift is not designed for client side communication.
 
+
+## Protocol Buffer
+Protocol Buffer is a protocol developped and maintained by Google.
+
+### Advantages
+Like Thrift Protocol Buffer is independent from programming language. The compiler will generate source code for almost every language ... which is not relevant for the company in which I work because we always use Java.
+
+Unlike CORBA, Protocol Buffer provides a ready to use library.
+
+Protocol Buffer provides several JSON and its own (de)serialization formats.
+
+### Disadvantages
+Protocol Buffer has not been really adopted. Large majority of companies uses RESTful or SOAP services.
+
+Protocol Buffer is not designed for client side communication.
+
+Due to its message object structures, Protocol Buffer is not suitable for mapping libraries (I gave up for MapStruct and not test for Dozer). Manual mapping has an development overhead because setting null value will throw NPE and getting value will provide default value if not defined (empty for java.util.String for example).
+
+Protocol Buffer implementation is, for now, a RESTful API. Messages are serialized in HTTP bodies.
+
+
 ## Mapping
 As project will test several protocols, it is relevant to test several mapping technologies ...
 
@@ -102,9 +123,9 @@ For complex mapping, you just have to declare implementation in another class an
 MapStruct will generate implementation on compile time and it is closed to what if you map structures manually ... so I don't think there will be any overhead.
 
 ## Results
-You can consult results for my laptop configuration (Laptop Core i7-4510U, RAM 8GB, SSD, Tomcat 8 with bootRun task in Eclipse) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md)
+You can consult results for my laptop configuration (Laptop Core i7-4510U, RAM 8GB, SSD, Tomcat 8 with bootRun task in Eclipse) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md).
 
-You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md)
+You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md). Protocol Buffer results are only relevant for manual mapping: MapStruct and Dozer mappers have not been implemented (and throws exepections).
 
 ## Conclusions
 
@@ -123,6 +144,8 @@ Don't use SOAP and don't use Dozer.
 
 SOAP has an really heavy overhead for serialization and deserialization.
 
+Protocol Buffer with RESTful API has poor performance comparing to RESTful/JSON API. So I recommend not to use it since performances are not as good as a classic RESTful API.
+
 Overhead with Dozer is significant enough not to use it.
 
 According to operation, REST service has little overhead comparing to Thrift ... so you can choose one or the other according what you want to do (Thrift will offer structure control but is not used by many ; REST is ready to use on client side ...).
@@ -137,6 +160,7 @@ By priority order:
  - ~~SOAP web service~~
  - ~~Implements Dozer mapping~~
  - ~~Implements MapStruct mapping~~
- - Protobuf web service
+ - ~~Protocol Buffer RESTful API~~
+ - Protocol Buffer with gRPC
  - Nginx + PHP + Slim + Thrift
  - unrelevant AnCH Framework SQL + Thrift tests ...
