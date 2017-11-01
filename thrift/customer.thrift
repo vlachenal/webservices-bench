@@ -4,6 +4,7 @@
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
+// thrift --gen java:beans,generated_annotations=undated -out ../src/thrift.generated/java/ customer.thrift
 namespace java com.github.vlachenal.webservice.bench.thrift.api
 
 /**

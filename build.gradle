@@ -22,7 +22,7 @@ apply plugin: 'com.github.jacobono.jaxb'
 apply plugin: 'net.ltgt.apt'
 
 ext {
-    mapstructVersion = "1.2.0.CR2"
+    mapstructVersion = "1.2.0.Final"
 }
 
 configurations {
