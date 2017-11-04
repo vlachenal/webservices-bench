@@ -61,7 +61,7 @@ RESTful web services which use JSON structures are directly compatible with web 
 ### Disadvantages
 JSON structure (it is even more relevant if you decide to use XML) is not a compact structure like Thrift TCompactProtocol. It will induce overhead on network, serialization and deserialization.
 
-If you use JSON format for RESTful web services, you will not have structure control like in SOAP, Thrift, Protobuf, ...
+If you use JSON format for RESTful web services, you will not have structure control like in SOAP, Thrift, Protocol Buffers, ...
 
 
 ## Thrift
@@ -82,24 +82,24 @@ Thrift has not been really adopted. Large majority of companies uses RESTful or 
 Thrift is not designed for client side communication.
 
 
-## Protocol Buffer
-Protocol Buffer is a protocol developped and maintained by Google.
+## Protocol Buffers
+Protocol Buffers is a protocol developped and maintained by Google.
 
 ### Advantages
-Like Thrift Protocol Buffer is independent from programming language. The compiler will generate source code for almost every language ... which is not relevant for the company in which I work because we always use Java.
+Like Thrift Protocol Buffers is independent from programming language. The compiler will generate source code for almost every language ... which is not relevant for the company in which I work because we always use Java.
 
-Unlike CORBA, Protocol Buffer provides a ready to use library.
+Unlike CORBA, Protocol Buffers provides a ready to use library.
 
-Protocol Buffer provides several JSON and its own (de)serialization formats.
+Protocol Buffers provides several JSON and its own (de)serialization formats.
 
 ### Disadvantages
-Protocol Buffer has not been really adopted. Large majority of companies uses RESTful or SOAP services.
+Protocol Buffers has not been really adopted. Large majority of companies uses RESTful or SOAP services.
 
-Protocol Buffer is not designed for client side communication.
+Protocol Buffers is not designed for client side communication.
 
-Due to its message object structures, Protocol Buffer is not suitable for mapping libraries (I gave up for MapStruct and not test for Dozer). Manual mapping has an development overhead because setting null value will throw NPE and getting value will provide default value if not defined (empty for java.util.String for example).
+Due to its message object structures, Protocol Buffers is not suitable for mapping libraries (I gave up for MapStruct and not test for Dozer). Manual mapping has an development overhead because setting null value will throw NPE and getting value will provide default value if not defined (empty for java.util.String for example).
 
-Protocol Buffer implementation is, for now, a RESTful API. Messages are serialized in HTTP bodies.
+Protocol Buffers implementation is, for now, a RESTful API. Messages are serialized in HTTP bodies.
 
 
 ## Mapping
@@ -125,7 +125,7 @@ MapStruct will generate implementation on compile time and it is closed to what 
 ## Results
 You can consult results for my laptop configuration (Laptop Core i7-4510U, RAM 8GB, SSD, Tomcat 8 with bootRun task in Eclipse) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md).
 
-You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md). Protocol Buffer results are only relevant for manual mapping: MapStruct and Dozer mappers have not been implemented (and throws exepections).
+You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md). Protocol Buffers results are only relevant for manual mapping: MapStruct and Dozer mappers have not been implemented (and throws exepections).
 
 ## Conclusions
 
@@ -143,9 +143,9 @@ However, I will prefer Apache CXF for REST and SOAP clients. I find it more intu
 Don't use SOAP and don't use Dozer.
 
 SOAP has an really heavy overhead for serialization and deserialization.
-When I have implemented Protocol Buffer webservice, tests did not run anymore while running server side from Eclipse/bootRun on my laptop due to insufficient memory ... and when I monitored processus on my deskstop, I saw that SOAP test runs have an heavy memory overload (+1.5GB on server ...). So I don't not if Spring/SOAP protocol implementation has flaws compared to others but I suggest to not use Spring/SOAP + service/client (either for performance and memory usage).
+When I have implemented Protocol Buffers webservice, tests did not run anymore while running server side from Eclipse/bootRun on my laptop due to insufficient memory ... and when I monitored processus on my deskstop, I saw that SOAP test runs have an heavy memory overload (+1.5GB on server ...). So I don't not if Spring/SOAP protocol implementation has flaws compared to others but I suggest to not use Spring/SOAP + service/client (either for performance and memory usage).
 
-Protocol Buffer with RESTful API has poor performance comparing to RESTful/JSON API. Surprisingly, the number of simultaneous calls does not improve response time from 3 calls and above.
+Protocol Buffers with RESTful API has poor performance comparing to RESTful/JSON API. Surprisingly, the number of simultaneous calls does not improve response time from 3 calls and above.
 JSON serialization is done with pretty print format which has no interest ...
 So I recommend not to use it since performances are not as good as a classic RESTful API.
 
@@ -163,7 +163,7 @@ By priority order:
  - ~~SOAP web service~~
  - ~~Implements Dozer mapping~~
  - ~~Implements MapStruct mapping~~
- - ~~Protocol Buffer RESTful API~~
- - Protocol Buffer with gRPC
+ - ~~Protocol Buffers RESTful API~~
+ - Protocol Buffers with gRPC
  - Nginx + PHP + Slim + Thrift
  - unrelevant AnCH Framework SQL + Thrift tests ...
