@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 
 import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
@@ -160,7 +158,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     // Customer structure checks +
     if(customer == null) {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
+      throw new CustomerException(ErrorCode.PARAMETER, "Customer is null");
     }
     if(customer.getFirstName() == null || customer.getLastName() == null) {
       registerCall(call);
