@@ -8,9 +8,14 @@ package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
 import java.util.List;
 
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
+import org.mapstruct.ValueMapping;
+import org.mapstruct.ValueMappings;
 
 import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
 import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
@@ -24,14 +29,14 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
  * @author Vincent Lachenal
  */
 @Mapper(
-        componentModel="spring",
-        uses={
+        componentModel = "spring",
+        uses = {
           ProtobufMessageFactory.class,
-          MapStructCustomMapper.class,
           LongDateMapper.class
         },
-        unmappedTargetPolicy=ReportingPolicy.IGNORE,
-        nullValueCheckStrategy=NullValueCheckStrategy.ALWAYS
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
     )
 public interface ProtobufMapper {
 
@@ -43,6 +48,19 @@ public interface ProtobufMapper {
    * @return the bean
    */
   PhoneBean protobufToBean(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone);
+
+  /**
+   * Convert Protocol buffer phone type to bean
+   *
+   * @param type Protocol buffer phone type
+   *
+   * @return the bean
+   */
+  @ValueMappings({
+    @ValueMapping(source="UNKNOWN",target=MappingConstants.NULL),
+    @ValueMapping(source="UNRECOGNIZED",target=MappingConstants.NULL)
+  })
+  PhoneBean.Type toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType type);
 
   /**
    * Convert bean address to Protocol buffer
@@ -80,7 +98,7 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
-  //  @Mapping(source="lines",target="linesList")
+  @Mapping(source="lines",target="linesList",ignore=true)
   com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder beanToProtobufForBuilder(AddressBean address);
 
   /**
@@ -110,7 +128,7 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
-  //  @Mapping(source="phones",target="phonesList")
+  @Mapping(source="phones",target="phonesList")
   com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder beanToProtobufForBuilder(CustomerBean customer);
 
   /**

@@ -20,13 +20,13 @@ import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
  * @author Vincent Lachenal
  */
 @Mapper(
-        componentModel="spring",
-        uses={
+        componentModel = "spring",
+        uses = {
           PhoneMapper.class,
           AddressMapper.class,
           LongDateMapper.class
         },
-        unmappedTargetPolicy=ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
     )
 public interface CustomerMapper {
 

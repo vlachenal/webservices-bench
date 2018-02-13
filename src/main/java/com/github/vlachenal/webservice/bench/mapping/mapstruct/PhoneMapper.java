@@ -19,8 +19,8 @@ import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
  * @author Vincent Lachenal
  */
 @Mapper(
-        componentModel="spring",
-        unmappedTargetPolicy=ReportingPolicy.IGNORE
+        componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
     )
 public interface PhoneMapper {
 

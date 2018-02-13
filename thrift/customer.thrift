@@ -5,6 +5,7 @@
  * as published by Sam Hocevar. See the COPYING file for more details.
  */
 // thrift --gen java:beans,generated_annotations=undated -out ../src/thrift.generated/java/ customer.thrift
+// thrift --gen cpp:templates,pure_enums,moveable_types,no_skeleton -out ${HOME}/projects/webservices-bench-client-cpp/thrift.generated/ customer.thrift
 namespace java com.github.vlachenal.webservice.bench.thrift.api
 
 /**
