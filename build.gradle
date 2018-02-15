@@ -9,7 +9,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
         classpath("com.github.jacobono:gradle-jaxb-plugin:1.3.6")
-        classpath("net.ltgt.gradle:gradle-apt-plugin:0.12")
+        classpath("net.ltgt.gradle:gradle-apt-plugin:0.14")
     }
 }
 
@@ -106,12 +106,12 @@ dependencies {
     compile 'io.springfox:springfox-swagger-ui:2.8.0'
     // SQL
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.postgresql:postgresql:42.1.1.jre7'
+    compile 'org.postgresql:postgresql:42.2.1'
     // Thrift
     compile 'org.apache.thrift:libthrift:0.11.0'
     // SOAP
     compile 'org.springframework.boot:spring-boot-starter-web-services'
-    compile 'wsdl4j:wsdl4j:1.6.1'
+    compile 'wsdl4j:wsdl4j:1.6.3'
     // Dozer
     compile 'com.github.dozermapper:dozer-core:6.1.0'
     // MapStruct
