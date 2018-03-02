@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -78,8 +78,8 @@ public class Application extends SpringBootServletInitializer {
    * @return the Thrift servlet
    */
   @Bean
-  public ServletRegistrationBean thriftCustomer(final TProtocolFactory protocolFactory, final CustomerServiceHandler handler) {
-    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new CustomerService.Processor<>(handler), protocolFactory), "/thrift/customer");
+  public ServletRegistrationBean<TServlet> thriftCustomer(final TProtocolFactory protocolFactory, final CustomerServiceHandler handler) {
+    final ServletRegistrationBean<TServlet> servletReg = new ServletRegistrationBean<>(new TServlet(new CustomerService.Processor<>(handler), protocolFactory), "/thrift/customer");
     servletReg.setName("thriftCustomer");
     return servletReg;
   }
@@ -93,8 +93,8 @@ public class Application extends SpringBootServletInitializer {
    * @return the Thrift servlet
    */
   @Bean
-  public ServletRegistrationBean thriftStats(final TProtocolFactory protocolFactory, final StatisticsServiceHandler handler) {
-    final ServletRegistrationBean servletReg = new ServletRegistrationBean(new TServlet(new StatsService.Processor<>(handler), protocolFactory), "/thrift/statistics");
+  public ServletRegistrationBean<TServlet> thriftStats(final TProtocolFactory protocolFactory, final StatisticsServiceHandler handler) {
+    final ServletRegistrationBean<TServlet> servletReg = new ServletRegistrationBean<>(new TServlet(new StatsService.Processor<>(handler), protocolFactory), "/thrift/statistics");
     servletReg.setName("thriftStatistics");
     return servletReg;
   }

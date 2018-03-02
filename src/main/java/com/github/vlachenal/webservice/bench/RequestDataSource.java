@@ -8,8 +8,8 @@ package com.github.vlachenal.webservice.bench;
 
 import javax.sql.DataSource;
 
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -31,9 +31,9 @@ public class RequestDataSource {
    *
    * @return the datasource
    */
-  @Bean(name="DS.customer")
+  @Bean(name="ds.customer")
   @Primary
-  @ConfigurationProperties(prefix="DS.customer")
+  @ConfigurationProperties(prefix="ds.customer")
   public DataSource provideCustomerDataSource() {
     return DataSourceBuilder.create().build();
   }

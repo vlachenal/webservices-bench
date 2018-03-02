@@ -72,7 +72,7 @@ public class CustomerDAO {
       + "VALUES (?,?,?)";
 
   /** Vacuum requests */
-  @Value("${DS.customer.vacuum}")
+  @Value("${ds.customer.vacuum}")
   private String vacuumReqs;
   // SQL request -
 
@@ -88,7 +88,7 @@ public class CustomerDAO {
    * @param dataSource the datasource to use
    */
   @Autowired
-  public void setDataSource(@Qualifier("DS.customer") final DataSource dataSource) {
+  public void setDataSource(@Qualifier("ds.customer") final DataSource dataSource) {
     jdbc = new JdbcTemplate(dataSource);
   }
 

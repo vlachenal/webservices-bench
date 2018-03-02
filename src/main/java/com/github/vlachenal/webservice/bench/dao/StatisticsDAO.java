@@ -65,7 +65,7 @@ public class StatisticsDAO {
    * @param dataSource the datasource to use
    */
   @Autowired
-  public void setDataSource(@Qualifier("DS.customer") final DataSource dataSource) {
+  public void setDataSource(@Qualifier("ds.customer") final DataSource dataSource) {
     jdbc = new JdbcTemplate(dataSource);
   }
 

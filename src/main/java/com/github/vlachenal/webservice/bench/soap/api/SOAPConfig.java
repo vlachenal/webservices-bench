@@ -36,11 +36,11 @@ public class SOAPConfig {
    * @return the servlet dispatcher
    */
   @Bean
-  public ServletRegistrationBean messageDispatcherServlet(final ApplicationContext applicationContext) {
+  public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(final ApplicationContext applicationContext) {
     final MessageDispatcherServlet servlet = new MessageDispatcherServlet();
     servlet.setApplicationContext(applicationContext);
     servlet.setTransformWsdlLocations(true);
-    return new ServletRegistrationBean(servlet, "/soap/*");
+    return new ServletRegistrationBean<>(servlet, "/soap/*");
   }
 
   /**
