@@ -34,7 +34,7 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall call) {
+  public static CallBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall call) {
     CallBean bean = null;
     if(call != null) {
       bean = new CallBean();
@@ -56,7 +56,7 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.ClientCall call) {
+  public static CallBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.ClientCall call) {
     CallBean bean = null;
     if(call != null) {
       bean = new CallBean();
@@ -78,7 +78,7 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean toBean(final com.github.vlachenal.webservice.bench.soap.api.ClientCall call) {
+  public static CallBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.ClientCall call) {
     CallBean bean = null;
     if(call != null) {
       bean = new CallBean();
@@ -100,7 +100,7 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
+  public static CallBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
     CallBean bean = null;
     if(call != null) {
       bean = new CallBean();

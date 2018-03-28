@@ -60,7 +60,7 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
+  public static AddressBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
@@ -98,7 +98,7 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
+  public static AddressBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
@@ -138,7 +138,7 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
+  public static AddressBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();
@@ -185,7 +185,7 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
+  public static AddressBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
     AddressBean bean = null;
     if(address != null) {
       bean = new AddressBean();

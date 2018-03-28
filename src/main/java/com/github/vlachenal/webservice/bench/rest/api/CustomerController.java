@@ -206,7 +206,7 @@ public class CustomerController extends AbstractBenchService {
         bean = mapstruct.customer().fromRest(customer);
         break;
       default:
-        bean = CustomerBridge.toBean(customer);
+        bean = CustomerBridge.fromRest(customer);
     }
     final String uuid = dao.create(bean);
     registerCall(call);

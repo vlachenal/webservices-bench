@@ -57,10 +57,10 @@ public class StatisticsServiceHandler implements StatsService.Iface {
     if(test.getCalls() == null || test.getCalls().isEmpty()) {
       throw new StatsException("No calls to consolidate");
     }
-    final TestSuiteBean suite = TestSuiteBridge.toBean(test);
+    final TestSuiteBean suite = TestSuiteBridge.fromThrift(test);
     final ArrayList<CallBean> calls = new ArrayList<>();
     for(final ClientCall ccall : test.getCalls()) {
-      CallBean call = CallBridge.toBean(ccall);
+      CallBean call = CallBridge.fromThrift(ccall);
       if(ccall == null) {
         continue;
       }

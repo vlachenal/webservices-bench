@@ -92,7 +92,7 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
+  public static PhoneBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
@@ -118,12 +118,12 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> toBeanRList(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
+  public static List<PhoneBean> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
     List<PhoneBean> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone : phones) {
-        bean.add(toBean(phone));
+        bean.add(fromRest(phone));
       }
     }
     return bean;
@@ -183,7 +183,7 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
+  public static PhoneBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
@@ -209,12 +209,12 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> toBeanTList(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
+  public static List<PhoneBean> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
     List<PhoneBean> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone : phones) {
-        bean.add(toBean(phone));
+        bean.add(fromThrift(phone));
       }
     }
     return bean;
@@ -274,7 +274,7 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
+  public static PhoneBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
@@ -300,12 +300,12 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> toBeanSList(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
+  public static List<PhoneBean> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
     List<PhoneBean> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.soap.api.Phone phone : phones) {
-        bean.add(toBean(phone));
+        bean.add(fromSoap(phone));
       }
     }
     return bean;
@@ -368,7 +368,7 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
+  public static PhoneBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
     PhoneBean bean = null;
     if(phone != null) {
       bean = new PhoneBean();
@@ -398,12 +398,12 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> toBeanPList(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
+  public static List<PhoneBean> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
     List<PhoneBean> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone : phones) {
-        bean.add(toBean(phone));
+        bean.add(fromProtobuf(phone));
       }
     }
     return bean;

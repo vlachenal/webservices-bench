@@ -75,10 +75,10 @@ public class StatsProtobufController {
     if(test.getCallsList() == null || test.getCallsList().isEmpty()) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No calls to consolidate");
     }
-    final TestSuiteBean suite = TestSuiteBridge.toBean(test);
+    final TestSuiteBean suite = TestSuiteBridge.fromProtobuf(test);
     final ArrayList<CallBean> calls = new ArrayList<>();
     for(final TestSuite.ClientCall ccall : test.getCallsList()) {
-      CallBean call = CallBridge.toBean(ccall);
+      CallBean call = CallBridge.fromProtobuf(ccall);
       if(ccall == null) {
         continue;
       }

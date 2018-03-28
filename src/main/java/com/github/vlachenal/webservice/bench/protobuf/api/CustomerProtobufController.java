@@ -202,7 +202,7 @@ public class CustomerProtobufController extends AbstractBenchService {
         registerCall(call);
         throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
       default:
-        bean = CustomerBridge.toBean(customer);
+        bean = CustomerBridge.fromProtobuf(customer);
     }
     final String uuid = dao.create(bean);
     registerCall(call);

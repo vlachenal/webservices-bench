@@ -183,7 +183,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         bean = mapstruct.customer().fromThrift(customer);
         break;
       default:
-        bean = CustomerBridge.toBean(customer);
+        bean = CustomerBridge.fromThrift(customer);
     }
     final String uuid = dao.create(bean);
     registerCall(call);

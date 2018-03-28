@@ -71,7 +71,7 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
+  public static CustomerBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
@@ -80,8 +80,8 @@ public final class CustomerBridge {
       bean.setLastName(customer.getLastName());
       bean.setEmail(customer.getEmail());
       bean.setBirthDate(customer.getBirthDate());
-      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
-      bean.setPhones(PhoneBridge.toBeanRList(customer.getPhones()));
+      bean.setAddress(AddressBridge.fromRest(customer.getAddress()));
+      bean.setPhones(PhoneBridge.fromRest(customer.getPhones()));
     }
     return bean;
   }
@@ -138,7 +138,7 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.Customer customer) {
+  public static CustomerBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Customer customer) {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
@@ -149,8 +149,8 @@ public final class CustomerBridge {
       if(customer.getBirthDate() != 0) {
         bean.setBirthDate(new Date(customer.getBirthDate()));
       }
-      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
-      bean.setPhones(PhoneBridge.toBeanTList(customer.getPhones()));
+      bean.setAddress(AddressBridge.fromThrift(customer.getAddress()));
+      bean.setPhones(PhoneBridge.fromThrift(customer.getPhones()));
     }
     return bean;
   }
@@ -215,7 +215,7 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean toBean(final com.github.vlachenal.webservice.bench.soap.api.Customer customer) {
+  public static CustomerBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Customer customer) {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
@@ -226,8 +226,8 @@ public final class CustomerBridge {
       if(customer.getBirthDate() != null) {
         bean.setBirthDate(customer.getBirthDate().toGregorianCalendar().getTime());
       }
-      bean.setAddress(AddressBridge.toBean(customer.getAddress()));
-      bean.setPhones(PhoneBridge.toBeanSList(customer.getPhones()));
+      bean.setAddress(AddressBridge.fromSoap(customer.getAddress()));
+      bean.setPhones(PhoneBridge.fromSoap(customer.getPhones()));
     }
     return bean;
   }
@@ -297,7 +297,7 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
+  public static CustomerBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
     CustomerBean bean = null;
     if(customer != null) {
       bean = new CustomerBean();
@@ -317,10 +317,10 @@ public final class CustomerBridge {
         bean.setBirthDate(new Date(customer.getBirthDate()));
       }
       if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ADDRESS_FIELD_NUMBER))) {
-        bean.setAddress(AddressBridge.toBean(customer.getAddress()));
+        bean.setAddress(AddressBridge.fromProtobuf(customer.getAddress()));
       }
       if(customer.getPhonesCount() > 0) {
-        bean.setPhones(PhoneBridge.toBeanPList(customer.getPhonesList()));
+        bean.setPhones(PhoneBridge.fromProtobuf(customer.getPhonesList()));
       }
     }
     return bean;

@@ -40,7 +40,7 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
+  public static TestSuiteBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();
@@ -79,7 +79,7 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.thrift.api.TestSuite test) {
+  public static TestSuiteBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.TestSuite test) {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();
@@ -118,7 +118,7 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
+  public static TestSuiteBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();
@@ -157,7 +157,7 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean toBean(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
+  public static TestSuiteBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
     TestSuiteBean bean = null;
     if(test != null) {
       bean = new TestSuiteBean();
