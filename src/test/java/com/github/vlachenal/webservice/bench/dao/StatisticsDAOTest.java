@@ -31,7 +31,7 @@ import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 public class StatisticsDAOTest {
 
   // Attributes +
-  /** {@link CustomerDAOTest logger instance */
+  /** {@link CustomerDAOTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsDAOTest.class);
 
   /** Customer DAO */

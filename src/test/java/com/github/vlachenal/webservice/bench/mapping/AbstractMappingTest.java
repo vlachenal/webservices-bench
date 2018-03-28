@@ -34,12 +34,14 @@ import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 public abstract class AbstractMappingTest {
 
   // Attributes +
-  /** {@link AbstractMappingTest logger instance */
+  /** {@link AbstractMappingTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMappingTest.class);
 
   /** Date formatter */
   private static final DateTimeFormatter DFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   // Attributes -
+
+
 
 
   // Methods +

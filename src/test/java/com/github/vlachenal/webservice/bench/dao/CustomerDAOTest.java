@@ -46,7 +46,7 @@ import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 public class CustomerDAOTest {
 
   // Attributes +
-  /** {@link CustomerDAOTest logger instance */
+  /** {@link CustomerDAOTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(CustomerDAOTest.class);
 
   /** Date formatter */

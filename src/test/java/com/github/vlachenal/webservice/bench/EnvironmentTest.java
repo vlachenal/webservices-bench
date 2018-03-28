@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 public class EnvironmentTest {
 
   // Attributes +
-  /** {@link EnvironmentTest logger instance */
+  /** {@link EnvironmentTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(EnvironmentTest.class);
   // Attributes -
 

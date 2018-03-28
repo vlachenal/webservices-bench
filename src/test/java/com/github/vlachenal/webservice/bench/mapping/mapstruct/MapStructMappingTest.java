@@ -30,7 +30,7 @@ import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 public class MapStructMappingTest extends AbstractMappingTest {
 
   // Attributes +
-  /** {@link MapStructMappingTest logger instance */
+  /** {@link MapStructMappingTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(MapStructMappingTest.class);
 
   /** MapStruct mappers instance */

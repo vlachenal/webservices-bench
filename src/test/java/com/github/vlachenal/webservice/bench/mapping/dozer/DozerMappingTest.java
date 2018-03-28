@@ -31,7 +31,7 @@ import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 public class DozerMappingTest extends AbstractMappingTest {
 
   // Attributes +
-  /** {@link DozerMappingTest logger instance */
+  /** {@link DozerMappingTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(DozerMappingTest.class);
 
   /** Dozer mapper instance */
