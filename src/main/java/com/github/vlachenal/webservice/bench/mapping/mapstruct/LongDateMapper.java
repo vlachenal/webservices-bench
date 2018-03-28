@@ -11,7 +11,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 /**
- * Long <=> Date converter
+ * Long &lt;=&gt; Date converter
  *
  * @author Vincent Lachenal
  */
