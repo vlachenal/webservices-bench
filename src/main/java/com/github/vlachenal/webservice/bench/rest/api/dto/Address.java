@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Address bean
+ * Address
  *
  * @author Vincent Lachenal
  */

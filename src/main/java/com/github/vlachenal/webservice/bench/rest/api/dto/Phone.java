@@ -9,7 +9,7 @@ package com.github.vlachenal.webservice.bench.rest.api.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Phone number bean
+ * Phone number
  *
  * @author Vincent Lachenal
  */

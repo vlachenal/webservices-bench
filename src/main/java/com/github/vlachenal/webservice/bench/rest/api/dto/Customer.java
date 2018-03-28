@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Customer bean
+ * Customer
  *
  * @author Vincent Lachenal
  */
