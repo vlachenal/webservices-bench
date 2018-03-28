@@ -29,9 +29,9 @@ import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
-import com.github.vlachenal.webservice.bench.rest.api.bean.Address;
-import com.github.vlachenal.webservice.bench.rest.api.bean.Customer;
-import com.github.vlachenal.webservice.bench.rest.api.bean.Mapper;
+import com.github.vlachenal.webservice.bench.rest.api.dto.Address;
+import com.github.vlachenal.webservice.bench.rest.api.dto.Customer;
+import com.github.vlachenal.webservice.bench.rest.api.dto.Mapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

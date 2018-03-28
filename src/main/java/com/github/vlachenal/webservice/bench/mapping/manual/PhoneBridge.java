@@ -45,17 +45,17 @@ public final class PhoneBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(final PhoneDTO dto) {
-    com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone = null;
+  public static com.github.vlachenal.webservice.bench.rest.api.dto.Phone toRest(final PhoneDTO dto) {
+    com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone = null;
     if(dto != null) {
-      phone = new com.github.vlachenal.webservice.bench.rest.api.bean.Phone();
+      phone = new com.github.vlachenal.webservice.bench.rest.api.dto.Phone();
       phone.setNumber(dto.getNumber());
       if(dto.getType() != null) {
         switch(dto.getType()) {
           case LANDLINE:
-            phone.setType(com.github.vlachenal.webservice.bench.rest.api.bean.Phone.Type.LANDLINE);
+            phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.LANDLINE);
           case MOBILE:
-            phone.setType(com.github.vlachenal.webservice.bench.rest.api.bean.Phone.Type.MOBILE);
+            phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.MOBILE);
           default:
             // Nothing to do
         }
@@ -71,12 +71,12 @@ public final class PhoneBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> toRest(final List<PhoneDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones = null;
+  public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> toRest(final List<PhoneDTO> dto) {
+    List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones = null;
     if(dto != null) {
       phones = new ArrayList<>();
       for(final PhoneDTO phone : dto) {
-        final com.github.vlachenal.webservice.bench.rest.api.bean.Phone json = toRest(phone);
+        final com.github.vlachenal.webservice.bench.rest.api.dto.Phone json = toRest(phone);
         if(json != null) {
           phones.add(json);
         }
@@ -92,7 +92,7 @@ public final class PhoneBridge {
    *
    * @return the DTO
    */
-  public static PhoneDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
+  public static PhoneDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone) {
     PhoneDTO dto = null;
     if(phone != null) {
       dto = new PhoneDTO();
@@ -118,11 +118,11 @@ public final class PhoneBridge {
    *
    * @return the DTO list
    */
-  public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
+  public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones) {
     List<PhoneDTO> dto = null;
     if(phones != null) {
       dto = new ArrayList<>();
-      for(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone : phones) {
+      for(final com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone : phones) {
         dto.add(fromRest(phone));
       }
     }

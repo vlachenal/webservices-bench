@@ -24,8 +24,8 @@ import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
-import com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall;
-import com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite;
+import com.github.vlachenal.webservice.bench.rest.api.dto.ClientCall;
+import com.github.vlachenal.webservice.bench.rest.api.dto.TestSuite;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

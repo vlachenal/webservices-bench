@@ -75,7 +75,7 @@ public class DozerMappingTest extends AbstractMappingTest {
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = dozer.map(bean, com.github.vlachenal.webservice.bench.rest.api.bean.Customer.class);
+    final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = dozer.map(bean, com.github.vlachenal.webservice.bench.rest.api.dto.Customer.class);
     assertNotNull("SOAP customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToRESTCustomer");

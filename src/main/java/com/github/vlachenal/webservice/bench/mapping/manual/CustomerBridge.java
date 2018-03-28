@@ -49,10 +49,10 @@ public final class CustomerBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(final CustomerDTO dto) {
-    com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = null;
+  public static com.github.vlachenal.webservice.bench.rest.api.dto.Customer toRest(final CustomerDTO dto) {
+    com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = null;
     if(dto != null) {
-      customer = new com.github.vlachenal.webservice.bench.rest.api.bean.Customer();
+      customer = new com.github.vlachenal.webservice.bench.rest.api.dto.Customer();
       customer.setId(dto.getId());
       customer.setFirstName(dto.getFirstName());
       customer.setLastName(dto.getLastName());
@@ -71,7 +71,7 @@ public final class CustomerBridge {
    *
    * @return the DTO
    */
-  public static CustomerDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
+  public static CustomerDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer) {
     CustomerDTO dto = null;
     if(customer != null) {
       dto = new CustomerDTO();
@@ -93,12 +93,12 @@ public final class CustomerBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRest(final List<CustomerDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> customers = null;
+  public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> toRest(final List<CustomerDTO> dto) {
+    List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> customers = null;
     if(dto != null) {
       customers = new ArrayList<>();
       for(final CustomerDTO customer : dto) {
-        final com.github.vlachenal.webservice.bench.rest.api.bean.Customer json = toRest(customer);
+        final com.github.vlachenal.webservice.bench.rest.api.dto.Customer json = toRest(customer);
         if(json != null) {
           customers.add(json);
         }

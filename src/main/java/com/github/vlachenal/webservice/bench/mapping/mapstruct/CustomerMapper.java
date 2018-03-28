@@ -91,7 +91,7 @@ public interface CustomerMapper {
    *
    * @return the DTO
    */
-  CustomerDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
+  CustomerDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer);
 
   /**
    * Convert DTO customer to REST
@@ -100,7 +100,7 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(CustomerDTO customer);
+  com.github.vlachenal.webservice.bench.rest.api.dto.Customer toRest(CustomerDTO customer);
 
   /**
    * Convert DTO customer to REST
@@ -109,6 +109,6 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRestList(List<CustomerDTO> customer);
+  List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> toRestList(List<CustomerDTO> customer);
 
 }

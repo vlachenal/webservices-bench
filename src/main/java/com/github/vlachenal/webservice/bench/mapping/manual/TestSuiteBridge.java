@@ -40,7 +40,7 @@ public final class TestSuiteBridge {
    *
    * @return the DTO
    */
-  public static TestSuiteDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
+  public static TestSuiteDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.TestSuite test) {
     TestSuiteDTO dto = null;
     if(test != null) {
       dto = new TestSuiteDTO();
