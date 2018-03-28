@@ -37,7 +37,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean soapToBean(com.github.vlachenal.webservice.bench.soap.api.Customer customer);
+  CustomerBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Customer customer);
 
   /**
    * Convert bean customer to SOAP
@@ -46,7 +46,7 @@ public interface CustomerMapper {
    *
    * @return the SOAP customer
    */
-  com.github.vlachenal.webservice.bench.soap.api.Customer beanToSoap(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(CustomerBean customer);
 
   /**
    * Convert bean customer to SOAP
@@ -55,7 +55,7 @@ public interface CustomerMapper {
    *
    * @return the SOAP customer
    */
-  List<com.github.vlachenal.webservice.bench.soap.api.Customer> beanListToSoap(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoapList(List<CustomerBean> customer);
 
   /**
    * Convert Thrift customer to bean
@@ -64,7 +64,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean thriftToBean(com.github.vlachenal.webservice.bench.thrift.api.Customer customer);
+  CustomerBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Customer customer);
 
   /**
    * Convert bean customer to Thrift
@@ -73,7 +73,7 @@ public interface CustomerMapper {
    *
    * @return the Thrift customer
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Customer beanToThrift(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(CustomerBean customer);
 
   /**
    * Convert bean customer to Thrift
@@ -82,7 +82,7 @@ public interface CustomerMapper {
    *
    * @return the Thrift customer
    */
-  List<com.github.vlachenal.webservice.bench.thrift.api.Customer> beanListToThrift(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThriftList(List<CustomerBean> customer);
 
   /**
    * Convert REST customer to bean
@@ -91,7 +91,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean restToBean(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
+  CustomerBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
 
   /**
    * Convert bean customer to REST
@@ -100,7 +100,7 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Customer beanToRest(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(CustomerBean customer);
 
   /**
    * Convert bean customer to REST
@@ -109,6 +109,6 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> beanListToRest(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRestList(List<CustomerBean> customer);
 
 }

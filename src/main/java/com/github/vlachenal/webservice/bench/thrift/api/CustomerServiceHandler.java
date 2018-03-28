@@ -70,7 +70,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
         break;
       case MAPSTRUCT:
-        customers = mapstruct.customer().beanListToThrift(res);
+        customers = mapstruct.customer().toThriftList(res);
         break;
       default:
         customers = CustomerBridge.toThrift(res);
@@ -119,7 +119,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         cust = dozer.map(customer, Customer.class);
         break;
       case MAPSTRUCT:
-        cust = mapstruct.customer().beanToThrift(customer);
+        cust = mapstruct.customer().toThrift(customer);
         break;
       default:
         cust = CustomerBridge.toThrift(customer);
@@ -180,7 +180,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         bean = dozer.map(customer, CustomerBean.class);
         break;
       case MAPSTRUCT:
-        bean = mapstruct.customer().thriftToBean(customer);
+        bean = mapstruct.customer().fromThrift(customer);
         break;
       default:
         bean = CustomerBridge.toBean(customer);

@@ -32,7 +32,7 @@ public interface PhoneMapper {
    * @return the bean
    */
   @Mapping(source="phoneType",target="type")
-  PhoneBean soapToBean(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
+  PhoneBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
 
   /**
    * Convert bean phone to SOAP
@@ -42,7 +42,7 @@ public interface PhoneMapper {
    * @return the SOAP phone
    */
   @Mapping(source="type",target="phoneType")
-  com.github.vlachenal.webservice.bench.soap.api.Phone beanToSoap(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(PhoneBean phone);
 
   /**
    * Convert Thrift phone to bean
@@ -51,7 +51,7 @@ public interface PhoneMapper {
    *
    * @return the bean
    */
-  PhoneBean thriftToBean(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
+  PhoneBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
 
   /**
    * Convert bean phone to Thrift
@@ -60,7 +60,7 @@ public interface PhoneMapper {
    *
    * @return the Thrift phone
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Phone beanToThrift(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(PhoneBean phone);
 
   /**
    * Convert REST phone to bean
@@ -69,7 +69,7 @@ public interface PhoneMapper {
    *
    * @return the bean
    */
-  PhoneBean restToBean(com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone);
+  PhoneBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone);
 
   /**
    * Convert bean phone to REST
@@ -78,6 +78,6 @@ public interface PhoneMapper {
    *
    * @return the REST phone
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Phone beanToRest(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(PhoneBean phone);
 
 }

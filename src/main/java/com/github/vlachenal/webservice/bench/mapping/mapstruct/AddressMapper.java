@@ -30,7 +30,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean soapToBean(com.github.vlachenal.webservice.bench.soap.api.Address address);
+  AddressBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Address address);
 
   /**
    * Convert bean address to SOAP
@@ -39,7 +39,7 @@ public interface AddressMapper {
    *
    * @return the SOAP address
    */
-  com.github.vlachenal.webservice.bench.soap.api.Address beanToSoap(AddressBean address);
+  com.github.vlachenal.webservice.bench.soap.api.Address toSoap(AddressBean address);
 
   /**
    * Convert Thrift address to bean
@@ -48,7 +48,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean thriftToBean(com.github.vlachenal.webservice.bench.thrift.api.Address address);
+  AddressBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Address address);
 
   /**
    * Convert bean address to Thrift
@@ -57,7 +57,7 @@ public interface AddressMapper {
    *
    * @return the Thrift address
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Address beanToThrift(AddressBean address);
+  com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(AddressBean address);
 
   /**
    * Convert REST address to bean
@@ -66,7 +66,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean restToBean(com.github.vlachenal.webservice.bench.rest.api.bean.Address address);
+  AddressBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Address address);
 
   /**
    * Convert bean address to REST
@@ -75,6 +75,6 @@ public interface AddressMapper {
    *
    * @return the REST address
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Address beanToRest(AddressBean address);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(AddressBean address);
 
 }

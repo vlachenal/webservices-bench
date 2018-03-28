@@ -47,7 +47,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToSOAPCustomer() {
     LOG.debug("Enter in testBeanToSOAPCustomer");
     final CustomerBean bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.soap.api.Customer customer = mapstruct.customer().beanToSoap(bean);
+    final com.github.vlachenal.webservice.bench.soap.api.Customer customer = mapstruct.customer().toSoap(bean);
     assertNotNull("SOAP customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToSOAPCustomer");
@@ -60,7 +60,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToThriftCustomer() {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerBean bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().beanToThrift(bean);
+    final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().toThrift(bean);
     assertNotNull("Thrift customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToThriftCustomer");
@@ -73,7 +73,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerBean bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = mapstruct.customer().beanToRest(bean);
+    final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = mapstruct.customer().toRest(bean);
     assertNotNull("REST customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToRESTCustomer");

@@ -114,7 +114,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         customers = custs.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
         break;
       case MAPSTRUCT:
-        customers = mapstruct.customer().beanListToSoap(custs);
+        customers = mapstruct.customer().toSoapList(custs);
         break;
       default:
         customers = CustomerBridge.toSoap(custs);
@@ -163,7 +163,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         customer = dozer.map(cust, Customer.class);
         break;
       case MAPSTRUCT:
-        customer = mapstruct.customer().beanToSoap(cust);
+        customer = mapstruct.customer().toSoap(cust);
         break;
       default:
         customer = CustomerBridge.toSoap(cust);
@@ -240,7 +240,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         cust = dozer.map(customer, CustomerBean.class);
         break;
       case MAPSTRUCT:
-        cust = mapstruct.customer().soapToBean(customer);
+        cust = mapstruct.customer().fromSoap(customer);
         break;
       default:
         cust = CustomerBridge.toBean(customer);
