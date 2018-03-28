@@ -30,9 +30,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
-import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
-import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.AddressBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.PhoneBean;
 
 
 /**
@@ -116,7 +116,7 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dao.bean.CustomerBean)}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.
    */
   @Test
   public void test1Create() {
@@ -157,7 +157,7 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dao.bean.CustomerBean)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.<br>
    * This should fail due to database integrity constraints
    */
   @Test(expected=DataAccessException.class)
@@ -169,7 +169,7 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dao.bean.CustomerBean)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.<br>
    * This should fail due to database integrity constraints.<br>
    * This will test transction annotation.
    */

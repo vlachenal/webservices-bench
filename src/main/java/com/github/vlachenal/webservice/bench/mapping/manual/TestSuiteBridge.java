@@ -6,7 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
 import com.google.protobuf.Descriptors.Descriptor;
 
 

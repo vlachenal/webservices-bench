@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CallBean;
 
 
 /**

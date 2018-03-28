@@ -27,8 +27,8 @@ import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
-import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
-import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerBean;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 

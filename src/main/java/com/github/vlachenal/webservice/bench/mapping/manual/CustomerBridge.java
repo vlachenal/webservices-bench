@@ -14,7 +14,7 @@ import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerBean;
 import com.google.protobuf.Descriptors.Descriptor;
 
 

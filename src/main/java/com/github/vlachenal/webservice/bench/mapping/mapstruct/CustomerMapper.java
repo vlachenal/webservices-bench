@@ -11,7 +11,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerBean;
 
 
 /**

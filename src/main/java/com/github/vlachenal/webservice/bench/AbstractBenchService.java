@@ -9,7 +9,7 @@ package com.github.vlachenal.webservice.bench;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CallBean;
 
 /**
  * Abstract bench service

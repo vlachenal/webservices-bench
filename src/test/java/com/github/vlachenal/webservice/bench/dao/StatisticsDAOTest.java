@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
-import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
 
 
 /**
@@ -50,7 +50,7 @@ public class StatisticsDAOTest {
 
   // Tests +
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.StatisticsDAO#save(com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean)}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.StatisticsDAO#save(com.github.vlachenal.webservice.bench.dto.TestSuiteBean)}.
    */
   @Test
   public void testSave() {

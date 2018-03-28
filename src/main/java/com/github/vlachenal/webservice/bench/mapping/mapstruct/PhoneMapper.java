@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.PhoneBean;
 
 
 /**

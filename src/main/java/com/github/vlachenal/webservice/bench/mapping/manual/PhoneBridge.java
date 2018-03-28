@@ -9,8 +9,8 @@ package com.github.vlachenal.webservice.bench.mapping.manual;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
-import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean.Type;
+import com.github.vlachenal.webservice.bench.dto.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.PhoneBean.Type;
 import com.google.protobuf.Descriptors.Descriptor;
 
 

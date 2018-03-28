@@ -26,9 +26,9 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dao.bean.AddressBean;
-import com.github.vlachenal.webservice.bench.dao.bean.CustomerBean;
-import com.github.vlachenal.webservice.bench.dao.bean.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.AddressBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.PhoneBean;
 
 
 /**

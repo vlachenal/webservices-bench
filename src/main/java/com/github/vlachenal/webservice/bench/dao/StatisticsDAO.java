@@ -20,8 +20,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dao.bean.CallBean;
-import com.github.vlachenal.webservice.bench.dao.bean.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
 
 
 /**
