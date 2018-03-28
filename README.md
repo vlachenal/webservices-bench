@@ -135,7 +135,7 @@ On server side, spring-boot is really easy to use. It fulfills perfectly web ser
 I personally will not use Maven but Gradle: its syntax is more compact and human readable.
 
 ### Client
-On client side, spring-boot offers a good way to make a batch application through the 'bootRepackage' task.
+On client side, spring-boot offers a good way to make a batch application through the 'bootJar' task.
 
 However, I will prefer Apache CXF for REST and SOAP clients. I find it more intuitive.
 
