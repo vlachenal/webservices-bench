@@ -85,7 +85,7 @@ public class CustomerController extends AbstractBenchService {
     List<Customer> customers = null;
     switch(mapper) {
       case MAPSTRUCT:
-        customers = mapstruct.customer().beanListToRest(res);
+        customers = mapstruct.customer().toRestList(res);
         break;
       case DOZER:
         customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
@@ -131,7 +131,7 @@ public class CustomerController extends AbstractBenchService {
         customer = dozer.map(res, Customer.class);
         break;
       case MAPSTRUCT:
-        customer = mapstruct.customer().beanToRest(res);
+        customer = mapstruct.customer().toRest(res);
         break;
       default:
         customer = CustomerBridge.toRest(res);
@@ -203,7 +203,7 @@ public class CustomerController extends AbstractBenchService {
         bean = dozer.map(customer, CustomerBean.class);
         break;
       case MAPSTRUCT:
-        bean = mapstruct.customer().restToBean(customer);
+        bean = mapstruct.customer().fromRest(customer);
         break;
       default:
         bean = CustomerBridge.toBean(customer);
