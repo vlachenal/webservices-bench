@@ -30,9 +30,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.vlachenal.webservice.bench.dto.AddressBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
-import com.github.vlachenal.webservice.bench.dto.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.AddressDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
 
 /**
@@ -78,9 +78,9 @@ public class CustomerDAOTest {
    */
   @Test
   public void test2ListAll() {
-    final List<CustomerBean> customers = dao.listAll();
+    final List<CustomerDTO> customers = dao.listAll();
     boolean found = false;
-    for(final CustomerBean customer : customers) {
+    for(final CustomerDTO customer : customers) {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
       if(customer.getId().equals(customerId)) {
         found = true;
@@ -96,7 +96,7 @@ public class CustomerDAOTest {
   public void test3GetDetails() {
     assertNotNull("Customer identifier is not set", customerId);
     final UUID id = UUID.fromString(customerId);
-    final CustomerBean customer = dao.getDetails(id);
+    final CustomerDTO customer = dao.getDetails(id);
     LOG.info("Customer {} is {} {}", customerId, customer.getFirstName(), customer.getLastName());
     LOG.info("He has been born {}", customer.getBirthDate());
     LOG.info("His email address is {}", customer.getEmail());
@@ -109,23 +109,23 @@ public class CustomerDAOTest {
       LOG.info(customer.getAddress().getCountry());
     }
     if(customer.getPhones() != null) {
-      for(final PhoneBean phone : customer.getPhones()) {
+      for(final PhoneDTO phone : customer.getPhones()) {
         LOG.info("Phone {}: {}", phone.getType(), phone.getNumber());
       }
     }
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
    */
   @Test
   public void test1Create() {
-    final CustomerBean cust = new CustomerBean();
+    final CustomerDTO cust = new CustomerDTO();
     cust.setFirstName("Chuck");
     cust.setLastName("Norris");
     cust.setBirthDate(Date.from(LocalDate.parse("1940-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     cust.setEmail("chuck.norris@yopmail.com");
-    final AddressBean addr = new AddressBean();
+    final AddressDTO addr = new AddressDTO();
     final ArrayList<String> lines = new ArrayList<>(1);
     lines.add("1 rue du Petit-Rapporteur");
     addr.setLines(lines);
@@ -133,13 +133,13 @@ public class CustomerDAOTest {
     addr.setCity("Montcuq");
     addr.setCountry("France");
     cust.setAddress(addr);
-    final ArrayList<PhoneBean> phones = new ArrayList<>(2);
-    PhoneBean phone = new PhoneBean();
-    phone.setType(PhoneBean.Type.MOBILE);
+    final ArrayList<PhoneDTO> phones = new ArrayList<>(2);
+    PhoneDTO phone = new PhoneDTO();
+    phone.setType(PhoneDTO.Type.MOBILE);
     phone.setNumber("+33636656565");
     phones.add(phone);
-    phone = new PhoneBean();
-    phone.setType(PhoneBean.Type.LANDLINE);
+    phone = new PhoneDTO();
+    phone.setType(PhoneDTO.Type.LANDLINE);
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
@@ -157,41 +157,41 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints
    */
   @Test(expected=DataAccessException.class)
   public void test4CreateFail() {
-    final CustomerBean cust = new CustomerBean();
+    final CustomerDTO cust = new CustomerDTO();
     final String uuid = dao.create(cust);
     LOG.debug("New customer UUID is {}", uuid);
     customerId = uuid;
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerBean)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints.<br>
    * This will test transction annotation.
    */
   @Test(expected=DataAccessException.class)
   public void test6CreateFail() {
-    final CustomerBean cust = new CustomerBean();
+    final CustomerDTO cust = new CustomerDTO();
     cust.setFirstName("Chuck");
     cust.setLastName("Norris");
     cust.setBirthDate(Date.from(LocalDate.parse("1940-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     cust.setEmail("chuck.norris@yopmail.com");
-    final AddressBean addr = new AddressBean();
+    final AddressDTO addr = new AddressDTO();
     addr.setZipCode("46800");
     addr.setCity("Montcuq");
     addr.setCountry("France");
     cust.setAddress(addr);
-    final ArrayList<PhoneBean> phones = new ArrayList<>(2);
-    PhoneBean phone = new PhoneBean();
-    phone.setType(PhoneBean.Type.MOBILE);
+    final ArrayList<PhoneDTO> phones = new ArrayList<>(2);
+    PhoneDTO phone = new PhoneDTO();
+    phone.setType(PhoneDTO.Type.MOBILE);
     phone.setNumber("+33636656565");
     phones.add(phone);
-    phone = new PhoneBean();
-    phone.setType(PhoneBean.Type.LANDLINE);
+    phone = new PhoneDTO();
+    phone.setType(PhoneDTO.Type.LANDLINE);
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
@@ -205,9 +205,9 @@ public class CustomerDAOTest {
    */
   @Test
   public void test7ListAll() {
-    final List<CustomerBean> customers = dao.listAll();
+    final List<CustomerDTO> customers = dao.listAll();
     boolean found = false;
-    for(final CustomerBean customer : customers) {
+    for(final CustomerDTO customer : customers) {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
       if(customer.getId().equals(customerId)) {
         found = true;

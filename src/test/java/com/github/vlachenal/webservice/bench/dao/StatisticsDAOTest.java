@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 
 
 /**
@@ -50,12 +50,12 @@ public class StatisticsDAOTest {
 
   // Tests +
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.StatisticsDAO#save(com.github.vlachenal.webservice.bench.dto.TestSuiteBean)}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.StatisticsDAO#save(com.github.vlachenal.webservice.bench.dto.TestSuiteDTO)}.
    */
   @Test
   public void testSave() {
     LOG.debug("Enter in testSave");
-    final TestSuiteBean testSuite = new TestSuiteBean();
+    final TestSuiteDTO testSuite = new TestSuiteDTO();
     testSuite.setClientCpu(cpu);
     testSuite.setClientMemory(memory);
     testSuite.setClientJvmVersion(System.getProperty("java.version"));
@@ -65,8 +65,8 @@ public class StatisticsDAOTest {
     testSuite.setProtocol("rest");
     testSuite.setComment("toto");
     testSuite.setNbThreads(1000);
-    final ArrayList<CallBean> calls = new ArrayList<>();
-    CallBean call = new CallBean();
+    final ArrayList<CallDTO> calls = new ArrayList<>();
+    CallDTO call = new CallDTO();
     call.setSeq(1);
     call.setClientStart(1);
     call.setServerStart(2);
@@ -75,7 +75,7 @@ public class StatisticsDAOTest {
     call.setOk(true);
     call.setMethod("get");
     calls.add(call);
-    call = new CallBean();
+    call = new CallDTO();
     call.setSeq(2);
     call.setClientStart(5);
     call.setServerStart(6);

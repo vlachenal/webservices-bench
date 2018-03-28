@@ -21,9 +21,9 @@ import org.dozer.loader.api.FieldsMappingOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.vlachenal.webservice.bench.dto.AddressBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
-import com.github.vlachenal.webservice.bench.dto.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.AddressDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
 
 /**
@@ -70,7 +70,7 @@ public class DozerConfig {
     final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
       @Override
       protected void configure() {
-        mapping(AddressBean.class, com.github.vlachenal.webservice.bench.soap.api.Address.class)
+        mapping(AddressDTO.class, com.github.vlachenal.webservice.bench.soap.api.Address.class)
         .fields("lines", field("lines").accessible(true));
       }
     };
@@ -86,7 +86,7 @@ public class DozerConfig {
     final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
       @Override
       protected void configure() {
-        mapping(PhoneBean.class, com.github.vlachenal.webservice.bench.soap.api.Phone.class)
+        mapping(PhoneDTO.class, com.github.vlachenal.webservice.bench.soap.api.Phone.class)
         .fields("type", "phoneType");
       }
     };
@@ -102,7 +102,7 @@ public class DozerConfig {
     final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
       @Override
       protected void configure() {
-        mapping(CustomerBean.class, com.github.vlachenal.webservice.bench.soap.api.Customer.class)
+        mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.soap.api.Customer.class)
         .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(SOAP_DATE_CONV))
         .fields("phones", field("phones").accessible(true));
       }
@@ -119,7 +119,7 @@ public class DozerConfig {
     final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
       @Override
       protected void configure() {
-        mapping(CustomerBean.class, com.github.vlachenal.webservice.bench.thrift.api.Customer.class)
+        mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.thrift.api.Customer.class)
         .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
         .exclude("__isset_bitfield");
       }

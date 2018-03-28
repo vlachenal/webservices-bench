@@ -9,8 +9,8 @@ package com.github.vlachenal.webservice.bench.mapping.manual;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.vlachenal.webservice.bench.dto.PhoneBean;
-import com.github.vlachenal.webservice.bench.dto.PhoneBean.Type;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO.Type;
 import com.google.protobuf.Descriptors.Descriptor;
 
 
@@ -45,7 +45,7 @@ public final class PhoneBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(final PhoneBean bean) {
+  public static com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(final PhoneDTO bean) {
     com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone = null;
     if(bean != null) {
       phone = new com.github.vlachenal.webservice.bench.rest.api.bean.Phone();
@@ -71,11 +71,11 @@ public final class PhoneBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> toRest(final List<PhoneBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> toRest(final List<PhoneDTO> bean) {
     List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones = null;
     if(bean != null) {
       phones = new ArrayList<>();
-      for(final PhoneBean phone : bean) {
+      for(final PhoneDTO phone : bean) {
         final com.github.vlachenal.webservice.bench.rest.api.bean.Phone json = toRest(phone);
         if(json != null) {
           phones.add(json);
@@ -92,10 +92,10 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
-    PhoneBean bean = null;
+  public static PhoneDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone) {
+    PhoneDTO bean = null;
     if(phone != null) {
-      bean = new PhoneBean();
+      bean = new PhoneDTO();
       bean.setNumber(phone.getNumber());
       switch(phone.getType()) {
         case LANDLINE:
@@ -118,8 +118,8 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
-    List<PhoneBean> bean = null;
+  public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.bean.Phone> phones) {
+    List<PhoneDTO> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone : phones) {
@@ -136,7 +136,7 @@ public final class PhoneBridge {
    *
    * @return the Thrift structure
    */
-  public static com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(final PhoneBean bean) {
+  public static com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(final PhoneDTO bean) {
     com.github.vlachenal.webservice.bench.thrift.api.Phone phone = null;
     if(bean != null) {
       phone = new com.github.vlachenal.webservice.bench.thrift.api.Phone();
@@ -162,11 +162,11 @@ public final class PhoneBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.thrift.api.Phone> toThrift(final List<PhoneBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.thrift.api.Phone> toThrift(final List<PhoneDTO> bean) {
     List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones = null;
     if(bean != null) {
       phones = new ArrayList<>();
-      for(final PhoneBean phone : bean) {
+      for(final PhoneDTO phone : bean) {
         final com.github.vlachenal.webservice.bench.thrift.api.Phone thrift = toThrift(phone);
         if(thrift != null) {
           phones.add(thrift);
@@ -183,10 +183,10 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
-    PhoneBean bean = null;
+  public static PhoneDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone) {
+    PhoneDTO bean = null;
     if(phone != null) {
-      bean = new PhoneBean();
+      bean = new PhoneDTO();
       bean.setNumber(phone.getNumber());
       switch(phone.getType()) {
         case LANDLINE:
@@ -209,8 +209,8 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
-    List<PhoneBean> bean = null;
+  public static List<PhoneDTO> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
+    List<PhoneDTO> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone : phones) {
@@ -227,7 +227,7 @@ public final class PhoneBridge {
    *
    * @return the SOAP structure
    */
-  public static com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(final PhoneBean bean) {
+  public static com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(final PhoneDTO bean) {
     com.github.vlachenal.webservice.bench.soap.api.Phone phone = null;
     if(bean != null) {
       phone = new com.github.vlachenal.webservice.bench.soap.api.Phone();
@@ -253,11 +253,11 @@ public final class PhoneBridge {
    *
    * @return the SOAP structures
    */
-  public static List<com.github.vlachenal.webservice.bench.soap.api.Phone> toSoap(final List<PhoneBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.soap.api.Phone> toSoap(final List<PhoneDTO> bean) {
     List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones = null;
     if(bean != null) {
       phones = new ArrayList<>();
-      for(final PhoneBean phone : bean) {
+      for(final PhoneDTO phone : bean) {
         final com.github.vlachenal.webservice.bench.soap.api.Phone soap = toSoap(phone);
         if(soap != null) {
           phones.add(soap);
@@ -274,10 +274,10 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
-    PhoneBean bean = null;
+  public static PhoneDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Phone phone) {
+    PhoneDTO bean = null;
     if(phone != null) {
-      bean = new PhoneBean();
+      bean = new PhoneDTO();
       bean.setNumber(phone.getNumber());
       switch(phone.getPhoneType()) {
         case LANDLINE:
@@ -300,8 +300,8 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
-    List<PhoneBean> bean = null;
+  public static List<PhoneDTO> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
+    List<PhoneDTO> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.soap.api.Phone phone : phones) {
@@ -318,7 +318,7 @@ public final class PhoneBridge {
    *
    * @return the Protocol buffer structure
    */
-  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone toProtobuf(final PhoneBean bean) {
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone toProtobuf(final PhoneDTO bean) {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone = null;
     if(bean != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.newBuilder();
@@ -347,11 +347,11 @@ public final class PhoneBridge {
    *
    * @return the SOAP structures
    */
-  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> toProtobuf(final List<PhoneBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> toProtobuf(final List<PhoneDTO> bean) {
     List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones = null;
     if(bean != null) {
       phones = new ArrayList<>();
-      for(final PhoneBean phone : bean) {
+      for(final PhoneDTO phone : bean) {
         final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone protobuf = toProtobuf(phone);
         if(protobuf != null) {
           phones.add(protobuf);
@@ -368,10 +368,10 @@ public final class PhoneBridge {
    *
    * @return the bean
    */
-  public static PhoneBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
-    PhoneBean bean = null;
+  public static PhoneDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone) {
+    PhoneDTO bean = null;
     if(phone != null) {
-      bean = new PhoneBean();
+      bean = new PhoneDTO();
       if(phone.hasField(PHONE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
         bean.setNumber(phone.getNumber());
       }
@@ -398,8 +398,8 @@ public final class PhoneBridge {
    *
    * @return the bean list
    */
-  public static List<PhoneBean> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
-    List<PhoneBean> bean = null;
+  public static List<PhoneDTO> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
+    List<PhoneDTO> bean = null;
     if(phones != null) {
       bean = new ArrayList<>();
       for(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone : phones) {

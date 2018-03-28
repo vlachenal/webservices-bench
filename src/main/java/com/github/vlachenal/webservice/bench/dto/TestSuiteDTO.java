@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Vincent Lachenal
  */
-public class TestSuiteBean {
+public class TestSuiteDTO {
 
   // Attributes +
   /** Test suite UUID */
@@ -68,7 +68,7 @@ public class TestSuiteBean {
   private String comment;
 
   /** Calls */
-  private List<CallBean> calls;
+  private List<CallDTO> calls;
 
   /** The mapper which has been used */
   private String mapper;
@@ -387,7 +387,7 @@ public class TestSuiteBean {
    *
    * @return the calls
    */
-  public final List<CallBean> getCalls() {
+  public final List<CallDTO> getCalls() {
     return calls;
   }
 
@@ -396,7 +396,7 @@ public class TestSuiteBean {
    *
    * @param calls the calls to set
    */
-  public final void setCalls(final List<CallBean> calls) {
+  public final void setCalls(final List<CallDTO> calls) {
     this.calls = calls;
   }
 

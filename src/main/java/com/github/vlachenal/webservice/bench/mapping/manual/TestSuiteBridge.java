@@ -6,7 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 import com.google.protobuf.Descriptors.Descriptor;
 
 
@@ -40,10 +40,10 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
-    TestSuiteBean bean = null;
+  public static TestSuiteDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
+    TestSuiteDTO bean = null;
     if(test != null) {
-      bean = new TestSuiteBean();
+      bean = new TestSuiteDTO();
       bean.setClientCpu(test.getCpu());
       bean.setClientMemory(test.getMemory());
       bean.setClientJvmVersion(test.getJvm());
@@ -79,10 +79,10 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.TestSuite test) {
-    TestSuiteBean bean = null;
+  public static TestSuiteDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.TestSuite test) {
+    TestSuiteDTO bean = null;
     if(test != null) {
-      bean = new TestSuiteBean();
+      bean = new TestSuiteDTO();
       bean.setClientCpu(test.getCpu());
       bean.setClientMemory(test.getMemory());
       bean.setClientJvmVersion(test.getJvm());
@@ -118,10 +118,10 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
-    TestSuiteBean bean = null;
+  public static TestSuiteDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
+    TestSuiteDTO bean = null;
     if(test != null) {
-      bean = new TestSuiteBean();
+      bean = new TestSuiteDTO();
       bean.setClientCpu(test.getCpu());
       bean.setClientMemory(test.getMemory());
       bean.setClientJvmVersion(test.getJvm());
@@ -157,10 +157,10 @@ public final class TestSuiteBridge {
    *
    * @return the bean
    */
-  public static TestSuiteBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
-    TestSuiteBean bean = null;
+  public static TestSuiteDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
+    TestSuiteDTO bean = null;
     if(test != null) {
-      bean = new TestSuiteBean();
+      bean = new TestSuiteDTO();
 
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CPU_FIELD_NUMBER))) {
         bean.setClientCpu(test.getCpu());

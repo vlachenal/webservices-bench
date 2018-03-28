@@ -14,7 +14,7 @@ import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.google.protobuf.Descriptors.Descriptor;
 
 
@@ -49,7 +49,7 @@ public final class CustomerBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(final CustomerBean bean) {
+  public static com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(final CustomerDTO bean) {
     com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = null;
     if(bean != null) {
       customer = new com.github.vlachenal.webservice.bench.rest.api.bean.Customer();
@@ -71,10 +71,10 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
-    CustomerBean bean = null;
+  public static CustomerDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer) {
+    CustomerDTO bean = null;
     if(customer != null) {
-      bean = new CustomerBean();
+      bean = new CustomerDTO();
       bean.setId(customer.getId());
       bean.setFirstName(customer.getFirstName());
       bean.setLastName(customer.getLastName());
@@ -93,11 +93,11 @@ public final class CustomerBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRest(final List<CustomerBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRest(final List<CustomerDTO> bean) {
     List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> customers = null;
     if(bean != null) {
       customers = new ArrayList<>();
-      for(final CustomerBean customer : bean) {
+      for(final CustomerDTO customer : bean) {
         final com.github.vlachenal.webservice.bench.rest.api.bean.Customer json = toRest(customer);
         if(json != null) {
           customers.add(json);
@@ -114,7 +114,7 @@ public final class CustomerBridge {
    *
    * @return the Thrift structure
    */
-  public static com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(final CustomerBean bean) {
+  public static com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(final CustomerDTO bean) {
     com.github.vlachenal.webservice.bench.thrift.api.Customer customer = null;
     if(bean != null) {
       customer = new com.github.vlachenal.webservice.bench.thrift.api.Customer();
@@ -138,10 +138,10 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Customer customer) {
-    CustomerBean bean = null;
+  public static CustomerDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Customer customer) {
+    CustomerDTO bean = null;
     if(customer != null) {
-      bean = new CustomerBean();
+      bean = new CustomerDTO();
       bean.setId(customer.getId());
       bean.setFirstName(customer.getFirstName());
       bean.setLastName(customer.getLastName());
@@ -162,11 +162,11 @@ public final class CustomerBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThrift(final List<CustomerBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThrift(final List<CustomerDTO> bean) {
     List<com.github.vlachenal.webservice.bench.thrift.api.Customer> customers = null;
     if(bean != null) {
       customers = new ArrayList<>();
-      for(final CustomerBean customer : bean) {
+      for(final CustomerDTO customer : bean) {
         final com.github.vlachenal.webservice.bench.thrift.api.Customer thrift = toThrift(customer);
         if(thrift != null) {
           customers.add(thrift);
@@ -183,7 +183,7 @@ public final class CustomerBridge {
    *
    * @return the SOAP structure
    */
-  public static com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(final CustomerBean bean) {
+  public static com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(final CustomerDTO bean) {
     com.github.vlachenal.webservice.bench.soap.api.Customer customer = null;
     if(bean != null) {
       customer = new com.github.vlachenal.webservice.bench.soap.api.Customer();
@@ -215,10 +215,10 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Customer customer) {
-    CustomerBean bean = null;
+  public static CustomerDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Customer customer) {
+    CustomerDTO bean = null;
     if(customer != null) {
-      bean = new CustomerBean();
+      bean = new CustomerDTO();
       bean.setId(customer.getId());
       bean.setFirstName(customer.getFirstName());
       bean.setLastName(customer.getLastName());
@@ -239,11 +239,11 @@ public final class CustomerBridge {
    *
    * @return the SOAP structures
    */
-  public static List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoap(final List<CustomerBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoap(final List<CustomerDTO> bean) {
     List<com.github.vlachenal.webservice.bench.soap.api.Customer> customers = null;
     if(bean != null) {
       customers = new ArrayList<>();
-      for(final CustomerBean customer : bean) {
+      for(final CustomerDTO customer : bean) {
         final com.github.vlachenal.webservice.bench.soap.api.Customer json = toSoap(customer);
         if(json != null) {
           customers.add(json);
@@ -260,7 +260,7 @@ public final class CustomerBridge {
    *
    * @return the Protocol buffer structure
    */
-  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer toProtobuf(final CustomerBean bean) {
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer toProtobuf(final CustomerDTO bean) {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = null;
     if(bean != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.newBuilder();
@@ -297,10 +297,10 @@ public final class CustomerBridge {
    *
    * @return the bean
    */
-  public static CustomerBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
-    CustomerBean bean = null;
+  public static CustomerDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer) {
+    CustomerDTO bean = null;
     if(customer != null) {
-      bean = new CustomerBean();
+      bean = new CustomerDTO();
       if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER))) {
         bean.setId(customer.getId());
       }
@@ -333,11 +333,11 @@ public final class CustomerBridge {
    *
    * @return the Protocol buffer structures
    */
-  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> toProtobuf(final List<CustomerBean> bean) {
+  public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> toProtobuf(final List<CustomerDTO> bean) {
     List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> customers = null;
     if(bean != null) {
       customers = new ArrayList<>();
-      for(final CustomerBean customer : bean) {
+      for(final CustomerDTO customer : bean) {
         final com.github.vlachenal.webservice.bench.protobuf.api.Customer json = toProtobuf(customer);
         if(json != null) {
           customers.add(json);

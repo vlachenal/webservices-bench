@@ -26,9 +26,9 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dto.AddressBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
-import com.github.vlachenal.webservice.bench.dto.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.AddressDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
 
 /**
@@ -97,12 +97,12 @@ public class CustomerDAO {
    *
    * @return the customers
    */
-  public List<CustomerBean> listAll() {
-    final ArrayList<CustomerBean> customers = new ArrayList<>();
+  public List<CustomerDTO> listAll() {
+    final ArrayList<CustomerDTO> customers = new ArrayList<>();
     jdbc.query(REQ_LIST_ALL, new RowCallbackHandler() {
       @Override
       public void processRow(final ResultSet rs) throws SQLException {
-        final CustomerBean customer = new CustomerBean();
+        final CustomerDTO customer = new CustomerDTO();
         final UUID uuid = rs.getObject(1, UUID.class);
         customer.setId(uuid.toString());
         customer.setFirstName(rs.getString(2));
@@ -120,16 +120,16 @@ public class CustomerDAO {
    *
    * @return the customer details
    */
-  public CustomerBean getDetails(final UUID id) {
-    final CustomerBean customer = jdbc.query(REQ_GET_CUST, new Object[] {
+  public CustomerDTO getDetails(final UUID id) {
+    final CustomerDTO customer = jdbc.query(REQ_GET_CUST, new Object[] {
       id
-    }, new ResultSetExtractor<CustomerBean>() {
+    }, new ResultSetExtractor<CustomerDTO>() {
       @Override
-      public CustomerBean extractData(final ResultSet rs) throws SQLException, DataAccessException {
+      public CustomerDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
         if(!rs.next()) {
           return null;
         }
-        final CustomerBean cust = new CustomerBean();
+        final CustomerDTO cust = new CustomerDTO();
         cust.setId(id.toString());
         cust.setId(rs.getString(1));
         cust.setFirstName(rs.getString(2));
@@ -140,9 +140,9 @@ public class CustomerDAO {
       }
     });
     if(customer != null) {
-      final AddressBean address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
+      final AddressDTO address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
         id
-      }, new ResultSetExtractor<AddressBean>() {
+      }, new ResultSetExtractor<AddressDTO>() {
         private void addLine(final List<String> lines, final String line) {
           if(line != null) {
             lines.add(line);
@@ -150,11 +150,11 @@ public class CustomerDAO {
         }
 
         @Override
-        public AddressBean extractData(final ResultSet rs) throws SQLException, DataAccessException {
+        public AddressDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
           if(!rs.next()) {
             return null;
           }
-          final AddressBean addr = new AddressBean();
+          final AddressDTO addr = new AddressDTO();
           final ArrayList<String> lines = new ArrayList<>();
           addLine(lines, rs.getString(1));
           addLine(lines, rs.getString(2));
@@ -172,14 +172,14 @@ public class CustomerDAO {
         }
       });
       customer.setAddress(address);
-      final ArrayList<PhoneBean> phones = new ArrayList<>();
+      final ArrayList<PhoneDTO> phones = new ArrayList<>();
       jdbc.query(REQ_GET_CUST_PHONES, new Object[] {
         id
       }, new RowCallbackHandler() {
         @Override
         public void processRow(final ResultSet rs) throws SQLException {
-          final PhoneBean phone = new PhoneBean();
-          phone.setType(PhoneBean.Type.fromCode(rs.getShort(1)));
+          final PhoneDTO phone = new PhoneDTO();
+          phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
           phone.setNumber(rs.getString(2));
           phones.add(phone);
         }
@@ -215,7 +215,7 @@ public class CustomerDAO {
    * @return the customer identifier
    */
   @Transactional
-  public String create(final CustomerBean customer) {
+  public String create(final CustomerDTO customer) {
     final UUID uuid = UUID.randomUUID();
     jdbc.update(ADD_CUSTOMER, new Object[] {
       uuid,
@@ -225,7 +225,7 @@ public class CustomerDAO {
       customer.getEmail()
     });
     if(customer.getAddress() != null) {
-      final AddressBean address = customer.getAddress();
+      final AddressDTO address = customer.getAddress();
       final List<String> lines = address.getLines();
       jdbc.update(ADD_ADDRESS, new Object[] {
         uuid,
@@ -241,12 +241,12 @@ public class CustomerDAO {
       });
     }
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
-      final List<PhoneBean> phones = customer.getPhones();
+      final List<PhoneDTO> phones = customer.getPhones();
       jdbc.batchUpdate(ADD_PHONE, new BatchPreparedStatementSetter() {
         @Override
         public void setValues(final PreparedStatement ps, final int i) throws SQLException {
           ps.setObject(1, uuid);
-          final PhoneBean phone = phones.get(i);
+          final PhoneDTO phone = phones.get(i);
           ps.setShort(2, phone.getType().getCode());
           ps.setString(3, phone.getNumber());
         }

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -62,8 +62,8 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         mapper = request.getHeader().getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "list");
-    final List<CustomerBean> res = dao.listAll();
+    final CallDTO call = initializeCall(reqSeq, "list");
+    final List<CustomerDTO> res = dao.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case DOZER:
@@ -96,7 +96,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         mapper = request.getHeader().getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "get");
+    final CallDTO call = initializeCall(reqSeq, "get");
     if(request == null) {
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
@@ -112,7 +112,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + request.getId());
     }
-    final CustomerBean customer = dao.getDetails(custId);
+    final CustomerDTO customer = dao.getDetails(custId);
     Customer cust = null;
     switch(mapper) {
       case DOZER:
@@ -149,7 +149,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         mapper = request.getHeader().getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "create");
+    final CallDTO call = initializeCall(reqSeq, "create");
     if(request == null) {
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
@@ -174,10 +174,10 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       throw new CustomerException(ErrorCode.PARAMETER, "Address lines[0], zip_code, city and country has to be set: " + customer.getAddress());
     }
     // Address structure checks -
-    CustomerBean bean = null;
+    CustomerDTO bean = null;
     switch(mapper) {
       case DOZER:
-        bean = dozer.map(customer, CustomerBean.class);
+        bean = dozer.map(customer, CustomerDTO.class);
         break;
       case MAPSTRUCT:
         bean = mapstruct.customer().fromThrift(customer);

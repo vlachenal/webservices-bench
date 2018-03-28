@@ -6,7 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
 
 
 /**
@@ -34,10 +34,10 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall call) {
-    CallBean bean = null;
+  public static CallDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall call) {
+    CallDTO bean = null;
     if(call != null) {
-      bean = new CallBean();
+      bean = new CallDTO();
       bean.setClientStart(call.getClientStart());
       bean.setClientEnd(call.getClientEnd());
       bean.setMethod(call.getMethod());
@@ -56,10 +56,10 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.ClientCall call) {
-    CallBean bean = null;
+  public static CallDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.ClientCall call) {
+    CallDTO bean = null;
     if(call != null) {
-      bean = new CallBean();
+      bean = new CallDTO();
       bean.setClientStart(call.getClientStart());
       bean.setClientEnd(call.getClientEnd());
       bean.setMethod(call.getMethod());
@@ -78,10 +78,10 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.ClientCall call) {
-    CallBean bean = null;
+  public static CallDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.ClientCall call) {
+    CallDTO bean = null;
     if(call != null) {
-      bean = new CallBean();
+      bean = new CallDTO();
       bean.setClientStart(call.getClientStart());
       bean.setClientEnd(call.getClientEnd());
       bean.setMethod(call.getMethod());
@@ -100,10 +100,10 @@ public final class CallBridge {
    *
    * @return the bean
    */
-  public static CallBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
-    CallBean bean = null;
+  public static CallDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
+    CallDTO bean = null;
     if(call != null) {
-      bean = new CallBean();
+      bean = new CallDTO();
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
         bean.setClientStart(call.getClientStart());
       }

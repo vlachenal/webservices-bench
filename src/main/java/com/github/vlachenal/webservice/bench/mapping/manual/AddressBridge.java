@@ -6,7 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import com.github.vlachenal.webservice.bench.dto.AddressBean;
+import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.google.protobuf.Descriptors.Descriptor;
 
 
@@ -41,7 +41,7 @@ public final class AddressBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(final AddressBean bean) {
+  public static com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(final AddressDTO bean) {
     com.github.vlachenal.webservice.bench.rest.api.bean.Address address = null;
     if(bean != null) {
       address = new com.github.vlachenal.webservice.bench.rest.api.bean.Address();
@@ -60,10 +60,10 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
-    AddressBean bean = null;
+  public static AddressDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
+    AddressDTO bean = null;
     if(address != null) {
-      bean = new AddressBean();
+      bean = new AddressDTO();
       bean.setLines(address.getLines());
       bean.setZipCode(address.getZipCode());
       bean.setCity(address.getCity());
@@ -79,7 +79,7 @@ public final class AddressBridge {
    *
    * @return the Thrift structure
    */
-  public static com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(final AddressBean bean) {
+  public static com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(final AddressDTO bean) {
     com.github.vlachenal.webservice.bench.thrift.api.Address address = null;
     if(bean != null) {
       address = new com.github.vlachenal.webservice.bench.thrift.api.Address();
@@ -98,10 +98,10 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
-    AddressBean bean = null;
+  public static AddressDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
+    AddressDTO bean = null;
     if(address != null) {
-      bean = new AddressBean();
+      bean = new AddressDTO();
       bean.setLines(address.getLines());
       bean.setZipCode(address.getZipCode());
       bean.setCity(address.getCity());
@@ -117,7 +117,7 @@ public final class AddressBridge {
    *
    * @return the SOAP structure
    */
-  public static com.github.vlachenal.webservice.bench.soap.api.Address toSoap(final AddressBean bean) {
+  public static com.github.vlachenal.webservice.bench.soap.api.Address toSoap(final AddressDTO bean) {
     com.github.vlachenal.webservice.bench.soap.api.Address address = null;
     if(bean != null) {
       address = new com.github.vlachenal.webservice.bench.soap.api.Address();
@@ -138,10 +138,10 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
-    AddressBean bean = null;
+  public static AddressDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
+    AddressDTO bean = null;
     if(address != null) {
-      bean = new AddressBean();
+      bean = new AddressDTO();
       bean.setLines(address.getLines());
       bean.setZipCode(address.getZipCode());
       bean.setCity(address.getCity());
@@ -157,7 +157,7 @@ public final class AddressBridge {
    *
    * @return the Protocol buffer structure
    */
-  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address toProtobuf(final AddressBean bean) {
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address toProtobuf(final AddressDTO bean) {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address = null;
     if(bean != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.newBuilder();
@@ -185,10 +185,10 @@ public final class AddressBridge {
    *
    * @return the bean
    */
-  public static AddressBean fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
-    AddressBean bean = null;
+  public static AddressDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
+    AddressDTO bean = null;
     if(address != null) {
-      bean = new AddressBean();
+      bean = new AddressDTO();
       if(address.getRepeatedFieldCount(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
         bean.setLines(address.getLinesList());
       }

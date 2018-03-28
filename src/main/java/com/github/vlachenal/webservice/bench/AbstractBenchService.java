@@ -9,7 +9,7 @@ package com.github.vlachenal.webservice.bench;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
 
 /**
  * Abstract bench service
@@ -41,11 +41,11 @@ public abstract class AbstractBenchService {
    *
    * @return the call if requestSeq is not equal to <code>-1</code>, <code>null</code> otherwise
    */
-  protected CallBean initializeCall(final int requestSeq, final String method) {
-    CallBean call = null;
+  protected CallDTO initializeCall(final int requestSeq, final String method) {
+    CallDTO call = null;
     if(requestSeq != -1) {
       final long start = System.nanoTime();
-      call = new CallBean();
+      call = new CallDTO();
       call.setSeq(requestSeq);
       call.setServerStart(start);
       call.setProtocol(getProtocol());
@@ -59,7 +59,7 @@ public abstract class AbstractBenchService {
    *
    * @param call the call to register
    */
-  protected void registerCall(final CallBean call) {
+  protected void registerCall(final CallDTO call) {
     if(call != null) {
       call.setServerEnd(System.nanoTime());
       stats.register(call);

@@ -9,7 +9,7 @@ package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import com.github.vlachenal.webservice.bench.dto.AddressBean;
+import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 
 
 /**
@@ -30,7 +30,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Address address);
+  AddressDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Address address);
 
   /**
    * Convert bean address to SOAP
@@ -39,7 +39,7 @@ public interface AddressMapper {
    *
    * @return the SOAP address
    */
-  com.github.vlachenal.webservice.bench.soap.api.Address toSoap(AddressBean address);
+  com.github.vlachenal.webservice.bench.soap.api.Address toSoap(AddressDTO address);
 
   /**
    * Convert Thrift address to bean
@@ -48,7 +48,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Address address);
+  AddressDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Address address);
 
   /**
    * Convert bean address to Thrift
@@ -57,7 +57,7 @@ public interface AddressMapper {
    *
    * @return the Thrift address
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(AddressBean address);
+  com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(AddressDTO address);
 
   /**
    * Convert REST address to bean
@@ -66,7 +66,7 @@ public interface AddressMapper {
    *
    * @return the bean
    */
-  AddressBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Address address);
+  AddressDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Address address);
 
   /**
    * Convert bean address to REST
@@ -75,6 +75,6 @@ public interface AddressMapper {
    *
    * @return the REST address
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(AddressBean address);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(AddressDTO address);
 
 }

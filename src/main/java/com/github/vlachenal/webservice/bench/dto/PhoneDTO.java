@@ -7,11 +7,11 @@
 package com.github.vlachenal.webservice.bench.dto;
 
 /**
- * Phone number bean
+ * Phone number DTO
  *
  * @author Vincent Lachenal
  */
-public class PhoneBean {
+public class PhoneDTO {
 
   /**
    * Phone type

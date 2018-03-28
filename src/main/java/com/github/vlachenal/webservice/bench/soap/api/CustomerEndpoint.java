@@ -27,8 +27,8 @@ import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -106,8 +106,8 @@ public class CustomerEndpoint extends AbstractBenchService {
         mapper = reqHeader.getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "list");
-    final List<CustomerBean> custs = dao.listAll();
+    final CallDTO call = initializeCall(reqSeq, "list");
+    final List<CustomerDTO> custs = dao.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case DOZER:
@@ -147,7 +147,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         mapper = reqHeader.getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "get");
+    final CallDTO call = initializeCall(reqSeq, "get");
     UUID custId = null;
     try {
       custId = UUID.fromString(request.getId());
@@ -156,7 +156,7 @@ public class CustomerEndpoint extends AbstractBenchService {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, request.getId() + " is not an UUID");
     }
     final GetDetailsResponse res = new GetDetailsResponse();
-    final CustomerBean cust = dao.getDetails(custId);
+    final CustomerDTO cust = dao.getDetails(custId);
     Customer customer = null;
     switch(mapper) {
       case DOZER:
@@ -199,7 +199,7 @@ public class CustomerEndpoint extends AbstractBenchService {
         mapper = reqHeader.getMapper();
       }
     }
-    final CallBean call = initializeCall(reqSeq, "create");
+    final CallDTO call = initializeCall(reqSeq, "create");
     final Customer customer = request.getCustomer();
     // Customer structure checks +
     if(customer == null) {
@@ -234,10 +234,10 @@ public class CustomerEndpoint extends AbstractBenchService {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
     }
     // Address structure checks -
-    CustomerBean cust = null;
+    CustomerDTO cust = null;
     switch(mapper) {
       case DOZER:
-        cust = dozer.map(customer, CustomerBean.class);
+        cust = dozer.map(customer, CustomerDTO.class);
         break;
       case MAPSTRUCT:
         cust = mapstruct.customer().fromSoap(customer);

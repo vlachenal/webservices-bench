@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.dto.CallBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
 
 
 /**
@@ -24,7 +24,7 @@ public class StatisticsCache {
 
   // Attributes +
   /** Calls statistics */
-  private final Map<String,CallBean> calls;
+  private final Map<String,CallDTO> calls;
   // Attributes -
 
 
@@ -44,7 +44,7 @@ public class StatisticsCache {
    *
    * @param call the call to register
    */
-  public synchronized void register(final CallBean call) {
+  public synchronized void register(final CallDTO call) {
     calls.put(call.getKey(), call);
   }
 
@@ -55,8 +55,8 @@ public class StatisticsCache {
    *
    * @return the complete call if found, <code>null</code> otherwise
    */
-  public CallBean mergeCall(final CallBean call) {
-    final CallBean regCall = calls.get(call.getKey());
+  public CallDTO mergeCall(final CallDTO call) {
+    final CallDTO regCall = calls.get(call.getKey());
     if(regCall != null) {
       regCall.setClientStart(call.getClientStart());
       regCall.setClientEnd(call.getClientEnd());

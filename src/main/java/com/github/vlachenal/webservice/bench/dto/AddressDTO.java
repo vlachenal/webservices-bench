@@ -10,11 +10,11 @@ import java.util.List;
 
 
 /**
- * Address bean
+ * Address DTO
  *
  * @author Vincent Lachenal
  */
-public class AddressBean {
+public class AddressDTO {
 
   // Attributes +
   /** Address lines */

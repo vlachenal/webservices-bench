@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
@@ -57,10 +57,10 @@ public class StatisticsServiceHandler implements StatsService.Iface {
     if(test.getCalls() == null || test.getCalls().isEmpty()) {
       throw new StatsException("No calls to consolidate");
     }
-    final TestSuiteBean suite = TestSuiteBridge.fromThrift(test);
-    final ArrayList<CallBean> calls = new ArrayList<>();
+    final TestSuiteDTO suite = TestSuiteBridge.fromThrift(test);
+    final ArrayList<CallDTO> calls = new ArrayList<>();
     for(final ClientCall ccall : test.getCalls()) {
-      CallBean call = CallBridge.fromThrift(ccall);
+      CallDTO call = CallBridge.fromThrift(ccall);
       if(ccall == null) {
         continue;
       }

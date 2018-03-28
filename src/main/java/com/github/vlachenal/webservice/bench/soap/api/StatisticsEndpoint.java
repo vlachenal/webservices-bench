@@ -18,8 +18,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
@@ -68,10 +68,10 @@ public class StatisticsEndpoint {
     if(test.getCalls() == null || test.getCalls().isEmpty()) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No calls to consolidate");
     }
-    final TestSuiteBean suite = TestSuiteBridge.fromSoap(test);
-    final ArrayList<CallBean> calls = new ArrayList<>();
+    final TestSuiteDTO suite = TestSuiteBridge.fromSoap(test);
+    final ArrayList<CallDTO> calls = new ArrayList<>();
     for(final ClientCall ccall : test.getCalls()) {
-      CallBean call = CallBridge.fromSoap(ccall);
+      CallDTO call = CallBridge.fromSoap(ccall);
       if(ccall == null) {
         continue;
       }

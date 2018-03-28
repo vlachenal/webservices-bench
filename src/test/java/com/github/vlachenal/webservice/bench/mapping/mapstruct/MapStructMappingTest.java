@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 
 
@@ -46,7 +46,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   @Test
   public void testBeanToSOAPCustomer() {
     LOG.debug("Enter in testBeanToSOAPCustomer");
-    final CustomerBean bean = makeCustomerBean();
+    final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.soap.api.Customer customer = mapstruct.customer().toSoap(bean);
     assertNotNull("SOAP customer is null", customer);
     compareCustomer(bean, customer);
@@ -59,7 +59,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   @Test
   public void testBeanToThriftCustomer() {
     LOG.debug("Enter in testBeanToThriftCustomer");
-    final CustomerBean bean = makeCustomerBean();
+    final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().toThrift(bean);
     assertNotNull("Thrift customer is null", customer);
     compareCustomer(bean, customer);
@@ -72,7 +72,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   @Test
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
-    final CustomerBean bean = makeCustomerBean();
+    final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer = mapstruct.customer().toRest(bean);
     assertNotNull("REST customer is null", customer);
     compareCustomer(bean, customer);
@@ -85,7 +85,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   @Test
   public void testBeanToProtobufCustomer() {
     LOG.debug("Enter in testBeanToProtobufCustomer");
-    final CustomerBean bean = makeCustomerBean();
+    final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().beanToProtobuf(bean);
     assertNotNull("SOAP customer is null", customer);
     compareCustomer(bean, customer);

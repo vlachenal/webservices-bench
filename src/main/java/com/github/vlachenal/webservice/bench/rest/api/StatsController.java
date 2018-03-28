@@ -20,8 +20,8 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall;
@@ -76,10 +76,10 @@ public class StatsController {
     if(test.getCalls() == null || test.getCalls().isEmpty()) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No calls to consolidate");
     }
-    final TestSuiteBean suite = TestSuiteBridge.fromRest(test);
-    final ArrayList<CallBean> calls = new ArrayList<>();
+    final TestSuiteDTO suite = TestSuiteBridge.fromRest(test);
+    final ArrayList<CallDTO> calls = new ArrayList<>();
     for(final ClientCall ccall : test.getCalls()) {
-      CallBean call = CallBridge.fromRest(ccall);
+      CallDTO call = CallBridge.fromRest(ccall);
       if(ccall == null) {
         continue;
       }

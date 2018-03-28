@@ -8,11 +8,11 @@ package com.github.vlachenal.webservice.bench.dto;
 
 
 /**
- * Call statistic bean
+ * Call statistic DTO
  *
  * @author Vincent Lachenal
  */
-public class CallBean {
+public class CallDTO {
 
   // Attributes +
   /** Call sequence */

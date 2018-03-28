@@ -11,11 +11,11 @@ import java.util.List;
 
 
 /**
- * Customer bean
+ * Customer DTO
  *
  * @author Vincent Lachenal
  */
-public class CustomerBean {
+public class CustomerDTO {
 
   // Attributes +
   /** Customer identifier */
@@ -31,13 +31,13 @@ public class CustomerBean {
   private Date birthDate;
 
   /** Customer address */
-  private AddressBean address;
+  private AddressDTO address;
 
   /** Customer email address */
   private String email;
 
   /** Customer phone numbers */
-  private List<PhoneBean> phones;
+  private List<PhoneDTO> phones;
   // Attributes -
 
 
@@ -120,7 +120,7 @@ public class CustomerBean {
    *
    * @return the address
    */
-  public AddressBean getAddress() {
+  public AddressDTO getAddress() {
     return address;
   }
 
@@ -129,7 +129,7 @@ public class CustomerBean {
    *
    * @param address the address to set
    */
-  public void setAddress(final AddressBean address) {
+  public void setAddress(final AddressDTO address) {
     this.address = address;
   }
 
@@ -156,7 +156,7 @@ public class CustomerBean {
    *
    * @return the phone numbers
    */
-  public List<PhoneBean> getPhones() {
+  public List<PhoneDTO> getPhones() {
     return phones;
   }
 
@@ -165,7 +165,7 @@ public class CustomerBean {
    *
    * @param phones the phone numbers to set
    */
-  public void setPhones(final List<PhoneBean> phones) {
+  public void setPhones(final List<PhoneDTO> phones) {
     this.phones = phones;
   }
   // Accessors -

@@ -25,8 +25,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.bean.Address;
@@ -80,8 +80,8 @@ public class CustomerController extends AbstractBenchService {
   })
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
-    final CallBean call = initializeCall(requestSeq, "list");
-    final List<CustomerBean> res = dao.listAll();
+    final CallDTO call = initializeCall(requestSeq, "list");
+    final List<CustomerDTO> res = dao.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case MAPSTRUCT:
@@ -116,7 +116,7 @@ public class CustomerController extends AbstractBenchService {
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
-    final CallBean call = initializeCall(requestSeq, "get");
+    final CallDTO call = initializeCall(requestSeq, "get");
     UUID custId = null;
     try {
       custId = UUID.fromString(id);
@@ -124,7 +124,7 @@ public class CustomerController extends AbstractBenchService {
       registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, id + " is not an UUID");
     }
-    final CustomerBean res = dao.getDetails(custId);
+    final CustomerDTO res = dao.getDetails(custId);
     Customer customer = null;
     switch(mapper) {
       case DOZER:
@@ -163,7 +163,7 @@ public class CustomerController extends AbstractBenchService {
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
-    final CallBean call = initializeCall(requestSeq, "create");
+    final CallDTO call = initializeCall(requestSeq, "create");
     // Customer structure checks +
     if(customer == null) {
       registerCall(call);
@@ -197,10 +197,10 @@ public class CustomerController extends AbstractBenchService {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
     }
     // Address structure checks -
-    CustomerBean bean = null;
+    CustomerDTO bean = null;
     switch(mapper) {
       case DOZER:
-        bean = dozer.map(customer, CustomerBean.class);
+        bean = dozer.map(customer, CustomerDTO.class);
         break;
       case MAPSTRUCT:
         bean = mapstruct.customer().fromRest(customer);

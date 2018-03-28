@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import com.github.vlachenal.webservice.bench.dto.PhoneBean;
+import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
 
 /**
@@ -32,7 +32,7 @@ public interface PhoneMapper {
    * @return the bean
    */
   @Mapping(source="phoneType",target="type")
-  PhoneBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
+  PhoneDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
 
   /**
    * Convert bean phone to SOAP
@@ -42,7 +42,7 @@ public interface PhoneMapper {
    * @return the SOAP phone
    */
   @Mapping(source="type",target="phoneType")
-  com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(PhoneDTO phone);
 
   /**
    * Convert Thrift phone to bean
@@ -51,7 +51,7 @@ public interface PhoneMapper {
    *
    * @return the bean
    */
-  PhoneBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
+  PhoneDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
 
   /**
    * Convert bean phone to Thrift
@@ -60,7 +60,7 @@ public interface PhoneMapper {
    *
    * @return the Thrift phone
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(PhoneDTO phone);
 
   /**
    * Convert REST phone to bean
@@ -69,7 +69,7 @@ public interface PhoneMapper {
    *
    * @return the bean
    */
-  PhoneBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone);
+  PhoneDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone);
 
   /**
    * Convert bean phone to REST
@@ -78,6 +78,6 @@ public interface PhoneMapper {
    *
    * @return the REST phone
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(PhoneBean phone);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Phone toRest(PhoneDTO phone);
 
 }

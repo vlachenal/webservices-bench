@@ -20,8 +20,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dto.CallBean;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteBean;
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 
 
 /**
@@ -75,7 +75,7 @@ public class StatisticsDAO {
    * @param testSuite the test suite to save
    */
   @Transactional
-  public void save(final TestSuiteBean testSuite) {
+  public void save(final TestSuiteDTO testSuite) {
     if(testSuite.getCalls() == null || testSuite.getCalls().isEmpty()) {
       return;
     }
@@ -118,7 +118,7 @@ public class StatisticsDAO {
     jdbc.batchUpdate(INS_TEST_CALL,new BatchPreparedStatementSetter() {
       @Override
       public void setValues(final PreparedStatement ps, final int i) throws SQLException {
-        final CallBean call = testSuite.getCalls().get(i);
+        final CallDTO call = testSuite.getCalls().get(i);
         ps.setInt(1, call.getSeq());
         ps.setObject(2, uuid);
         ps.setString(3, call.getMethod());

@@ -11,7 +11,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import com.github.vlachenal.webservice.bench.dto.CustomerBean;
+import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 
 
 /**
@@ -37,7 +37,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean fromSoap(com.github.vlachenal.webservice.bench.soap.api.Customer customer);
+  CustomerDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Customer customer);
 
   /**
    * Convert bean customer to SOAP
@@ -46,7 +46,7 @@ public interface CustomerMapper {
    *
    * @return the SOAP customer
    */
-  com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(CustomerDTO customer);
 
   /**
    * Convert bean customer to SOAP
@@ -55,7 +55,7 @@ public interface CustomerMapper {
    *
    * @return the SOAP customer
    */
-  List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoapList(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoapList(List<CustomerDTO> customer);
 
   /**
    * Convert Thrift customer to bean
@@ -64,7 +64,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Customer customer);
+  CustomerDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Customer customer);
 
   /**
    * Convert bean customer to Thrift
@@ -73,7 +73,7 @@ public interface CustomerMapper {
    *
    * @return the Thrift customer
    */
-  com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(CustomerDTO customer);
 
   /**
    * Convert bean customer to Thrift
@@ -82,7 +82,7 @@ public interface CustomerMapper {
    *
    * @return the Thrift customer
    */
-  List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThriftList(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThriftList(List<CustomerDTO> customer);
 
   /**
    * Convert REST customer to bean
@@ -91,7 +91,7 @@ public interface CustomerMapper {
    *
    * @return the bean
    */
-  CustomerBean fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
+  CustomerDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
 
   /**
    * Convert bean customer to REST
@@ -100,7 +100,7 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(CustomerBean customer);
+  com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(CustomerDTO customer);
 
   /**
    * Convert bean customer to REST
@@ -109,6 +109,6 @@ public interface CustomerMapper {
    *
    * @return the REST customer
    */
-  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRestList(List<CustomerBean> customer);
+  List<com.github.vlachenal.webservice.bench.rest.api.bean.Customer> toRestList(List<CustomerDTO> customer);
 
 }
