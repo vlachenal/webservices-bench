@@ -47,7 +47,7 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  PhoneDTO protobufToBean(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone);
+  PhoneDTO protobufToDTO(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone);
 
   /**
    * Convert Protocol buffer phone type to DTO
@@ -60,7 +60,7 @@ public interface ProtobufMapper {
     @ValueMapping(source="UNKNOWN",target=MappingConstants.NULL),
     @ValueMapping(source="UNRECOGNIZED",target=MappingConstants.NULL)
   })
-  PhoneDTO.Type toBean(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType type);
+  PhoneDTO.Type toDTO(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType type);
 
   /**
    * Convert DTO address to Protocol buffer
@@ -69,8 +69,8 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer address
    */
-  default com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone beanToProtobuf(final PhoneDTO phone) {
-    return beanToProtobufForBuilder(phone).build();
+  default com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone dtoToProtobuf(final PhoneDTO phone) {
+    return dtoToProtobufForBuilder(phone).build();
   }
 
   /**
@@ -80,7 +80,7 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer phone
    */
-  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder beanToProtobufForBuilder(PhoneDTO phone);
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder dtoToProtobufForBuilder(PhoneDTO phone);
 
   /**
    * Convert Protocol buffer address to DTO
@@ -89,7 +89,7 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  AddressDTO protobufToBean(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address);
+  AddressDTO protobufToDTO(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address);
 
   /**
    * DTO to protocol buffer for builder
@@ -99,7 +99,7 @@ public interface ProtobufMapper {
    * @return the builder
    */
   @Mapping(source="lines",target="linesList",ignore=true)
-  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder beanToProtobufForBuilder(AddressDTO address);
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder dtoToProtobufForBuilder(AddressDTO address);
 
   /**
    * Convert DTO address to Protocol buffer
@@ -108,8 +108,8 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer address
    */
-  default com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address beanToProtobuf(final AddressDTO address) {
-    return beanToProtobufForBuilder(address).build();
+  default com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address dtoToProtobuf(final AddressDTO address) {
+    return dtoToProtobufForBuilder(address).build();
   }
 
   /**
@@ -119,7 +119,7 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  CustomerDTO protobufToBean(com.github.vlachenal.webservice.bench.protobuf.api.Customer customer);
+  CustomerDTO protobufToDTO(com.github.vlachenal.webservice.bench.protobuf.api.Customer customer);
 
   /**
    * DTO to protocol buffer for builder
@@ -129,7 +129,7 @@ public interface ProtobufMapper {
    * @return the builder
    */
   @Mapping(source="phones",target="phonesList")
-  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder beanToProtobufForBuilder(CustomerDTO customer);
+  com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder dtoToProtobufForBuilder(CustomerDTO customer);
 
   /**
    * Convert DTO customer to Protocol buffer
@@ -138,8 +138,8 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer customer
    */
-  default com.github.vlachenal.webservice.bench.protobuf.api.Customer beanToProtobuf(final CustomerDTO customer) {
-    return beanToProtobufForBuilder(customer).build();
+  default com.github.vlachenal.webservice.bench.protobuf.api.Customer dtoToProtobuf(final CustomerDTO customer) {
+    return dtoToProtobufForBuilder(customer).build();
   }
 
   /**
@@ -149,6 +149,6 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer customer
    */
-  List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> beanListToProtobuf(List<CustomerDTO> customer);
+  List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> dtoListToProtobuf(List<CustomerDTO> customer);
 
 }
