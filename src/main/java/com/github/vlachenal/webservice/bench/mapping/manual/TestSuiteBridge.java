@@ -34,26 +34,26 @@ public final class TestSuiteBridge {
 
   // Methods +
   /**
-   * Convert REST test suite to bean
+   * Convert REST test suite to DTO
    *
    * @param test the REST test suite
    *
-   * @return the bean
+   * @return the DTO
    */
   public static TestSuiteDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.TestSuite test) {
-    TestSuiteDTO bean = null;
+    TestSuiteDTO dto = null;
     if(test != null) {
-      bean = new TestSuiteDTO();
-      bean.setClientCpu(test.getCpu());
-      bean.setClientMemory(test.getMemory());
-      bean.setClientJvmVersion(test.getJvm());
-      bean.setClientJvmVendor(test.getVendor());
-      bean.setClientOsName(test.getOsFamily());
-      bean.setClientOsVersion(test.getOsVersion());
-      bean.setNbThreads(test.getNbThread());
-      bean.setCompression(test.getCompression());
-      bean.setProtocol(test.getProtocol());
-      bean.setComment(test.getComment());
+      dto = new TestSuiteDTO();
+      dto.setClientCpu(test.getCpu());
+      dto.setClientMemory(test.getMemory());
+      dto.setClientJvmVersion(test.getJvm());
+      dto.setClientJvmVendor(test.getVendor());
+      dto.setClientOsName(test.getOsFamily());
+      dto.setClientOsVersion(test.getOsVersion());
+      dto.setNbThreads(test.getNbThread());
+      dto.setCompression(test.getCompression());
+      dto.setProtocol(test.getProtocol());
+      dto.setComment(test.getComment());
       String mapper = "manual";
       if(test.getMapper() != null) {
         switch(test.getMapper()) {
@@ -67,32 +67,32 @@ public final class TestSuiteBridge {
             // Nothing to do
         }
       }
-      bean.setMapper(mapper);
+      dto.setMapper(mapper);
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert Thrift test suite to bean
+   * Convert Thrift test suite to DTO
    *
    * @param test the Thrift test suite
    *
-   * @return the bean
+   * @return the DTO
    */
   public static TestSuiteDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.TestSuite test) {
-    TestSuiteDTO bean = null;
+    TestSuiteDTO dto = null;
     if(test != null) {
-      bean = new TestSuiteDTO();
-      bean.setClientCpu(test.getCpu());
-      bean.setClientMemory(test.getMemory());
-      bean.setClientJvmVersion(test.getJvm());
-      bean.setClientJvmVendor(test.getVendor());
-      bean.setClientOsName(test.getOsFamily());
-      bean.setClientOsVersion(test.getOsVersion());
-      bean.setNbThreads(test.getNbThread());
-      bean.setProtocol(test.getProtocol());
-      bean.setCompression(test.getCompression());
-      bean.setComment(test.getComment());
+      dto = new TestSuiteDTO();
+      dto.setClientCpu(test.getCpu());
+      dto.setClientMemory(test.getMemory());
+      dto.setClientJvmVersion(test.getJvm());
+      dto.setClientJvmVendor(test.getVendor());
+      dto.setClientOsName(test.getOsFamily());
+      dto.setClientOsVersion(test.getOsVersion());
+      dto.setNbThreads(test.getNbThread());
+      dto.setProtocol(test.getProtocol());
+      dto.setCompression(test.getCompression());
+      dto.setComment(test.getComment());
       String mapper = "manual";
       if(test.getMapper() != null) {
         switch(test.getMapper()) {
@@ -106,32 +106,32 @@ public final class TestSuiteBridge {
             // Nothing to do
         }
       }
-      bean.setMapper(mapper);
+      dto.setMapper(mapper);
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert SOAP test suite to bean
+   * Convert SOAP test suite to DTO
    *
    * @param test the SOAP test suite
    *
-   * @return the bean
+   * @return the DTO
    */
   public static TestSuiteDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.TestSuite test) {
-    TestSuiteDTO bean = null;
+    TestSuiteDTO dto = null;
     if(test != null) {
-      bean = new TestSuiteDTO();
-      bean.setClientCpu(test.getCpu());
-      bean.setClientMemory(test.getMemory());
-      bean.setClientJvmVersion(test.getJvm());
-      bean.setClientJvmVendor(test.getVendor());
-      bean.setClientOsName(test.getOsFamily());
-      bean.setClientOsVersion(test.getOsVersion());
-      bean.setNbThreads(test.getNbThread());
-      bean.setProtocol(test.getProtocol());
-      bean.setCompression(test.getCompression());
-      bean.setComment(test.getComment());
+      dto = new TestSuiteDTO();
+      dto.setClientCpu(test.getCpu());
+      dto.setClientMemory(test.getMemory());
+      dto.setClientJvmVersion(test.getJvm());
+      dto.setClientJvmVendor(test.getVendor());
+      dto.setClientOsName(test.getOsFamily());
+      dto.setClientOsVersion(test.getOsVersion());
+      dto.setNbThreads(test.getNbThread());
+      dto.setProtocol(test.getProtocol());
+      dto.setCompression(test.getCompression());
+      dto.setComment(test.getComment());
       String mapper = "manual";
       if(test.getMapper() != null) {
         switch(test.getMapper()) {
@@ -145,52 +145,52 @@ public final class TestSuiteBridge {
             // Nothing to do
         }
       }
-      bean.setMapper(mapper);
+      dto.setMapper(mapper);
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert Protocol buffer test suite to bean
+   * Convert Protocol buffer test suite to DTO
    *
    * @param test the Protocol buffer test suite
    *
-   * @return the bean
+   * @return the DTO
    */
   public static TestSuiteDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite test) {
-    TestSuiteDTO bean = null;
+    TestSuiteDTO dto = null;
     if(test != null) {
-      bean = new TestSuiteDTO();
+      dto = new TestSuiteDTO();
 
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CPU_FIELD_NUMBER))) {
-        bean.setClientCpu(test.getCpu());
+        dto.setClientCpu(test.getCpu());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MEMORY_FIELD_NUMBER))) {
-        bean.setClientMemory(test.getMemory());
+        dto.setClientMemory(test.getMemory());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.JVM_FIELD_NUMBER))) {
-        bean.setClientJvmVersion(test.getJvm());
+        dto.setClientJvmVersion(test.getJvm());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.VENDOR_FIELD_NUMBER))) {
-        bean.setClientJvmVendor(test.getVendor());
+        dto.setClientJvmVendor(test.getVendor());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSFAMILY_FIELD_NUMBER))) {
-        bean.setClientOsName(test.getOsFamily());
+        dto.setClientOsName(test.getOsFamily());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSVERSION_FIELD_NUMBER))) {
-        bean.setClientOsVersion(test.getOsVersion());
+        dto.setClientOsVersion(test.getOsVersion());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.NBTHREAD_FIELD_NUMBER))) {
-        bean.setNbThreads(test.getNbThread());
+        dto.setNbThreads(test.getNbThread());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.PROTOCOL_FIELD_NUMBER))) {
-        bean.setProtocol(test.getProtocol());
+        dto.setProtocol(test.getProtocol());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMPRESSION_FIELD_NUMBER))) {
-        bean.setCompression(test.getCompression());
+        dto.setCompression(test.getCompression());
       }
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMMENT_FIELD_NUMBER))) {
-        bean.setComment(test.getComment());
+        dto.setComment(test.getComment());
       }
       String mapper = "manual";
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MAPPER_FIELD_NUMBER))) {
@@ -205,9 +205,9 @@ public final class TestSuiteBridge {
             // Nothing to do
         }
       }
-      bean.setMapper(mapper);
+      dto.setMapper(mapper);
     }
-    return bean;
+    return dto;
   }
   // Methods -
 

@@ -197,18 +197,18 @@ public class CustomerController extends AbstractBenchService {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
     }
     // Address structure checks -
-    CustomerDTO bean = null;
+    CustomerDTO dto = null;
     switch(mapper) {
       case DOZER:
-        bean = dozer.map(customer, CustomerDTO.class);
+        dto = dozer.map(customer, CustomerDTO.class);
         break;
       case MAPSTRUCT:
-        bean = mapstruct.customer().fromRest(customer);
+        dto = mapstruct.customer().fromRest(customer);
         break;
       default:
-        bean = CustomerBridge.fromRest(customer);
+        dto = CustomerBridge.fromRest(customer);
     }
-    final String uuid = dao.create(bean);
+    final String uuid = dao.create(dto);
     registerCall(call);
     return uuid;
   }

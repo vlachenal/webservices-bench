@@ -31,81 +31,81 @@ import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 public interface CustomerMapper {
 
   /**
-   * Convert SOAP customer to bean
+   * Convert SOAP customer to DTO
    *
    * @param customer the SOAP customer
    *
-   * @return the bean
+   * @return the DTO
    */
   CustomerDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Customer customer);
 
   /**
-   * Convert bean customer to SOAP
+   * Convert DTO customer to SOAP
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the SOAP customer
    */
   com.github.vlachenal.webservice.bench.soap.api.Customer toSoap(CustomerDTO customer);
 
   /**
-   * Convert bean customer to SOAP
+   * Convert DTO customer to SOAP
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the SOAP customer
    */
   List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoapList(List<CustomerDTO> customer);
 
   /**
-   * Convert Thrift customer to bean
+   * Convert Thrift customer to DTO
    *
    * @param customer the Thrift customer
    *
-   * @return the bean
+   * @return the DTO
    */
   CustomerDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Customer customer);
 
   /**
-   * Convert bean customer to Thrift
+   * Convert DTO customer to Thrift
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the Thrift customer
    */
   com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(CustomerDTO customer);
 
   /**
-   * Convert bean customer to Thrift
+   * Convert DTO customer to Thrift
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the Thrift customer
    */
   List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThriftList(List<CustomerDTO> customer);
 
   /**
-   * Convert REST customer to bean
+   * Convert REST customer to DTO
    *
    * @param customer the REST customer
    *
-   * @return the bean
+   * @return the DTO
    */
   CustomerDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Customer customer);
 
   /**
-   * Convert bean customer to REST
+   * Convert DTO customer to REST
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the REST customer
    */
   com.github.vlachenal.webservice.bench.rest.api.bean.Customer toRest(CustomerDTO customer);
 
   /**
-   * Convert bean customer to REST
+   * Convert DTO customer to REST
    *
-   * @param customer the bean customer
+   * @param customer the DTO customer
    *
    * @return the REST customer
    */

@@ -25,19 +25,19 @@ import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 public interface PhoneMapper {
 
   /**
-   * Convert SOAP phone to bean
+   * Convert SOAP phone to DTO
    *
    * @param phone the SOAP phone
    *
-   * @return the bean
+   * @return the DTO
    */
   @Mapping(source="phoneType",target="type")
   PhoneDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
 
   /**
-   * Convert bean phone to SOAP
+   * Convert DTO phone to SOAP
    *
-   * @param phone the bean phone
+   * @param phone the DTO phone
    *
    * @return the SOAP phone
    */
@@ -45,36 +45,36 @@ public interface PhoneMapper {
   com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(PhoneDTO phone);
 
   /**
-   * Convert Thrift phone to bean
+   * Convert Thrift phone to DTO
    *
    * @param phone the Thrift phone
    *
-   * @return the bean
+   * @return the DTO
    */
   PhoneDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
 
   /**
-   * Convert bean phone to Thrift
+   * Convert DTO phone to Thrift
    *
-   * @param phone the bean phone
+   * @param phone the DTO phone
    *
    * @return the Thrift phone
    */
   com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(PhoneDTO phone);
 
   /**
-   * Convert REST phone to bean
+   * Convert REST phone to DTO
    *
    * @param phone the REST phone
    *
-   * @return the bean
+   * @return the DTO
    */
   PhoneDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Phone phone);
 
   /**
-   * Convert bean phone to REST
+   * Convert DTO phone to REST
    *
-   * @param phone the bean phone
+   * @param phone the DTO phone
    *
    * @return the REST phone
    */

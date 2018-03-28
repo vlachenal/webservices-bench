@@ -28,105 +28,105 @@ public final class CallBridge {
 
   // Methods +
   /**
-   * Convert REST client call to bean
+   * Convert REST client call to DTO
    *
    * @param call the REST client call
    *
-   * @return the bean
+   * @return the DTO
    */
   public static CallDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.ClientCall call) {
-    CallDTO bean = null;
+    CallDTO dto = null;
     if(call != null) {
-      bean = new CallDTO();
-      bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(call.getClientEnd());
-      bean.setMethod(call.getMethod());
-      bean.setProtocol(call.getProtocol());
-      bean.setSeq(call.getRequestSeq());
-      bean.setOk(call.isOk());
-      bean.setErrMsg(call.getErrMsg());
+      dto = new CallDTO();
+      dto.setClientStart(call.getClientStart());
+      dto.setClientEnd(call.getClientEnd());
+      dto.setMethod(call.getMethod());
+      dto.setProtocol(call.getProtocol());
+      dto.setSeq(call.getRequestSeq());
+      dto.setOk(call.isOk());
+      dto.setErrMsg(call.getErrMsg());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert Thrift client call to bean
+   * Convert Thrift client call to DTO
    *
    * @param call the Thrift client call
    *
-   * @return the bean
+   * @return the DTO
    */
   public static CallDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.ClientCall call) {
-    CallDTO bean = null;
+    CallDTO dto = null;
     if(call != null) {
-      bean = new CallDTO();
-      bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(call.getClientEnd());
-      bean.setMethod(call.getMethod());
-      bean.setProtocol(call.getProtocol());
-      bean.setSeq(call.getRequestSeq());
-      bean.setOk(call.isOk());
-      bean.setErrMsg(call.getErrMsg());
+      dto = new CallDTO();
+      dto.setClientStart(call.getClientStart());
+      dto.setClientEnd(call.getClientEnd());
+      dto.setMethod(call.getMethod());
+      dto.setProtocol(call.getProtocol());
+      dto.setSeq(call.getRequestSeq());
+      dto.setOk(call.isOk());
+      dto.setErrMsg(call.getErrMsg());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert SOAP client call to bean
+   * Convert SOAP client call to DTO
    *
    * @param call the SOAP client call
    *
-   * @return the bean
+   * @return the DTO
    */
   public static CallDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.ClientCall call) {
-    CallDTO bean = null;
+    CallDTO dto = null;
     if(call != null) {
-      bean = new CallDTO();
-      bean.setClientStart(call.getClientStart());
-      bean.setClientEnd(call.getClientEnd());
-      bean.setMethod(call.getMethod());
-      bean.setProtocol(call.getProtocol());
-      bean.setSeq(call.getRequestSeq());
-      bean.setOk(call.isOk());
-      bean.setErrMsg(call.getErrMsg());
+      dto = new CallDTO();
+      dto.setClientStart(call.getClientStart());
+      dto.setClientEnd(call.getClientEnd());
+      dto.setMethod(call.getMethod());
+      dto.setProtocol(call.getProtocol());
+      dto.setSeq(call.getRequestSeq());
+      dto.setOk(call.isOk());
+      dto.setErrMsg(call.getErrMsg());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert Protocol buffer client call to bean
+   * Convert Protocol buffer client call to DTO
    *
    * @param call the Protocol buffer client call
    *
-   * @return the bean
+   * @return the DTO
    */
   public static CallDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall call) {
-    CallDTO bean = null;
+    CallDTO dto = null;
     if(call != null) {
-      bean = new CallDTO();
+      dto = new CallDTO();
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
-        bean.setClientStart(call.getClientStart());
+        dto.setClientStart(call.getClientStart());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER))) {
-        bean.setClientEnd(call.getClientEnd());
+        dto.setClientEnd(call.getClientEnd());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER))) {
-        bean.setMethod(call.getMethod());
+        dto.setMethod(call.getMethod());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER))) {
-        bean.setProtocol(call.getProtocol());
+        dto.setProtocol(call.getProtocol());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER))) {
-        bean.setSeq(call.getRequestSeq());
+        dto.setSeq(call.getRequestSeq());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER))) {
-        bean.setOk(call.getOk());
+        dto.setOk(call.getOk());
       }
       if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER))) {
-        bean.setErrMsg(call.getErrMsg());
+        dto.setErrMsg(call.getErrMsg());
       }
     }
-    return bean;
+    return dto;
   }
   // Methods -
 

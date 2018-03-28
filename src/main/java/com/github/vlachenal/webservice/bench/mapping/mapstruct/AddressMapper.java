@@ -24,54 +24,54 @@ import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 public interface AddressMapper {
 
   /**
-   * Convert SOAP address to bean
+   * Convert SOAP address to DTO
    *
    * @param address the SOAP address
    *
-   * @return the bean
+   * @return the DTO
    */
   AddressDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Address address);
 
   /**
-   * Convert bean address to SOAP
+   * Convert DTO address to SOAP
    *
-   * @param address the bean address
+   * @param address the DTO address
    *
    * @return the SOAP address
    */
   com.github.vlachenal.webservice.bench.soap.api.Address toSoap(AddressDTO address);
 
   /**
-   * Convert Thrift address to bean
+   * Convert Thrift address to DTO
    *
    * @param address the Thrift address
    *
-   * @return the bean
+   * @return the DTO
    */
   AddressDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Address address);
 
   /**
-   * Convert bean address to Thrift
+   * Convert DTO address to Thrift
    *
-   * @param address the bean address
+   * @param address the DTO address
    *
    * @return the Thrift address
    */
   com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(AddressDTO address);
 
   /**
-   * Convert REST address to bean
+   * Convert REST address to DTO
    *
    * @param address the REST address
    *
-   * @return the bean
+   * @return the DTO
    */
   AddressDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.bean.Address address);
 
   /**
-   * Convert bean address to REST
+   * Convert DTO address to REST
    *
-   * @param address the bean address
+   * @param address the DTO address
    *
    * @return the REST address
    */

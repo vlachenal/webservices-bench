@@ -35,143 +35,143 @@ public final class AddressBridge {
 
   // Methods +
   /**
-   * Convert addres bean to REST/JSON structure
+   * Convert addres DTO to REST/JSON structure
    *
-   * @param bean the bean to convert
+   * @param dto the DTO to convert
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(final AddressDTO bean) {
+  public static com.github.vlachenal.webservice.bench.rest.api.bean.Address toRest(final AddressDTO dto) {
     com.github.vlachenal.webservice.bench.rest.api.bean.Address address = null;
-    if(bean != null) {
+    if(dto != null) {
       address = new com.github.vlachenal.webservice.bench.rest.api.bean.Address();
-      address.setLines(bean.getLines());
-      address.setZipCode(bean.getZipCode());
-      address.setCity(bean.getCity());
-      address.setCountry(bean.getCountry());
+      address.setLines(dto.getLines());
+      address.setZipCode(dto.getZipCode());
+      address.setCity(dto.getCity());
+      address.setCountry(dto.getCountry());
     }
     return address;
   }
 
   /**
-   * Convert REST address to bean
+   * Convert REST address to DTI
    *
    * @param address the REST address
    *
-   * @return the bean
+   * @return the DTI
    */
   public static AddressDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.bean.Address address) {
-    AddressDTO bean = null;
+    AddressDTO dto = null;
     if(address != null) {
-      bean = new AddressDTO();
-      bean.setLines(address.getLines());
-      bean.setZipCode(address.getZipCode());
-      bean.setCity(address.getCity());
-      bean.setCountry(address.getCountry());
+      dto = new AddressDTO();
+      dto.setLines(address.getLines());
+      dto.setZipCode(address.getZipCode());
+      dto.setCity(address.getCity());
+      dto.setCountry(address.getCountry());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert address bean to Thift structure
+   * Convert address DTO to Thift structure
    *
-   * @param bean the bean to convert
+   * @param dto the DTO to convert
    *
    * @return the Thrift structure
    */
-  public static com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(final AddressDTO bean) {
+  public static com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(final AddressDTO dto) {
     com.github.vlachenal.webservice.bench.thrift.api.Address address = null;
-    if(bean != null) {
+    if(dto != null) {
       address = new com.github.vlachenal.webservice.bench.thrift.api.Address();
-      address.setLines(bean.getLines());
-      address.setZipCode(bean.getZipCode());
-      address.setCity(bean.getCity());
-      address.setCountry(bean.getCountry());
+      address.setLines(dto.getLines());
+      address.setZipCode(dto.getZipCode());
+      address.setCity(dto.getCity());
+      address.setCountry(dto.getCountry());
     }
     return address;
   }
 
   /**
-   * Convert Thrift address to bean
+   * Convert Thrift address to DTO
    *
    * @param address the Thrift address
    *
-   * @return the bean
+   * @return the DTO
    */
   public static AddressDTO fromThrift(final com.github.vlachenal.webservice.bench.thrift.api.Address address) {
-    AddressDTO bean = null;
+    AddressDTO dto = null;
     if(address != null) {
-      bean = new AddressDTO();
-      bean.setLines(address.getLines());
-      bean.setZipCode(address.getZipCode());
-      bean.setCity(address.getCity());
-      bean.setCountry(address.getCountry());
+      dto = new AddressDTO();
+      dto.setLines(address.getLines());
+      dto.setZipCode(address.getZipCode());
+      dto.setCity(address.getCity());
+      dto.setCountry(address.getCountry());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert addres bean to SOAP structure
+   * Convert addres DTO to SOAP structure
    *
-   * @param bean the bean to convert
+   * @param dto the DTO to convert
    *
    * @return the SOAP structure
    */
-  public static com.github.vlachenal.webservice.bench.soap.api.Address toSoap(final AddressDTO bean) {
+  public static com.github.vlachenal.webservice.bench.soap.api.Address toSoap(final AddressDTO dto) {
     com.github.vlachenal.webservice.bench.soap.api.Address address = null;
-    if(bean != null) {
+    if(dto != null) {
       address = new com.github.vlachenal.webservice.bench.soap.api.Address();
-      if(bean.getLines() != null) {
-        address.getLines().addAll(bean.getLines());
+      if(dto.getLines() != null) {
+        address.getLines().addAll(dto.getLines());
       }
-      address.setZipCode(bean.getZipCode());
-      address.setCity(bean.getCity());
-      address.setCountry(bean.getCountry());
+      address.setZipCode(dto.getZipCode());
+      address.setCity(dto.getCity());
+      address.setCountry(dto.getCountry());
     }
     return address;
   }
 
   /**
-   * Convert SOAP address to bean
+   * Convert SOAP address to DTO
    *
    * @param address the SOAP address
    *
-   * @return the bean
+   * @return the DTO
    */
   public static AddressDTO fromSoap(final com.github.vlachenal.webservice.bench.soap.api.Address address) {
-    AddressDTO bean = null;
+    AddressDTO dto = null;
     if(address != null) {
-      bean = new AddressDTO();
-      bean.setLines(address.getLines());
-      bean.setZipCode(address.getZipCode());
-      bean.setCity(address.getCity());
-      bean.setCountry(address.getCountry());
+      dto = new AddressDTO();
+      dto.setLines(address.getLines());
+      dto.setZipCode(address.getZipCode());
+      dto.setCity(address.getCity());
+      dto.setCountry(address.getCountry());
     }
-    return bean;
+    return dto;
   }
 
   /**
-   * Convert addres bean to Protocol buffer structure
+   * Convert address DTO to Protocol buffer structure
    *
-   * @param bean the bean to convert
+   * @param dto the DTO to convert
    *
    * @return the Protocol buffer structure
    */
-  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address toProtobuf(final AddressDTO bean) {
+  public static com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address toProtobuf(final AddressDTO dto) {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address = null;
-    if(bean != null) {
+    if(dto != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.newBuilder();
-      if(bean.getLines() != null) {
-        builder.addAllLines(bean.getLines());
+      if(dto.getLines() != null) {
+        builder.addAllLines(dto.getLines());
       }
-      if(bean.getZipCode() != null) {
-        builder.setZipCode(bean.getZipCode());
+      if(dto.getZipCode() != null) {
+        builder.setZipCode(dto.getZipCode());
       }
-      if(bean.getCity() != null) {
-        builder.setCity(bean.getCity());
+      if(dto.getCity() != null) {
+        builder.setCity(dto.getCity());
       }
-      if(bean.getCountry() != null) {
-        builder.setCountry(bean.getCountry());
+      if(dto.getCountry() != null) {
+        builder.setCountry(dto.getCountry());
       }
       address = builder.build();
     }
@@ -179,30 +179,30 @@ public final class AddressBridge {
   }
 
   /**
-   * Convert Protocol buffer address to bean
+   * Convert Protocol buffer address to DTO
    *
    * @param address the Protocol buffer address
    *
-   * @return the bean
+   * @return the DTO
    */
   public static AddressDTO fromProtobuf(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address) {
-    AddressDTO bean = null;
+    AddressDTO dto = null;
     if(address != null) {
-      bean = new AddressDTO();
+      dto = new AddressDTO();
       if(address.getRepeatedFieldCount(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
-        bean.setLines(address.getLinesList());
+        dto.setLines(address.getLinesList());
       }
       if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
-        bean.setZipCode(address.getZipCode());
+        dto.setZipCode(address.getZipCode());
       }
       if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER))) {
-        bean.setCity(address.getCity());
+        dto.setCity(address.getCity());
       }
       if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER))) {
-        bean.setCountry(address.getCountry());
+        dto.setCountry(address.getCountry());
       }
     }
-    return bean;
+    return dto;
   }
   // Methods -
 

@@ -174,18 +174,18 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       throw new CustomerException(ErrorCode.PARAMETER, "Address lines[0], zip_code, city and country has to be set: " + customer.getAddress());
     }
     // Address structure checks -
-    CustomerDTO bean = null;
+    CustomerDTO dto = null;
     switch(mapper) {
       case DOZER:
-        bean = dozer.map(customer, CustomerDTO.class);
+        dto = dozer.map(customer, CustomerDTO.class);
         break;
       case MAPSTRUCT:
-        bean = mapstruct.customer().fromThrift(customer);
+        dto = mapstruct.customer().fromThrift(customer);
         break;
       default:
-        bean = CustomerBridge.fromThrift(customer);
+        dto = CustomerBridge.fromThrift(customer);
     }
-    final String uuid = dao.create(bean);
+    final String uuid = dao.create(dto);
     registerCall(call);
     return uuid;
   }
