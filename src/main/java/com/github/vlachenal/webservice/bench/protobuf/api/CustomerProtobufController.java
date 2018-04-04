@@ -9,7 +9,6 @@ package com.github.vlachenal.webservice.bench.protobuf.api;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +22,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -47,9 +47,22 @@ public class CustomerProtobufController extends AbstractBenchService {
 
   // Attributes +
   /** Customer DAO */
-  @Autowired
-  private CustomerDAO dao;
+  private final CustomerDAO dao;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerProtobufController} constructor
+   *
+   * @param stats the statistics cache to use
+   * @param dao the customer DAO to use
+   */
+  public CustomerProtobufController(final StatisticsCache stats, final CustomerDAO dao) {
+    super(stats);
+    this.dao = dao;
+  }
+  // Constructors -
 
 
   // Methods +

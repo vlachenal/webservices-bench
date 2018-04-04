@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench.soap.api;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -37,13 +36,25 @@ public class StatisticsEndpoint {
   private static final String NAMESPACE_URI = "http://github.com/vlachenal/webservices-bench";
 
   /** Statistics DAO */
-  @Autowired
-  private StatisticsDAO dao;
+  private final StatisticsDAO dao;
 
   /** Statistics cache */
-  @Autowired
-  private StatisticsCache cache;
+  private final StatisticsCache cache;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link StatisticsEndpoint} constructor
+   *
+   * @param dao the statistics DAO to use
+   * @param cache the statistics cache to use
+   */
+  public StatisticsEndpoint(final StatisticsDAO dao, final StatisticsCache cache) {
+    this.dao = dao;
+    this.cache = cache;
+  }
+  // Constructors -
 
 
   // Methods +

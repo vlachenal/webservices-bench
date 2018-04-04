@@ -11,10 +11,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.thrift.TException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -32,16 +32,35 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
 
   // Attributes +
   /** Dozer mapper */
-  @Autowired
-  private org.dozer.Mapper dozer;
+  private final org.dozer.Mapper dozer;
 
   /** MapStruct mappers */
-  @Autowired
-  private MapStructMappers mapstruct;
+  private final MapStructMappers mapstruct;
 
-  @Autowired
-  private CustomerDAO dao;
+  /** Customer DAO */
+  private final CustomerDAO dao;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerServiceHandler} constructor
+   *
+   * @param stats the statistics cache to use
+   * @param dao the customer DAO to use
+   * @param dozer the Dozer mapper to use
+   * @param mapstruct the MapStruct mappers to use
+   */
+  public CustomerServiceHandler(final StatisticsCache stats,
+                                final CustomerDAO dao,
+                                final org.dozer.Mapper dozer,
+                                final MapStructMappers mapstruct) {
+    super(stats);
+    this.dao = dao;
+    this.dozer = dozer;
+    this.mapstruct = mapstruct;
+  }
+  // Constructors -
 
 
   // Methods +

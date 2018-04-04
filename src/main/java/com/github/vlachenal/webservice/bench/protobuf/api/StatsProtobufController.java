@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench.protobuf.api;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,13 +41,25 @@ public class StatsProtobufController {
 
   // Attributes +
   /** Statistics DAO */
-  @Autowired
-  private StatisticsDAO dao;
+  private final StatisticsDAO dao;
 
   /** Statistics cache */
-  @Autowired
-  private StatisticsCache cache;
+  private final StatisticsCache cache;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link StatsProtobufController} constructor
+   *
+   * @param dao the statistics DAO to use
+   * @param cache the statistics cache to use
+   */
+  public StatsProtobufController(final StatisticsDAO dao, final StatisticsCache cache) {
+    this.dao = dao;
+    this.cache = cache;
+  }
+  // Constructors -
 
 
   // Methods +

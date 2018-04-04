@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.rest.api.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Vincent Lachenal
  */
+@ApiModel(description="Customer's phone")
 public class Phone {
 
   /**

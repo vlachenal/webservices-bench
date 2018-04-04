@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +23,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -51,17 +51,35 @@ public class CustomerController extends AbstractBenchService {
 
   // Attributes +
   /** Customer DAO */
-  @Autowired
-  private CustomerDAO dao;
+  private final CustomerDAO dao;
 
   /** Dozer mapper */
-  @Autowired
-  private org.dozer.Mapper dozer;
+  private final org.dozer.Mapper dozer;
 
   /** MapStruct mappers */
-  @Autowired
-  private MapStructMappers mapstruct;
+  private final MapStructMappers mapstruct;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerController} constructor
+   *
+   * @param stats the statistics cache to use
+   * @param dao the customer DAO to use
+   * @param dozer the Dozer mapper to use
+   * @param mapstruct the MapStrrct mapper to use
+   */
+  public CustomerController(final StatisticsCache stats,
+                            final CustomerDAO dao,
+                            final org.dozer.Mapper dozer,
+                            final MapStructMappers mapstruct) {
+    super(stats);
+    this.dao = dao;
+    this.dozer = dozer;
+    this.mapstruct = mapstruct;
+  }
+  // Constructors -
 
 
   // Methods +

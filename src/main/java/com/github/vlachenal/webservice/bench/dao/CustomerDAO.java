@@ -6,12 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -99,18 +98,17 @@ public class CustomerDAO {
    */
   public List<CustomerDTO> listAll() {
     final ArrayList<CustomerDTO> customers = new ArrayList<>();
-    jdbc.query(REQ_LIST_ALL, new RowCallbackHandler() {
-      @Override
-      public void processRow(final ResultSet rs) throws SQLException {
-        final CustomerDTO customer = new CustomerDTO();
-        final UUID uuid = rs.getObject(1, UUID.class);
-        customer.setId(uuid.toString());
-        customer.setFirstName(rs.getString(2));
-        customer.setLastName(rs.getString(3));
-        customers.add(customer);
-      }
-    });
+    jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3))).forEach(cust -> customers.add(cust));
     return customers;
+  }
+
+  /**
+   * List all customers in database
+   *
+   * @return the customers' stream
+   */
+  public Stream<CustomerDTO> stream() {
+    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3))).stream();
   }
 
   /**
@@ -241,20 +239,10 @@ public class CustomerDAO {
       });
     }
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
-      final List<PhoneDTO> phones = customer.getPhones();
-      jdbc.batchUpdate(ADD_PHONE, new BatchPreparedStatementSetter() {
-        @Override
-        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
-          ps.setObject(1, uuid);
-          final PhoneDTO phone = phones.get(i);
-          ps.setShort(2, phone.getType().getCode());
-          ps.setString(3, phone.getNumber());
-        }
-
-        @Override
-        public int getBatchSize() {
-          return phones.size();
-        }
+      jdbc.batchUpdate(ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (ps, phone) -> {
+        ps.setObject(1, uuid);
+        ps.setShort(2, phone.getType().getCode());
+        ps.setString(3, phone.getNumber());
       });
     }
     return uuid.toString();

@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Vincent Lachenal
  */
+@ApiModel(description="Customer's address")
 public class Address {
 
   // Attributes +

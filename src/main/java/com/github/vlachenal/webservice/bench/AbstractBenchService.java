@@ -6,8 +6,6 @@
  */
 package com.github.vlachenal.webservice.bench;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 
@@ -20,9 +18,20 @@ public abstract class AbstractBenchService {
 
   // Attributes +
   /** Statistics cache */
-  @Autowired
-  private StatisticsCache stats;
+  private final StatisticsCache stats;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link AbstractBenchService} constructor
+   *
+   * @param stats the statistics cache to use
+   */
+  protected AbstractBenchService(final StatisticsCache stats) {
+    this.stats = stats;
+  }
+  // Constructors -
 
 
   // Methods +

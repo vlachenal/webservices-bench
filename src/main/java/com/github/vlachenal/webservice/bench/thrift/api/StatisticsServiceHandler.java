@@ -9,7 +9,6 @@ package com.github.vlachenal.webservice.bench.thrift.api;
 import java.util.ArrayList;
 
 import org.apache.thrift.TException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
@@ -30,13 +29,25 @@ public class StatisticsServiceHandler implements StatsService.Iface {
 
   // Attributes +
   /** Statistics DAO */
-  @Autowired
-  private StatisticsDAO dao;
+  private final StatisticsDAO dao;
 
   /** Statistics cache */
-  @Autowired
-  private StatisticsCache cache;
+  private final StatisticsCache cache;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link StatisticsServiceHandler} constructor
+   *
+   * @param dao the statistics DAO to use
+   * @param cache the statistics cache to use
+   */
+  public StatisticsServiceHandler(final StatisticsDAO dao, final StatisticsCache cache) {
+    this.dao = dao;
+    this.cache = cache;
+  }
+  // Constructors -
 
 
   // Methods +

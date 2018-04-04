@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -39,6 +40,29 @@ public class CustomerDTO {
   /** Customer phone numbers */
   private List<PhoneDTO> phones;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerDTO} default constructor
+   */
+  public CustomerDTO() {
+    // Nothing to do
+  }
+
+  /**
+   * {@link CustomerDTO} constructor
+   *
+   * @param id the UUID
+   * @param firstName the first name
+   * @param lastName the last name
+   */
+  public CustomerDTO(final UUID id, final String firstName, final String lastName) {
+    this.id = id.toString();
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  // Constructors -
 
 
   // Accessors +

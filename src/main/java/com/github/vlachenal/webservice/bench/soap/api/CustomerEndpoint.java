@@ -14,7 +14,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -26,6 +25,7 @@ import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -49,17 +49,35 @@ public class CustomerEndpoint extends AbstractBenchService {
   private static final String REQ_HEADER = "{" + NAMESPACE_URI + "}request-header";
 
   /** Dozer mapper */
-  @Autowired
-  private org.dozer.Mapper dozer;
+  private final org.dozer.Mapper dozer;
 
   /** MapStruct mappers */
-  @Autowired
-  private MapStructMappers mapstruct;
+  private final MapStructMappers mapstruct;
 
   /** Customer DAO */
-  @Autowired
-  private CustomerDAO dao;
+  private final CustomerDAO dao;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerEndpoint} constructor
+   *
+   * @param stats the statistics cache to use
+   * @param dao the customer DAO to use
+   * @param dozer the Dozer mapper to use
+   * @param mapstruct the MapStruct mappers to use
+   */
+  public CustomerEndpoint(final StatisticsCache stats,
+                          final CustomerDAO dao,
+                          final org.dozer.Mapper dozer,
+                          final MapStructMappers mapstruct) {
+    super(stats);
+    this.dao = dao;
+    this.dozer = dozer;
+    this.mapstruct = mapstruct;
+  }
+  // Constructors -
 
 
   // Methods +
