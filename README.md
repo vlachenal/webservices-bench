@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vlachenal/webservices-bench.svg?branch=master)](https://travis-ci.org/vlachenal/webservices-bench)
+
 # webservices-bench
 Project to test and compare different webservices
 
