@@ -127,6 +127,7 @@ dependencies {
     // tests
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.hsqldb:hsqldb:2.4.0'
     // JAXB
     compile "javax.xml.bind:jaxb-api:2.3.0"
     jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.7-b41' //jaxws 2.2.6 uses jaxb 2.2.5, but can't dL 2.2.5 from maven the pom is off TODO

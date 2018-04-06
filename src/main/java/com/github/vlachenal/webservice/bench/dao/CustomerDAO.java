@@ -98,7 +98,7 @@ public class CustomerDAO {
    */
   public List<CustomerDTO> listAll() {
     final ArrayList<CustomerDTO> customers = new ArrayList<>();
-    jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3))).forEach(cust -> customers.add(cust));
+    jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3))).forEach(cust -> customers.add(cust));
     return customers;
   }
 
@@ -108,7 +108,7 @@ public class CustomerDAO {
    * @return the customers' stream
    */
   public Stream<CustomerDTO> stream() {
-    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3))).stream();
+    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3))).stream();
   }
 
   /**

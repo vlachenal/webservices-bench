@@ -17,7 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.sql.DataSource;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -26,8 +30,12 @@ import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
@@ -55,6 +63,14 @@ public class CustomerDAOTest {
   /** Newly created customer identifier */
   private static String customerId;
 
+  /** Initialization status */
+  private static AtomicBoolean initialized = new AtomicBoolean(false);
+
+  /** Customer datasource */
+  @Qualifier("ds.customer")
+  @Autowired
+  private DataSource dataSource;
+
   /** Customer DAO */
   @Autowired
   private CustomerDAO dao;
@@ -68,6 +84,19 @@ public class CustomerDAOTest {
   @BeforeClass
   public static void setUpBeforeClass() {
     dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  }
+
+  /**
+   * Initialize database if needed
+   */
+  @Profile("ci")
+  @Before
+  public void setUpBefore() {
+    if(!initialized.get()) {
+      final ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema-hsqldb.sql"));
+      populator.execute(dataSource);
+      initialized.set(true);
+    }
   }
   // Unit tests (un)initialization -
 

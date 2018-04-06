@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench.dto;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -57,8 +56,8 @@ public class CustomerDTO {
    * @param firstName the first name
    * @param lastName the last name
    */
-  public CustomerDTO(final UUID id, final String firstName, final String lastName) {
-    this.id = id.toString();
+  public CustomerDTO(final String id, final String firstName, final String lastName) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
   }
