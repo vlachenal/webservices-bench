@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/vlachenal/webservices-bench.svg?branch=master)](https://travis-ci.org/vlachenal/webservices-bench) [![Maintainability](https://api.codeclimate.com/v1/badges/d7b5e8f8a73d8eba8aa5/maintainability)](https://codeclimate.com/github/vlachenal/webservices-bench/maintainability)
+[![Build Status](https://travis-ci.org/vlachenal/webservices-bench.svg?branch=master)](https://travis-ci.org/vlachenal/webservices-bench)
 
 # webservices-bench
 Project to test and compare different webservices
