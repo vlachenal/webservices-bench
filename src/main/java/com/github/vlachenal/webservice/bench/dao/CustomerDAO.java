@@ -138,55 +138,78 @@ public class CustomerDAO {
       }
     });
     if(customer != null) {
-      final AddressDTO address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
-        id
-      }, new ResultSetExtractor<AddressDTO>() {
-        private void addLine(final List<String> lines, final String line) {
-          if(line != null) {
-            lines.add(line);
-          }
-        }
-
-        @Override
-        public AddressDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
-          if(!rs.next()) {
-            return null;
-          }
-          final AddressDTO addr = new AddressDTO();
-          final ArrayList<String> lines = new ArrayList<>();
-          addLine(lines, rs.getString(1));
-          addLine(lines, rs.getString(2));
-          addLine(lines, rs.getString(3));
-          addLine(lines, rs.getString(4));
-          addLine(lines, rs.getString(5));
-          addLine(lines, rs.getString(6));
-          if(!lines.isEmpty()) {
-            addr.setLines(lines);
-          }
-          addr.setZipCode(rs.getString(7).trim());
-          addr.setCity(rs.getString(8));
-          addr.setCountry(rs.getString(9));
-          return addr;
-        }
-      });
-      customer.setAddress(address);
-      final ArrayList<PhoneDTO> phones = new ArrayList<>();
-      jdbc.query(REQ_GET_CUST_PHONES, new Object[] {
-        id
-      }, new RowCallbackHandler() {
-        @Override
-        public void processRow(final ResultSet rs) throws SQLException {
-          final PhoneDTO phone = new PhoneDTO();
-          phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
-          phone.setNumber(rs.getString(2));
-          phones.add(phone);
-        }
-      });
+      customer.setAddress(getAddress(id));
+      final List<PhoneDTO> phones = getPhones(id);
       if(!phones.isEmpty()) {
         customer.setPhones(phones);
       }
     }
     return customer;
+  }
+
+  /**
+   * Get customer's address
+   *
+   * @param id the customer identifier
+   *
+   * @return the address
+   */
+  public AddressDTO getAddress(final UUID id) {
+    final AddressDTO address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
+      id
+    }, new ResultSetExtractor<AddressDTO>() {
+      private void addLine(final List<String> lines, final String line) {
+        if(line != null) {
+          lines.add(line);
+        }
+      }
+
+      @Override
+      public AddressDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
+        if(!rs.next()) {
+          return null;
+        }
+        final AddressDTO addr = new AddressDTO();
+        final ArrayList<String> lines = new ArrayList<>();
+        addLine(lines, rs.getString(1));
+        addLine(lines, rs.getString(2));
+        addLine(lines, rs.getString(3));
+        addLine(lines, rs.getString(4));
+        addLine(lines, rs.getString(5));
+        addLine(lines, rs.getString(6));
+        if(!lines.isEmpty()) {
+          addr.setLines(lines);
+        }
+        addr.setZipCode(rs.getString(7).trim());
+        addr.setCity(rs.getString(8));
+        addr.setCountry(rs.getString(9));
+        return addr;
+      }
+    });
+    return address;
+  }
+
+  /**
+   * Get customer's phones
+   *
+   * @param id the customer's identifier
+   *
+   * @return the customer's phones
+   */
+  public List<PhoneDTO> getPhones(final UUID id) {
+    final ArrayList<PhoneDTO> phones = new ArrayList<>();
+    jdbc.query(REQ_GET_CUST_PHONES, new Object[] {
+      id
+    }, new RowCallbackHandler() {
+      @Override
+      public void processRow(final ResultSet rs) throws SQLException {
+        final PhoneDTO phone = new PhoneDTO();
+        phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
+        phone.setNumber(rs.getString(2));
+        phones.add(phone);
+      }
+    });
+    return phones;
   }
 
   /**
