@@ -1,5 +1,7 @@
 package com.github.vlachenal.webservice.bench.business;
 
+import java.util.Collection;
+
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 
 /**
@@ -22,6 +24,20 @@ public abstract class AbstractBusiness {
       if(param == null) {
         throw new InvalidParametersException(errorMsg + ": " + params);
       }
+    }
+  }
+
+  /**
+   * Check collection parameter (null or empty collection is consederd as error)
+   *
+   * @param errorMsg the error message
+   * @param list the collection to check
+   *
+   * @throws InvalidParametersException missing or invalid parameter
+   */
+  protected <T> void checkParameter(final String errorMsg, final Collection<T> list) throws InvalidParametersException {
+    if(list == null || list.isEmpty()) {
+      throw new InvalidParametersException(errorMsg);
     }
   }
 

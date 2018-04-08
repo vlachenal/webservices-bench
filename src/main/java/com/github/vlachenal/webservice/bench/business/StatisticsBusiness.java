@@ -16,7 +16,7 @@ import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
  * @author Vincent Lachenal
  */
 @Component
-public class StatisticsBusiness {
+public class StatisticsBusiness extends AbstractBusiness {
 
   // Attributes +
   /** Server CPU */
@@ -57,16 +57,9 @@ public class StatisticsBusiness {
    * @throws InvalidParametersException missing or invalid parameters
    */
   public void consolidate(final TestSuiteDTO suite) throws InvalidParametersException {
-    if(suite == null) {
-      throw new InvalidParametersException("Test suite is null");
-    }
-    if(suite.getClientCpu() == null || suite.getClientMemory() == null || suite.getClientJvmVersion() == null
-        || suite.getClientJvmVendor() == null || suite.getClientOsName() == null || suite.getClientOsVersion() == null) {
-      throw new InvalidParametersException("Invalid test suite information");
-    }
-    if(suite.getCalls() == null || suite.getCalls().isEmpty()) {
-      throw new InvalidParametersException("No calls to consolidate");
-    }
+    checkParameters("Test suite is null", suite);
+    checkParameters("Invalid test suite information", suite.getClientCpu(), suite.getClientMemory(), suite.getClientJvmVersion(), suite.getClientJvmVendor(), suite.getClientOsName(), suite.getClientOsVersion());
+    checkParameter("No calls to consolidate", suite.getCalls());
 
     suite.getCalls().stream().forEach(call -> cache.mergeCall(call));
 
