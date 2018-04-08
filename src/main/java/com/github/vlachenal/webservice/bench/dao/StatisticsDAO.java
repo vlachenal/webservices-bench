@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -45,14 +44,6 @@ public class StatisticsDAO {
       + "(request_seq, test_suite_id, method, client_start, server_start, server_end, client_end, ok, error_message) "
       + "VALUES (?,?,?,?,?,?,?,?,?)";
 
-  /** Server CPU */
-  @Value("${cpu}")
-  private String cpu;
-
-  /** Server memory */
-  @Value("${memory}")
-  private String memory;
-
   /** JDBC template */
   private JdbcTemplate jdbc;
   // Attributes -
@@ -79,15 +70,6 @@ public class StatisticsDAO {
     if(testSuite.getCalls() == null || testSuite.getCalls().isEmpty()) {
       return;
     }
-
-    // Gather system informations +
-    testSuite.setServerJvmVersion(System.getProperty("java.version"));
-    testSuite.setServerJvmVendor(System.getProperty("java.vendor"));
-    testSuite.setServerOsName(System.getProperty("os.name"));
-    testSuite.setServerOsVersion(System.getProperty("os.version"));
-    testSuite.setServerCpu(cpu);
-    testSuite.setServerMemory(memory);
-    // Gather system informations -
 
     final UUID uuid = UUID.randomUUID();
 

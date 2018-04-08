@@ -55,15 +55,12 @@ public class StatisticsCache {
    *
    * @return the complete call if found, <code>null</code> otherwise
    */
-  public CallDTO mergeCall(final CallDTO call) {
+  public void mergeCall(final CallDTO call) {
     final CallDTO regCall = calls.get(call.getKey());
     if(regCall != null) {
-      regCall.setClientStart(call.getClientStart());
-      regCall.setClientEnd(call.getClientEnd());
-      regCall.setOk(call.isOk());
-      regCall.setErrMsg(call.getErrMsg());
+      call.setServerStart(call.getServerStart());
+      call.setServerEnd(call.getServerEnd());
     }
-    return regCall;
   }
 
   /**

@@ -6,8 +6,6 @@
  */
 package com.github.vlachenal.webservice.bench.soap.api;
 
-import java.util.ArrayList;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -15,11 +13,9 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import com.github.vlachenal.webservice.bench.business.StatisticsBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
-import com.github.vlachenal.webservice.bench.dto.CallDTO;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
-import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
+import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
 
@@ -35,8 +31,8 @@ public class StatisticsEndpoint {
   /** Namespace URI */
   private static final String NAMESPACE_URI = "http://github.com/vlachenal/webservices-bench";
 
-  /** Statistics DAO */
-  private final StatisticsDAO dao;
+  /** Statistics business */
+  private final StatisticsBusiness business;
 
   /** Statistics cache */
   private final StatisticsCache cache;
@@ -47,11 +43,11 @@ public class StatisticsEndpoint {
   /**
    * {@link StatisticsEndpoint} constructor
    *
-   * @param dao the statistics DAO to use
+   * @param dao the statistics business to use
    * @param cache the statistics cache to use
    */
-  public StatisticsEndpoint(final StatisticsDAO dao, final StatisticsCache cache) {
-    this.dao = dao;
+  public StatisticsEndpoint(final StatisticsBusiness business, final StatisticsCache cache) {
+    this.business = business;
     this.cache = cache;
   }
   // Constructors -
@@ -68,31 +64,11 @@ public class StatisticsEndpoint {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="consolidateRequest")
   @ResponsePayload
   public ConsolidateResponse consolidate(@RequestPayload final ConsolidateRequest request) {
-    final TestSuite test = request.getTest();
-    if(test == null) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Test suite is null");
+    try {
+      business.consolidate(TestSuiteBridge.fromSoap(request.getTest()));
+    } catch(final InvalidParametersException e) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    if(test.getCpu() == null || test.getMemory() == null || test.getJvm() == null
-        || test.getVendor() == null || test.getOsFamily() == null || test.getOsVersion() == null) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid test suite information");
-    }
-    if(test.getCalls() == null || test.getCalls().isEmpty()) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No calls to consolidate");
-    }
-    final TestSuiteDTO suite = TestSuiteBridge.fromSoap(test);
-    final ArrayList<CallDTO> calls = new ArrayList<>();
-    for(final ClientCall ccall : test.getCalls()) {
-      CallDTO call = CallBridge.fromSoap(ccall);
-      if(ccall == null) {
-        continue;
-      }
-      call = cache.mergeCall(call);
-      if(call != null) {
-        calls.add(call);
-      }
-    }
-    suite.setCalls(calls);
-    dao.save(suite);
     return new ConsolidateResponse();
   }
 

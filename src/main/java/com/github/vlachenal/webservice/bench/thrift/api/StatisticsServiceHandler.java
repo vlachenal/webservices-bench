@@ -6,16 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.thrift.api;
 
-import java.util.ArrayList;
-
 import org.apache.thrift.TException;
 import org.springframework.stereotype.Component;
 
+import com.github.vlachenal.webservice.bench.business.StatisticsBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.StatisticsDAO;
-import com.github.vlachenal.webservice.bench.dto.CallDTO;
-import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
-import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
+import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 
 
@@ -28,8 +24,8 @@ import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 public class StatisticsServiceHandler implements StatsService.Iface {
 
   // Attributes +
-  /** Statistics DAO */
-  private final StatisticsDAO dao;
+  /** Statistics service */
+  private final StatisticsBusiness business;
 
   /** Statistics cache */
   private final StatisticsCache cache;
@@ -40,11 +36,11 @@ public class StatisticsServiceHandler implements StatsService.Iface {
   /**
    * {@link StatisticsServiceHandler} constructor
    *
-   * @param dao the statistics DAO to use
+   * @param dao the statistics service to use
    * @param cache the statistics cache to use
    */
-  public StatisticsServiceHandler(final StatisticsDAO dao, final StatisticsCache cache) {
-    this.dao = dao;
+  public StatisticsServiceHandler(final StatisticsBusiness business, final StatisticsCache cache) {
+    this.business = business;
     this.cache = cache;
   }
   // Constructors -
@@ -58,30 +54,11 @@ public class StatisticsServiceHandler implements StatsService.Iface {
    */
   @Override
   public void consolidate(final TestSuite test) throws StatsException, TException {
-    if(test == null) {
-      throw new StatsException("Test suite is null");
+    try {
+      business.consolidate(TestSuiteBridge.fromThrift(test));
+    } catch(final InvalidParametersException e) {
+      throw new StatsException(e.getMessage());
     }
-    if(test.getCpu() == null || test.getMemory() == null || test.getJvm() == null
-        || test.getVendor() == null || test.getOsFamily() == null || test.getOsVersion() == null) {
-      throw new StatsException("Invalid test suite information");
-    }
-    if(test.getCalls() == null || test.getCalls().isEmpty()) {
-      throw new StatsException("No calls to consolidate");
-    }
-    final TestSuiteDTO suite = TestSuiteBridge.fromThrift(test);
-    final ArrayList<CallDTO> calls = new ArrayList<>();
-    for(final ClientCall ccall : test.getCalls()) {
-      CallDTO call = CallBridge.fromThrift(ccall);
-      if(ccall == null) {
-        continue;
-      }
-      call = cache.mergeCall(call);
-      if(call != null) {
-        calls.add(call);
-      }
-    }
-    suite.setCalls(calls);
-    dao.save(suite);
   }
 
   /**

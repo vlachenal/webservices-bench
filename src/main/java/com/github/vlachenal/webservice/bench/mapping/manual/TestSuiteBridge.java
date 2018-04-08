@@ -68,6 +68,7 @@ public final class TestSuiteBridge {
         }
       }
       dto.setMapper(mapper);
+      dto.setCalls(CallBridge.fromRest(test.getCalls()));
     }
     return dto;
   }
@@ -107,6 +108,7 @@ public final class TestSuiteBridge {
         }
       }
       dto.setMapper(mapper);
+      dto.setCalls(CallBridge.fromThrift(test.getCalls()));
     }
     return dto;
   }
@@ -146,6 +148,7 @@ public final class TestSuiteBridge {
         }
       }
       dto.setMapper(mapper);
+      dto.setCalls(CallBridge.fromSoap(test.getCalls()));
     }
     return dto;
   }
@@ -206,6 +209,9 @@ public final class TestSuiteBridge {
         }
       }
       dto.setMapper(mapper);
+      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CALLS_FIELD_NUMBER))) {
+        dto.setCalls(CallBridge.fromProtobuf(test.getCallsList()));
+      }
     }
     return dto;
   }
