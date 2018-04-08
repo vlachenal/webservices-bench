@@ -25,10 +25,6 @@ import com.github.vlachenal.webservice.bench.mapping.manual.CallBridge;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.protobuf.ProtobufType;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 
 /**
  * Statistics REST API entry point
@@ -70,11 +66,6 @@ public class StatsProtobufController {
    */
   @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation("Consolidate client/server statistics")
-  @ApiResponses(value= {
-    @ApiResponse(code=201,message="Customer has been successfully created"),
-    @ApiResponse(code=400,message="Missing or invalid field")
-  })
   public void consolidate(@RequestBody final TestSuite test) {
     if(test == null) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Test suite is null");
@@ -106,7 +97,6 @@ public class StatsProtobufController {
    * Purge statistics cache
    */
   @RequestMapping(method=RequestMethod.DELETE)
-  @ApiOperation("Purge gathered statistcs")
   public void purge() {
     cache.clean();
   }

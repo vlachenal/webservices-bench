@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.rest.api;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -21,15 +20,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
+import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
-import com.github.vlachenal.webservice.bench.rest.api.dto.Address;
 import com.github.vlachenal.webservice.bench.rest.api.dto.Customer;
 import com.github.vlachenal.webservice.bench.rest.api.dto.Mapper;
 
@@ -50,8 +49,8 @@ import io.swagger.annotations.ApiResponses;
 public class CustomerController extends AbstractBenchService {
 
   // Attributes +
-  /** Customer DAO */
-  private final CustomerDAO dao;
+  /** Customer business */
+  private final CustomerBusiness business;
 
   /** Dozer mapper */
   private final org.dozer.Mapper dozer;
@@ -71,11 +70,11 @@ public class CustomerController extends AbstractBenchService {
    * @param mapstruct the MapStrrct mapper to use
    */
   public CustomerController(final StatisticsCache stats,
-                            final CustomerDAO dao,
+                            final CustomerBusiness business,
                             final org.dozer.Mapper dozer,
                             final MapStructMappers mapstruct) {
     super(stats);
-    this.dao = dao;
+    this.business = business;
     this.dozer = dozer;
     this.mapstruct = mapstruct;
   }
@@ -99,7 +98,7 @@ public class CustomerController extends AbstractBenchService {
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
-    final List<CustomerDTO> res = dao.listAll();
+    final List<CustomerDTO> res = business.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case MAPSTRUCT:
@@ -135,14 +134,16 @@ public class CustomerController extends AbstractBenchService {
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
     final CallDTO call = initializeCall(requestSeq, "get");
-    UUID custId = null;
+    CustomerDTO res = null;
     try {
-      custId = UUID.fromString(id);
-    } catch(final IllegalArgumentException e) {
+      res = business.getDetails(id);
+    } catch(final InvalidParametersException e) {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, id + " is not an UUID");
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
+    } catch(final NotFoundException e) {
+      registerCall(call);
+      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    final CustomerDTO res = dao.getDetails(custId);
     Customer customer = null;
     switch(mapper) {
       case DOZER:
@@ -153,10 +154,6 @@ public class CustomerController extends AbstractBenchService {
         break;
       default:
         customer = CustomerBridge.toRest(res);
-    }
-    if(customer == null) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, id + " does not exist");
     }
     registerCall(call);
     return customer;
@@ -182,39 +179,6 @@ public class CustomerController extends AbstractBenchService {
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
     final CallDTO call = initializeCall(requestSeq, "create");
-    // Customer structure checks +
-    if(customer == null) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
-    }
-    if(customer.getFirstName() == null || customer.getLastName() == null || customer.getBirthDate() == null) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer first_name, last_name and brith_date has to be set: " + input);
-    }
-    // Customer structure checks -
-    // Address structure checks +
-    final Address addr = customer.getAddress();
-    if(addr != null
-        && (addr.getLines() == null || addr.getLines().isEmpty()
-        || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
-    }
-    // Address structure checks -
     CustomerDTO dto = null;
     switch(mapper) {
       case DOZER:
@@ -226,7 +190,13 @@ public class CustomerController extends AbstractBenchService {
       default:
         dto = CustomerBridge.fromRest(customer);
     }
-    final String uuid = dao.create(dto);
+    String uuid = null;
+    try {
+      uuid = business.create(dto);
+    } catch(final InvalidParametersException e) {
+      registerCall(call);
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
     registerCall(call);
     return uuid;
   }
@@ -237,7 +207,7 @@ public class CustomerController extends AbstractBenchService {
   @RequestMapping(method=RequestMethod.DELETE)
   @ApiOperation("Delete all customers stored in database")
   public void deleteAll() {
-    dao.deleteAll();
+    business.deleteAll();
   }
 
   /**

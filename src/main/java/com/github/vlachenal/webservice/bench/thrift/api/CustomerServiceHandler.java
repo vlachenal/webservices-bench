@@ -7,17 +7,18 @@
 package com.github.vlachenal.webservice.bench.thrift.api;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.thrift.TException;
 import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
+import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -37,8 +38,8 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   /** MapStruct mappers */
   private final MapStructMappers mapstruct;
 
-  /** Customer DAO */
-  private final CustomerDAO dao;
+  /** Customer service */
+  private final CustomerBusiness business;
   // Attributes -
 
 
@@ -47,16 +48,16 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    * {@link CustomerServiceHandler} constructor
    *
    * @param stats the statistics cache to use
-   * @param dao the customer DAO to use
+   * @param business the customer service to use
    * @param dozer the Dozer mapper to use
    * @param mapstruct the MapStruct mappers to use
    */
   public CustomerServiceHandler(final StatisticsCache stats,
-                                final CustomerDAO dao,
+                                final CustomerBusiness business,
                                 final org.dozer.Mapper dozer,
                                 final MapStructMappers mapstruct) {
     super(stats);
-    this.dao = dao;
+    this.business = business;
     this.dozer = dozer;
     this.mapstruct = mapstruct;
   }
@@ -82,7 +83,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       }
     }
     final CallDTO call = initializeCall(reqSeq, "list");
-    final List<CustomerDTO> res = dao.listAll();
+    final List<CustomerDTO> res = business.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case DOZER:
@@ -124,14 +125,16 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Customer identifier is not set");
     }
-    UUID custId = null;
+    CustomerDTO customer = null;
     try {
-      custId = UUID.fromString(request.getId());
-    } catch(final Exception e) {
+      customer = business.getDetails(request.getId());
+    } catch(final InvalidParametersException e) {
       registerCall(call);
-      throw new CustomerException(ErrorCode.PARAMETER, "Invalid UUID: " + request.getId());
+      throw new CustomerException(ErrorCode.PARAMETER, e.getMessage());
+    } catch(final NotFoundException e) {
+      registerCall(call);
+      throw new CustomerException(ErrorCode.NOT_FOUND, e.getMessage());
     }
-    final CustomerDTO customer = dao.getDetails(custId);
     Customer cust = null;
     switch(mapper) {
       case DOZER:
@@ -142,10 +145,6 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
         break;
       default:
         cust = CustomerBridge.toThrift(customer);
-    }
-    if(cust == null) {
-      registerCall(call);
-      throw new CustomerException(ErrorCode.NOT_FOUND, "Customer " + request.getId() + " has not been found");
     }
     registerCall(call);
     return cust;
@@ -174,25 +173,6 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
     }
     final Customer customer = request.getCustomer();
-    // Customer structure checks +
-    if(customer == null) {
-      registerCall(call);
-      throw new CustomerException(ErrorCode.PARAMETER, "Customer is null");
-    }
-    if(customer.getFirstName() == null || customer.getLastName() == null) {
-      registerCall(call);
-      throw new CustomerException(ErrorCode.PARAMETER, "Customer first_name, last_name and brith_date has to be set: " + customer);
-    }
-    // Customer structure checks -
-    // Address structure checks +
-    final Address addr = customer.getAddress();
-    if(addr != null
-        && (addr.getLines() == null || addr.getLines().isEmpty()
-        || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
-      registerCall(call);
-      throw new CustomerException(ErrorCode.PARAMETER, "Address lines[0], zip_code, city and country has to be set: " + customer.getAddress());
-    }
-    // Address structure checks -
     CustomerDTO dto = null;
     switch(mapper) {
       case DOZER:
@@ -204,7 +184,13 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       default:
         dto = CustomerBridge.fromThrift(customer);
     }
-    final String uuid = dao.create(dto);
+    String uuid = null;
+    try {
+      uuid = business.create(dto);
+    } catch(final InvalidParametersException e) {
+      registerCall(call);
+      throw new CustomerException(ErrorCode.PARAMETER, e.getMessage());
+    }
     registerCall(call);
     return uuid;
   }
@@ -216,7 +202,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public void deleteAll() throws CustomerException, TException {
-    dao.deleteAll();
+    business.deleteAll();
   }
 
   /**

@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.soap.api;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
@@ -23,12 +22,13 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.SoapHeaderElement;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
+import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
+import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -54,8 +54,8 @@ public class CustomerEndpoint extends AbstractBenchService {
   /** MapStruct mappers */
   private final MapStructMappers mapstruct;
 
-  /** Customer DAO */
-  private final CustomerDAO dao;
+  /** Customer service */
+  private final CustomerBusiness business;
   // Attributes -
 
 
@@ -64,16 +64,16 @@ public class CustomerEndpoint extends AbstractBenchService {
    * {@link CustomerEndpoint} constructor
    *
    * @param stats the statistics cache to use
-   * @param dao the customer DAO to use
+   * @param business the customer DAO to use
    * @param dozer the Dozer mapper to use
    * @param mapstruct the MapStruct mappers to use
    */
   public CustomerEndpoint(final StatisticsCache stats,
-                          final CustomerDAO dao,
+                          final CustomerBusiness business,
                           final org.dozer.Mapper dozer,
                           final MapStructMappers mapstruct) {
     super(stats);
-    this.dao = dao;
+    this.business = business;
     this.dozer = dozer;
     this.mapstruct = mapstruct;
   }
@@ -125,7 +125,7 @@ public class CustomerEndpoint extends AbstractBenchService {
       }
     }
     final CallDTO call = initializeCall(reqSeq, "list");
-    final List<CustomerDTO> custs = dao.listAll();
+    final List<CustomerDTO> custs = business.listAll();
     List<Customer> customers = null;
     switch(mapper) {
       case DOZER:
@@ -166,15 +166,17 @@ public class CustomerEndpoint extends AbstractBenchService {
       }
     }
     final CallDTO call = initializeCall(reqSeq, "get");
-    UUID custId = null;
-    try {
-      custId = UUID.fromString(request.getId());
-    } catch(final IllegalArgumentException e) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, request.getId() + " is not an UUID");
-    }
     final GetDetailsResponse res = new GetDetailsResponse();
-    final CustomerDTO cust = dao.getDetails(custId);
+    CustomerDTO cust = null;
+    try {
+      cust = business.getDetails(request.getId());
+    } catch(final InvalidParametersException e) {
+      registerCall(call);
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
+    } catch(final NotFoundException e) {
+      registerCall(call);
+      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
+    }
     Customer customer = null;
     switch(mapper) {
       case DOZER:
@@ -185,10 +187,6 @@ public class CustomerEndpoint extends AbstractBenchService {
         break;
       default:
         customer = CustomerBridge.toSoap(cust);
-    }
-    if(customer == null) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, request.getId() + " does not exist");
     }
     res.setCustomer(customer);
     registerCall(call);
@@ -219,39 +217,6 @@ public class CustomerEndpoint extends AbstractBenchService {
     }
     final CallDTO call = initializeCall(reqSeq, "create");
     final Customer customer = request.getCustomer();
-    // Customer structure checks +
-    if(customer == null) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer is null");
-    }
-    if(customer.getFirstName() == null || customer.getLastName() == null || customer.getBirthDate() == null) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Customer first_name, last_name and brith_date has to be set: " + input);
-    }
-    // Customer structure checks -
-    // Address structure checks +
-    final Address addr = customer.getAddress();
-    if(addr != null
-        && (addr.getLines() == null || addr.getLines().isEmpty()
-        || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Address lines[0], zip_code, city and country has to be set: " + input);
-    }
-    // Address structure checks -
     CustomerDTO cust = null;
     switch(mapper) {
       case DOZER:
@@ -263,7 +228,13 @@ public class CustomerEndpoint extends AbstractBenchService {
       default:
         cust = CustomerBridge.fromSoap(customer);
     }
-    final String uuid = dao.create(cust);
+    String uuid = null;
+    try {
+      uuid = business.create(cust);
+    } catch(final InvalidParametersException e) {
+      registerCall(call);
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
     final CreateResponse res = new CreateResponse();
     res.setId(uuid);
     registerCall(call);
@@ -281,7 +252,7 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="deleteAllRequest")
   @ResponsePayload
   public DeleteAllResponse deleteAll(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final DeleteAllRequest request) {
-    dao.deleteAll();
+    business.deleteAll();
     return new DeleteAllResponse();
   }
 
