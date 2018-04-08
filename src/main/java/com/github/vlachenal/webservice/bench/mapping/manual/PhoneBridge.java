@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.mapping.manual;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO.Type;
@@ -322,9 +323,7 @@ public final class PhoneBridge {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone = null;
     if(dto != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.newBuilder();
-      if(dto.getNumber() != null) {
-        builder.setNumber(dto.getNumber());
-      }
+      Optional.ofNullable(dto.getNumber()).ifPresent(number -> builder.setNumber(number));
       if(dto.getType() != null) {
         switch(dto.getType()) {
           case LANDLINE:

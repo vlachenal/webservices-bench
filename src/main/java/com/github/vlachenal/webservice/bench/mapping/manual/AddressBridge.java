@@ -6,6 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
+import java.util.Optional;
+
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.google.protobuf.Descriptors.Descriptor;
 
@@ -161,18 +163,10 @@ public final class AddressBridge {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address address = null;
     if(dto != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.newBuilder();
-      if(dto.getLines() != null) {
-        builder.addAllLines(dto.getLines());
-      }
-      if(dto.getZipCode() != null) {
-        builder.setZipCode(dto.getZipCode());
-      }
-      if(dto.getCity() != null) {
-        builder.setCity(dto.getCity());
-      }
-      if(dto.getCountry() != null) {
-        builder.setCountry(dto.getCountry());
-      }
+      Optional.ofNullable(dto.getLines()).ifPresent(lines -> builder.addAllLines(lines));
+      Optional.ofNullable(dto.getZipCode()).ifPresent(code -> builder.setZipCode(code));
+      Optional.ofNullable(dto.getCity()).ifPresent(city -> builder.setCity(city));
+      Optional.ofNullable(dto.getCountry()).ifPresent(country -> builder.setCountry(country));
       address = builder.build();
     }
     return address;

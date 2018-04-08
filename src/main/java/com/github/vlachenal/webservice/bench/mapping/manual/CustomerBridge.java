@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -264,27 +265,13 @@ public final class CustomerBridge {
     com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = null;
     if(dto != null) {
       final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Builder builder = com.github.vlachenal.webservice.bench.protobuf.api.Customer.newBuilder();
-      if(dto.getId() != null) {
-        builder.setId(dto.getId());
-      }
-      if(dto.getFirstName() != null) {
-        builder.setFirstName(dto.getFirstName());
-      }
-      if(dto.getLastName() != null) {
-        builder.setLastName(dto.getLastName());
-      }
-      if(dto.getEmail() != null) {
-        builder.setEmail(dto.getEmail());
-      }
-      if(dto.getBirthDate() != null) {
-        builder.setBirthDate(dto.getBirthDate().getTime());
-      }
-      if(dto.getAddress() != null) {
-        builder.setAddress(AddressBridge.toProtobuf(dto.getAddress()));
-      }
-      if(dto.getPhones() != null) {
-        builder.addAllPhones(PhoneBridge.toProtobuf(dto.getPhones()));
-      }
+      Optional.ofNullable(dto.getId()).ifPresent(id -> builder.setId(id));
+      Optional.ofNullable(dto.getFirstName()).ifPresent(name -> builder.setFirstName(name));
+      Optional.ofNullable(dto.getLastName()).ifPresent(name -> builder.setLastName(name));
+      Optional.ofNullable(dto.getEmail()).ifPresent(email -> builder.setEmail(email));
+      Optional.ofNullable(dto.getBirthDate()).ifPresent(date -> builder.setBirthDate(dto.getBirthDate().getTime()));
+      Optional.ofNullable(dto.getAddress()).ifPresent(addr -> AddressBridge.toProtobuf(addr));
+      Optional.ofNullable(dto.getPhones()).ifPresent(phones -> builder.addAllPhones(PhoneBridge.toProtobuf(phones)));
       customer = builder.build();
     }
     return customer;

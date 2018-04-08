@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
+import com.google.protobuf.Descriptors.Descriptor;
 
 
 /**
@@ -18,6 +19,12 @@ import com.github.vlachenal.webservice.bench.dto.CallDTO;
  * @author Vincent Lachenal
  */
 public final class CallBridge {
+
+  // Attributes +
+  /** Protocol Buffer call descriptor */
+  private static final Descriptor CALL_DESC = com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor();
+  // Attributes -
+
 
   // Constructors +
   /**
@@ -152,25 +159,25 @@ public final class CallBridge {
     CallDTO dto = null;
     if(call != null) {
       dto = new CallDTO();
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
         dto.setClientStart(call.getClientStart());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER))) {
         dto.setClientEnd(call.getClientEnd());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER))) {
         dto.setMethod(call.getMethod());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER))) {
         dto.setProtocol(call.getProtocol());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER))) {
         dto.setSeq(call.getRequestSeq());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER))) {
         dto.setOk(call.getOk());
       }
-      if(call.hasField(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.getDescriptor().findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER))) {
+      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER))) {
         dto.setErrMsg(call.getErrMsg());
       }
     }
