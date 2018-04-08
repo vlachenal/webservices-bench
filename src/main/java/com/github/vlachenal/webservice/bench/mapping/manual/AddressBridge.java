@@ -186,15 +186,9 @@ public final class AddressBridge {
       if(address.getRepeatedFieldCount(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.LINES_FIELD_NUMBER)) > 0) {
         dto.setLines(address.getLinesList());
       }
-      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER))) {
-        dto.setZipCode(address.getZipCode());
-      }
-      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER))) {
-        dto.setCity(address.getCity());
-      }
-      if(address.hasField(ADDRESS_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER))) {
-        dto.setCountry(address.getCountry());
-      }
+      dto.setZipCode(ProtobufBridgeUtils.getValue(address, ADDRESS_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.ZIPCODE_FIELD_NUMBER));
+      dto.setCity(ProtobufBridgeUtils.getValue(address, ADDRESS_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.CITY_FIELD_NUMBER));
+      dto.setCountry(ProtobufBridgeUtils.getValue(address, ADDRESS_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.COUNTRY_FIELD_NUMBER));
     }
     return dto;
   }

@@ -165,36 +165,16 @@ public final class TestSuiteBridge {
     if(test != null) {
       dto = new TestSuiteDTO();
 
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CPU_FIELD_NUMBER))) {
-        dto.setClientCpu(test.getCpu());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MEMORY_FIELD_NUMBER))) {
-        dto.setClientMemory(test.getMemory());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.JVM_FIELD_NUMBER))) {
-        dto.setClientJvmVersion(test.getJvm());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.VENDOR_FIELD_NUMBER))) {
-        dto.setClientJvmVendor(test.getVendor());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSFAMILY_FIELD_NUMBER))) {
-        dto.setClientOsName(test.getOsFamily());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSVERSION_FIELD_NUMBER))) {
-        dto.setClientOsVersion(test.getOsVersion());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.NBTHREAD_FIELD_NUMBER))) {
-        dto.setNbThreads(test.getNbThread());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.PROTOCOL_FIELD_NUMBER))) {
-        dto.setProtocol(test.getProtocol());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMPRESSION_FIELD_NUMBER))) {
-        dto.setCompression(test.getCompression());
-      }
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMMENT_FIELD_NUMBER))) {
-        dto.setComment(test.getComment());
-      }
+      dto.setClientCpu(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CPU_FIELD_NUMBER));
+      dto.setClientMemory(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MEMORY_FIELD_NUMBER));
+      dto.setClientJvmVersion(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.JVM_FIELD_NUMBER));
+      dto.setClientJvmVendor(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.VENDOR_FIELD_NUMBER));
+      dto.setClientOsName(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSFAMILY_FIELD_NUMBER));
+      dto.setClientOsVersion(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.OSVERSION_FIELD_NUMBER));
+      dto.setNbThreads(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.NBTHREAD_FIELD_NUMBER));
+      dto.setProtocol(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.PROTOCOL_FIELD_NUMBER));
+      dto.setCompression(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMPRESSION_FIELD_NUMBER));
+      dto.setComment(ProtobufBridgeUtils.getValue(test, TESTSUITE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.COMMENT_FIELD_NUMBER));
       String mapper = "manual";
       if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.MAPPER_FIELD_NUMBER))) {
         switch(test.getMapper()) {

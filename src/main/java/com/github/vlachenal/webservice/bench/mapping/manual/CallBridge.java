@@ -159,27 +159,13 @@ public final class CallBridge {
     CallDTO dto = null;
     if(call != null) {
       dto = new CallDTO();
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER))) {
-        dto.setClientStart(call.getClientStart());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER))) {
-        dto.setClientEnd(call.getClientEnd());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER))) {
-        dto.setMethod(call.getMethod());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER))) {
-        dto.setProtocol(call.getProtocol());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER))) {
-        dto.setSeq(call.getRequestSeq());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER))) {
-        dto.setOk(call.getOk());
-      }
-      if(call.hasField(CALL_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER))) {
-        dto.setErrMsg(call.getErrMsg());
-      }
+      dto.setClientStart(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTSTART_FIELD_NUMBER));
+      dto.setClientEnd(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.CLIENTEND_FIELD_NUMBER));
+      dto.setMethod(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.METHOD_FIELD_NUMBER));
+      dto.setProtocol(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.PROTOCOL_FIELD_NUMBER));
+      dto.setSeq(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.REQUESTSEQ_FIELD_NUMBER));
+      dto.setOk(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.OK_FIELD_NUMBER));
+      dto.setErrMsg(ProtobufBridgeUtils.getValue(call, CALL_DESC, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.ERRMSG_FIELD_NUMBER));
     }
     return dto;
   }

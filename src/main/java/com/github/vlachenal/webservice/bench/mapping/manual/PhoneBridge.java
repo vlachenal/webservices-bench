@@ -371,9 +371,7 @@ public final class PhoneBridge {
     PhoneDTO dto = null;
     if(phone != null) {
       dto = new PhoneDTO();
-      if(phone.hasField(PHONE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER))) {
-        dto.setNumber(phone.getNumber());
-      }
+      dto.setNumber(ProtobufBridgeUtils.getValue(phone, PHONE_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.NUMBER_FIELD_NUMBER));
       if(phone.hasField(PHONE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.TYPE_FIELD_NUMBER))) {
         switch(phone.getType()) {
           case LANDLINE:

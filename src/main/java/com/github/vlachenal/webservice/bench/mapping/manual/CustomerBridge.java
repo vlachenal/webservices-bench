@@ -288,18 +288,10 @@ public final class CustomerBridge {
     CustomerDTO dto = null;
     if(customer != null) {
       dto = new CustomerDTO();
-      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER))) {
-        dto.setId(customer.getId());
-      }
-      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.FIRSTNAME_FIELD_NUMBER))) {
-        dto.setFirstName(customer.getFirstName());
-      }
-      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.LASTNAME_FIELD_NUMBER))) {
-        dto.setLastName(customer.getLastName());
-      }
-      if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.EMAIL_FIELD_NUMBER))) {
-        dto.setEmail(customer.getEmail());
-      }
+      dto.setId(ProtobufBridgeUtils.getValue(customer, CUSTOMER_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.ID_FIELD_NUMBER));
+      dto.setFirstName(ProtobufBridgeUtils.getValue(customer, CUSTOMER_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.FIRSTNAME_FIELD_NUMBER));
+      dto.setLastName(ProtobufBridgeUtils.getValue(customer, CUSTOMER_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.LASTNAME_FIELD_NUMBER));
+      dto.setEmail(ProtobufBridgeUtils.getValue(customer, CUSTOMER_DESC, com.github.vlachenal.webservice.bench.protobuf.api.Customer.EMAIL_FIELD_NUMBER));
       if(customer.hasField(CUSTOMER_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.Customer.BIRTHDATE_FIELD_NUMBER))) {
         dto.setBirthDate(new Date(customer.getBirthDate()));
       }
