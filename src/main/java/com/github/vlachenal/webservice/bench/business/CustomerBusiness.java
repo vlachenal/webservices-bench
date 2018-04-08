@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -20,7 +19,7 @@ import com.github.vlachenal.webservice.bench.errors.NotFoundException;
  * @author Vincent Lachenal
  */
 @Component
-public class CustomerBusiness {
+public class CustomerBusiness extends AbstractBusiness {
 
   // Attributes +
   /** Customer DAO */
@@ -84,35 +83,14 @@ public class CustomerBusiness {
    * @throws InvalidParametersException missing or invalid parameters
    */
   public String create(final CustomerDTO customer) throws InvalidParametersException {
-    // TODO reduce complexity
     // Customer structure checks +
-    if(customer == null) {
-      throw new InvalidParametersException("Customer is null");
-    }
-    if(customer.getFirstName() == null || customer.getLastName() == null || customer.getBirthDate() == null) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      throw new InvalidParametersException("Customer first_name, last_name and brith_date has to be set: " + input);
-    }
+    checkParameters("Customer is null", customer);
+    checkParameters("Customer first_name, last_name and brith_date has to be set", customer.getFirstName(), customer.getLastName(), customer.getBirthDate());
     // Customer structure checks -
     // Address structure checks +
     final AddressDTO addr = customer.getAddress();
-    if(addr != null
-        && (addr.getLines() == null || addr.getLines().isEmpty()
-        || addr.getZipCode() == null || addr.getCity() == null || addr.getCountry() == null)) {
-      String input = null;
-      final ObjectMapper jsonMapper = new ObjectMapper();
-      try {
-        input = new String(jsonMapper.writeValueAsBytes(customer));
-      } catch(final Exception e) {
-        // Nothing to do
-      }
-      throw new InvalidParametersException("Address lines[0], zip_code, city and country has to be set: " + input);
+    if(addr != null) {
+      checkParameters("Address lines, zip_code, city and country has to be set", addr.getLines(), addr.getZipCode(), addr.getCity(),addr.getCountry());
     }
     // Address structure checks -
     return dao.create(customer);
