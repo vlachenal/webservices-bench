@@ -88,7 +88,7 @@ public class CustomerEndpoint extends AbstractBenchService {
    *
    * @return the request header if found, <code>null</code> otherwise
    */
-  private RequestHeader getRequestHeader(final SoapHeaderElement headerElt) {
+  private RequestHeader getHeader(final SoapHeaderElement headerElt) {
     RequestHeader header = null;
     if(headerElt != null) {
       try {
@@ -98,6 +98,15 @@ public class CustomerEndpoint extends AbstractBenchService {
       } catch(final JAXBException e) {
         throw new RuntimeException("Unable to unmarshall error: " + e.getMessage(), e);
       }
+    }
+    if(header == null) {
+      header = new RequestHeader();
+    }
+    if(header.getRequestSeq() == null) {
+      header.setRequestSeq(-1);
+    }
+    if(header.getMapper() == null) {
+      header.setMapper(Mapper.MANUAL);
     }
     return header;
   }
@@ -113,21 +122,11 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="listCustomersRequest")
   @ResponsePayload
   public ListCustomersResponse listCustomers(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final ListCustomersRequest request) {
-    final RequestHeader reqHeader = getRequestHeader(header);
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(reqHeader != null) {
-      if(reqHeader.getRequestSeq() != null) {
-        reqSeq = reqHeader.getRequestSeq();
-      }
-      if(reqHeader.getMapper() != null) {
-        mapper = reqHeader.getMapper();
-      }
-    }
-    final CallDTO call = initializeCall(reqSeq, "list");
+    final RequestHeader reqHeader = getHeader(header);
+    final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "list");
     final List<CustomerDTO> custs = business.listAll();
     List<Customer> customers = null;
-    switch(mapper) {
+    switch(reqHeader.getMapper()) {
       case DOZER:
         customers = custs.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
         break;
@@ -154,18 +153,8 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="getDetailsRequest")
   @ResponsePayload
   public GetDetailsResponse get(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final GetDetailsRequest request) {
-    final RequestHeader reqHeader = getRequestHeader(header);
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(reqHeader != null) {
-      if(reqHeader.getRequestSeq() != null) {
-        reqSeq = reqHeader.getRequestSeq();
-      }
-      if(reqHeader.getMapper() != null) {
-        mapper = reqHeader.getMapper();
-      }
-    }
-    final CallDTO call = initializeCall(reqSeq, "get");
+    final RequestHeader reqHeader = getHeader(header);
+    final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "get");
     final GetDetailsResponse res = new GetDetailsResponse();
     CustomerDTO cust = null;
     try {
@@ -178,7 +167,7 @@ public class CustomerEndpoint extends AbstractBenchService {
       throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
     Customer customer = null;
-    switch(mapper) {
+    switch(reqHeader.getMapper()) {
       case DOZER:
         customer = dozer.map(cust, Customer.class);
         break;
@@ -204,21 +193,11 @@ public class CustomerEndpoint extends AbstractBenchService {
   @PayloadRoot(namespace=NAMESPACE_URI, localPart="createRequest")
   @ResponsePayload
   public CreateResponse create(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final CreateRequest request) {
-    final RequestHeader reqHeader = getRequestHeader(header);
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(reqHeader != null) {
-      if(reqHeader.getRequestSeq() != null) {
-        reqSeq = reqHeader.getRequestSeq();
-      }
-      if(reqHeader.getMapper() != null) {
-        mapper = reqHeader.getMapper();
-      }
-    }
-    final CallDTO call = initializeCall(reqSeq, "create");
+    final RequestHeader reqHeader = getHeader(header);
+    final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "create");
     final Customer customer = request.getCustomer();
     CustomerDTO cust = null;
-    switch(mapper) {
+    switch(reqHeader.getMapper()) {
       case DOZER:
         cust = dozer.map(customer, CustomerDTO.class);
         break;

@@ -66,26 +66,44 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
 
   // Methods +
   /**
+   * Compute request header according to request and default values
+   *
+   * @param reqHeader the request header
+   *
+   * @return the usable header
+   */
+  private Header getHeader(final Header reqHeader) {
+    final Header header = new Header();
+    if(reqHeader != null) {
+      if(reqHeader.isSetRequestSeq()) {
+        header.setRequestSeq(reqHeader.getRequestSeq());
+      } else {
+        header.setRequestSeq(-1);
+      }
+      if(reqHeader.isSetMapper()) {
+        header.setMapper(reqHeader.getMapper());
+      } else {
+        header.setMapper(Mapper.MANUAL);
+      }
+    }
+    return header;
+  }
+
+  /**
    * {@inheritDoc}
    *
    * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#listCustomers(com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest)
    */
   @Override
   public List<Customer> listCustomers(final ListAllRequest request) throws CustomerException, TException {
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(request != null && request.isSetHeader()) {
-      if(request.getHeader().isSetRequestSeq()) {
-        reqSeq = request.getHeader().getRequestSeq();
-      }
-      if(request.getHeader().isSetMapper()) {
-        mapper = request.getHeader().getMapper();
-      }
+    if(request == null) {
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
     }
-    final CallDTO call = initializeCall(reqSeq, "list");
+    final Header header = getHeader(request.getHeader());
+    final CallDTO call = initializeCall(header.getRequestSeq(), "list");
     final List<CustomerDTO> res = business.listAll();
     List<Customer> customers = null;
-    switch(mapper) {
+    switch(header.getMapper()) {
       case DOZER:
         customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
         break;
@@ -106,21 +124,11 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public Customer get(final GetRequest request) throws CustomerException, TException {
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(request != null && request.isSetHeader()) {
-      if(request.getHeader().isSetRequestSeq()) {
-        reqSeq = request.getHeader().getRequestSeq();
-      }
-      if(request.getHeader().isSetMapper()) {
-        mapper = request.getHeader().getMapper();
-      }
-    }
-    final CallDTO call = initializeCall(reqSeq, "get");
     if(request == null) {
-      registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
     }
+    final Header header = getHeader(request.getHeader());
+    final CallDTO call = initializeCall(header.getRequestSeq(), "get");
     if(!request.isSetId()) {
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Customer identifier is not set");
@@ -136,7 +144,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       throw new CustomerException(ErrorCode.NOT_FOUND, e.getMessage());
     }
     Customer cust = null;
-    switch(mapper) {
+    switch(header.getMapper()) {
       case DOZER:
         cust = dozer.map(customer, Customer.class);
         break;
@@ -157,24 +165,14 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public String create(final CreateRequest request) throws CustomerException, TException {
-    int reqSeq = -1;
-    Mapper mapper = Mapper.MANUAL;
-    if(request != null && request.isSetHeader()) {
-      if(request.getHeader().isSetRequestSeq()) {
-        reqSeq = request.getHeader().getRequestSeq();
-      }
-      if(request.getHeader().isSetMapper()) {
-        mapper = request.getHeader().getMapper();
-      }
-    }
-    final CallDTO call = initializeCall(reqSeq, "create");
     if(request == null) {
-      registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
     }
+    final Header header = getHeader(request.getHeader());
+    final CallDTO call = initializeCall(header.getRequestSeq(), "create");
     final Customer customer = request.getCustomer();
     CustomerDTO dto = null;
-    switch(mapper) {
+    switch(header.getMapper()) {
       case DOZER:
         dto = dozer.map(customer, CustomerDTO.class);
         break;
