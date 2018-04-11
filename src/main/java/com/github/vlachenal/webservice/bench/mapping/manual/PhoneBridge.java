@@ -9,6 +9,7 @@ package com.github.vlachenal.webservice.bench.mapping.manual;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO.Type;
@@ -55,8 +56,10 @@ public final class PhoneBridge {
         switch(dto.getType()) {
           case LANDLINE:
             phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.LANDLINE);
+            break;
           case MOBILE:
             phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.MOBILE);
+            break;
           default:
             // Nothing to do
         }
@@ -73,17 +76,7 @@ public final class PhoneBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> toRest(final List<PhoneDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones = null;
-    if(dto != null) {
-      phones = new ArrayList<>();
-      for(final PhoneDTO phone : dto) {
-        final com.github.vlachenal.webservice.bench.rest.api.dto.Phone json = toRest(phone);
-        if(json != null) {
-          phones.add(json);
-        }
-      }
-    }
-    return phones;
+    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toRest(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -120,14 +113,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones) {
-    List<PhoneDTO> dto = null;
-    if(phones != null) {
-      dto = new ArrayList<>();
-      for(final com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone : phones) {
-        dto.add(fromRest(phone));
-      }
-    }
-    return dto;
+    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromRest(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -146,8 +132,10 @@ public final class PhoneBridge {
         switch(dto.getType()) {
           case LANDLINE:
             phone.setType(com.github.vlachenal.webservice.bench.thrift.api.PhoneType.LANDLINE);
+            break;
           case MOBILE:
             phone.setType(com.github.vlachenal.webservice.bench.thrift.api.PhoneType.MOBILE);
+            break;
           default:
             // Nothing to do
         }
@@ -164,17 +152,7 @@ public final class PhoneBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.thrift.api.Phone> toThrift(final List<PhoneDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones = null;
-    if(dto != null) {
-      phones = new ArrayList<>();
-      for(final PhoneDTO phone : dto) {
-        final com.github.vlachenal.webservice.bench.thrift.api.Phone thrift = toThrift(phone);
-        if(thrift != null) {
-          phones.add(thrift);
-        }
-      }
-    }
-    return phones;
+    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toThrift(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -211,14 +189,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
-    List<PhoneDTO> dto = null;
-    if(phones != null) {
-      dto = new ArrayList<>();
-      for(final com.github.vlachenal.webservice.bench.thrift.api.Phone phone : phones) {
-        dto.add(fromThrift(phone));
-      }
-    }
-    return dto;
+    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromThrift(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -237,8 +208,10 @@ public final class PhoneBridge {
         switch(dto.getType()) {
           case LANDLINE:
             phone.setPhoneType(com.github.vlachenal.webservice.bench.soap.api.PhoneType.LANDLINE);
+            break;
           case MOBILE:
             phone.setPhoneType(com.github.vlachenal.webservice.bench.soap.api.PhoneType.MOBILE);
+            break;
           default:
             // Nothing to do
         }
@@ -255,17 +228,7 @@ public final class PhoneBridge {
    * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.soap.api.Phone> toSoap(final List<PhoneDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones = null;
-    if(dto != null) {
-      phones = new ArrayList<>();
-      for(final PhoneDTO phone : dto) {
-        final com.github.vlachenal.webservice.bench.soap.api.Phone soap = toSoap(phone);
-        if(soap != null) {
-          phones.add(soap);
-        }
-      }
-    }
-    return phones;
+    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toSoap(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -302,14 +265,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
-    List<PhoneDTO> dto = null;
-    if(phones != null) {
-      dto = new ArrayList<>();
-      for(final com.github.vlachenal.webservice.bench.soap.api.Phone phone : phones) {
-        dto.add(fromSoap(phone));
-      }
-    }
-    return dto;
+    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromSoap(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -328,8 +284,10 @@ public final class PhoneBridge {
         switch(dto.getType()) {
           case LANDLINE:
             builder.setType(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.LANDLINE);
+            break;
           case MOBILE:
             builder.setType(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.MOBILE);
+            break;
           default:
             // Nothing to do
         }
@@ -347,17 +305,7 @@ public final class PhoneBridge {
    * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> toProtobuf(final List<PhoneDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones = null;
-    if(dto != null) {
-      phones = new ArrayList<>();
-      for(final PhoneDTO phone : dto) {
-        final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone protobuf = toProtobuf(phone);
-        if(protobuf != null) {
-          phones.add(protobuf);
-        }
-      }
-    }
-    return phones;
+    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toProtobuf(phone)).collect(Collectors.toList());
   }
 
   /**
@@ -396,14 +344,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
-    List<PhoneDTO> dto = null;
-    if(phones != null) {
-      dto = new ArrayList<>();
-      for(final com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone phone : phones) {
-        dto.add(fromProtobuf(phone));
-      }
-    }
-    return dto;
+    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromProtobuf(phone)).collect(Collectors.toList());
   }
   // Methods -
 

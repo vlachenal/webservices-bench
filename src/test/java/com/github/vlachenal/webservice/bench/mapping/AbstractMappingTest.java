@@ -42,8 +42,6 @@ public abstract class AbstractMappingTest {
   // Attributes -
 
 
-
-
   // Methods +
   /**
    * Make customer bean for unit test
