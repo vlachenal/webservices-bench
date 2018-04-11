@@ -75,7 +75,7 @@ public class StatisticsDAO {
 
     // Insert new test suite +
     jdbc.update(INS_TEST_SUITE, new Object[] {
-      uuid,
+      uuid.toString(),
       testSuite.getClientCpu(),
       testSuite.getClientMemory(),
       testSuite.getClientJvmVersion(),
