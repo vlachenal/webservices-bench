@@ -7,6 +7,7 @@
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
@@ -67,11 +68,7 @@ public final class CallBridge {
    * @return the DTOs
    */
   public static List<CallDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.ClientCall> calls) {
-    List<CallDTO> dto = null;
-    if(calls != null) {
-      dto = calls.stream().map(call -> fromRest(call)).collect(Collectors.toList());
-    }
-    return dto;
+    return Optional.ofNullable(calls).map(l -> l.stream().map(call -> fromRest(call)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -104,11 +101,7 @@ public final class CallBridge {
    * @return the DTOs
    */
   public static List<CallDTO> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.ClientCall> calls) {
-    List<CallDTO> dto = null;
-    if(calls != null) {
-      dto = calls.stream().map(call -> fromThrift(call)).collect(Collectors.toList());
-    }
-    return dto;
+    return Optional.ofNullable(calls).map(l -> l.stream().map(call -> fromThrift(call)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -141,11 +134,7 @@ public final class CallBridge {
    * @return the DTOs
    */
   public static List<CallDTO> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.ClientCall> calls) {
-    List<CallDTO> dto = null;
-    if(calls != null) {
-      dto = calls.stream().map(call -> fromSoap(call)).collect(Collectors.toList());
-    }
-    return dto;
+    return Optional.ofNullable(calls).map(l -> l.stream().map(call -> fromSoap(call)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -178,11 +167,7 @@ public final class CallBridge {
    * @return the DTOs
    */
   public static List<CallDTO> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall> calls) {
-    List<CallDTO> dto = null;
-    if(calls != null) {
-      dto = calls.stream().map(call -> fromProtobuf(call)).collect(Collectors.toList());
-    }
-    return dto;
+    return Optional.ofNullable(calls).map(l -> l.stream().map(call -> fromProtobuf(call)).collect(Collectors.toList())).orElse(null);
   }
   // Methods -
 

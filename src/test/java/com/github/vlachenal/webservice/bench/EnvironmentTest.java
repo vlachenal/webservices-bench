@@ -6,10 +6,18 @@
  */
 package com.github.vlachenal.webservice.bench;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -52,6 +60,30 @@ public class EnvironmentTest {
     final String osVersion = System.getProperty("os.version");
     assertNotNull("OS versions is null", osVersion);
     LOG.info("Summary: JRE {} by {} on {} {}", version, vendor, os, osVersion);
+  }
+
+  /**
+   * Optional unit tests
+   */
+  @Test
+  public void testOptional() {
+    final List<String> emptyList = new ArrayList<>();
+    final List<Integer> emptyInt = Optional.ofNullable(emptyList).map(l -> l.stream().map(str -> Integer.parseInt(str)).collect(Collectors.toList())).orElse(null);
+    assertNotNull(emptyInt);
+    assertTrue(emptyInt.isEmpty());
+    final List<String> nullList = null;
+    final List<Integer> nullInt = Optional.ofNullable(nullList).map(l -> l.stream().map(str -> Integer.parseInt(str)).collect(Collectors.toList())).orElse(null);
+    assertNull(nullInt);
+    final List<String> list = new ArrayList<>();
+    list.add("1");
+    list.add("2");
+    list.add("3");
+    list.add("4");
+    final List<Integer> intList = Optional.ofNullable(list).map(l -> l.stream().map(str -> Integer.parseInt(str)).collect(Collectors.toList())).orElse(null);
+    assertNotNull(intList);
+    assertFalse(intList.isEmpty());
+    assertEquals(4, intList.size());
+    LOG.info("{}", intList);
   }
   // Tests -
 

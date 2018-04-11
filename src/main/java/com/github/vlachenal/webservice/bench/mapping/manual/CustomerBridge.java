@@ -6,11 +6,11 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -95,17 +95,7 @@ public final class CustomerBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> toRest(final List<CustomerDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> customers = null;
-    if(dto != null) {
-      customers = new ArrayList<>();
-      for(final CustomerDTO customer : dto) {
-        final com.github.vlachenal.webservice.bench.rest.api.dto.Customer json = toRest(customer);
-        if(json != null) {
-          customers.add(json);
-        }
-      }
-    }
-    return customers;
+    return Optional.ofNullable(dto).map(l -> l.stream().map(c -> toRest(c)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -164,17 +154,7 @@ public final class CustomerBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.thrift.api.Customer> toThrift(final List<CustomerDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.thrift.api.Customer> customers = null;
-    if(dto != null) {
-      customers = new ArrayList<>();
-      for(final CustomerDTO customer : dto) {
-        final com.github.vlachenal.webservice.bench.thrift.api.Customer thrift = toThrift(customer);
-        if(thrift != null) {
-          customers.add(thrift);
-        }
-      }
-    }
-    return customers;
+    return Optional.ofNullable(dto).map(l -> l.stream().map(c -> toThrift(c)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -241,17 +221,7 @@ public final class CustomerBridge {
    * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.soap.api.Customer> toSoap(final List<CustomerDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.soap.api.Customer> customers = null;
-    if(dto != null) {
-      customers = new ArrayList<>();
-      for(final CustomerDTO customer : dto) {
-        final com.github.vlachenal.webservice.bench.soap.api.Customer json = toSoap(customer);
-        if(json != null) {
-          customers.add(json);
-        }
-      }
-    }
-    return customers;
+    return Optional.ofNullable(dto).map(l -> l.stream().map(c -> toSoap(c)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -270,7 +240,7 @@ public final class CustomerBridge {
       Optional.ofNullable(dto.getLastName()).ifPresent(name -> builder.setLastName(name));
       Optional.ofNullable(dto.getEmail()).ifPresent(email -> builder.setEmail(email));
       Optional.ofNullable(dto.getBirthDate()).ifPresent(date -> builder.setBirthDate(dto.getBirthDate().getTime()));
-      Optional.ofNullable(dto.getAddress()).ifPresent(addr -> AddressBridge.toProtobuf(addr));
+      Optional.ofNullable(dto.getAddress()).ifPresent(addr -> builder.setAddress(AddressBridge.toProtobuf(addr)));
       Optional.ofNullable(dto.getPhones()).ifPresent(phones -> builder.addAllPhones(PhoneBridge.toProtobuf(phones)));
       customer = builder.build();
     }
@@ -313,17 +283,7 @@ public final class CustomerBridge {
    * @return the Protocol buffer structures
    */
   public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> toProtobuf(final List<CustomerDTO> dto) {
-    List<com.github.vlachenal.webservice.bench.protobuf.api.Customer> customers = null;
-    if(dto != null) {
-      customers = new ArrayList<>();
-      for(final CustomerDTO customer : dto) {
-        final com.github.vlachenal.webservice.bench.protobuf.api.Customer json = toProtobuf(customer);
-        if(json != null) {
-          customers.add(json);
-        }
-      }
-    }
-    return customers;
+    return Optional.ofNullable(dto).map(l -> l.stream().map(c -> toProtobuf(c)).collect(Collectors.toList())).orElse(null);
   }
   // Methods -
 

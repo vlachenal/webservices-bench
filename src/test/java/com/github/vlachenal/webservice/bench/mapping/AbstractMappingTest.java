@@ -370,10 +370,10 @@ public abstract class AbstractMappingTest {
     LOG.info("Phone type: bean = {} ; Protocol Buffer = {}", bean.getType(), phone.getType());
     switch(bean.getType()) {
       case LANDLINE:
-        assertEquals(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.LANDLINE, phone.getType());
+        assertEquals(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.LANDLINE, phone.getType());
         break;
       case MOBILE:
-        assertEquals(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.MOBILE, phone.getType());
+        assertEquals(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType.MOBILE, phone.getType());
         break;
       default:
         fail("Unexpected type: " + bean.getType());

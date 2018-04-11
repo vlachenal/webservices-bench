@@ -1,10 +1,4 @@
-/*
- * Copyright © 2017 Vincent Lachenal
- * This work is free. You can redistribute it and/or modify it under the
- * terms of the Do What The Fuck You Want To Public License, Version 2,
- * as published by Sam Hocevar. See the COPYING file for more details.
- */
-package com.github.vlachenal.webservice.bench.mapping.mapstruct;
+package com.github.vlachenal.webservice.bench.mapping.manual;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -12,30 +6,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 
-
 /**
- * MapStruct mapping unit tests
+ * Customer bridge unit tests
  *
  * @author Vincent Lachenal
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class MapStructMappingTest extends AbstractMappingTest {
+public class CustomerBridgeTest extends AbstractMappingTest {
 
   // Attributes +
-  /** {@link MapStructMappingTest} logger instance */
-  private static final Logger LOG = LoggerFactory.getLogger(MapStructMappingTest.class);
-
-  /** MapStruct mappers instance */
-  @Autowired
-  private MapStructMappers mapstruct;
+  /** {@link CustomerBridgeTest} logger instance */
+  private static final Logger LOG = LoggerFactory.getLogger(CustomerBridgeTest.class);
   // Attributes -
 
 
@@ -47,7 +35,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToSOAPCustomer() {
     LOG.debug("Enter in testBeanToSOAPCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.soap.api.Customer customer = mapstruct.customer().toSoap(bean);
+    final com.github.vlachenal.webservice.bench.soap.api.Customer customer = CustomerBridge.toSoap(bean);
     assertNotNull("SOAP customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToSOAPCustomer");
@@ -60,7 +48,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToThriftCustomer() {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().toThrift(bean);
+    final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = CustomerBridge.toThrift(bean);
     assertNotNull("Thrift customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToThriftCustomer");
@@ -73,7 +61,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = mapstruct.customer().toRest(bean);
+    final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = CustomerBridge.toRest(bean);
     assertNotNull("REST customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToRESTCustomer");
@@ -86,9 +74,9 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToProtobufCustomer() {
     LOG.debug("Enter in testBeanToProtobufCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    mapstruct.protobuf().dtoToProtobuf(bean);
-    //    assertNotNull("SOAP customer is null", customer);
-    //    compareCustomer(bean, customer);
+    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = CustomerBridge.toProtobuf(bean);
+    assertNotNull("Protocol Buffers customer is null", customer);
+    compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToProtobufCustomer");
   }
   // Tests -

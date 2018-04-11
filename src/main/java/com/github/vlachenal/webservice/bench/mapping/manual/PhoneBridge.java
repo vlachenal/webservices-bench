@@ -6,7 +6,6 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,7 +75,7 @@ public final class PhoneBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> toRest(final List<PhoneDTO> dto) {
-    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toRest(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(dto).map(l -> l.stream().map(phone -> toRest(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -113,7 +112,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones) {
-    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromRest(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(phones).map(l -> l.stream().map(phone -> fromRest(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -152,7 +151,7 @@ public final class PhoneBridge {
    * @return the JSON structures
    */
   public static List<com.github.vlachenal.webservice.bench.thrift.api.Phone> toThrift(final List<PhoneDTO> dto) {
-    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toThrift(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(dto).map(l -> l.stream().map(phone -> toThrift(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -189,7 +188,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromThrift(final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
-    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromThrift(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(phones).map(l -> l.stream().map(phone -> fromThrift(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -228,7 +227,7 @@ public final class PhoneBridge {
    * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.soap.api.Phone> toSoap(final List<PhoneDTO> dto) {
-    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toSoap(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(dto).map(l -> l.stream().map(phone -> toSoap(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -265,7 +264,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromSoap(final List<com.github.vlachenal.webservice.bench.soap.api.Phone> phones) {
-    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromSoap(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(phones).map(l -> l.stream().map(phone -> fromSoap(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -305,7 +304,7 @@ public final class PhoneBridge {
    * @return the SOAP structures
    */
   public static List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> toProtobuf(final List<PhoneDTO> dto) {
-    return Optional.ofNullable(dto).orElse(new ArrayList<>()).stream().map(phone -> toProtobuf(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(dto).map(l -> l.stream().map(phone -> toProtobuf(phone)).collect(Collectors.toList())).orElse(null);
   }
 
   /**
@@ -344,7 +343,7 @@ public final class PhoneBridge {
    * @return the DTO list
    */
   public static List<PhoneDTO> fromProtobuf(final List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones) {
-    return Optional.ofNullable(phones).orElse(new ArrayList<>()).stream().map(phone -> fromProtobuf(phone)).collect(Collectors.toList());
+    return Optional.ofNullable(phones).map(l -> l.stream().map(phone -> fromProtobuf(phone)).collect(Collectors.toList())).orElse(null);
   }
   // Methods -
 
