@@ -6,20 +6,17 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 
 
@@ -67,40 +64,32 @@ public class StatisticsDAO {
    */
   @Transactional
   public void save(final TestSuiteDTO testSuite) {
-    if(testSuite.getCalls() == null || testSuite.getCalls().isEmpty()) {
-      return;
-    }
-
-    final UUID uuid = UUID.randomUUID();
-
-    // Insert new test suite +
-    jdbc.update(INS_TEST_SUITE, new Object[] {
-      uuid.toString(),
-      testSuite.getClientCpu(),
-      testSuite.getClientMemory(),
-      testSuite.getClientJvmVersion(),
-      testSuite.getClientJvmVendor(),
-      testSuite.getClientOsName(),
-      testSuite.getClientOsVersion(),
-      testSuite.getServerCpu(),
-      testSuite.getServerMemory(),
-      testSuite.getServerJvmVersion(),
-      testSuite.getServerJvmVendor(),
-      testSuite.getServerOsName(),
-      testSuite.getServerOsVersion(),
-      testSuite.getProtocol(),
-      testSuite.getCompression(),
-      testSuite.getNbThreads(),
-      testSuite.getComment(),
-      testSuite.getMapper()
-    });
-    // Insert new test suite -
-
-    // Insert calls +
-    jdbc.batchUpdate(INS_TEST_CALL,new BatchPreparedStatementSetter() {
-      @Override
-      public void setValues(final PreparedStatement ps, final int i) throws SQLException {
-        final CallDTO call = testSuite.getCalls().get(i);
+    Optional.ofNullable(testSuite).ifPresent(test -> {
+      final UUID uuid = UUID.randomUUID();
+      // Insert new test suite +
+      jdbc.update(INS_TEST_SUITE, ps -> {
+        ps.setObject(1, uuid);
+        ps.setString(2, test.getClientCpu());
+        ps.setString(3, test.getClientMemory());
+        ps.setString(4, test.getClientJvmVersion());
+        ps.setString(5, test.getClientJvmVendor());
+        ps.setString(6, test.getClientOsName());
+        ps.setString(7, test.getClientOsVersion());
+        ps.setString(8, test.getServerCpu());
+        ps.setString(9, test.getServerMemory());
+        ps.setString(10, test.getServerJvmVersion());
+        ps.setString(11, test.getServerJvmVendor());
+        ps.setString(12, test.getServerOsName());
+        ps.setString(13, test.getServerOsVersion());
+        ps.setString(14, test.getProtocol());
+        ps.setString(15, test.getCompression());
+        ps.setInt(16, test.getNbThreads());
+        ps.setString(17, test.getComment());
+        ps.setString(18, test.getMapper());
+      });
+      // Insert new test suite -
+      // Insert calls +
+      jdbc.batchUpdate(INS_TEST_CALL, test.getCalls(), test.getCalls().size(), (ps, call) -> {
         ps.setInt(1, call.getSeq());
         ps.setObject(2, uuid);
         ps.setString(3, call.getMethod());
@@ -110,14 +99,9 @@ public class StatisticsDAO {
         ps.setLong(7, call.getClientEnd());
         ps.setBoolean(8, call.isOk());
         ps.setString(9, call.getErrMsg());
-      }
-
-      @Override
-      public int getBatchSize() {
-        return testSuite.getCalls().size();
-      }
+      });
+      // Insert calls -
     });
-    // Insert calls -
   }
   // Methods -
 
