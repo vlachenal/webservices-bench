@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -21,7 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -139,10 +139,7 @@ public class CustomerDAO {
     });
     if(customer != null) {
       customer.setAddress(getAddress(id));
-      final List<PhoneDTO> phones = getPhones(id);
-      if(!phones.isEmpty()) {
-        customer.setPhones(phones);
-      }
+      Optional.of(getPhones(id)).filter(l -> !l.isEmpty()).ifPresent(phones -> customer.setPhones(phones));
     }
     return customer;
   }
@@ -158,12 +155,6 @@ public class CustomerDAO {
     final AddressDTO address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
       id
     }, new ResultSetExtractor<AddressDTO>() {
-      private void addLine(final List<String> lines, final String line) {
-        if(line != null) {
-          lines.add(line);
-        }
-      }
-
       @Override
       public AddressDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
         if(!rs.next()) {
@@ -171,12 +162,12 @@ public class CustomerDAO {
         }
         final AddressDTO addr = new AddressDTO();
         final ArrayList<String> lines = new ArrayList<>();
-        addLine(lines, rs.getString(1));
-        addLine(lines, rs.getString(2));
-        addLine(lines, rs.getString(3));
-        addLine(lines, rs.getString(4));
-        addLine(lines, rs.getString(5));
-        addLine(lines, rs.getString(6));
+        Optional.ofNullable(rs.getString(1)).ifPresent(line -> lines.add(line));
+        Optional.ofNullable(rs.getString(2)).ifPresent(line -> lines.add(line));
+        Optional.ofNullable(rs.getString(3)).ifPresent(line -> lines.add(line));
+        Optional.ofNullable(rs.getString(4)).ifPresent(line -> lines.add(line));
+        Optional.ofNullable(rs.getString(5)).ifPresent(line -> lines.add(line));
+        Optional.ofNullable(rs.getString(6)).ifPresent(line -> lines.add(line));
         if(!lines.isEmpty()) {
           addr.setLines(lines);
         }
@@ -198,17 +189,12 @@ public class CustomerDAO {
    */
   public List<PhoneDTO> getPhones(final UUID id) {
     final ArrayList<PhoneDTO> phones = new ArrayList<>();
-    jdbc.query(REQ_GET_CUST_PHONES, new Object[] {
-      id
-    }, new RowCallbackHandler() {
-      @Override
-      public void processRow(final ResultSet rs) throws SQLException {
-        final PhoneDTO phone = new PhoneDTO();
-        phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
-        phone.setNumber(rs.getString(2));
-        phones.add(phone);
-      }
-    });
+    jdbc.query(REQ_GET_CUST_PHONES, rs -> {
+      final PhoneDTO phone = new PhoneDTO();
+      phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
+      phone.setNumber(rs.getString(2));
+      phones.add(phone);
+    }, id);
     return phones;
   }
 
@@ -246,19 +232,17 @@ public class CustomerDAO {
       customer.getEmail()
     });
     if(customer.getAddress() != null) {
-      final AddressDTO address = customer.getAddress();
-      final List<String> lines = address.getLines();
       jdbc.update(ADD_ADDRESS, new Object[] {
         uuid,
-        getLine(lines,0),
-        getLine(lines,1),
-        getLine(lines,2),
-        getLine(lines,3),
-        getLine(lines,4),
-        getLine(lines,5),
-        address.getZipCode(),
-        address.getCity(),
-        address.getCountry()
+        getLine(customer.getAddress().getLines(),0),
+        getLine(customer.getAddress().getLines(),1),
+        getLine(customer.getAddress().getLines(),2),
+        getLine(customer.getAddress().getLines(),3),
+        getLine(customer.getAddress().getLines(),4),
+        getLine(customer.getAddress().getLines(),5),
+        customer.getAddress().getZipCode(),
+        customer.getAddress().getCity(),
+        customer.getAddress().getCountry()
       });
     }
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {

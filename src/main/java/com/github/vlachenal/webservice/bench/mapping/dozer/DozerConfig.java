@@ -131,7 +131,7 @@ public class DozerConfig {
 
   // Classes +
   /**
-   * {@link Date} <=> {@link XMLGregorianCalendar} Dozer converter
+   * {@link Date} &lt;=&gt; {@link XMLGregorianCalendar} Dozer converter
    *
    * @author Vincent Lachenal
    */
@@ -181,7 +181,7 @@ public class DozerConfig {
   }
 
   /**
-   * {@link Long} <=> {@link XMLGregorianCalendar} Dozer converter
+   * {@link Long} &lt;=&gt; {@link XMLGregorianCalendar} Dozer converter
    *
    * @author Vincent Lachenal
    */

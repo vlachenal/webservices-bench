@@ -66,7 +66,6 @@ public class StatisticsDAO {
   public void save(final TestSuiteDTO testSuite) {
     Optional.ofNullable(testSuite).ifPresent(test -> {
       final UUID uuid = UUID.randomUUID();
-      // Insert new test suite +
       jdbc.update(INS_TEST_SUITE, ps -> {
         ps.setObject(1, uuid);
         ps.setString(2, test.getClientCpu());
@@ -87,8 +86,6 @@ public class StatisticsDAO {
         ps.setString(17, test.getComment());
         ps.setString(18, test.getMapper());
       });
-      // Insert new test suite -
-      // Insert calls +
       jdbc.batchUpdate(INS_TEST_CALL, test.getCalls(), test.getCalls().size(), (ps, call) -> {
         ps.setInt(1, call.getSeq());
         ps.setObject(2, uuid);
@@ -100,7 +97,6 @@ public class StatisticsDAO {
         ps.setBoolean(8, call.isOk());
         ps.setString(9, call.getErrMsg());
       });
-      // Insert calls -
     });
   }
   // Methods -

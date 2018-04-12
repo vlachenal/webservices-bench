@@ -16,14 +16,14 @@ public class ProtobufBridgeUtils {
    *
    * @param struct the structure
    * @param fieldDesc the field descriptor
-   * @param filedIdx the field index
+   * @param fieldIdx the field index
    *
    * @return the value or <code>null</code> if no set
    */
   @SuppressWarnings("unchecked")
-  public static <T> T getValue(final MessageOrBuilder struct, final Descriptors.Descriptor fieldDesc, final int filedIdx) {
+  public static <T> T getValue(final MessageOrBuilder struct, final Descriptors.Descriptor fieldDesc, final int fieldIdx) {
     T val = null;
-    final Descriptors.FieldDescriptor field = fieldDesc.findFieldByNumber(filedIdx);
+    final Descriptors.FieldDescriptor field = fieldDesc.findFieldByNumber(fieldIdx);
     if(struct.hasField(field)) {
       val = (T)struct.getField(field);
     }
