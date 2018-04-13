@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.thrift.api;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.thrift.TException;
 import org.springframework.stereotype.Component;
@@ -90,6 +89,52 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   }
 
   /**
+   * Convert customer DTO to Thrift according to mapper
+   *
+   * @param dto the customer DTO
+   * @param mapper the mapper
+   *
+   * @return the Thrift customer
+   */
+  private Customer toThrift(final CustomerDTO dto, final Mapper mapper) {
+    Customer cust = null;
+    switch(mapper) {
+      case DOZER:
+        cust = dozer.map(dto, Customer.class);
+        break;
+      case MAPSTRUCT:
+        cust = mapstruct.customer().toThrift(dto);
+        break;
+      default:
+        cust = CustomerBridge.toThrift(dto);
+    }
+    return cust;
+  }
+
+  /**
+   * Convert Thrift customer to DTO according to mapper
+   *
+   * @param customer the Thrift customer
+   * @param mapper the mapper
+   *
+   * @return the customer DTO
+   */
+  private CustomerDTO fromThrift(final Customer customer, final Mapper mapper) {
+    CustomerDTO dto = null;
+    switch(mapper) {
+      case DOZER:
+        dto = dozer.map(customer, CustomerDTO.class);
+        break;
+      case MAPSTRUCT:
+        dto = mapstruct.customer().fromThrift(customer);
+        break;
+      default:
+        dto = CustomerBridge.fromThrift(customer);
+    }
+    return dto;
+  }
+
+  /**
    * {@inheritDoc}
    *
    * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#listCustomers(com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest)
@@ -101,18 +146,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     }
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "list");
-    final List<CustomerDTO> res = business.listAll();
-    List<Customer> customers = null;
-    switch(header.getMapper()) {
-      case DOZER:
-        customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
-        break;
-      case MAPSTRUCT:
-        customers = mapstruct.customer().toThriftList(res);
-        break;
-      default:
-        customers = CustomerBridge.toThrift(res);
-    }
+    final List<Customer> customers = map(business.listAll(), header.getMapper(), this::toThrift);
     registerCall(call);
     return customers;
   }
@@ -143,17 +177,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
       registerCall(call);
       throw new CustomerException(ErrorCode.NOT_FOUND, e.getMessage());
     }
-    Customer cust = null;
-    switch(header.getMapper()) {
-      case DOZER:
-        cust = dozer.map(customer, Customer.class);
-        break;
-      case MAPSTRUCT:
-        cust = mapstruct.customer().toThrift(customer);
-        break;
-      default:
-        cust = CustomerBridge.toThrift(customer);
-    }
+    final Customer cust = map(customer, header.getMapper(), this::toThrift);
     registerCall(call);
     return cust;
   }
@@ -170,21 +194,9 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     }
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "create");
-    final Customer customer = request.getCustomer();
-    CustomerDTO dto = null;
-    switch(header.getMapper()) {
-      case DOZER:
-        dto = dozer.map(customer, CustomerDTO.class);
-        break;
-      case MAPSTRUCT:
-        dto = mapstruct.customer().fromThrift(customer);
-        break;
-      default:
-        dto = CustomerBridge.fromThrift(customer);
-    }
     String uuid = null;
     try {
-      uuid = business.create(dto);
+      uuid = business.create(map(request.getCustomer(), header.getMapper(), this::fromThrift));
     } catch(final InvalidParametersException e) {
       registerCall(call);
       throw new CustomerException(ErrorCode.PARAMETER, e.getMessage());

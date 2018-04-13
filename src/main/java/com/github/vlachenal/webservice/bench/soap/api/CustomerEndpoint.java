@@ -6,9 +6,6 @@
  */
 package com.github.vlachenal.webservice.bench.soap.api;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -112,6 +109,52 @@ public class CustomerEndpoint extends AbstractBenchService {
   }
 
   /**
+   * Convert customer DTO to SOAP according to mapper
+   *
+   * @param dto the customer DTO
+   * @param mapper the mapper
+   *
+   * @return the SOAP customer
+   */
+  private Customer toSoap(final CustomerDTO dto, final Mapper mapper) {
+    Customer customer = null;
+    switch(mapper) {
+      case DOZER:
+        customer = dozer.map(dto, Customer.class);
+        break;
+      case MAPSTRUCT:
+        customer = mapstruct.customer().toSoap(dto);
+        break;
+      default:
+        customer = CustomerBridge.toSoap(dto);
+    }
+    return customer;
+  }
+
+  /**
+   * Convert customer DTO to SOAP according to mapper
+   *
+   * @param dto the customer DTO
+   * @param mapper the mapper
+   *
+   * @return the SOAP customer
+   */
+  private CustomerDTO fromSoap(final Customer customer, final Mapper mapper) {
+    CustomerDTO dto = null;
+    switch(mapper) {
+      case DOZER:
+        dto = dozer.map(customer, CustomerDTO.class);
+        break;
+      case MAPSTRUCT:
+        dto = mapstruct.customer().fromSoap(customer);
+        break;
+      default:
+        dto = CustomerBridge.fromSoap(customer);
+    }
+    return dto;
+  }
+
+  /**
    * List all customers in database
    *
    * @param header the request sequence header
@@ -124,20 +167,8 @@ public class CustomerEndpoint extends AbstractBenchService {
   public ListCustomersResponse listCustomers(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final ListCustomersRequest request) {
     final RequestHeader reqHeader = getHeader(header);
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "list");
-    final List<CustomerDTO> custs = business.listAll();
-    List<Customer> customers = null;
-    switch(reqHeader.getMapper()) {
-      case DOZER:
-        customers = custs.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
-        break;
-      case MAPSTRUCT:
-        customers = mapstruct.customer().toSoapList(custs);
-        break;
-      default:
-        customers = CustomerBridge.toSoap(custs);
-    }
     final ListCustomersResponse res = new ListCustomersResponse();
-    res.getCustomer().addAll(customers);
+    res.getCustomer().addAll(map(business.listAll(), reqHeader.getMapper(), this::toSoap));
     registerCall(call);
     return res;
   }
@@ -166,18 +197,7 @@ public class CustomerEndpoint extends AbstractBenchService {
       registerCall(call);
       throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    Customer customer = null;
-    switch(reqHeader.getMapper()) {
-      case DOZER:
-        customer = dozer.map(cust, Customer.class);
-        break;
-      case MAPSTRUCT:
-        customer = mapstruct.customer().toSoap(cust);
-        break;
-      default:
-        customer = CustomerBridge.toSoap(cust);
-    }
-    res.setCustomer(customer);
+    res.setCustomer(map(cust, reqHeader.getMapper(), this::toSoap));
     registerCall(call);
     return res;
   }
@@ -196,20 +216,9 @@ public class CustomerEndpoint extends AbstractBenchService {
     final RequestHeader reqHeader = getHeader(header);
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "create");
     final Customer customer = request.getCustomer();
-    CustomerDTO cust = null;
-    switch(reqHeader.getMapper()) {
-      case DOZER:
-        cust = dozer.map(customer, CustomerDTO.class);
-        break;
-      case MAPSTRUCT:
-        cust = mapstruct.customer().fromSoap(customer);
-        break;
-      default:
-        cust = CustomerBridge.fromSoap(customer);
-    }
     String uuid = null;
     try {
-      uuid = business.create(cust);
+      uuid = business.create(map(customer, reqHeader.getMapper(), this::fromSoap));
     } catch(final InvalidParametersException e) {
       registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());

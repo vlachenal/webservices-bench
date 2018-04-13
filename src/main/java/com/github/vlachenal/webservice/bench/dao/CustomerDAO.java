@@ -162,6 +162,7 @@ public class CustomerDAO {
         }
         final AddressDTO addr = new AddressDTO();
         final ArrayList<String> lines = new ArrayList<>();
+        //IntStream.range(1, 7).forEach(i -> Optional.ofNullable(rs.getString(i)).ifPresent(line -> lines.add(line)));
         Optional.ofNullable(rs.getString(1)).ifPresent(line -> lines.add(line));
         Optional.ofNullable(rs.getString(2)).ifPresent(line -> lines.add(line));
         Optional.ofNullable(rs.getString(3)).ifPresent(line -> lines.add(line));

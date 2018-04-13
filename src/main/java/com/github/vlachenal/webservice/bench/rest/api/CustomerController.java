@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.rest.api;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,6 +82,52 @@ public class CustomerController extends AbstractBenchService {
 
   // Methods +
   /**
+   * Convert customer DTO to REST according to mapper
+   *
+   * @param dto the customer DTO
+   * @param mapper the mapper
+   *
+   * @return the REST customer
+   */
+  private Customer toRest(final CustomerDTO dto, final Mapper mapper) {
+    Customer customer = null;
+    switch(mapper) {
+      case DOZER:
+        customer = dozer.map(dto, Customer.class);
+        break;
+      case MAPSTRUCT:
+        customer = mapstruct.customer().toRest(dto);
+        break;
+      default:
+        customer = CustomerBridge.toRest(dto);
+    }
+    return customer;
+  }
+
+  /**
+   * Convert REST customer to DTO according to mapper
+   *
+   * @param customer the REST customer
+   * @param mapper the mapper
+   *
+   * @return the customer DTO
+   */
+  private CustomerDTO fromRest(final Customer customer, final Mapper mapper) {
+    CustomerDTO dto = null;
+    switch(mapper) {
+      case DOZER:
+        dto = dozer.map(customer, CustomerDTO.class);
+        break;
+      case MAPSTRUCT:
+        dto = mapstruct.customer().fromRest(customer);
+        break;
+      default:
+        dto = CustomerBridge.fromRest(customer);
+    }
+    return dto;
+  }
+
+  /**
    * List all customers in database
    *
    * @param requestSeq the request sequence header
@@ -98,18 +143,7 @@ public class CustomerController extends AbstractBenchService {
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
-    final List<CustomerDTO> res = business.listAll();
-    List<Customer> customers = null;
-    switch(mapper) {
-      case MAPSTRUCT:
-        customers = mapstruct.customer().toRestList(res);
-        break;
-      case DOZER:
-        customers = res.stream().map(from -> dozer.map(from, Customer.class)).collect(Collectors.toList());
-        break;
-      default:
-        customers = CustomerBridge.toRest(res);
-    }
+    final List<Customer> customers = map(business.listAll(), mapper, this::toRest);
     registerCall(call);
     return customers;
   }
@@ -144,17 +178,7 @@ public class CustomerController extends AbstractBenchService {
       registerCall(call);
       throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    Customer customer = null;
-    switch(mapper) {
-      case DOZER:
-        customer = dozer.map(res, Customer.class);
-        break;
-      case MAPSTRUCT:
-        customer = mapstruct.customer().toRest(res);
-        break;
-      default:
-        customer = CustomerBridge.toRest(res);
-    }
+    final Customer customer = map(res, mapper, this::toRest);
     registerCall(call);
     return customer;
   }
@@ -179,20 +203,9 @@ public class CustomerController extends AbstractBenchService {
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
     final CallDTO call = initializeCall(requestSeq, "create");
-    CustomerDTO dto = null;
-    switch(mapper) {
-      case DOZER:
-        dto = dozer.map(customer, CustomerDTO.class);
-        break;
-      case MAPSTRUCT:
-        dto = mapstruct.customer().fromRest(customer);
-        break;
-      default:
-        dto = CustomerBridge.fromRest(customer);
-    }
     String uuid = null;
     try {
-      uuid = business.create(dto);
+      uuid = business.create(map(customer, mapper, this::fromRest));
     } catch(final InvalidParametersException e) {
       registerCall(call);
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
