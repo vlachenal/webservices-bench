@@ -39,7 +39,7 @@ import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 public class CustomerDAO {
 
   // Attributes +
-  // SQL request +
+  // SQL requests +
   /** List all customer SQL request */
   private static final String REQ_LIST_ALL = "SELECT id,first_name,last_name FROM Customer";
 
@@ -73,7 +73,7 @@ public class CustomerDAO {
   /** Vacuum requests */
   @Value("${ds.customer.vacuum}")
   private String vacuumReqs;
-  // SQL request -
+  // SQL requests -
 
   /** JDBC template */
   private JdbcTemplate jdbc;
