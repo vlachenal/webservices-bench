@@ -18,7 +18,7 @@ public class ProtobufBridgeUtils {
    * @param fieldDesc the field descriptor
    * @param fieldIdx the field index
    *
-   * @return the value or <code>null</code> if no set
+   * @return the value or {@code null} if no set
    */
   @SuppressWarnings("unchecked")
   public static <T> T getValue(final MessageOrBuilder struct, final Descriptors.Descriptor fieldDesc, final int fieldIdx) {

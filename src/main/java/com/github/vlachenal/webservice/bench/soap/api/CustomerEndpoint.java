@@ -83,7 +83,7 @@ public class CustomerEndpoint extends AbstractBenchService {
    *
    * @param headerElt the SOAP header element to parse
    *
-   * @return the request header if found, <code>null</code> otherwise
+   * @return the request header if found, {@code null} otherwise
    */
   private RequestHeader getHeader(final SoapHeaderElement headerElt) {
     RequestHeader header = null;

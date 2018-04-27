@@ -51,7 +51,7 @@ public abstract class AbstractBenchService {
    * @param requestSeq the request sequence
    * @param method the method
    *
-   * @return the call if requestSeq is not equal to <code>-1</code>, <code>null</code> otherwise
+   * @return the call if requestSeq is not equal to {@code -1}, {@code null} otherwise
    */
   protected CallDTO initializeCall(final int requestSeq, final String method) {
     CallDTO call = null;

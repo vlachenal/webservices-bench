@@ -37,7 +37,7 @@ public abstract class ProtobufMessageConverter<T extends GeneratedMessageV3> imp
    *
    * @param clazz the class to check
    *
-   * @return <code>true</code> if class extends Protobuf message, <code>false</code> otherwise
+   * @return {@code true} if class extends Protobuf message, {@code false} otherwise
    */
   protected abstract boolean checkClass(final Class<?> clazz);
 

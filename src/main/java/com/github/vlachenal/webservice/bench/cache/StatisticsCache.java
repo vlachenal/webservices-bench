@@ -53,7 +53,7 @@ public class StatisticsCache {
    *
    * @param call the client call statistic
    *
-   * @return the complete call if found, <code>null</code> otherwise
+   * @return the complete call if found, {@code null} otherwise
    */
   public void mergeCall(final CallDTO call) {
     final CallDTO regCall = calls.get(call.getKey());
