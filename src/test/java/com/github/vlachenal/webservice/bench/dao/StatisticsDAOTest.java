@@ -42,12 +42,12 @@ public class StatisticsDAOTest {
   /** {@link CustomerDAOTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsDAOTest.class);
 
+  /** Initialization status */
+  private static AtomicBoolean initialized = new AtomicBoolean(false);
+
   /** Customer DAO */
   @Autowired
   private StatisticsDAO dao;
-
-  /** Initialization status */
-  private static AtomicBoolean initialized = new AtomicBoolean(false);
 
   /** Customer datasource */
   @Qualifier("ds.customer")
