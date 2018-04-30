@@ -106,7 +106,7 @@ public class Application extends SpringBootServletInitializer {
    * @return the HTTP Protocol Buffers message converter
    */
   @Bean
-  public ProtobufHttpMessageConverter protoBufConverter() {
+  public ProtobufHttpMessageConverter protobufHttpMessageConverter() {
     return new ProtobufHttpMessageConverter();
   }
   // Methods -

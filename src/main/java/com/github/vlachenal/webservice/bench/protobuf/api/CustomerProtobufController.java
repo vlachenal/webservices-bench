@@ -68,7 +68,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE})
+  @RequestMapping(method=RequestMethod.GET,produces={ProtobufType.PROTOBUF_UTF8_VALUE})
   public ListAllResponse listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
@@ -104,7 +104,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    */
   @RequestMapping(path = "/{id}",
       method = RequestMethod.GET,
-      produces = { MediaType.APPLICATION_JSON_UTF8_VALUE, ProtobufType.PROTOBUF_UTF8_VALUE }
+      produces = { ProtobufType.PROTOBUF_UTF8_VALUE }
       )
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
@@ -144,7 +144,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
+  @RequestMapping(method=RequestMethod.POST,consumes={ProtobufType.PROTOBUF_UTF8_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,

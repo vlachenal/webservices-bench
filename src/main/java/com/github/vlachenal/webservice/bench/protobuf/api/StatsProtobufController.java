@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.protobuf.api;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,7 +59,7 @@ public class StatsProtobufController {
    *
    * @param test the client-side test suite to consolidate
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE,ProtobufType.PROTOBUF_UTF8_VALUE})
+  @RequestMapping(method=RequestMethod.PUT,consumes={ProtobufType.PROTOBUF_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void consolidate(@RequestBody final TestSuite test) {
     try {
