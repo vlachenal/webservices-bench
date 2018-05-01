@@ -189,7 +189,7 @@ public final class TestSuiteBridge {
         }
       }
       dto.setMapper(mapper);
-      if(test.hasField(TESTSUITE_DESC.findFieldByNumber(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.CALLS_FIELD_NUMBER))) {
+      if(test.getCallsCount() > 0) {
         dto.setCalls(CallBridge.fromProtobuf(test.getCallsList()));
       }
     }
