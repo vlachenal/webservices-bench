@@ -6,22 +6,17 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,18 +92,7 @@ public class CustomerDAO {
    * @return the customers
    */
   public List<CustomerDTO> listAll() {
-    final ArrayList<CustomerDTO> customers = new ArrayList<>();
-    jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3))).forEach(cust -> customers.add(cust));
-    return customers;
-  }
-
-  /**
-   * List all customers in database
-   *
-   * @return the customers' stream
-   */
-  public Stream<CustomerDTO> stream() {
-    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3))).stream();
+    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3)));
   }
 
   /**
@@ -119,27 +103,22 @@ public class CustomerDAO {
    * @return the customer details
    */
   public CustomerDTO getDetails(final UUID id) {
-    final CustomerDTO customer = jdbc.query(REQ_GET_CUST, new Object[] {
-      id
-    }, new ResultSetExtractor<CustomerDTO>() {
-      @Override
-      public CustomerDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
-        if(!rs.next()) {
-          return null;
-        }
-        final CustomerDTO cust = new CustomerDTO();
-        cust.setId(id.toString());
-        cust.setId(rs.getString(1));
-        cust.setFirstName(rs.getString(2));
-        cust.setLastName(rs.getString(3));
-        cust.setBirthDate(rs.getDate(4));
-        cust.setEmail(rs.getString(5));
-        return cust;
+    final CustomerDTO customer = jdbc.query(REQ_GET_CUST, rs -> {
+      if(!rs.next()) {
+        return null;
       }
-    });
+      final CustomerDTO cust = new CustomerDTO();
+      cust.setId(id.toString());
+      cust.setId(rs.getString(1));
+      cust.setFirstName(rs.getString(2));
+      cust.setLastName(rs.getString(3));
+      cust.setBirthDate(rs.getDate(4));
+      cust.setEmail(rs.getString(5));
+      return cust;
+    }, id);
     if(customer != null) {
       customer.setAddress(getAddress(id));
-      Optional.of(getPhones(id)).filter(l -> !l.isEmpty()).ifPresent(phones -> customer.setPhones(phones));
+      Optional.of(getPhones(id)).filter(phones -> !phones.isEmpty()).ifPresent(phones -> customer.setPhones(phones));
     }
     return customer;
   }
@@ -152,33 +131,26 @@ public class CustomerDAO {
    * @return the address
    */
   public AddressDTO getAddress(final UUID id) {
-    final AddressDTO address = jdbc.query(REQ_GET_CUST_ADDR, new Object[] {
-      id
-    }, new ResultSetExtractor<AddressDTO>() {
-      @Override
-      public AddressDTO extractData(final ResultSet rs) throws SQLException, DataAccessException {
-        if(!rs.next()) {
-          return null;
-        }
-        final AddressDTO addr = new AddressDTO();
-        final ArrayList<String> lines = new ArrayList<>();
-        //IntStream.range(1, 7).forEach(i -> Optional.ofNullable(rs.getString(i)).ifPresent(line -> lines.add(line)));
-        Optional.ofNullable(rs.getString(1)).ifPresent(line -> lines.add(line));
-        Optional.ofNullable(rs.getString(2)).ifPresent(line -> lines.add(line));
-        Optional.ofNullable(rs.getString(3)).ifPresent(line -> lines.add(line));
-        Optional.ofNullable(rs.getString(4)).ifPresent(line -> lines.add(line));
-        Optional.ofNullable(rs.getString(5)).ifPresent(line -> lines.add(line));
-        Optional.ofNullable(rs.getString(6)).ifPresent(line -> lines.add(line));
-        if(!lines.isEmpty()) {
-          addr.setLines(lines);
-        }
-        addr.setZipCode(rs.getString(7).trim());
-        addr.setCity(rs.getString(8));
-        addr.setCountry(rs.getString(9));
-        return addr;
+    return jdbc.query(REQ_GET_CUST_ADDR, rs -> {
+      if(!rs.next()) {
+        return null;
       }
-    });
-    return address;
+      final AddressDTO addr = new AddressDTO();
+      final ArrayList<String> lines = new ArrayList<>();
+      Optional.ofNullable(rs.getString(1)).ifPresent(line -> lines.add(line));
+      Optional.ofNullable(rs.getString(2)).ifPresent(line -> lines.add(line));
+      Optional.ofNullable(rs.getString(3)).ifPresent(line -> lines.add(line));
+      Optional.ofNullable(rs.getString(4)).ifPresent(line -> lines.add(line));
+      Optional.ofNullable(rs.getString(5)).ifPresent(line -> lines.add(line));
+      Optional.ofNullable(rs.getString(6)).ifPresent(line -> lines.add(line));
+      if(!lines.isEmpty()) {
+        addr.setLines(lines);
+      }
+      addr.setZipCode(rs.getString(7).trim());
+      addr.setCity(rs.getString(8));
+      addr.setCountry(rs.getString(9));
+      return addr;
+    }, id);
   }
 
   /**
@@ -225,26 +197,24 @@ public class CustomerDAO {
   @Transactional
   public String create(final CustomerDTO customer) {
     final UUID uuid = UUID.randomUUID();
-    jdbc.update(ADD_CUSTOMER, new Object[] {
-      uuid,
-      customer.getFirstName(),
-      customer.getLastName(),
-      customer.getBirthDate(),
-      customer.getEmail()
-    });
+    jdbc.update(ADD_CUSTOMER,
+                uuid,
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getBirthDate(),
+                customer.getEmail());
     if(customer.getAddress() != null) {
-      jdbc.update(ADD_ADDRESS, new Object[] {
-        uuid,
-        getLine(customer.getAddress().getLines(),0),
-        getLine(customer.getAddress().getLines(),1),
-        getLine(customer.getAddress().getLines(),2),
-        getLine(customer.getAddress().getLines(),3),
-        getLine(customer.getAddress().getLines(),4),
-        getLine(customer.getAddress().getLines(),5),
-        customer.getAddress().getZipCode(),
-        customer.getAddress().getCity(),
-        customer.getAddress().getCountry()
-      });
+      jdbc.update(ADD_ADDRESS,
+                  uuid,
+                  getLine(customer.getAddress().getLines(),0),
+                  getLine(customer.getAddress().getLines(),1),
+                  getLine(customer.getAddress().getLines(),2),
+                  getLine(customer.getAddress().getLines(),3),
+                  getLine(customer.getAddress().getLines(),4),
+                  getLine(customer.getAddress().getLines(),5),
+                  customer.getAddress().getZipCode(),
+                  customer.getAddress().getCity(),
+                  customer.getAddress().getCountry());
     }
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
       jdbc.batchUpdate(ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (ps, phone) -> {
