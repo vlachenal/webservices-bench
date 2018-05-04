@@ -203,19 +203,19 @@ public class CustomerDAO {
                 customer.getLastName(),
                 customer.getBirthDate(),
                 customer.getEmail());
-    if(customer.getAddress() != null) {
+    Optional.ofNullable(customer.getAddress()).ifPresent(address -> {
       jdbc.update(ADD_ADDRESS,
                   uuid,
-                  getLine(customer.getAddress().getLines(),0),
-                  getLine(customer.getAddress().getLines(),1),
-                  getLine(customer.getAddress().getLines(),2),
-                  getLine(customer.getAddress().getLines(),3),
-                  getLine(customer.getAddress().getLines(),4),
-                  getLine(customer.getAddress().getLines(),5),
-                  customer.getAddress().getZipCode(),
-                  customer.getAddress().getCity(),
-                  customer.getAddress().getCountry());
-    }
+                  getLine(address.getLines(),0),
+                  getLine(address.getLines(),1),
+                  getLine(address.getLines(),2),
+                  getLine(address.getLines(),3),
+                  getLine(address.getLines(),4),
+                  getLine(address.getLines(),5),
+                  address.getZipCode(),
+                  address.getCity(),
+                  address.getCountry());
+    });
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
       jdbc.batchUpdate(ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (ps, phone) -> {
         ps.setObject(1, uuid);

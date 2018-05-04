@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -129,19 +130,15 @@ public class CustomerDAOTest {
     LOG.info("Customer {} is {} {}", customerId, customer.getFirstName(), customer.getLastName());
     LOG.info("He has been born {}", customer.getBirthDate());
     LOG.info("His email address is {}", customer.getEmail());
-    if(customer.getAddress() != null) {
+    Optional.ofNullable(customer.getAddress()).ifPresent(addr -> {
       LOG.info("Address: ");
-      for(final String line : customer.getAddress().getLines()) {
+      for(final String line : addr.getLines()) {
         LOG.info(line);
       }
-      LOG.info("{} {}", customer.getAddress().getZipCode(), customer.getAddress().getCity());
-      LOG.info(customer.getAddress().getCountry());
-    }
-    if(customer.getPhones() != null) {
-      for(final PhoneDTO phone : customer.getPhones()) {
-        LOG.info("Phone {}: {}", phone.getType(), phone.getNumber());
-      }
-    }
+      LOG.info("{} {}", addr.getZipCode(), addr.getCity());
+      LOG.info(addr.getCountry());
+    });
+    Optional.ofNullable(customer.getPhones()).ifPresent(phones -> phones.forEach(phone -> LOG.info("Phone {}: {}", phone.getType(), phone.getNumber())));
   }
 
   /**
