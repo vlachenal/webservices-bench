@@ -58,8 +58,8 @@ public class StatisticsCache {
   public void mergeCall(final CallDTO call) {
     final CallDTO regCall = calls.get(call.getKey());
     if(regCall != null) {
-      call.setServerStart(call.getServerStart());
-      call.setServerEnd(call.getServerEnd());
+      call.setServerStart(regCall.getServerStart());
+      call.setServerEnd(regCall.getServerEnd());
     }
   }
 
