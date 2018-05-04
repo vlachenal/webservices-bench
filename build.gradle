@@ -38,10 +38,10 @@ configurations {
 eclipse {
     wtp {
         facet {
-            facet name: 'jst.java', version: '9'
-            facet name: 'jst.web', version: '3.1'
+            facet name: 'jst.java', version: '10'
+            facet name: 'jst.web', version: '4.0'
             def oldJstWebFacet = facets.findAll {
-                it.name == 'jst.web' && it.version == '2.4' || it.name == 'jst.java' && it.version == '1.8' || it.name == 'jst.java' && it.version == '1.9'
+                it.name == 'jst.web' && it.version == '2.4' || it.name == 'jst.java' && it.version == '1.8' || it.name == 'jst.java' && it.version == '1.9' || it.name == 'jst.java' && it.version == '1.10'
             }
             facets.removeAll(oldJstWebFacet)
         }
@@ -53,15 +53,19 @@ jar {
     version =  '0.1.0'
 }
 
+bootRun {
+    jvmArgs = ['--add-modules','java.xml.bind,java.xml.ws']
+}
+
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 9
-targetCompatibility = 9
+sourceCompatibility = 10
+targetCompatibility = 10
 
 allprojects {
-    sourceCompatibility = 9
+    sourceCompatibility = 10
     eclipse.project {
         natures 'org.eclipse.buildship.core.gradleprojectnature'
     }
@@ -91,7 +95,7 @@ sourceSets {
     }
 }
 
-jaxb { 
+jaxb {
   xsdDir = "src/main/resources"
   xjc {
     destinationDir = "src/soap.generated/java"
@@ -107,7 +111,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    // REST 
+    // REST
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'io.springfox:springfox-swagger2:2.8.0'
     compile 'io.springfox:springfox-swagger-ui:2.8.0'
@@ -120,7 +124,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web-services'
     compile 'wsdl4j:wsdl4j:1.6.3'
     // Dozer
-    compile 'com.github.dozermapper:dozer-core:6.1.0'
+    compile 'com.github.dozermapper:dozer-core:6.2.0'
     // MapStruct
     compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
