@@ -7,11 +7,9 @@
 package com.github.vlachenal.webservice.bench.dao;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.sql.DataSource;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,9 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
@@ -42,9 +37,6 @@ public class StatisticsDAOTest {
   /** {@link CustomerDAOTest} logger instance */
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsDAOTest.class);
 
-  /** Initialization status */
-  private static AtomicBoolean initialized = new AtomicBoolean(false);
-
   /** Customer DAO */
   @Autowired
   private StatisticsDAO dao;
@@ -62,22 +54,6 @@ public class StatisticsDAOTest {
   @Value("${memory}")
   private String memory;
   // Attributes -
-
-
-  // Unit tests (un)initialization +
-  /**
-   * Initialize database if needed
-   */
-  @Profile("ci")
-  @Before
-  public void setUpBefore() {
-    if(!initialized.get()) {
-      final ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema-hsqldb.sql"));
-      populator.execute(dataSource);
-      initialized.set(true);
-    }
-  }
-  // Unit tests (un)initialization -
 
 
   // Tests +

@@ -13,7 +13,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 
@@ -23,8 +22,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author Vincent Lachenal
  */
 @Configuration
-@Profile("!ci")
-@PropertySource({"classpath:db.properties"})
+@PropertySource({"classpath:db-${db.engine}.properties"})
 public class RequestDataSource {
 
   // Methods +
