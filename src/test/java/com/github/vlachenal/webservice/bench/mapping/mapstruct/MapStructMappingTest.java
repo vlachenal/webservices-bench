@@ -73,7 +73,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = mapstruct.customer().toRest(bean);
+    final com.github.vlachenal.webservice.bench.rest.api.model.Customer customer = mapstruct.customer().toRest(bean);
     assertNotNull("REST customer is null", customer);
     compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToRESTCustomer");

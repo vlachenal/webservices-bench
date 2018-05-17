@@ -45,7 +45,7 @@ public final class CallBridge {
    *
    * @return the DTO
    */
-  public static CallDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.ClientCall call) {
+  public static CallDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.model.ClientCall call) {
     CallDTO dto = null;
     if(call != null) {
       dto = new CallDTO();
@@ -67,7 +67,7 @@ public final class CallBridge {
    *
    * @return the DTOs
    */
-  public static List<CallDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.ClientCall> calls) {
+  public static List<CallDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.model.ClientCall> calls) {
     return Optional.ofNullable(calls).map(l -> l.stream().map(call -> fromRest(call)).collect(Collectors.toList())).orElse(null);
   }
 

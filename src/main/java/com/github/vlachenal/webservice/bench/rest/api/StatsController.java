@@ -19,7 +19,7 @@ import com.github.vlachenal.webservice.bench.business.StatisticsBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
-import com.github.vlachenal.webservice.bench.rest.api.dto.TestSuite;
+import com.github.vlachenal.webservice.bench.rest.api.model.TestSuite;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

@@ -50,10 +50,10 @@ public final class CustomerBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.dto.Customer toRest(final CustomerDTO dto) {
-    com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer = null;
+  public static com.github.vlachenal.webservice.bench.rest.api.model.Customer toRest(final CustomerDTO dto) {
+    com.github.vlachenal.webservice.bench.rest.api.model.Customer customer = null;
     if(dto != null) {
-      customer = new com.github.vlachenal.webservice.bench.rest.api.dto.Customer();
+      customer = new com.github.vlachenal.webservice.bench.rest.api.model.Customer();
       customer.setId(dto.getId());
       customer.setFirstName(dto.getFirstName());
       customer.setLastName(dto.getLastName());
@@ -72,7 +72,7 @@ public final class CustomerBridge {
    *
    * @return the DTO
    */
-  public static CustomerDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer) {
+  public static CustomerDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.model.Customer customer) {
     CustomerDTO dto = null;
     if(customer != null) {
       dto = new CustomerDTO();
@@ -94,7 +94,7 @@ public final class CustomerBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Customer> toRest(final List<CustomerDTO> dto) {
+  public static List<com.github.vlachenal.webservice.bench.rest.api.model.Customer> toRest(final List<CustomerDTO> dto) {
     return Optional.ofNullable(dto).map(l -> l.stream().map(c -> toRest(c)).collect(Collectors.toList())).orElse(null);
   }
 

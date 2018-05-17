@@ -43,10 +43,10 @@ public final class AddressBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.dto.Address toRest(final AddressDTO dto) {
-    com.github.vlachenal.webservice.bench.rest.api.dto.Address address = null;
+  public static com.github.vlachenal.webservice.bench.rest.api.model.Address toRest(final AddressDTO dto) {
+    com.github.vlachenal.webservice.bench.rest.api.model.Address address = null;
     if(dto != null) {
-      address = new com.github.vlachenal.webservice.bench.rest.api.dto.Address();
+      address = new com.github.vlachenal.webservice.bench.rest.api.model.Address();
       address.setLines(dto.getLines());
       address.setZipCode(dto.getZipCode());
       address.setCity(dto.getCity());
@@ -62,7 +62,7 @@ public final class AddressBridge {
    *
    * @return the DTI
    */
-  public static AddressDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.Address address) {
+  public static AddressDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.model.Address address) {
     AddressDTO dto = null;
     if(address != null) {
       dto = new AddressDTO();

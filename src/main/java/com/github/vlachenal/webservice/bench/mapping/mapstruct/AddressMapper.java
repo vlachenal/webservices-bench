@@ -66,7 +66,7 @@ public interface AddressMapper {
    *
    * @return the DTO
    */
-  AddressDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.dto.Address address);
+  AddressDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.model.Address address);
 
   /**
    * Convert DTO address to REST
@@ -75,6 +75,6 @@ public interface AddressMapper {
    *
    * @return the REST address
    */
-  com.github.vlachenal.webservice.bench.rest.api.dto.Address toRest(AddressDTO address);
+  com.github.vlachenal.webservice.bench.rest.api.model.Address toRest(AddressDTO address);
 
 }

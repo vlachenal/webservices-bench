@@ -34,7 +34,7 @@ public class PhoneBridgeTest extends AbstractMappingTest {
 
   @Test
   public void testToRest() {
-    final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones = PhoneBridge.toRest(dtos);
+    final List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> phones = PhoneBridge.toRest(dtos);
     assertNotNull("Converted result is null", phones);
     assertEquals(dtos.size(), phones.size());
     for(int i = 0 ; i < dtos.size() ; ++i) {

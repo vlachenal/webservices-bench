@@ -234,7 +234,7 @@ public abstract class AbstractMappingTest {
    * @param bean the bean
    * @param customer the REST customer
    */
-  protected void compareCustomer(final CustomerDTO bean, final com.github.vlachenal.webservice.bench.rest.api.dto.Customer customer) {
+  protected void compareCustomer(final CustomerDTO bean, final com.github.vlachenal.webservice.bench.rest.api.model.Customer customer) {
     LOG.info("Customer id: bean = {} ; REST = {}", bean.getId(), customer.getId());
     assertEquals("Identifiers are differents", bean.getId(), customer.getId());
     LOG.info("Customer first name: bean = {} ; REST = {}", bean.getFirstName(), customer.getFirstName());
@@ -255,7 +255,7 @@ public abstract class AbstractMappingTest {
    * @param bean the bean
    * @param address the REST address
    */
-  protected void compareAddress(final AddressDTO bean, final com.github.vlachenal.webservice.bench.rest.api.dto.Address address) {
+  protected void compareAddress(final AddressDTO bean, final com.github.vlachenal.webservice.bench.rest.api.model.Address address) {
     LOG.info("Address lines: bean = {} ; REST = {}", bean.getLines(), address.getLines());
     assertEquals("Lines are different", bean.getLines(), address.getLines());
     LOG.info("Address ZIP code: bean = {} ; REST = {}", bean.getZipCode(), address.getZipCode());
@@ -272,7 +272,7 @@ public abstract class AbstractMappingTest {
    * @param beans the bean list
    * @param phones the REST phone list
    */
-  protected void compareRPhones(final List<PhoneDTO> beans, final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones) {
+  protected void compareRPhones(final List<PhoneDTO> beans, final List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> phones) {
     if(beans != null) {
       assertNotNull("REST phone list is null", phones);
       assertEquals("Number of phones is different", beans.size(), phones.size());
@@ -288,16 +288,16 @@ public abstract class AbstractMappingTest {
    * @param bean the bean
    * @param phone the REST phone
    */
-  protected void comparePhone(final PhoneDTO bean, final com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone) {
+  protected void comparePhone(final PhoneDTO bean, final com.github.vlachenal.webservice.bench.rest.api.model.Phone phone) {
     LOG.info("Phone number: bean = {} ; REST = {}", bean.getNumber(), phone.getNumber());
     assertEquals(bean.getNumber(), phone.getNumber());
     LOG.info("Phone type: bean = {} ; REST = {}", bean.getType(), phone.getType());
     switch(bean.getType()) {
       case LANDLINE:
-        assertEquals(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.LANDLINE, phone.getType());
+        assertEquals(com.github.vlachenal.webservice.bench.rest.api.model.Phone.Type.LANDLINE, phone.getType());
         break;
       case MOBILE:
-        assertEquals(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.MOBILE, phone.getType());
+        assertEquals(com.github.vlachenal.webservice.bench.rest.api.model.Phone.Type.MOBILE, phone.getType());
         break;
       default:
         fail("Unexpected type: " + bean.getType());

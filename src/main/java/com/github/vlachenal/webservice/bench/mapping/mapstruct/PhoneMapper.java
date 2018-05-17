@@ -69,7 +69,7 @@ public interface PhoneMapper {
    *
    * @return the DTO
    */
-  PhoneDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone);
+  PhoneDTO fromRest(com.github.vlachenal.webservice.bench.rest.api.model.Phone phone);
 
   /**
    * Convert DTO phone to REST
@@ -78,6 +78,6 @@ public interface PhoneMapper {
    *
    * @return the REST phone
    */
-  com.github.vlachenal.webservice.bench.rest.api.dto.Phone toRest(PhoneDTO phone);
+  com.github.vlachenal.webservice.bench.rest.api.model.Phone toRest(PhoneDTO phone);
 
 }

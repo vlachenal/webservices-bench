@@ -46,18 +46,18 @@ public final class PhoneBridge {
    *
    * @return the JSON structure
    */
-  public static com.github.vlachenal.webservice.bench.rest.api.dto.Phone toRest(final PhoneDTO dto) {
-    com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone = null;
+  public static com.github.vlachenal.webservice.bench.rest.api.model.Phone toRest(final PhoneDTO dto) {
+    com.github.vlachenal.webservice.bench.rest.api.model.Phone phone = null;
     if(dto != null) {
-      phone = new com.github.vlachenal.webservice.bench.rest.api.dto.Phone();
+      phone = new com.github.vlachenal.webservice.bench.rest.api.model.Phone();
       phone.setNumber(dto.getNumber());
       if(dto.getType() != null) {
         switch(dto.getType()) {
           case LANDLINE:
-            phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.LANDLINE);
+            phone.setType(com.github.vlachenal.webservice.bench.rest.api.model.Phone.Type.LANDLINE);
             break;
           case MOBILE:
-            phone.setType(com.github.vlachenal.webservice.bench.rest.api.dto.Phone.Type.MOBILE);
+            phone.setType(com.github.vlachenal.webservice.bench.rest.api.model.Phone.Type.MOBILE);
             break;
           default:
             // Nothing to do
@@ -74,7 +74,7 @@ public final class PhoneBridge {
    *
    * @return the JSON structures
    */
-  public static List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> toRest(final List<PhoneDTO> dto) {
+  public static List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> toRest(final List<PhoneDTO> dto) {
     return Optional.ofNullable(dto).map(l -> l.stream().map(phone -> toRest(phone)).collect(Collectors.toList())).orElse(null);
   }
 
@@ -85,7 +85,7 @@ public final class PhoneBridge {
    *
    * @return the DTO
    */
-  public static PhoneDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.dto.Phone phone) {
+  public static PhoneDTO fromRest(final com.github.vlachenal.webservice.bench.rest.api.model.Phone phone) {
     PhoneDTO dto = null;
     if(phone != null) {
       dto = new PhoneDTO();
@@ -111,7 +111,7 @@ public final class PhoneBridge {
    *
    * @return the DTO list
    */
-  public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.dto.Phone> phones) {
+  public static List<PhoneDTO> fromRest(final List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> phones) {
     return Optional.ofNullable(phones).map(l -> l.stream().map(phone -> fromRest(phone)).collect(Collectors.toList())).orElse(null);
   }
 

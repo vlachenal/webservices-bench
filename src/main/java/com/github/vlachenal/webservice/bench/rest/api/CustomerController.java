@@ -28,8 +28,8 @@ import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
-import com.github.vlachenal.webservice.bench.rest.api.dto.Customer;
-import com.github.vlachenal.webservice.bench.rest.api.dto.Mapper;
+import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
+import com.github.vlachenal.webservice.bench.rest.api.model.Mapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
