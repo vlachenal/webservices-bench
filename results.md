@@ -193,6 +193,7 @@ ORDER BY s.nb_threads, s.mapper, s.protocol;
 ```
 
 On my laptop, the result is:
+
  protocol |      mapper      | nb_threads |   time_ns   |    time_s
 ----------|------------------|------------|-------------|--------------
  rest     | dozer            |          1 | 15205365053 | 15.205365053
