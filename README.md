@@ -106,6 +106,18 @@ Due to its message object structures, Protocol Buffers is not suitable for mappi
 Protocol Buffers implementation is, for now, a RESTful API. Messages are serialized in HTTP bodies.
 
 
+## Reactive webservice with spring-webflux
+Reactive programming aims to change programming concept using non-blocking API.
+
+### Advantages
+By design, reactive programming should have better performances than classic sequential programming.
+
+When data are declared as flux, they can be treated in the same time they are consumed. So the memory consumption should be better than if data are retrieved as list.
+
+### Disadvantages
+Reactive programming have to be taken into account while architecturing the webservice. Changing from blocking implementation to reactive could be painfull.
+
+
 ## Mapping
 As project will test several protocols, it is relevant to test several mapping technologies ...
 
@@ -149,9 +161,11 @@ Don't use SOAP and don't use Dozer.
 SOAP has an really heavy overhead for serialization and deserialization.
 When I have implemented Protocol Buffers webservice, tests did not run anymore while running server side from Eclipse/bootRun on my laptop due to insufficient memory ... and when I monitored processus on my deskstop, I saw that SOAP test runs have an heavy memory overload (+1.5GB on server ...). So I don't not if Spring/SOAP protocol implementation has flaws compared to others but I suggest to not use Spring/SOAP + service/client (either for performance and memory usage).
 
-Protocol Buffers with RESTful API has poor performance comparing to RESTful/JSON API. Surprisingly, the number of simultaneous calls does not improve response time from 3 calls and above.
+~~Protocol Buffers with RESTful API has poor performance comparing to RESTful/JSON API. Surprisingly, the number of simultaneous calls does not improve response time from 3 calls and above.~~
 JSON serialization is done with pretty print format which has no interest ...
-So I recommend not to use it since performances are not as good as a classic RESTful API.
+I didn't see that Spring Boot already had RESTful/Protocol Buffers integration. It works better than mine and have the same performance than JSON RESTful service.
+Due to Protocol Buffers generated classes, automatic mapping is pretty impossible (and I wouldn't spend time on that).
+So I recommend not to use it since performances are not better than a classic RESTful API.
 
 Overhead with Dozer is significant enough not to use it.
 
@@ -168,6 +182,7 @@ By priority order:
  - ~~Implements Dozer mapping~~
  - ~~Implements MapStruct mapping~~
  - ~~Protocol Buffers RESTful API~~
- - Protocol Buffers with gRPC
+ - Protocol Buffers with gRPC ... or not
  - Nginx + PHP + Slim + Thrift
  - unrelevant AnCH Framework SQL + Thrift tests ...
+ - ~~Reactive RESTful webservice~~ => [webservices-reactive-bench project](https://github.com/vlachenal/webservices-reactive-bench)
