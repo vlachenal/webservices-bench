@@ -136,12 +136,12 @@ MapStruct is easy to use: you just have to declare mapping interface for basic m
 
 For complex mapping, you just have to declare implementation in another class and reference it in mapper interface.
 
-MapStruct will generate implementation on compile time and it is closed to what if you map structures manually ... so I don't think there will be any overhead.
+MapStruct will generate implementation on compile time and it is closed to what you could done if you map structures manually ... so I don't think there will be any overhead.
 
 ## Results
 You can consult results for my laptop configuration (Laptop Core i7-4510U, RAM 8GB, SSD, Tomcat 8 with bootRun task in Eclipse) [here](https://github.com/vlachenal/webservices-bench/blob/master/results.md).
 
-You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md). Protocol Buffers results are only relevant for manual mapping: MapStruct and Dozer mappers have not been implemented (and throws exepections).
+You can consult results for my desktop configuration (Desktop Core i7 920, RAM 24GB, SSD, Tomcat 8.5 with APR) [here](https://github.com/vlachenal/webservices-bench/blob/master/results-desktop.md). Protocol Buffers results are only relevant for manual mapping: MapStruct and Dozer mappers have not been implemented (and throws exceptions).
 
 ## Conclusions
 
