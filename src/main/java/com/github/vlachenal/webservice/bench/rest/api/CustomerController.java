@@ -189,7 +189,7 @@ public class CustomerController extends AbstractBenchService {
    */
   @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation(value="Create new customer",notes="Succes will produce " + MediaType.TEXT_PLAIN_VALUE + " ; errors will be produce " + MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ApiOperation(value="Create new customer",notes="Success will produce " + MediaType.TEXT_PLAIN_VALUE + " ; errors will be produce " + MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ApiResponses(value= {
     @ApiResponse(code=201,message="Customer has been successfully created"),
     @ApiResponse(code=400,message="Missing or invalid field")

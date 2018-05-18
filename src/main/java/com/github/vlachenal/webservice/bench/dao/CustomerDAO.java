@@ -118,7 +118,7 @@ public class CustomerDAO {
     }, id);
     if(customer != null) {
       customer.setAddress(getAddress(id));
-      Optional.of(getPhones(id)).filter(phones -> !phones.isEmpty()).ifPresent(phones -> customer.setPhones(phones));
+      customer.setPhones(getPhones(id));
     }
     return customer;
   }
@@ -161,14 +161,12 @@ public class CustomerDAO {
    * @return the customer's phones
    */
   public List<PhoneDTO> getPhones(final UUID id) {
-    final ArrayList<PhoneDTO> phones = new ArrayList<>();
-    jdbc.query(REQ_GET_CUST_PHONES, rs -> {
+    return jdbc.query(REQ_GET_CUST_PHONES, (rs, rowNum) -> {
       final PhoneDTO phone = new PhoneDTO();
       phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
       phone.setNumber(rs.getString(2).trim());
-      phones.add(phone);
+      return phone;
     }, id);
-    return phones;
   }
 
   /**
