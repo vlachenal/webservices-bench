@@ -6,9 +6,11 @@
  */
 package com.github.vlachenal.webservice.bench.business;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
+
 
 /**
  * Abstract business class
@@ -28,7 +30,7 @@ public abstract class AbstractBusiness {
   protected void checkParameters(final String errorMsg, final Object... params) throws InvalidParametersException {
     for(final Object param : params) {
       if(param == null) {
-        throw new InvalidParametersException(errorMsg + ": " + params);
+        throw new InvalidParametersException(errorMsg + ": " + Arrays.asList(params));
       }
     }
   }

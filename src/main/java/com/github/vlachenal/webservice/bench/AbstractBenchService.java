@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,7 +92,7 @@ public abstract class AbstractBenchService {
    *
    * @return the mapped object
    */
-  protected <D,S,M> List<D> map(final List<S> source, final M mapper, final FuncMapper<D,S,M> func) {
+  protected <D,S,M> List<D> map(final Collection<S> source, final M mapper, final FuncMapper<D,S,M> func) {
     return source.stream().map(src -> map(src, mapper, func)).collect(Collectors.toList());
   }
 

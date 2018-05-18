@@ -8,7 +8,9 @@ package com.github.vlachenal.webservice.bench.thrift.api;
 
 import java.util.List;
 
+import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
+import org.apache.thrift.TFieldIdEnum;
 import org.springframework.stereotype.Component;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
@@ -64,6 +66,19 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
 
 
   // Methods +
+  /**
+   * Check that Thrift request is not null
+   *
+   * @param request the request
+   *
+   * @throws CustomerException request is {@code null}
+   */
+  private void checkRequest(final TBase<?,? extends TFieldIdEnum> request) throws CustomerException {
+    if(request == null) {
+      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
+    }
+  }
+
   /**
    * Compute request header according to request and default values
    *
@@ -141,9 +156,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public List<Customer> listCustomers(final ListAllRequest request) throws CustomerException, TException {
-    if(request == null) {
-      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
-    }
+    checkRequest(request);
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "list");
     final List<Customer> customers = map(business.listAll(), header.getMapper(), this::toThrift);
@@ -158,9 +171,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public Customer get(final GetRequest request) throws CustomerException, TException {
-    if(request == null) {
-      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
-    }
+    checkRequest(request);
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "get");
     if(!request.isSetId()) {
@@ -189,9 +200,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   @Override
   public String create(final CreateRequest request) throws CustomerException, TException {
-    if(request == null) {
-      throw new CustomerException(ErrorCode.PARAMETER, "Request is null");
-    }
+    checkRequest(request);
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "create");
     String uuid = null;

@@ -165,7 +165,7 @@ public class CustomerDAO {
     jdbc.query(REQ_GET_CUST_PHONES, rs -> {
       final PhoneDTO phone = new PhoneDTO();
       phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
-      phone.setNumber(rs.getString(2));
+      phone.setNumber(rs.getString(2).trim());
       phones.add(phone);
     }, id);
     return phones;

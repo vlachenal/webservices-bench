@@ -17,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
-import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
-import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
@@ -143,8 +140,12 @@ public class CustomerController extends AbstractBenchService {
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
-    final List<Customer> customers = map(business.listAll(), mapper, this::toRest);
-    registerCall(call);
+    List<Customer> customers;
+    try {
+      customers = map(business.listAll(), mapper, this::toRest);
+    } finally {
+      registerCall(call);
+    }
     return customers;
   }
 
@@ -168,18 +169,12 @@ public class CustomerController extends AbstractBenchService {
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
     final CallDTO call = initializeCall(requestSeq, "get");
-    CustomerDTO res = null;
+    Customer customer;
     try {
-      res = business.getDetails(id);
-    } catch(final InvalidParametersException e) {
+      customer = map(business.getDetails(id), mapper, this::toRest);
+    } finally {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
-    } catch(final NotFoundException e) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    final Customer customer = map(res, mapper, this::toRest);
-    registerCall(call);
     return customer;
   }
 
@@ -192,9 +187,9 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.TEXT_PLAIN_VALUE)
+  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation("Create new customer")
+  @ApiOperation(value="Create new customer",notes="Succes will produce " + MediaType.TEXT_PLAIN_VALUE + " ; errors will be produce " + MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ApiResponses(value= {
     @ApiResponse(code=201,message="Customer has been successfully created"),
     @ApiResponse(code=400,message="Missing or invalid field")
@@ -206,11 +201,9 @@ public class CustomerController extends AbstractBenchService {
     String uuid = null;
     try {
       uuid = business.create(map(customer, mapper, this::fromRest));
-    } catch(final InvalidParametersException e) {
+    } finally {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    registerCall(call);
     return uuid;
   }
 

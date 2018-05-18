@@ -24,8 +24,6 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
-import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
-import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.protobuf.ProtobufType;
 
@@ -61,6 +59,48 @@ public class CustomerProtobufController extends AbstractBenchService {
 
   // Methods +
   /**
+   * Convert customer DTO to Thrift according to mapper
+   *
+   * @param dto the customer DTO
+   * @param mapper the mapper
+   *
+   * @return the Thrift customer
+   */
+  private Customer toProtobuf(final CustomerDTO dto, final Mapper mapper) {
+    Customer cust = null;
+    switch(mapper) {
+      case DOZER:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
+      case MAPSTRUCT:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+      default:
+        cust = CustomerBridge.toProtobuf(dto);
+    }
+    return cust;
+  }
+
+  /**
+   * Convert Thrift customer to DTO according to mapper
+   *
+   * @param customer the Thrift customer
+   * @param mapper the mapper
+   *
+   * @return the customer DTO
+   */
+  private CustomerDTO fromProtobuf(final Customer customer, final Mapper mapper) {
+    CustomerDTO dto = null;
+    switch(mapper) {
+      case DOZER:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
+      case MAPSTRUCT:
+        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+      default:
+        dto = CustomerBridge.fromProtobuf(customer);
+    }
+    return dto;
+  }
+
+  /**
    * List all customers in database
    *
    * @param requestSeq the request sequence header
@@ -72,24 +112,17 @@ public class CustomerProtobufController extends AbstractBenchService {
   public ListAllResponse listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
-    final List<CustomerDTO> res = business.listAll();
-    List<Customer> customers = null;
-    switch(mapper) {
-      case MAPSTRUCT:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
-      case DOZER:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
-      default:
-        customers = CustomerBridge.toProtobuf(res);
+    ListAllResponse response;
+    try {
+      final List<Customer> customers = map(business.listAll(), mapper, this::toProtobuf);
+      final ListAllResponse.Builder builder = ListAllResponse.newBuilder();
+      if(customers != null) {
+        builder.addAllCustomers(customers);
+      }
+      response = builder.build();
+    } finally {
+      registerCall(call);
     }
-    final ListAllResponse.Builder builder = ListAllResponse.newBuilder();
-    if(customers != null) {
-      builder.addAllCustomers(customers);
-    }
-    final ListAllResponse response = builder.build();
-    registerCall(call);
     return response;
   }
 
@@ -110,28 +143,12 @@ public class CustomerProtobufController extends AbstractBenchService {
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
     final CallDTO call = initializeCall(requestSeq, "get");
-    CustomerDTO res;
+    Customer customer;
     try {
-      res = business.getDetails(id);
-    } catch(final InvalidParametersException e) {
+      customer = map(business.getDetails(id), mapper, this::toProtobuf);
+    } finally {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
-    } catch(final NotFoundException e) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    Customer customer = null;
-    switch(mapper) {
-      case MAPSTRUCT:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
-      case DOZER:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
-      default:
-        customer = CustomerBridge.toProtobuf(res);
-    }
-    registerCall(call);
     return customer;
   }
 
@@ -150,25 +167,12 @@ public class CustomerProtobufController extends AbstractBenchService {
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
     final CallDTO call = initializeCall(requestSeq, "create");
-    CustomerDTO dto = null;
-    switch(mapper) {
-      case MAPSTRUCT:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
-      case DOZER:
-        registerCall(call);
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
-      default:
-        dto = CustomerBridge.fromProtobuf(customer);
-    }
     String uuid = null;
     try {
-      uuid = business.create(dto);
-    } catch(final InvalidParametersException e) {
+      uuid = business.create(map(customer, mapper, this::fromProtobuf));
+    } finally {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    registerCall(call);
     return uuid;
   }
 

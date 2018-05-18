@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.business.StatisticsBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
-import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.rest.api.model.TestSuite;
 
@@ -72,11 +70,7 @@ public class StatsController {
     @ApiResponse(code=400,message="Missing or invalid field")
   })
   public void consolidate(@RequestBody final TestSuite test) {
-    try {
-      business.consolidate(TestSuiteBridge.fromRest(test));
-    } catch(final InvalidParametersException e) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
-    }
+    business.consolidate(TestSuiteBridge.fromRest(test));
   }
 
   /**

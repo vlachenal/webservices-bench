@@ -29,11 +29,11 @@ public class Phone {
 
   // Attributes +
   /** Phone type */
-  @ApiModelProperty(notes="Phone type (LANDLINE or MOBILE)")
+  @ApiModelProperty(notes="Phone type (LANDLINE or MOBILE)",required=true)
   private Type type;
 
   /** Phone number */
-  @ApiModelProperty(notes="Phone number")
+  @ApiModelProperty(notes="Phone number",required=true)
   private String number;
   // Attributes -
 

@@ -6,6 +6,9 @@
  */
 package com.github.vlachenal.webservice.bench.errors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 /**
  * Data not found exception
@@ -13,7 +16,8 @@ package com.github.vlachenal.webservice.bench.errors;
  * @author Vincent Lachenal
  */
 @SuppressWarnings("serial")
-public class NotFoundException extends Exception {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NotFoundException extends RuntimeException {
 
   /**
    * {@link NotFoundException} default constructor

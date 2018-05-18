@@ -27,23 +27,22 @@ public class Customer {
   // Attributes +
   /** Customer identifier */
   @ApiModelProperty(notes="Customer's UUID")
-  @JsonProperty(value="id",required=false)
   private String id;
 
   /** Customer first name */
   @ApiModelProperty(notes="Customer's first name",required=true)
-  @JsonProperty(value="first_name",required=true)
+  @JsonProperty(value="first_name")
   private String firstName;
 
   /* Customer last name */
   @ApiModelProperty(notes="Customer's last name",required=true)
-  @JsonProperty(value="last_name",required=true)
+  @JsonProperty(value="last_name")
   private String lastName;
 
   /** Customer brith date */
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-  @JsonProperty(value="birth_date",required=true)
   @ApiModelProperty(notes="Customer's birth date",required=true)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @JsonProperty(value="birth_date")
   private Date birthDate;
 
   /** Customer address */
@@ -52,7 +51,6 @@ public class Customer {
 
   /** Customer email address */
   @ApiModelProperty(notes="Customer's email address")
-  @JsonProperty(value="email",required=false)
   private String email;
 
   /** Customer phone numbers */

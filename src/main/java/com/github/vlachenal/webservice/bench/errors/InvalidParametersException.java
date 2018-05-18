@@ -6,6 +6,9 @@
  */
 package com.github.vlachenal.webservice.bench.errors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 /**
  * Invalid parameter(s) error which can be thrown by business classes
@@ -13,7 +16,8 @@ package com.github.vlachenal.webservice.bench.errors;
  * @author Vincent Lachenal
  */
 @SuppressWarnings("serial")
-public class InvalidParametersException extends Exception {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class InvalidParametersException extends RuntimeException {
 
   // Constructors +
   /**
