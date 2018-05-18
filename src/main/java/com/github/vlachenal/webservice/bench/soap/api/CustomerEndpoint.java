@@ -6,6 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.soap.api;
 
+import java.util.Optional;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -98,12 +100,11 @@ public class CustomerEndpoint extends AbstractBenchService {
     }
     if(header == null) {
       header = new RequestHeader();
-    }
-    if(header.getRequestSeq() == null) {
       header.setRequestSeq(-1);
-    }
-    if(header.getMapper() == null) {
       header.setMapper(Mapper.MANUAL);
+    } else {
+      header.setRequestSeq(Optional.ofNullable(header.getRequestSeq()).orElse(-1));
+      header.setMapper(Optional.ofNullable(header.getMapper()).orElse(Mapper.MANUAL));
     }
     return header;
   }

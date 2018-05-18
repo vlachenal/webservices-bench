@@ -88,16 +88,14 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
    */
   private Header getHeader(final Header reqHeader) {
     final Header header = new Header();
+    header.setRequestSeq(-1);
+    header.setMapper(Mapper.MANUAL);
     if(reqHeader != null) {
       if(reqHeader.isSetRequestSeq()) {
         header.setRequestSeq(reqHeader.getRequestSeq());
-      } else {
-        header.setRequestSeq(-1);
       }
       if(reqHeader.isSetMapper()) {
         header.setMapper(reqHeader.getMapper());
-      } else {
-        header.setMapper(Mapper.MANUAL);
       }
     }
     return header;

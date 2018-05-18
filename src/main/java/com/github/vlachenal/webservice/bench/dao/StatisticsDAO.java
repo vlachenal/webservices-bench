@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
 
 
@@ -86,17 +88,27 @@ public class StatisticsDAO {
         ps.setString(17, test.getComment());
         ps.setString(18, test.getMapper());
       });
-      jdbc.batchUpdate(INS_TEST_CALL, test.getCalls(), test.getCalls().size(), (ps, call) -> {
-        ps.setInt(1, call.getSeq());
-        ps.setObject(2, uuid);
-        ps.setString(3, call.getMethod());
-        ps.setLong(4, call.getClientStart());
-        ps.setLong(5, call.getServerStart());
-        ps.setLong(6, call.getServerEnd());
-        ps.setLong(7, call.getClientEnd());
-        ps.setBoolean(8, call.isOk());
-        ps.setString(9, call.getErrMsg());
-      });
+      registerCalls(uuid, test.getCalls());
+    });
+  }
+
+  /**
+   * Register calls
+   *
+   * @param uuid the test suite identifier
+   * @param calls the calls to register
+   */
+  public void registerCalls(final UUID uuid, final List<CallDTO> calls) {
+    jdbc.batchUpdate(INS_TEST_CALL, calls, 250, (ps, call) -> {
+      ps.setInt(1, call.getSeq());
+      ps.setObject(2, uuid);
+      ps.setString(3, call.getMethod());
+      ps.setLong(4, call.getClientStart());
+      ps.setLong(5, call.getServerStart());
+      ps.setLong(6, call.getServerEnd());
+      ps.setLong(7, call.getClientEnd());
+      ps.setBoolean(8, call.isOk());
+      ps.setString(9, call.getErrMsg());
     });
   }
   // Methods -
