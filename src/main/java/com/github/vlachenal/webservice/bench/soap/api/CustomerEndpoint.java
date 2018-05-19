@@ -12,8 +12,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -26,8 +24,6 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
-import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
-import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -169,8 +165,11 @@ public class CustomerEndpoint extends AbstractBenchService {
     final RequestHeader reqHeader = getHeader(header);
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "list");
     final ListCustomersResponse res = new ListCustomersResponse();
-    res.getCustomer().addAll(map(business.listAll(), reqHeader.getMapper(), this::toSoap));
-    registerCall(call);
+    try {
+      res.getCustomer().addAll(map(business.listAll(), reqHeader.getMapper(), this::toSoap));
+    } finally {
+      registerCall(call);
+    }
     return res;
   }
 
@@ -188,18 +187,11 @@ public class CustomerEndpoint extends AbstractBenchService {
     final RequestHeader reqHeader = getHeader(header);
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "get");
     final GetDetailsResponse res = new GetDetailsResponse();
-    CustomerDTO cust = null;
     try {
-      cust = business.getDetails(request.getId());
-    } catch(final InvalidParametersException e) {
+      res.setCustomer(map(business.getDetails(request.getId()), reqHeader.getMapper(), this::toSoap));
+    } finally {
       registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
-    } catch(final NotFoundException e) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    res.setCustomer(map(cust, reqHeader.getMapper(), this::toSoap));
-    registerCall(call);
     return res;
   }
 
@@ -216,17 +208,12 @@ public class CustomerEndpoint extends AbstractBenchService {
   public CreateResponse create(@SoapHeader(value=REQ_HEADER) final SoapHeaderElement header, @RequestPayload final CreateRequest request) {
     final RequestHeader reqHeader = getHeader(header);
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "create");
-    final Customer customer = request.getCustomer();
-    String uuid = null;
-    try {
-      uuid = business.create(map(customer, reqHeader.getMapper(), this::fromSoap));
-    } catch(final InvalidParametersException e) {
-      registerCall(call);
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());
-    }
     final CreateResponse res = new CreateResponse();
-    res.setId(uuid);
-    registerCall(call);
+    try {
+      res.setId(business.create(map(request.getCustomer(), reqHeader.getMapper(), this::fromSoap)));
+    } finally {
+      registerCall(call);
+    }
     return res;
   }
 

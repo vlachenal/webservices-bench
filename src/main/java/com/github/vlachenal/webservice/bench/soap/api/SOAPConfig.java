@@ -27,7 +27,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class SOAPConfig {
 
-  // Attributes +
+  // Methods +
   /**
    * SOAP message dispatcher
    *
@@ -96,6 +96,6 @@ public class SOAPConfig {
   public XsdSchema statisticsSchema() {
     return new SimpleXsdSchema(new ClassPathResource("statistics.xsd"));
   }
-  // Attributes -
+  // Methods -
 
 }
