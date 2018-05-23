@@ -60,7 +60,8 @@ public class CustomerHATEOASController {
    * {@link CustomerHATEOASController} constructor
    *
    * @param dao the customer DAO to use
-   * @param mapstruct the MapStrrct mapper to use
+   * @param mapstruct the MapStruct mapper to use
+   * @param resAssembler the resource assembler to use
    */
   public CustomerHATEOASController(final CustomerBusiness business,
                                    final MapStructMappers mapstruct,
@@ -74,9 +75,6 @@ public class CustomerHATEOASController {
 
   /**
    * List all customers in database
-   *
-   * @param requestSeq the request sequence header
-   * @param mapper the mapper to use
    *
    * @return customers
    */
@@ -93,8 +91,6 @@ public class CustomerHATEOASController {
   /**
    * Retrieve customer details
    *
-   * @param requestSeq the request sequence header
-   * @param mapper the mapper to use
    * @param id the customer identifier
    *
    * @return the customer details
@@ -114,8 +110,6 @@ public class CustomerHATEOASController {
   /**
    * Create customer
    *
-   * @param requestSeq the request sequence header
-   * @param mapper the mapper to use
    * @param customer the customer to create
    *
    * @return the new customer's identifier

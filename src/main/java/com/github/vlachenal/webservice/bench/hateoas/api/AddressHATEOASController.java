@@ -92,7 +92,6 @@ public class AddressHATEOASController {
    * Get phone
    *
    * @param customerId the customer identifier
-   * @param phoneId the phone identifier
    *
    * @return the phone
    */
