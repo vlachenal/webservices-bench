@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.dto;
 
 import java.util.List;
 
+
 /**
  * Test suite
  *

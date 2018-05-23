@@ -39,7 +39,7 @@ public class SwaggerConfig {
   public Docket providesCustomerAPI() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.github.vlachenal.webservice.bench.rest.api"))
+        .apis(RequestHandlerSelectors.basePackage("com.github.vlachenal.webservice.bench"))
         .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
         .build()
         .apiInfo(metaData());

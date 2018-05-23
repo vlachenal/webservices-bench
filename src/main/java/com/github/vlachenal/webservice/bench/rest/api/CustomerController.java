@@ -135,7 +135,7 @@ public class CustomerController extends AbstractBenchService {
   @RequestMapping(method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ApiOperation("List all customers stored in database")
   @ApiResponses(value= {
-    @ApiResponse(code=200,message="Customers hasve been successfully retrieved")
+    @ApiResponse(code=200,message="Customers have been successfully retrieved")
   })
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {

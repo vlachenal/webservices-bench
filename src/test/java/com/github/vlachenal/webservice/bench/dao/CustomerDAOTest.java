@@ -121,7 +121,7 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
    */
   @Test
   public void test1Create() {
@@ -148,7 +148,7 @@ public class CustomerDAOTest {
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
-    final String uuid = dao.create(cust);
+    final String uuid = dao.createCustomer(cust);
     LOG.debug("New customer UUID is {}", uuid);
     customerId = uuid;
   }
@@ -162,19 +162,19 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints
    */
   @Test(expected=DataAccessException.class)
   public void test4CreateFail() {
     final CustomerDTO cust = new CustomerDTO();
-    final String uuid = dao.create(cust);
+    final String uuid = dao.createCustomer(cust);
     LOG.debug("New customer UUID is {}", uuid);
     customerId = uuid;
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#create(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints.<br>
    * This will test transction annotation.
    */
@@ -200,7 +200,7 @@ public class CustomerDAOTest {
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
-    final String uuid = dao.create(cust);
+    final String uuid = dao.createCustomer(cust);
     LOG.debug("New customer UUID is {}", uuid);
     customerId = uuid;
   }

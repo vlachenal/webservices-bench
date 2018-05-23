@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.business;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 
@@ -18,6 +19,23 @@ import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
  * @author Vincent Lachenal
  */
 public abstract class AbstractBusiness {
+
+  /**
+   * Check string UUID format and return the UUID object
+   *
+   * @param id the identifier
+   *
+   * @return the UUID
+   *
+   * @throws InvalidParametersException invalid UUID
+   */
+  protected UUID toUUID(final String id) throws InvalidParametersException {
+    try {
+      return UUID.fromString(id);
+    } catch(final IllegalArgumentException e) {
+      throw new InvalidParametersException(id + " is not an UUID");
+    }
+  }
 
   /**
    * Check parameters

@@ -6,9 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.sql.DataSource;
@@ -20,9 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
-import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
 
 /**
@@ -41,38 +37,48 @@ public class CustomerDAO {
   /** Get customer details SQL request */
   private static final String REQ_GET_CUST = "SELECT id,first_name,last_name,birth_date,email FROM Customer WHERE id = ?";
 
-  /** Get customer address SQL request */
-  private static final String REQ_GET_CUST_ADDR = "SELECT line1,line2,line3,line4,line5,line6,zip_code,city,country FROM address WHERE customer_id = ?";
-
-  /** Get customer phones SQL request */
-  private static final String REQ_GET_CUST_PHONES = "SELECT phone_type,number FROM phone WHERE customer_id = ?";
-
   /** Delete all customer SQL request */
   private static final String REQ_DELETE_ALL = "DELETE FROM Customer";
 
+  /** Delete customer SQL request */
+  private static final String REQ_DELETE = "DELETE FROM Customer WHERE id = ?";
+
   /** Insert customer in database */
-  private static final String ADD_CUSTOMER = "INSERT INTO customer "
+  private static final String REQ_ADD_CUSTOMER = "INSERT INTO Customer "
       + "(id,first_name,last_name,birth_date,email) "
       + "VALUES (?,?,?,?,?)";
 
-  /** Insert phone in database */
-  private static final String ADD_ADDRESS = "INSERT INTO address "
-      + "(customer_id,line1,line2,line3,line4,line5,line6,zip_code,city,country) "
-      + "VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-  /** Insert phone in database */
-  private static final String ADD_PHONE = "INSERT INTO phone "
-      + "(customer_id,phone_type,number) "
-      + "VALUES (?,?,?)";
+  /** Customer exists */
+  private static final String REQ_CUSTOMER_EXISTS = "SELECT 1 FROM Customer WHERE id = ?";
 
   /** Vacuum requests */
   @Value("${ds.customer.vacuum}")
   private String vacuumReqs;
   // SQL requests -
 
+  /** Phone DAO */
+  private final PhoneDAO phoneDAO;
+
+  /** Address DAO */
+  private final AddressDAO addressDAO;
+
   /** JDBC template */
   private JdbcTemplate jdbc;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link CustomerDAO} constructor
+   *
+   * @param phoneDAO the phone DAO to use
+   * @param addressDAO the address DAO to use
+   */
+  public CustomerDAO(final PhoneDAO phoneDAO, final AddressDAO addressDAO) {
+    this.phoneDAO = phoneDAO;
+    this.addressDAO = addressDAO;
+  }
+  // Constructors -
 
 
   // Methods +
@@ -87,102 +93,52 @@ public class CustomerDAO {
   }
 
   /**
+   * Check if customer exists
+   *
+   * @param customerId the customer's identifier
+   *
+   * @return {@code true} when customer exists, {@code false} otherwise
+   */
+  public Boolean customerExists(final UUID customerId) {
+    return jdbc.query(REQ_CUSTOMER_EXISTS, res -> {
+      return res.next();
+    }, customerId);
+  }
+
+  /**
    * List all customers in database
    *
    * @return the customers
    */
   public List<CustomerDTO> listAll() {
-    return jdbc.query(REQ_LIST_ALL, (rs, rowNum) -> new CustomerDTO(rs.getString(1), rs.getString(2), rs.getString(3)));
+    return jdbc.query(REQ_LIST_ALL, (res, rowNum) -> new CustomerDTO(res.getString(1), res.getString(2), res.getString(3)));
   }
 
   /**
    * Get customer details
    *
-   * @param id the customer identifier
+   * @param customerId the customer identifier
    *
    * @return the customer details
    */
-  public CustomerDTO getDetails(final UUID id) {
-    final CustomerDTO customer = jdbc.query(REQ_GET_CUST, rs -> {
-      if(!rs.next()) {
+  public CustomerDTO getDetails(final UUID customerId) {
+    final CustomerDTO customer = jdbc.query(REQ_GET_CUST, res -> {
+      if(!res.next()) {
         return null;
       }
       final CustomerDTO cust = new CustomerDTO();
-      cust.setId(id.toString());
-      cust.setId(rs.getString(1));
-      cust.setFirstName(rs.getString(2));
-      cust.setLastName(rs.getString(3));
-      cust.setBirthDate(rs.getDate(4));
-      cust.setEmail(rs.getString(5));
+      cust.setId(customerId.toString());
+      cust.setFirstName(res.getString(2));
+      cust.setLastName(res.getString(3));
+      cust.setBirthDate(res.getDate(4));
+      cust.setEmail(res.getString(5));
       return cust;
-    }, id);
+    }, customerId);
     if(customer != null) {
-      customer.setAddress(getAddress(id));
-      customer.setPhones(getPhones(id));
+      customer.setAddress(addressDAO.getAddress(customerId));
+      customer.setPhones(phoneDAO.getPhones(customerId));
     }
     return customer;
-  }
-
-  /**
-   * Get customer's address
-   *
-   * @param id the customer identifier
-   *
-   * @return the address
-   */
-  public AddressDTO getAddress(final UUID id) {
-    return jdbc.query(REQ_GET_CUST_ADDR, rs -> {
-      if(!rs.next()) {
-        return null;
-      }
-      final AddressDTO addr = new AddressDTO();
-      final ArrayList<String> lines = new ArrayList<>();
-      Optional.ofNullable(rs.getString(1)).ifPresent(line -> lines.add(line));
-      Optional.ofNullable(rs.getString(2)).ifPresent(line -> lines.add(line));
-      Optional.ofNullable(rs.getString(3)).ifPresent(line -> lines.add(line));
-      Optional.ofNullable(rs.getString(4)).ifPresent(line -> lines.add(line));
-      Optional.ofNullable(rs.getString(5)).ifPresent(line -> lines.add(line));
-      Optional.ofNullable(rs.getString(6)).ifPresent(line -> lines.add(line));
-      if(!lines.isEmpty()) {
-        addr.setLines(lines);
-      }
-      addr.setZipCode(rs.getString(7).trim());
-      addr.setCity(rs.getString(8));
-      addr.setCountry(rs.getString(9));
-      return addr;
-    }, id);
-  }
-
-  /**
-   * Get customer's phones
-   *
-   * @param id the customer's identifier
-   *
-   * @return the customer's phones
-   */
-  public List<PhoneDTO> getPhones(final UUID id) {
-    return jdbc.query(REQ_GET_CUST_PHONES, (rs, rowNum) -> {
-      final PhoneDTO phone = new PhoneDTO();
-      phone.setType(PhoneDTO.Type.fromCode(rs.getShort(1)));
-      phone.setNumber(rs.getString(2).trim());
-      return phone;
-    }, id);
-  }
-
-  /**
-   * Get address line value to insert
-   *
-   * @param lines the address lines
-   * @param idx the line index
-   *
-   * @return {@code true} if line exists, {@code false} otherwise
-   */
-  private String getLine(final List<String> lines, final int idx) {
-    String line = null;
-    if(lines != null && lines.size() > idx) {
-      line = lines.get(idx);
-    }
-    return line;
   }
 
   /**
@@ -190,38 +146,34 @@ public class CustomerDAO {
    *
    * @param customer the customer to create
    *
-   * @return the customer identifier
+   * @return the customer's identifier
    */
   @Transactional
-  public String create(final CustomerDTO customer) {
-    final UUID uuid = UUID.randomUUID();
-    jdbc.update(ADD_CUSTOMER,
-                uuid,
+  public String createCustomer(final CustomerDTO customer) {
+    final UUID customerId = UUID.randomUUID();
+    jdbc.update(REQ_ADD_CUSTOMER,
+                customerId,
                 customer.getFirstName(),
                 customer.getLastName(),
                 customer.getBirthDate(),
                 customer.getEmail());
-    Optional.ofNullable(customer.getAddress()).ifPresent(address -> {
-      jdbc.update(ADD_ADDRESS,
-                  uuid,
-                  getLine(address.getLines(),0),
-                  getLine(address.getLines(),1),
-                  getLine(address.getLines(),2),
-                  getLine(address.getLines(),3),
-                  getLine(address.getLines(),4),
-                  getLine(address.getLines(),5),
-                  address.getZipCode(),
-                  address.getCity(),
-                  address.getCountry());
-    });
-    if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
-      jdbc.batchUpdate(ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (ps, phone) -> {
-        ps.setObject(1, uuid);
-        ps.setShort(2, phone.getType().getCode());
-        ps.setString(3, phone.getNumber());
-      });
+    if(customer.getAddress() != null) {
+      jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> addressDAO.setAddressValues(stmt, customerId, customer.getAddress()));
     }
-    return uuid.toString();
+    if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
+      jdbc.batchUpdate(PhoneDAO.REQ_ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (stmt, phone) -> phoneDAO.setPhoneValues(stmt, customerId, phone));
+    }
+    return customerId.toString();
+  }
+
+  /**
+   * Delete customer.<br>
+   * Address and phones will be deleted throught foreign key usage (ON DELETE CASCADE).
+   *
+   * @param customerId the customer's identifier
+   */
+  public void deleteCustomer(final UUID customerId) {
+    jdbc.update(REQ_DELETE, customerId);
   }
 
   /**

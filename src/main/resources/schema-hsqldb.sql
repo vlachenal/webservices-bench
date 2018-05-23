@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Address (
 );
 
 CREATE TABLE IF NOT EXISTS Phone (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     customer_id UUID NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
     phone_type SMALLINT,
     number CHAR(32)

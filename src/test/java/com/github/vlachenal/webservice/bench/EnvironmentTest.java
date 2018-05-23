@@ -13,10 +13,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -84,6 +86,27 @@ public class EnvironmentTest {
     assertFalse(intList.isEmpty());
     assertEquals(4, intList.size());
     LOG.info("{}", intList);
+  }
+
+  /**
+   * Print item
+   *
+   * @param uuid the UUID
+   * @param i the integer
+   */
+  private void printItem(final UUID uuid, final int i) {
+    LOG.info("{}: {}", i, uuid);
+  }
+
+  /**
+   * Lambda 'binding' unit test
+   */
+  @Test
+  public void testLambdaBinding() {
+    LOG.debug("Enter in testLambdaBinding");
+    final List<Integer> list = Arrays.asList(1,2,3,4,5,6);
+    list.forEach(i -> printItem(UUID.randomUUID(), i));
+    LOG.debug("Exit testLambdaBinding");
   }
   // Tests -
 

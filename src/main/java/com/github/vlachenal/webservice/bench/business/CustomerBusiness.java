@@ -7,7 +7,6 @@
 package com.github.vlachenal.webservice.bench.business;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -66,13 +65,7 @@ public class CustomerBusiness extends AbstractBusiness {
    * @throws NotFoundException customer has not been found
    */
   public CustomerDTO getDetails(final String id) throws InvalidParametersException, NotFoundException {
-    UUID custId = null;
-    try {
-      custId = UUID.fromString(id);
-    } catch(final IllegalArgumentException e) {
-      throw new InvalidParametersException(id + " is not an UUID");
-    }
-    final CustomerDTO customers = dao.getDetails(custId);
+    final CustomerDTO customers = dao.getDetails(toUUID(id));
     if(customers == null) {
       throw new NotFoundException("Customer " + id + " does not exist");
     }
@@ -99,7 +92,7 @@ public class CustomerBusiness extends AbstractBusiness {
       checkParameters("Address lines, zip_code, city and country has to be set", addr.getLines(), addr.getZipCode(), addr.getCity(),addr.getCountry());
     }
     // Address structure checks -
-    return dao.create(customer);
+    return dao.createCustomer(customer);
   }
 
   /**

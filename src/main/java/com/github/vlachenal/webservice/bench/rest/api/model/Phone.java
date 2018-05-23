@@ -6,8 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.rest.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 
 /**
  * Phone number
@@ -15,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Vincent Lachenal
  */
 @ApiModel(description="Customer's phone")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Phone {
 
   /**
@@ -28,6 +33,10 @@ public class Phone {
   }
 
   // Attributes +
+  /** Customer identifier */
+  @ApiModelProperty(notes="Phone's UUID")
+  private String id;
+
   /** Phone type */
   @ApiModelProperty(notes="Phone type (LANDLINE or MOBILE)",required=true)
   private Type type;
@@ -35,10 +44,32 @@ public class Phone {
   /** Phone number */
   @ApiModelProperty(notes="Phone number",required=true)
   private String number;
+
+  /** Customer's identifier: used for HATEOAS only */
+  @JsonIgnore
+  private String customerId;
   // Attributes -
 
 
   // Accessors +
+  /**
+   * Phone identifier getter
+   *
+   * @return the identifier
+   */
+  public final String getId() {
+    return id;
+  }
+
+  /**
+   * Phone identifier setter
+   *
+   * @param id the identifier to set
+   */
+  public final void setId(final String id) {
+    this.id = id;
+  }
+
   /**
    * Phone type getter
    *
@@ -73,6 +104,24 @@ public class Phone {
    */
   public void setNumber(final String number) {
     this.number = number;
+  }
+
+  /**
+   * Customer's identifier getter
+   *
+   * @return the identifier
+   */
+  public final String getCustomerId() {
+    return customerId;
+  }
+
+  /**
+   * Customer's identifier setter
+   *
+   * @param customerId the identifier to set
+   */
+  public final void setCustomerId(final String customerId) {
+    this.customerId = customerId;
   }
   // Accessors -
 

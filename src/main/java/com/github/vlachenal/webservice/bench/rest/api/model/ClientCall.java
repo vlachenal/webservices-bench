@@ -6,13 +6,16 @@
  */
 package com.github.vlachenal.webservice.bench.rest.api.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * Client call
  *
  * @author Vincent Lachenal
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientCall {
 
   // Attributes +

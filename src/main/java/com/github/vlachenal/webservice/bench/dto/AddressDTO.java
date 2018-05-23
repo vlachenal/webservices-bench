@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,6 +30,37 @@ public class AddressDTO {
   /** Country */
   private String country;
   // Attributes -
+
+
+  // Constructors +
+  /**
+   * {@link AddressDTO} default constructor
+   */
+  public AddressDTO() {
+    // Nothing to do
+  }
+
+  /**
+   * {@link AddressDTO} constructor
+   *
+   * @param zipCode the ZIP code
+   * @param city the city
+   * @param country the country
+   * @param lines the address' lines
+   */
+  public AddressDTO(final String zipCode, final String city, final String country, final String... lines) {
+    this.zipCode = zipCode;
+    this.city = city;
+    this.country = country;
+    this.lines = new ArrayList<>();
+    for(final String line : lines) {
+      if(line == null || line.isEmpty()) {
+        break;
+      }
+      this.lines.add(line);
+    }
+  }
+  // Constructors -
 
 
   // Accessors +

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Vincent Lachenal
  */
 @ApiModel(description="Customer's informations")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 
   // Attributes +

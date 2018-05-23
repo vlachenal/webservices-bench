@@ -8,6 +8,8 @@ package com.github.vlachenal.webservice.bench.rest.api.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -20,6 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Vincent Lachenal
  */
 @ApiModel(description="Customer's address")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Address {
 
   // Attributes +
@@ -39,6 +42,10 @@ public class Address {
   /** Country */
   @ApiModelProperty(notes="Country",required=true)
   private String country;
+
+  /** Customer's identifier: used for HATEOAS only */
+  @JsonIgnore
+  private String customerId;
   // Attributes -
 
 
@@ -113,6 +120,24 @@ public class Address {
    */
   public void setCountry(final String country) {
     this.country = country;
+  }
+
+  /**
+   * Customer's identifier getter
+   *
+   * @return the identifier
+   */
+  public final String getCustomerId() {
+    return customerId;
+  }
+
+  /**
+   * Customer's identifier setter
+   *
+   * @param customerId the identifier to set
+   */
+  public final void setCustomerId(final String customerId) {
+    this.customerId = customerId;
   }
   // Accessors -
 

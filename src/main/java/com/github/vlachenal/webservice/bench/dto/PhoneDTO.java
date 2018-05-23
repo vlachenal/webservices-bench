@@ -6,6 +6,7 @@
  */
 package com.github.vlachenal.webservice.bench.dto;
 
+
 /**
  * Phone number DTO
  *
@@ -77,6 +78,9 @@ public class PhoneDTO {
   }
 
   // Attributes +
+  /** Phone identifier */
+  private String id;
+
   /** Phone type */
   private Type type;
 
@@ -86,6 +90,24 @@ public class PhoneDTO {
 
 
   // Accessors +
+  /**
+   * Phone identifier getter
+   *
+   * @return the identifier
+   */
+  public final String getId() {
+    return id;
+  }
+
+  /**
+   * Phone identifier setter
+   *
+   * @param id the identifier to set
+   */
+  public final void setId(final String id) {
+    this.id = id;
+  }
+
   /**
    * Phone type getter
    *

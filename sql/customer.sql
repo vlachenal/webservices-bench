@@ -8,10 +8,11 @@
 --
 -- to create PostgreSQL user: $ createuser -U postgres -P apibenchmark
 -- to create PostgreSQL database: $ createdb -U postgres -O apibenchmark apibenchmark
+-- enable 'uuid-ossp' extension with superuser (psql -U postgres apibenchmark) => CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 --
 
 CREATE TABLE Customer (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     first_name VARCHAR(256) NOT NULL DEFAULT 'John',
     last_name VARCHAR(256) NOT NULL DEFAULT 'Doe',
     birth_date DATE NOT NULL,
@@ -19,7 +20,7 @@ CREATE TABLE Customer (
 );
 
 CREATE TABLE Address (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     customer_id UUID NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
     line1 VARCHAR(256) NOT NULL,
     line2 VARCHAR(256),
@@ -33,14 +34,14 @@ CREATE TABLE Address (
 );
 
 CREATE TABLE Phone (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     customer_id UUID NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
     phone_type SMALLINT,
     number CHAR(32)
 );
 
 CREATE TABLE TestSuite (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     client_cpu VARCHAR(64) NOT NULL,
     client_memory VARCHAR(64) NOT NULL,
     client_jvm_version VARCHAR(128) NOT NULL,

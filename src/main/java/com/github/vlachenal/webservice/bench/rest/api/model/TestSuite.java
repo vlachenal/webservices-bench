@@ -8,6 +8,7 @@ package com.github.vlachenal.webservice.bench.rest.api.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Vincent Lachenal
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TestSuite {
 
   // Attributes +
