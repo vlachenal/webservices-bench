@@ -86,8 +86,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToProtobufCustomer() {
     LOG.debug("Enter in testBeanToProtobufCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    mapstruct.protobuf().dtoToProtobuf(bean);
-    //    assertNotNull("SOAP customer is null", customer);
+    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().dtoToProtobuf(bean);
+    assertNotNull("Protocol buffers customer is null", customer);
     //    compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToProtobufCustomer");
   }
