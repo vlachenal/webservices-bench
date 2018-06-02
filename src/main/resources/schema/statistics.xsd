@@ -2,7 +2,7 @@
   elementFormDefault="qualified">
 
   <!-- Work with Eclipse but not with xjc task ... -->
-  <!-- <xs:include schemaLocation="./header.xsd"/> -->
+  <xs:include schemaLocation="./header.xsd"/>
 
   <xs:element name="purgeRequest">
     <xs:complexType>
