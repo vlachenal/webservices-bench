@@ -140,13 +140,11 @@ public class CustomerController extends AbstractBenchService {
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
     final CallDTO call = initializeCall(requestSeq, "list");
-    List<Customer> customers;
     try {
-      customers = map(business.listAll(), mapper, this::toRest);
+      return map(business.listAll(), mapper, this::toRest);
     } finally {
       registerCall(call);
     }
-    return customers;
   }
 
   /**
@@ -169,13 +167,11 @@ public class CustomerController extends AbstractBenchService {
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
     final CallDTO call = initializeCall(requestSeq, "get");
-    Customer customer;
     try {
-      customer = map(business.getDetails(id), mapper, this::toRest);
+      return map(business.getDetails(id), mapper, this::toRest);
     } finally {
       registerCall(call);
     }
-    return customer;
   }
 
   /**
@@ -198,13 +194,11 @@ public class CustomerController extends AbstractBenchService {
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
     final CallDTO call = initializeCall(requestSeq, "create");
-    String uuid = null;
     try {
-      uuid = business.create(map(customer, mapper, this::fromRest));
+      return business.create(map(customer, mapper, this::fromRest));
     } finally {
       registerCall(call);
     }
-    return uuid;
   }
 
   /**

@@ -1,0 +1,9 @@
+ds:
+  customer:
+    driverClassName: org.hsqldb.jdbcDriver
+    jdbcUrl: jdbc:hsqldb:mem:apibenchmark.db;sql.syntax_pgs=true
+    username: apibenchmark
+    password: apibenchmark
+    poolSize: 10
+    maximumPoolSize: 25
+    testOnBorrow: true

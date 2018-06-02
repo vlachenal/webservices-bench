@@ -18,7 +18,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
 
 import com.github.vlachenal.webservice.bench.thrift.api.CustomerService;
@@ -36,7 +35,6 @@ import com.github.vlachenal.webservice.bench.thrift.api.StatsService;
 @EnableAutoConfiguration
 @ComponentScan
 @SpringBootApplication
-@PropertySource({"classpath:application.properties","classpath:hardware.properties"})
 public class Application extends SpringBootServletInitializer {
 
   // Methods +

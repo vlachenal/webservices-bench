@@ -52,7 +52,7 @@ public class CustomerDAO {
   private static final String REQ_CUSTOMER_EXISTS = "SELECT 1 FROM Customer WHERE id = ?";
 
   /** Vacuum requests */
-  @Value("${ds.customer.vacuum}")
+  @Value("${ds.customer.vacuum:}")
   private String vacuumReqs;
   // SQL requests -
 

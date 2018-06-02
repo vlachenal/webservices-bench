@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    platform: hsqldb
+    initialization-mode: always
+
+db:
+  engine: hsqldb

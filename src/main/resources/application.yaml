@@ -1,0 +1,7 @@
+logging:
+  level:
+    com.github.vlachenal: DEBUG
+
+hardware:
+  cpu: Intel(R) Core(TM) i7-4510U CPU @ 2.00GHz
+  memory: 8GB

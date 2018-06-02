@@ -26,11 +26,11 @@ public class StatisticsBusiness extends AbstractBusiness {
 
   // Attributes +
   /** Server CPU */
-  @Value("${cpu}")
+  @Value("${hardware.cpu}")
   private String cpu;
 
   /** Server memory */
-  @Value("${memory}")
+  @Value("${hardware.memory}")
   private String memory;
 
   /** Statistics DAO */

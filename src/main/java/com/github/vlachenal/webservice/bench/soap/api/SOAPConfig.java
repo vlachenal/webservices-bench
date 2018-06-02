@@ -67,7 +67,7 @@ public class SOAPConfig {
    */
   @Bean
   public XsdSchema customerSchema() {
-    return new SimpleXsdSchema(new ClassPathResource("customer.xsd"));
+    return new SimpleXsdSchema(new ClassPathResource("schema/customer.xsd"));
   }
 
   /**
@@ -94,7 +94,7 @@ public class SOAPConfig {
    */
   @Bean
   public XsdSchema statisticsSchema() {
-    return new SimpleXsdSchema(new ClassPathResource("statistics.xsd"));
+    return new SimpleXsdSchema(new ClassPathResource("schema/statistics.xsd"));
   }
   // Methods -
 

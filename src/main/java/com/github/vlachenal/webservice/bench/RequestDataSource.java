@@ -22,7 +22,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author Vincent Lachenal
  */
 @Configuration
-@PropertySource({"classpath:db-${db.engine}.properties"})
+@PropertySource(value={"classpath:db-${db.engine}.yaml"},factory=YamlSingleDocPropertySourceFactory.class)
 public class RequestDataSource {
 
   // Methods +

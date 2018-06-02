@@ -1,0 +1,13 @@
+ds:
+  customer:
+    driverClassName: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost/apibenchmark
+    username: apibenchmark
+    password: apibenchmark
+    poolSize: 10
+    maximumPoolSize: 25
+    testOnBorrow: true
+    vacuum: >
+      VACUUM FULL ANALYZE customer;
+      VACUUM FULL ANALYZE address;
+      VACUUM FULL ANALYZE phone
