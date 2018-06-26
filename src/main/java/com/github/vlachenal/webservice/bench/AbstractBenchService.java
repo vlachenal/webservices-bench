@@ -118,6 +118,8 @@ public abstract class AbstractBenchService {
 
   // Functions +
   /**
+   * Mapping function
+   *
    * @param <D> destination type
    * @param <S> source type
    * @param <M> mapper
