@@ -73,6 +73,7 @@ public class CustomerHATEOASController {
   // Constructors -
 
 
+  // Methods +
   /**
    * List all customers in database
    *

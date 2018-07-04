@@ -67,7 +67,7 @@ public class StatisticsBusiness extends AbstractBusiness {
     checkParameters("Invalid test suite information", suite.getClientCpu(), suite.getClientMemory(), suite.getClientJvmVersion(), suite.getClientJvmVendor(), suite.getClientOsName(), suite.getClientOsVersion());
     checkParameter("No calls to consolidate", suite.getCalls());
 
-    suite.getCalls().stream().forEach(call -> cache.mergeCall(call));
+    suite.getCalls().stream().forEach(cache::mergeCall);
 
     // Gather system informations +
     suite.setServerJvmVersion(System.getProperty("java.version"));
