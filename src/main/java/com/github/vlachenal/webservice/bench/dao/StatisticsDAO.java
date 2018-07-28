@@ -88,7 +88,9 @@ public class StatisticsDAO {
         ps.setString(17, test.getComment());
         ps.setString(18, test.getMapper());
       });
-      registerCalls(uuid, test.getCalls());
+      if(test.getCalls() != null && !test.getCalls().isEmpty()) {
+        registerCalls(uuid, test.getCalls());
+      }
     });
   }
 

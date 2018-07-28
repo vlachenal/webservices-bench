@@ -83,44 +83,6 @@ public class CustomerDAOTest {
 
   // Tests +
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#listAll()}.
-   */
-  @Test
-  public void test2ListAll() {
-    final List<CustomerDTO> customers = dao.listAll();
-    boolean found = false;
-    for(final CustomerDTO customer : customers) {
-      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
-      if(customer.getId().equals(customerId)) {
-        found = true;
-      }
-    }
-    assertTrue("New customer has not been found in database", found);
-  }
-
-  /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#getDetails(java.lang.String)}.
-   */
-  @Test
-  public void test3GetDetails() {
-    assertNotNull("Customer identifier is not set", customerId);
-    final UUID id = UUID.fromString(customerId);
-    final CustomerDTO customer = dao.getDetails(id);
-    LOG.info("Customer {} is {} {}", customerId, customer.getFirstName(), customer.getLastName());
-    LOG.info("He has been born {}", customer.getBirthDate());
-    LOG.info("His email address is {}", customer.getEmail());
-    Optional.ofNullable(customer.getAddress()).ifPresent(addr -> {
-      LOG.info("Address: ");
-      for(final String line : addr.getLines()) {
-        LOG.info(line);
-      }
-      LOG.info("{} {}", addr.getZipCode(), addr.getCity());
-      LOG.info(addr.getCountry());
-    });
-    Optional.ofNullable(customer.getPhones()).ifPresent(phones -> phones.forEach(phone -> LOG.info("Phone {}: {}", phone.getType(), phone.getNumber())));
-  }
-
-  /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
    */
   @Test
@@ -154,11 +116,39 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#deleteAll()}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#listAll()}.
    */
   @Test
-  public void test5DeleteAll() {
-    dao.deleteAll();
+  public void test2ListAll() {
+    final List<CustomerDTO> customers = dao.listAll();
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#getDetails(java.lang.String)}.
+   */
+  @Test
+  public void test3GetDetails() {
+    assertNotNull("Customer identifier is not set", customerId);
+    final UUID id = UUID.fromString(customerId);
+    final CustomerDTO customer = dao.getDetails(id);
+    LOG.info("Customer {} is {} {}", customerId, customer.getFirstName(), customer.getLastName());
+    LOG.info("He has been born {}", customer.getBirthDate());
+    LOG.info("His email address is {}", customer.getEmail());
+    Optional.ofNullable(customer.getAddress()).ifPresent(addr -> {
+      LOG.info("Address: ");
+      for(final String line : addr.getLines()) {
+        LOG.info(line);
+      }
+      LOG.info("{} {}", addr.getZipCode(), addr.getCity());
+      LOG.info(addr.getCountry());
+    });
+    Optional.ofNullable(customer.getPhones()).ifPresent(phones -> phones.forEach(phone -> LOG.info("Phone {}: {}", phone.getType(), phone.getNumber())));
   }
 
   /**
@@ -174,9 +164,17 @@ public class CustomerDAOTest {
   }
 
   /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#deleteAll()}.
+   */
+  @Test
+  public void test5DeleteAll() {
+    dao.deleteAll();
+  }
+
+  /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints.<br>
-   * This will test transction annotation.
+   * This will test transaction annotation.
    */
   @Test(expected=DataAccessException.class)
   public void test6CreateFail() {
@@ -211,14 +209,12 @@ public class CustomerDAOTest {
   @Test
   public void test7ListAll() {
     final List<CustomerDTO> customers = dao.listAll();
-    boolean found = false;
-    for(final CustomerDTO customer : customers) {
+    customers.stream().forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
-      if(customer.getId().equals(customerId)) {
-        found = true;
-      }
-    }
-    assertFalse("New customer has not been found in database", found);
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertFalse("New customer has not been found in database", chuck.isPresent());
   }
   // Tests -
 

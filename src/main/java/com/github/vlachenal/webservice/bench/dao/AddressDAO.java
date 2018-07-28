@@ -115,20 +115,16 @@ public class AddressDAO {
    * @return the address
    */
   public AddressDTO getAddress(final UUID customerId) {
-    return jdbc.query(REQ_GET_ADDRESS, res -> {
-      if(!res.next()) {
-        return null;
-      }
-      return new AddressDTO(res.getString(7).trim(),
-                            res.getString(8),
-                            res.getString(9),
-                            res.getString(1),
-                            res.getString(2),
-                            res.getString(3),
-                            res.getString(4),
-                            res.getString(5),
-                            res.getString(6));
-    }, customerId);
+    return jdbc.query(REQ_GET_ADDRESS, res -> res.next() ? new AddressDTO(res.getString(7).trim(),
+                                                                          res.getString(8),
+                                                                          res.getString(9),
+                                                                          res.getString(1),
+                                                                          res.getString(2),
+                                                                          res.getString(3),
+                                                                          res.getString(4),
+                                                                          res.getString(5),
+                                                                          res.getString(6))
+                                                         : null, customerId);
   }
 
   /**

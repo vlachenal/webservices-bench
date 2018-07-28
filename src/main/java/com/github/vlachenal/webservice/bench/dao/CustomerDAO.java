@@ -123,15 +123,15 @@ public class CustomerDAO {
    */
   public CustomerDTO getDetails(final UUID customerId) {
     final CustomerDTO customer = jdbc.query(REQ_GET_CUST, res -> {
-      if(!res.next()) {
-        return null;
+      CustomerDTO cust = null;
+      if(res.next()) {
+        cust = new CustomerDTO();
+        cust.setId(customerId.toString());
+        cust.setFirstName(res.getString(2));
+        cust.setLastName(res.getString(3));
+        cust.setBirthDate(res.getDate(4));
+        cust.setEmail(res.getString(5));
       }
-      final CustomerDTO cust = new CustomerDTO();
-      cust.setId(customerId.toString());
-      cust.setFirstName(res.getString(2));
-      cust.setLastName(res.getString(3));
-      cust.setBirthDate(res.getDate(4));
-      cust.setEmail(res.getString(5));
       return cust;
     }, customerId);
     if(customer != null) {

@@ -150,13 +150,7 @@ public class PhoneDAO {
    * @return the phone
    */
   public PhoneDTO getPhone(final UUID phoneId, final UUID customerId) {
-    return jdbc.query(REQ_GET_CUST_PHONE, res -> {
-      if(res.next()) {
-        return getPhone(res);
-      } else {
-        return null;
-      }
-    }, phoneId, customerId);
+    return jdbc.query(REQ_GET_CUST_PHONE, res -> res.next() ? getPhone(res) : null, phoneId, customerId);
   }
 
   /**
