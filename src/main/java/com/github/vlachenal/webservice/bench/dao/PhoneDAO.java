@@ -34,11 +34,6 @@ public class PhoneDAO {
   // SQL requests +
   /** Insert phone in database */
   public static final String REQ_ADD_PHONE = "INSERT INTO Phone "
-      + "(customer_id,phone_type,number) "
-      + "VALUES (?,?,?)";
-
-  /** Insert phone in database */
-  private static final String REQ_ADD_PHONE_UUID = "INSERT INTO Phone "
       + "(customer_id,phone_type,number,id) "
       + "VALUES (?,?,?,?)";
 
@@ -87,7 +82,7 @@ public class PhoneDAO {
    */
   public String addPhone(final UUID customerId, final PhoneDTO phone) {
     final UUID phoneId = UUID.randomUUID();
-    jdbc.update(REQ_ADD_PHONE_UUID, stmt -> setPhoneValues(stmt, phoneId, customerId, phone));
+    jdbc.update(REQ_ADD_PHONE, stmt -> setPhoneValues(stmt, phoneId, customerId, phone));
     return phoneId.toString();
   }
 
@@ -102,7 +97,7 @@ public class PhoneDAO {
    * @throws SQLException any SQL error
    */
   public void setPhoneValues(final PreparedStatement stmt, final UUID customerId, final PhoneDTO phone) throws SQLException {
-    setPhoneValues(stmt, null, customerId, phone);
+    setPhoneValues(stmt, UUID.randomUUID(), customerId, phone);
   }
 
   /**
@@ -119,9 +114,7 @@ public class PhoneDAO {
     stmt.setObject(1, customerId);
     stmt.setShort(2, phone.getType().getCode());
     stmt.setString(3, phone.getNumber());
-    if(phoneId != null) {
-      stmt.setObject(4, phoneId);
-    }
+    stmt.setObject(4, phoneId);
   }
 
   /**

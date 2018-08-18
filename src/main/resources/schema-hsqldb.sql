@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS TestSuite (
     compression CHAR(8),
     nb_threads INTEGER NOT NULL,
     comment VARCHAR(1024),
-    mapper CHAR(16) NOT NULL
+    mapper CHAR(16) NOT NULL DEFAULT 'manual'
 );
 
 CREATE TABLE IF NOT EXISTS TestCall (

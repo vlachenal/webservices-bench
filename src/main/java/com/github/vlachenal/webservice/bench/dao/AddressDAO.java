@@ -33,8 +33,8 @@ public class AddressDAO {
   // SQL requests +
   /** Insert address in database */
   public static final String REQ_ADD_ADDRESS = "INSERT INTO Address "
-      + "(line1,line2,line3,line4,line5,line6,zip_code,city,country,customer_id) "
-      + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+      + "(line1,line2,line3,line4,line5,line6,zip_code,city,country,customer_id,id) "
+      + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   /** Get customer address SQL request */
   private static final String REQ_GET_ADDRESS = "SELECT line1,line2,line3,line4,line5,line6,zip_code,city,country FROM Address WHERE customer_id = ?";
@@ -80,11 +80,12 @@ public class AddressDAO {
    *
    * @param stmt the {@link PreparedStatement}
    * @param customerId the customer identifier
+   * @param addressId the address identifier
    * @param address the address
    *
    * @throws SQLException any error
    */
-  public void setAddressValues(final PreparedStatement stmt, final UUID customerId, final AddressDTO address) throws SQLException {
+  public void setAddressValues(final PreparedStatement stmt, final UUID customerId, final UUID addressId, final AddressDTO address) throws SQLException {
     stmt.setString(1, getLine(address.getLines(),0));
     stmt.setString(2, getLine(address.getLines(),1));
     stmt.setString(3, getLine(address.getLines(),2));
@@ -95,6 +96,7 @@ public class AddressDAO {
     stmt.setString(8, address.getCity());
     stmt.setString(9, address.getCountry());
     stmt.setObject(10, customerId);
+    stmt.setObject(11, addressId);
   }
 
   /**
@@ -102,9 +104,13 @@ public class AddressDAO {
    *
    * @param customerId the customer identifier
    * @param address the customer's address to add
+   *
+   * @return the new address identifier
    */
-  public void registerAddress(final UUID customerId, final AddressDTO address) {
-    jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> setAddressValues(stmt, customerId, address));
+  public String registerAddress(final UUID customerId, final AddressDTO address) {
+    final UUID addressId = UUID.randomUUID();
+    jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> setAddressValues(stmt, customerId, addressId, address));
+    return addressId.toString();
   }
 
   /**

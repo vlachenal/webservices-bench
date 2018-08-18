@@ -158,7 +158,7 @@ public class CustomerDAO {
                 customer.getBirthDate(),
                 customer.getEmail());
     if(customer.getAddress() != null) {
-      jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> addressDAO.setAddressValues(stmt, customerId, customer.getAddress()));
+      jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> addressDAO.setAddressValues(stmt, customerId, UUID.randomUUID(), customer.getAddress()));
     }
     if(customer.getPhones() != null && !customer.getPhones().isEmpty()) {
       jdbc.batchUpdate(PhoneDAO.REQ_ADD_PHONE, customer.getPhones(), customer.getPhones().size(), (stmt, phone) -> phoneDAO.setPhoneValues(stmt, customerId, phone));
