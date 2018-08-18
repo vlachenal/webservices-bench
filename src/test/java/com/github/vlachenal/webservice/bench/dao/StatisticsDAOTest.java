@@ -47,11 +47,11 @@ public class StatisticsDAOTest {
   private DataSource dataSource;
 
   /** CPU information */
-  @Value("${cpu}")
+  @Value("${hardware.cpu}")
   private String cpu;
 
-  /** CPU information */
-  @Value("${memory}")
+  /** Memory information */
+  @Value("${hardware.memory}")
   private String memory;
   // Attributes -
 
