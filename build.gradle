@@ -1,5 +1,5 @@
 plugins {
-    id "org.springframework.boot" version "2.0.3.RELEASE"
+    id "org.springframework.boot" version "2.0.4.RELEASE"
     id "org.openrepose.gradle.plugins.jaxb" version "2.5.0"
     id "net.ltgt.apt" version "0.15"
     //id "com.google.protobuf" version "0.8.5" apply false
@@ -138,4 +138,5 @@ dependencies {
     // Protocol buffer
     compile "com.google.protobuf:protobuf-java:${protobufVersion}"
     compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+    //compile "com.github.vlachenal:sql-request-builder:0.1"
 }
