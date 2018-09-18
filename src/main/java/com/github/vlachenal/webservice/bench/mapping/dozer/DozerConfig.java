@@ -13,14 +13,14 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.DozerConverter;
-import org.dozer.Mapper;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.loader.api.FieldsMappingOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.DozerConverter;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
+import com.github.dozermapper.core.loader.api.FieldsMappingOptions;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
@@ -147,7 +147,7 @@ public class DozerConfig {
     /**
      * {@inheritDoc}
      *
-     * @see org.dozer.DozerConverter#convertTo(java.lang.Object, java.lang.Object)
+     * @see com.github.dozermapper.core.DozerConverter#convertTo(java.lang.Object, java.lang.Object)
      */
     @Override
     public XMLGregorianCalendar convertTo(final Date source, final XMLGregorianCalendar destination) {
@@ -167,7 +167,7 @@ public class DozerConfig {
     /**
      * {@inheritDoc}
      *
-     * @see org.dozer.DozerConverter#convertFrom(java.lang.Object, java.lang.Object)
+     * @see com.github.dozermapper.core.DozerConverter#convertFrom(java.lang.Object, java.lang.Object)
      */
     @Override
     public Date convertFrom(final XMLGregorianCalendar source, final Date destination) {
@@ -197,7 +197,7 @@ public class DozerConfig {
     /**
      * {@inheritDoc}
      *
-     * @see org.dozer.DozerConverter#convertTo(java.lang.Object, java.lang.Object)
+     * @see com.github.dozermapper.core.DozerConverter#convertTo(java.lang.Object, java.lang.Object)
      */
     @Override
     public Long convertTo(final Date source, final Long destination) {
@@ -211,7 +211,7 @@ public class DozerConfig {
     /**
      * {@inheritDoc}
      *
-     * @see org.dozer.DozerConverter#convertFrom(java.lang.Object, java.lang.Object)
+     * @see com.github.dozermapper.core.DozerConverter#convertFrom(java.lang.Object, java.lang.Object)
      */
     @Override
     public Date convertFrom(final Long source, final Date destination) {

@@ -8,7 +8,6 @@ package com.github.vlachenal.webservice.bench.mapping.dozer;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.dozer.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.dozermapper.core.Mapper;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
 

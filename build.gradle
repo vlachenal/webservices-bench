@@ -1,5 +1,5 @@
 plugins {
-    id "org.springframework.boot" version "2.0.4.RELEASE"
+    id "org.springframework.boot" version "2.0.5.RELEASE"
     id "org.openrepose.gradle.plugins.jaxb" version "2.5.0"
     id "net.ltgt.apt" version "0.15"
     //id "com.google.protobuf" version "0.8.5" apply false
@@ -100,7 +100,7 @@ repositories {
 
 ext {
     mapstructVersion = "1.2.0.Final"
-    protobufVersion = "3.5.1"
+    protobufVersion = "3.6.1"
     jaxbVersion = "2.2.11"
     swaggerVersion = "2.9.2"
 }
@@ -113,14 +113,14 @@ dependencies {
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     // SQL
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.postgresql:postgresql:42.2.2'
+    compile 'org.postgresql:postgresql:42.2.5'
     // Thrift
     compile 'org.apache.thrift:libthrift:0.11.0'
     // SOAP
     compile 'org.springframework.boot:spring-boot-starter-web-services'
     compile 'wsdl4j:wsdl4j:1.6.3'
     // Dozer
-    compile 'com.github.dozermapper:dozer-core:6.2.0'
+    compile 'com.github.dozermapper:dozer-core:6.4.1'
     // MapStruct
     compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
@@ -128,7 +128,7 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     // Continous integration
-    compile 'org.hsqldb:hsqldb:2.4.0'
+    compile 'org.hsqldb:hsqldb:2.4.1'
     // JAXB
     compile "javax.xml.bind:jaxb-api:2.3.0"
     jaxb "org.glassfish.jaxb:jaxb-xjc:${jaxbVersion}"

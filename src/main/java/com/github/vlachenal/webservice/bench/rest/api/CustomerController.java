@@ -49,7 +49,7 @@ public class CustomerController extends AbstractBenchService {
   private final CustomerBusiness business;
 
   /** Dozer mapper */
-  private final org.dozer.Mapper dozer;
+  private final com.github.dozermapper.core.Mapper dozer;
 
   /** MapStruct mappers */
   private final MapStructMappers mapstruct;
@@ -67,7 +67,7 @@ public class CustomerController extends AbstractBenchService {
    */
   public CustomerController(final StatisticsCache stats,
                             final CustomerBusiness business,
-                            final org.dozer.Mapper dozer,
+                            final com.github.dozermapper.core.Mapper dozer,
                             final MapStructMappers mapstruct) {
     super(stats);
     this.business = business;
