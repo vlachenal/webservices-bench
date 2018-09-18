@@ -184,5 +184,5 @@ By priority order:
  - ~~Protocol Buffers RESTful API~~ Find a way to use Dozer and MapStruct with Protocol Buffers' messages
  - Protocol Buffers with gRPC ... or not
  - Nginx + PHP + Slim + Thrift
- - unrelevant AnCH Framework SQL + Thrift tests ...
+ - ~~unrelevant AnCH Framework SQL + Thrift tests ...~~ => [webservices-bench-cpp](https://github.com/vlachenal/webservices-bench-cpp) && [webservices-bench-client-cpp](https://github.com/vlachenal/webservices-bench-client-cpp)
  - ~~Reactive RESTful webservice~~ => [webservices-reactive-bench project](https://github.com/vlachenal/webservices-reactive-bench)
