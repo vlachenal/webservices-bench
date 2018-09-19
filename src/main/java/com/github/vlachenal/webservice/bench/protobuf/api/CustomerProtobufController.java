@@ -6,8 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.protobuf.api;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Email;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
@@ -24,8 +29,10 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.protobuf.ProtobufType;
+import com.github.vlachenal.webservice.bench.rest.api.model.Mapper;
 
 
 /**
@@ -101,20 +108,42 @@ public class CustomerProtobufController extends AbstractBenchService {
   }
 
   /**
-   * List all customers in database
+   * List all customers in database.<br>
+   * Every filter is optional.
    *
    * @param requestSeq the request sequence header
    * @param mapper the mapper to use
+   * @param firstName the first name to search. If the name contains '%', it will return any
+   *                  customer which first name matches the value.
+   * @param lastName the last name to search. If the name contains '%', it will return any
+   *                  customer which last name matches the value.
+   * @param email the email to search
+   * @param birthDate the birth date to search
+   * @param bornBefore the maximum birth date
+   * @param bornAfter the minimum birth date
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces={ProtobufType.PROTOBUF_UTF8_VALUE})
+  @RequestMapping(method=RequestMethod.GET,produces=ProtobufType.PROTOBUF_UTF8_VALUE)
   public ListAllResponse listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
-                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper) {
+                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
+                                       @RequestParam(name="first_name",required=false) final String firstName,
+                                       @RequestParam(name="last_name",required=false) final String lastName,
+                                       @RequestParam(name="email",required=false) @Email final String email,
+                                       @RequestParam(name="birth_date",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") final Date birthDate,
+                                       @RequestParam(name="born_before",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") final Date bornBefore,
+                                       @RequestParam(name="born_after",required=false) @DateTimeFormat(pattern="yyyy-MM-dd") final Date bornAfter) {
     final CallDTO call = initializeCall(requestSeq, "list");
     ListAllResponse response;
     try {
-      final List<Customer> customers = map(business.listAll(), mapper, this::toProtobuf);
+      final SearchRequestDTO dto = new SearchRequestDTO();
+      dto.setFirstName(firstName);
+      dto.setLastName(lastName);
+      dto.setEmail(email);
+      dto.setBirthDate(birthDate);
+      dto.setBornAfter(bornAfter);
+      dto.setBornBefore(bornBefore);
+      final List<Customer> customers = map(business.search(dto), mapper, this::toProtobuf);
       final ListAllResponse.Builder builder = ListAllResponse.newBuilder();
       if(customers != null) {
         builder.addAllCustomers(customers);
@@ -135,10 +164,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the customer details
    */
-  @RequestMapping(path = "/{id}",
-      method = RequestMethod.GET,
-      produces = { ProtobufType.PROTOBUF_UTF8_VALUE }
-      )
+  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces=ProtobufType.PROTOBUF_UTF8_VALUE)
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {

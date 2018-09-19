@@ -24,6 +24,7 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
@@ -166,7 +167,7 @@ public class CustomerEndpoint extends AbstractBenchService {
     final CallDTO call = initializeCall(reqHeader.getRequestSeq(), "list");
     final ListCustomersResponse res = new ListCustomersResponse();
     try {
-      res.getCustomer().addAll(map(business.listAll(), reqHeader.getMapper(), this::toSoap));
+      res.getCustomer().addAll(map(business.search(new SearchRequestDTO()), reqHeader.getMapper(), this::toSoap));
     } finally {
       registerCall(call);
     }

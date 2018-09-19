@@ -37,13 +37,13 @@ message Customer {
     message Address {
         /** Lines */
         repeated string lines = 1;
-    
+
         /** ZIP code */
         string zipCode = 2;
-    
+
         /** City */
         string city = 3;
-    
+
         /** Country */
         string country = 4;
     }
@@ -136,22 +136,22 @@ message TestSuite {
     message ClientCall {
         /** Request sequence identifier */
         int32 requestSeq = 1;
-    
+
         /** Protocol (always 'protobuf') */
         string protocol = 2;
-    
+
         /** The method which has been called */
         string method = 3;
-    
+
         /** Client start timestamp */
         int64 clientStart = 4;
-    
+
         /** Client end timestamp */
         int64 clientEnd = 5;
-    
+
         /** Call status */
         bool ok = 6;
-    
+
         /** Error message */
         string errMsg = 7;
     }

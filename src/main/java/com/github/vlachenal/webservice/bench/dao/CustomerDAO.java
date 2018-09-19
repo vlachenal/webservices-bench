@@ -18,7 +18,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.vlachenal.sql.Clauses;
+import com.github.vlachenal.sql.SQL;
+import com.github.vlachenal.sql.SQLQuery;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 
 
 /**
@@ -31,9 +35,6 @@ public class CustomerDAO {
 
   // Attributes +
   // SQL requests +
-  /** List all customer SQL request */
-  private static final String REQ_LIST_ALL = "SELECT id,first_name,last_name FROM Customer";
-
   /** Get customer details SQL request */
   private static final String REQ_GET_CUST = "SELECT id,first_name,last_name,birth_date,email FROM Customer WHERE id = ?";
 
@@ -108,10 +109,21 @@ public class CustomerDAO {
   /**
    * List all customers in database
    *
+   * @param request the search request
+   *
    * @return the customers
    */
-  public List<CustomerDTO> listAll() {
-    return jdbc.query(REQ_LIST_ALL, (res, rowNum) -> new CustomerDTO(res.getString(1), res.getString(2), res.getString(3)));
+  public List<CustomerDTO> search(final SearchRequestDTO request) {
+    final SQLQuery query = SQL.select().field("id").field("first_name").field("last_name")
+        .from("Customer")
+        .where(SQL.clauses("first_name", Clauses::like, request.getFirstName())
+               .and("last_name", Clauses::like, request.getLastName())
+               .and("email", Clauses::equalsTo, request.getEmail())
+               .and("birth_date", Clauses::equalsTo, request.getBirthDate())
+               .and("birth_date", Clauses::greaterEquals, request.getBornAfter())
+               .and("birth_date", Clauses::lesserEquals, request.getBornBefore()))
+        .build();
+    return jdbc.query(query.getQuery(), (res, rowNum) -> new CustomerDTO(res.getString(1), res.getString(2), res.getString(3)), query.values());
   }
 
   /**

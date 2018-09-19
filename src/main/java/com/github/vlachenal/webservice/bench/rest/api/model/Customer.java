@@ -9,6 +9,9 @@ package com.github.vlachenal.webservice.bench.rest.api.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -52,6 +55,8 @@ public class Customer {
   private Address address;
 
   /** Customer email address */
+  @Email
+  @NotEmpty
   @ApiModelProperty(notes="Customer's email address")
   private String email;
 

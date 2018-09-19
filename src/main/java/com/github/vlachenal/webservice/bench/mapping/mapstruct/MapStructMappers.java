@@ -31,6 +31,10 @@ public class MapStructMappers {
   @Autowired
   private PhoneMapper phone;
 
+  /** Search request mapper */
+  @Autowired
+  private SearchRequestMapper search;
+
   /** Protocol Buffer mapper */
   @Autowired
   private ProtobufMapper protobuf;
@@ -63,6 +67,15 @@ public class MapStructMappers {
    */
   public PhoneMapper phone() {
     return phone;
+  }
+
+  /**
+   * Phone mapper getter
+   *
+   * @return the mapper
+   */
+  public SearchRequestMapper search() {
+    return search;
   }
 
   /**

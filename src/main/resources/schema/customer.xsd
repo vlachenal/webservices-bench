@@ -3,7 +3,14 @@
 
   <xs:element name="listCustomersRequest">
     <xs:complexType>
-      <!-- Nothing for now -->
+      <xs:sequence>
+        <xs:element name="first-name" type="xs:string" minOccurs="0" />
+        <xs:element name="last-name" type="xs:string" minOccurs="0" />
+        <xs:element name="email" type="xs:string" minOccurs="0" />
+        <xs:element name="birth-date" type="xs:date" minOccurs="0" />
+        <xs:element name="born-before" type="xs:date" minOccurs="0" />
+        <xs:element name="born-after" type="xs:date" minOccurs="0" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 

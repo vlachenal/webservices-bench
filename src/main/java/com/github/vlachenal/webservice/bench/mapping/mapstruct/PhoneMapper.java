@@ -8,7 +8,7 @@ package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.Mappings;
 
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 
@@ -18,10 +18,7 @@ import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
  *
  * @author Vincent Lachenal
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
-    )
+@Mapper(componentModel = "spring")
 public interface PhoneMapper {
 
   /**
@@ -31,7 +28,10 @@ public interface PhoneMapper {
    *
    * @return the DTO
    */
-  @Mapping(source="phoneType",target="type")
+  @Mappings({
+    @Mapping(target = "id", ignore = true),
+    @Mapping(source="phoneType",target="type")
+  })
   PhoneDTO fromSoap(com.github.vlachenal.webservice.bench.soap.api.Phone phone);
 
   /**
@@ -41,7 +41,9 @@ public interface PhoneMapper {
    *
    * @return the SOAP phone
    */
-  @Mapping(source="type",target="phoneType")
+  @Mappings({
+    @Mapping(source="type",target="phoneType")
+  })
   com.github.vlachenal.webservice.bench.soap.api.Phone toSoap(PhoneDTO phone);
 
   /**
@@ -51,6 +53,9 @@ public interface PhoneMapper {
    *
    * @return the DTO
    */
+  @Mappings({
+    @Mapping(target = "id", ignore = true)
+  })
   PhoneDTO fromThrift(com.github.vlachenal.webservice.bench.thrift.api.Phone phone);
 
   /**
@@ -60,6 +65,9 @@ public interface PhoneMapper {
    *
    * @return the Thrift phone
    */
+  @Mappings({
+    @Mapping(target = "numberIsSet", ignore = true), @Mapping(target = "typeIsSet", ignore = true)
+  })
   com.github.vlachenal.webservice.bench.thrift.api.Phone toThrift(PhoneDTO phone);
 
   /**
@@ -78,6 +86,9 @@ public interface PhoneMapper {
    *
    * @return the REST phone
    */
+  @Mappings({
+    @Mapping(target = "customerId", ignore = true)
+  })
   com.github.vlachenal.webservice.bench.rest.api.model.Phone toRest(PhoneDTO phone);
 
 }

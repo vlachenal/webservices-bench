@@ -8,6 +8,8 @@ package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
 import static org.junit.Assert.assertNotNull;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
+import com.github.vlachenal.webservice.bench.soap.api.ListCustomersRequest;
+import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
 
 
 /**
@@ -90,6 +95,34 @@ public class MapStructMappingTest extends AbstractMappingTest {
     assertNotNull("Protocol buffers customer is null", customer);
     //    compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToProtobufCustomer");
+  }
+
+  /**
+   * Search request Thrift to bean conversion unit test
+   */
+  @Test
+  public void testThriftToDTOSearchRequest() {
+    LOG.debug("Enter in testThriftToDTOSearchRequest");
+    final ListAllRequest thrift = makeThriftSearchRequest();
+    final SearchRequestDTO dto = mapstruct.search().fromThrift(thrift);
+    assertNotNull("DTO is null", dto);
+    compareSearchRequest(dto, thrift);
+    LOG.debug("Exit testThriftToDTOSearchRequest");
+  }
+
+  /**
+   * Search request SOAP to bean conversion unit test
+   *
+   * @throws DatatypeConfigurationException can not happened ?
+   */
+  @Test
+  public void testSOAPToDTOSearchRequest() throws DatatypeConfigurationException {
+    LOG.debug("Enter in testSOAPToDTOSearchRequest");
+    final ListCustomersRequest soap = makeSOAPSearchRequest();
+    final SearchRequestDTO dto = mapstruct.search().fromSoap(soap);
+    assertNotNull("DTO is null", dto);
+    compareSearchRequest(dto, soap);
+    LOG.debug("Exit testSOAPToDTOSearchRequest");
   }
   // Tests -
 

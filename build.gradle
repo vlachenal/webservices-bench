@@ -1,8 +1,10 @@
 plugins {
-    id "org.springframework.boot" version "2.0.5.RELEASE"
-    id "org.openrepose.gradle.plugins.jaxb" version "2.5.0"
-    id "net.ltgt.apt" version "0.15"
-    //id "com.google.protobuf" version "0.8.5" apply false
+  id "org.springframework.boot" version "2.0.5.RELEASE"
+  id "com.github.jacobono.jaxb" version "1.3.5"
+  //id "org.openrepose.gradle.plugins.jaxb" version "2.5.0"
+  //id 'com.ewerk.gradle.plugins.jaxb2' version '1.0.9'
+  id "net.ltgt.apt" version "0.15"
+  //id "com.google.protobuf" version "0.8.5" apply false
 }
 
 apply plugin: 'java'
@@ -10,51 +12,53 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
+apply plugin: 'com.github.jacobono.jaxb'
+//apply plugin: 'org.openrepose.gradle.plugins.jaxb'
 
 war {
-    enabled = true
+  enabled = true
 }
 
 configurations {
-    mapstruct
+  mapstruct
 }
 
 eclipse {
-    wtp {
-        facet {
-            facet name: 'jst.java', version: '10'
-            facet name: 'jst.web', version: '4.0'
-            def oldJstWebFacet = facets.findAll {
-                it.name == 'jst.web' && it.version == '2.4' || it.name == 'jst.java' && it.version == '1.8' || it.name == 'jst.java' && it.version == '1.9' || it.name == 'jst.java' && it.version == '1.10'
-            }
-            facets.removeAll(oldJstWebFacet)
-        }
+  wtp {
+    facet {
+      facet name: 'jst.java', version: '10'
+      facet name: 'jst.web', version: '4.0'
+      def oldJstWebFacet = facets.findAll {
+        it.name == 'jst.web' && it.version == '2.4' || it.name == 'jst.java' && it.version == '1.8' || it.name == 'jst.java' && it.version == '1.9' || it.name == 'jst.java' && it.version == '1.10'
+      }
+      facets.removeAll(oldJstWebFacet)
     }
+  }
 }
 
 jar {
-    baseName = 'webservices-bench'
-    version =  '0.1.0'
+  baseName = 'webservices-bench'
+  version =  '0.1.0'
 }
 
 bootRun {
-    jvmArgs = ['--add-modules','java.xml.bind,java.xml.ws']
+  jvmArgs = ['--add-modules','java.xml.bind,java.xml.ws']
 }
 
 sourceCompatibility = 10
 targetCompatibility = 10
 
 allprojects {
-    sourceCompatibility = 10
-    eclipse.project {
-        natures 'org.eclipse.buildship.core.gradleprojectnature'
-    }
-    // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct +
-    project.plugins.withId("net.ltgt.apt") {
-        // automatically apply net.ltgt.apt-eclipse whenever net.ltgt.apt is used
-        project.apply plugin: "net.ltgt.apt-eclipse"
-    }
-    // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct -
+  sourceCompatibility = 10
+  eclipse.project {
+    natures 'org.eclipse.buildship.core.gradleprojectnature'
+  }
+  // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct +
+  project.plugins.withId("net.ltgt.apt") {
+    // automatically apply net.ltgt.apt-eclipse whenever net.ltgt.apt is used
+    project.apply plugin: "net.ltgt.apt-eclipse"
+  }
+  // Allows to run JUnit tests in Eclipse and have compilation warning for Mapstruct -
 }
 
 compileJava {
@@ -66,77 +70,113 @@ compileJava {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir "src/thrift.generated/java"
-            srcDir "src/soap.generated/java"
-            srcDir "src/protobuf.generated/java"
-        }
+  main {
+    java {
+      srcDir "src/thrift.generated/java"
+      srcDir "src/soap.generated/java"
+      srcDir "src/protobuf.generated/java"
     }
+  }
 }
 
+// openrepose JAXB
 jaxb {
   xsdDir = "src/main/resources"
   xjc {
-    accessExternalSchema = "all"
+    //accessExternalSchema = "all"
     destinationDir = "src/soap.generated/java"
     generatePackage = "com.github.vlachenal.webservice.bench.soap.api"
   }
 }
+
+// JAXB2
+/*jaxb2 {
+  xjc {
+    'header-classes' {
+      basePackage = 'com.github.vlachenal.webservice.bench.soap.api'
+      schema = 'src/main/resources/schema/header.xsd'
+      encoding = 'UTF-8'
+      generatedSourcesDir = 'src/soap.generated'
+    }
+  }
+
+  xjc {
+    'customer-classes' {
+      basePackage = 'com.github.vlachenal.webservice.bench.soap.api'
+      schema = 'src/main/resources/schema/customer.xsd'
+      encoding = 'UTF-8'
+      generatedSourcesDir = 'src/soap.generated'
+    }
+  }
+
+  xjc {
+    'statistics-classes' {
+      basePackage = 'com.github.vlachenal.webservice.bench.soap.api'
+      schema = 'src/main/resources/schema/statistics.xsd'
+      encoding = 'UTF-8'
+      generatedSourcesDir = 'src/soap.generated'
+    }
+  }
+}*/
 
 /*protobuf {
   generatedFilesBaseDir = "$projectDir/src/protobuf.generated"
 }*/
 
 tasks.withType(JavaCompile) {
-    options.compilerArgs = [
-            '-Amapstruct.suppressGeneratorTimestamp=true'
-    ]
+  options.compilerArgs = [
+    '-Amapstruct.suppressGeneratorTimestamp=true'
+  ]
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 ext {
-    mapstructVersion = "1.2.0.Final"
-    protobufVersion = "3.6.1"
-    jaxbVersion = "2.2.11"
-    swaggerVersion = "2.9.2"
+  mapstructVersion = "1.2.0.Final"
+  protobufVersion = "3.6.1"
+  jaxbVersion = "2.2.11"
+  swaggerVersion = "2.9.2"
 }
 
 dependencies {
-    // REST
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-hateoas'
-    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
-    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-    // SQL
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.postgresql:postgresql:42.2.5'
-    // Thrift
-    compile 'org.apache.thrift:libthrift:0.11.0'
-    // SOAP
-    compile 'org.springframework.boot:spring-boot-starter-web-services'
-    compile 'wsdl4j:wsdl4j:1.6.3'
-    // Dozer
-    compile 'com.github.dozermapper:dozer-core:6.4.1'
-    // MapStruct
-    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    // tests
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    // Continous integration
-    compile 'org.hsqldb:hsqldb:2.4.1'
-    // JAXB
-    compile "javax.xml.bind:jaxb-api:2.3.0"
-    jaxb "org.glassfish.jaxb:jaxb-xjc:${jaxbVersion}"
-    jaxb "org.glassfish.jaxb:jaxb-runtime:${jaxbVersion}"
-    jaxb "javax.xml.bind:jaxb-api:${jaxbVersion}"
-    //xjc  'com.example:xjc-plugin:0.0.0'
-    // Protocol buffer
-    compile "com.google.protobuf:protobuf-java:${protobufVersion}"
-    compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
-    //compile "com.github.vlachenal:sql-request-builder:0.1"
+  // REST
+  compile 'org.springframework.boot:spring-boot-starter-web'
+  compile 'org.springframework.boot:spring-boot-starter-hateoas'
+  compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+  compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+  // SQL
+  compile 'org.springframework.boot:spring-boot-starter-jdbc'
+  compile 'org.postgresql:postgresql:42.2.5'
+  // Thrift
+  compile 'org.apache.thrift:libthrift:0.11.0'
+  // SOAP
+  compile 'org.springframework.boot:spring-boot-starter-web-services'
+  compile 'wsdl4j:wsdl4j:1.6.3'
+  // Dozer
+  compile 'com.github.dozermapper:dozer-core:6.4.1'
+  // MapStruct
+  compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+  annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+  // tests
+  providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+  testCompile 'org.springframework.boot:spring-boot-starter-test'
+  // Continous integration
+  compile 'org.hsqldb:hsqldb:2.4.1'
+  // JAXB
+  // jacobono
+  jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.7-b41'
+  jaxb 'com.sun.xml.bind:jaxb-impl:2.2.7-b41'
+  jaxb 'javax.xml.bind:jaxb-api:2.2.7'
+  // openrepose JAXB
+  /*compile "javax.xml.bind:jaxb-api:2.3.0"
+  jaxb "org.glassfish.jaxb:jaxb-xjc:${jaxbVersion}"
+  jaxb "org.glassfish.jaxb:jaxb-runtime:${jaxbVersion}"
+  jaxb "javax.xml.bind:jaxb-api:${jaxbVersion}"
+  xjc  'com.example:xjc-plugin:0.0.0'*/
+  // Protocol buffer
+  compile "com.google.protobuf:protobuf-java:${protobufVersion}"
+  compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+  compile "com.github.vlachenal:sql-request-builder:0.6"
 }

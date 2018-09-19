@@ -154,6 +154,24 @@ struct GetRequest {
 struct ListAllRequest {
     /** Request header */
     1: Header header,
+
+    /** First name */
+    2: string firstName,
+
+    /** Last name */
+    3: string lastName,
+
+    /** Email */
+    4: string email,
+
+    /** Birth date */
+    5: i64 birthDate,
+
+    /** Maximum birth date */
+    6: i64 bornBefore,
+
+    /** Minimum birth date */
+    7: i64 bornAfter,
 }
 
 /**

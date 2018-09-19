@@ -14,9 +14,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,9 @@ import org.slf4j.LoggerFactory;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
+import com.github.vlachenal.webservice.bench.soap.api.ListCustomersRequest;
+import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
 
 
 /**
@@ -74,6 +82,48 @@ public abstract class AbstractMappingTest {
     phones.add(phone);
     bean.setPhones(phones);
     return bean;
+  }
+
+  /**
+   * Create SOAP search request
+   *
+   * @return the request
+   *
+   * @throws DatatypeConfigurationException can not happened ?
+   */
+  protected ListCustomersRequest makeSOAPSearchRequest() throws DatatypeConfigurationException {
+    final ListCustomersRequest req = new ListCustomersRequest();
+    req.setFirstName("Chuck");
+    req.setLastName("Norris");
+    req.setEmail("chuck.norris@yopmail.com");
+    final GregorianCalendar cal = new GregorianCalendar();
+    cal.set(1940, 3, 10);
+    req.setBirthDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+    cal.add(Calendar.MONTH, -1);
+    req.setBornAfter(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+    cal.add(Calendar.MONTH, 2);
+    req.setBornBefore(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+    return req;
+  }
+
+  /**
+   * Create Thrift search request
+   *
+   * @return the request
+   */
+  protected ListAllRequest makeThriftSearchRequest() {
+    final ListAllRequest req = new ListAllRequest();
+    req.setFirstName("Chuck");
+    req.setLastName("Norris");
+    req.setEmail("chuck.norris@yopmail.com");
+    final GregorianCalendar cal = new GregorianCalendar();
+    cal.set(1940, 3, 10);
+    req.setBirthDate(cal.getTimeInMillis());
+    cal.add(Calendar.MONTH, -1);
+    req.setBornAfter(cal.getTimeInMillis());
+    cal.add(Calendar.MONTH, 2);
+    req.setBornBefore(cal.getTimeInMillis());
+    return req;
   }
 
   /**
@@ -153,6 +203,27 @@ public abstract class AbstractMappingTest {
   }
 
   /**
+   * Compare SOAP/bean search request
+   *
+   * @param bean the bean
+   * @param request the Thrift request
+   */
+  protected void compareSearchRequest(final SearchRequestDTO bean, final ListCustomersRequest request) {
+    LOG.info("First name: bean = {} ; Thift = {}", bean.getFirstName(), request.getFirstName());
+    assertEquals("First names are differents", bean.getFirstName(), request.getFirstName());
+    LOG.info("Last name: bean = {} ; Thift = {}", bean.getLastName(), request.getLastName());
+    assertEquals("Last names are differents", bean.getLastName(), request.getLastName());
+    LOG.info("Email: bean = {} ; Thift = {}", bean.getEmail(), request.getEmail());
+    assertEquals("Emails are differents", bean.getEmail(), request.getEmail());
+    LOG.info("Birthdate: bean = {} ; Thift = {}", bean.getBirthDate(), request.getBirthDate());
+    assertEquals("Birthdates are differents", bean.getBirthDate(), request.getBirthDate().toGregorianCalendar().getTime());
+    LOG.info("Born after: bean = {} ; Thift = {}", bean.getBornAfter(), request.getBornAfter());
+    assertEquals("Born after dates are differents", bean.getBornAfter(), request.getBornAfter().toGregorianCalendar().getTime());
+    LOG.info("Born before: bean = {} ; Thift = {}", bean.getBornBefore(), request.getBornBefore());
+    assertEquals("Born before dates are differents", bean.getBornBefore(), request.getBornBefore().toGregorianCalendar().getTime());
+  }
+
+  /**
    * Compare Thrift/bean customer
    *
    * @param bean the bean
@@ -198,7 +269,7 @@ public abstract class AbstractMappingTest {
    */
   protected void compareTPhones(final List<PhoneDTO> beans, final List<com.github.vlachenal.webservice.bench.thrift.api.Phone> phones) {
     if(beans != null) {
-      assertNotNull("SOAP phone list is null", phones);
+      assertNotNull("Thrift phone list is null", phones);
       assertEquals("Number of phones is different", beans.size(), phones.size());
       for(int i = 0 ; i < beans.size() ; ++i) {
         comparePhone(beans.get(i), phones.get(i));
@@ -226,6 +297,27 @@ public abstract class AbstractMappingTest {
       default:
         fail("Unexpected type: " + bean.getType());
     }
+  }
+
+  /**
+   * Compare Thrift/bean search request
+   *
+   * @param bean the bean
+   * @param request the Thrift request
+   */
+  protected void compareSearchRequest(final SearchRequestDTO bean, final com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest request) {
+    LOG.info("First name: bean = {} ; Thift = {}", bean.getFirstName(), request.getFirstName());
+    assertEquals("First names are differents", bean.getFirstName(), request.getFirstName());
+    LOG.info("Last name: bean = {} ; Thift = {}", bean.getLastName(), request.getLastName());
+    assertEquals("Last names are differents", bean.getLastName(), request.getLastName());
+    LOG.info("Email: bean = {} ; Thift = {}", bean.getEmail(), request.getEmail());
+    assertEquals("Emails are differents", bean.getEmail(), request.getEmail());
+    LOG.info("Birthdate: bean = {} ; Thift = {}", bean.getBirthDate(), request.getBirthDate());
+    assertEquals("Birthdates are differents", bean.getBirthDate(), new Date(request.getBirthDate()));
+    LOG.info("Born after: bean = {} ; Thift = {}", bean.getBornAfter(), request.getBornAfter());
+    assertEquals("Born after dates are differents", bean.getBornAfter(), new Date(request.getBornAfter()));
+    LOG.info("Born before: bean = {} ; Thift = {}", bean.getBornBefore(), request.getBornBefore());
+    assertEquals("Born before dates are differents", bean.getBornBefore(), new Date(request.getBornBefore()));
   }
 
   /**

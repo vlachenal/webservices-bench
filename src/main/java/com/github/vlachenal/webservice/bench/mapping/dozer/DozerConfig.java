@@ -24,6 +24,7 @@ import com.github.dozermapper.core.loader.api.FieldsMappingOptions;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 
 
 /**
@@ -58,7 +59,26 @@ public class DozerConfig {
         .withMappingBuilder(soapPhone())
         .withMappingBuilder(soapCustomer())
         .withMappingBuilder(thriftCustomer())
+        .withMappingBuilder(soapSearchRequest())
+        .withMappingBuilder(thriftSearchRequest())
         .build();
+  }
+
+  /**
+   * SOAP search request mapper
+   *
+   * @return the mapping builder
+   */
+  private BeanMappingBuilder soapSearchRequest() {
+    return new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(SearchRequestDTO.class, com.github.vlachenal.webservice.bench.soap.api.ListCustomersRequest.class)
+        .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(SOAP_DATE_CONV))
+        .fields("bornBefore", "bornBefore", FieldsMappingOptions.customConverterId(SOAP_DATE_CONV))
+        .fields("bornAfter", "bornAfter", FieldsMappingOptions.customConverterId(SOAP_DATE_CONV));
+      }
+    };
   }
 
   /**
@@ -67,14 +87,13 @@ public class DozerConfig {
    * @return the SOAP address mapping
    */
   private BeanMappingBuilder soapAddress() {
-    final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
+    return new BeanMappingBuilder() {
       @Override
       protected void configure() {
         mapping(AddressDTO.class, com.github.vlachenal.webservice.bench.soap.api.Address.class)
         .fields("lines", field("lines").accessible(true));
       }
     };
-    return mapBuild;
   }
 
   /**
@@ -83,14 +102,13 @@ public class DozerConfig {
    * @return the SOAP address mapping
    */
   private BeanMappingBuilder soapPhone() {
-    final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
+    return new BeanMappingBuilder() {
       @Override
       protected void configure() {
         mapping(PhoneDTO.class, com.github.vlachenal.webservice.bench.soap.api.Phone.class)
         .fields("type", "phoneType");
       }
     };
-    return mapBuild;
   }
 
   /**
@@ -99,7 +117,7 @@ public class DozerConfig {
    * @return the SOAP address mapping
    */
   private BeanMappingBuilder soapCustomer() {
-    final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
+    return new BeanMappingBuilder() {
       @Override
       protected void configure() {
         mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.soap.api.Customer.class)
@@ -107,7 +125,24 @@ public class DozerConfig {
         .fields("phones", field("phones").accessible(true));
       }
     };
-    return mapBuild;
+  }
+
+  /**
+   * Thrift search request mapper
+   *
+   * @return the mapping builder
+   */
+  private BeanMappingBuilder thriftSearchRequest() {
+    return new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(SearchRequestDTO.class, com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest.class)
+        .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
+        .fields("bornBefore", "bornBefore", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
+        .fields("bornAfter", "bornAfter", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
+        .exclude("__isset_bitfield");
+      }
+    };
   }
 
   /**
@@ -116,7 +151,7 @@ public class DozerConfig {
    * @return the SOAP address mapping
    */
   private BeanMappingBuilder thriftCustomer() {
-    final BeanMappingBuilder mapBuild = new BeanMappingBuilder() {
+    return new BeanMappingBuilder() {
       @Override
       protected void configure() {
         mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.thrift.api.Customer.class)
@@ -124,7 +159,6 @@ public class DozerConfig {
         .exclude("__isset_bitfield");
       }
     };
-    return mapBuild;
   }
   // Methods -
 

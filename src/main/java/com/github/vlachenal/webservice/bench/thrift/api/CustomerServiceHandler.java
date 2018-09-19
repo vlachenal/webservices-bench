@@ -18,6 +18,7 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
@@ -157,7 +158,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     checkRequest(request);
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "list");
-    final List<Customer> customers = map(business.listAll(), header.getMapper(), this::toThrift);
+    final List<Customer> customers = map(business.search(new SearchRequestDTO()), header.getMapper(), this::toThrift);
     registerCall(call);
     return customers;
   }

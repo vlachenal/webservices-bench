@@ -7,7 +7,8 @@
 package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 
@@ -17,10 +18,7 @@ import com.github.vlachenal.webservice.bench.dto.AddressDTO;
  *
  * @author Vincent Lachenal
  */
-@Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
-    )
+@Mapper(componentModel = "spring")
 public interface AddressMapper {
 
   /**
@@ -57,6 +55,10 @@ public interface AddressMapper {
    *
    * @return the Thrift address
    */
+  @Mappings({
+    @Mapping(target = "cityIsSet", ignore = true), @Mapping(target = "countryIsSet", ignore = true),
+    @Mapping(target = "linesIsSet", ignore = true), @Mapping(target = "zipCodeIsSet", ignore = true)
+  })
   com.github.vlachenal.webservice.bench.thrift.api.Address toThrift(AddressDTO address);
 
   /**
@@ -75,6 +77,9 @@ public interface AddressMapper {
    *
    * @return the REST address
    */
+  @Mappings({
+    @Mapping(target = "customerId", ignore = true)
+  })
   com.github.vlachenal.webservice.bench.rest.api.model.Address toRest(AddressDTO address);
 
 }

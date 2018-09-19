@@ -37,6 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 
 
 /**
@@ -116,11 +117,11 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#listAll()}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
   public void test2ListAll() {
-    final List<CustomerDTO> customers = dao.listAll();
+    final List<CustomerDTO> customers = dao.search(new SearchRequestDTO());
     customers.forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
     });
@@ -204,11 +205,11 @@ public class CustomerDAOTest {
   }
 
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#listAll()}.
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
   public void test7ListAll() {
-    final List<CustomerDTO> customers = dao.listAll();
+    final List<CustomerDTO> customers = dao.search(new SearchRequestDTO());
     customers.stream().forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
     });

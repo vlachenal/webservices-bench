@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.github.vlachenal.webservice.bench.dao.CustomerDAO;
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 
@@ -48,10 +49,12 @@ public class CustomerBusiness extends AbstractBusiness {
   /**
    * List all customers
    *
+   * @param request the search request
+   *
    * @return the customers
    */
-  public List<CustomerDTO> listAll() {
-    return dao.listAll();
+  public List<CustomerDTO> search(final SearchRequestDTO request) {
+    return dao.search(request);
   }
 
   /**
