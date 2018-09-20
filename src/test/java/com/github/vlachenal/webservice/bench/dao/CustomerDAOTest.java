@@ -232,7 +232,7 @@ public class CustomerDAOTest {
   @Test
   public void test2SearchBornAfter() {
     final SearchRequestDTO req = new SearchRequestDTO();
-    req.setBirthDate(Date.from(LocalDate.parse("1939-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    req.setBornAfter(Date.from(LocalDate.parse("1939-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     final List<CustomerDTO> customers = dao.search(req);
     customers.forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
