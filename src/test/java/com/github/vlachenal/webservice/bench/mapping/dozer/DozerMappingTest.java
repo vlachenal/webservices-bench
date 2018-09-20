@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Dozer mapping test suite")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class DozerMappingTest extends AbstractMappingTest {
@@ -50,6 +52,7 @@ public class DozerMappingTest extends AbstractMappingTest {
   /**
    * Customer bean to SOAP conversion unit test
    */
+  @DisplayName("Bean to SOAP customer")
   @Test
   public void testBeanToSOAPCustomer() {
     LOG.debug("Enter in testBeanToSOAPCustomer");
@@ -63,6 +66,7 @@ public class DozerMappingTest extends AbstractMappingTest {
   /**
    * Customer bean to Thrift conversion unit test
    */
+  @DisplayName("Bean to Thrift customer")
   @Test
   public void testBeanToThriftCustomer() {
     LOG.debug("Enter in testBeanToThriftCustomer");
@@ -76,6 +80,7 @@ public class DozerMappingTest extends AbstractMappingTest {
   /**
    * Customer bean to Thrift conversion unit test
    */
+  @DisplayName("Bean to REST customer")
   @Test
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
@@ -89,6 +94,7 @@ public class DozerMappingTest extends AbstractMappingTest {
   /**
    * Search request Thrift to bean conversion unit test
    */
+  @DisplayName("Thrift to bean search request")
   @Test
   public void testThriftToDTOSearchRequest() {
     LOG.debug("Enter in testThriftToDTOSearchRequest");
@@ -104,6 +110,7 @@ public class DozerMappingTest extends AbstractMappingTest {
    *
    * @throws DatatypeConfigurationException can not happened ?
    */
+  @DisplayName("SOAP to bean search request")
   @Test
   public void testSOAPToDTOSearchRequest() throws DatatypeConfigurationException {
     LOG.debug("Enter in testSOAPToDTOSearchRequest");

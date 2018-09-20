@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Statistics DAO test suite")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class StatisticsDAOTest {
@@ -60,6 +62,7 @@ public class StatisticsDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.StatisticsDAO#save(com.github.vlachenal.webservice.bench.dto.TestSuiteDTO)}.
    */
+  @DisplayName("Save test suite")
   @Test
   public void testSave() {
     LOG.debug("Enter in testSave");

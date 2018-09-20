@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
@@ -19,6 +20,7 @@ import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Phone manual mapping test suite")
 public class PhoneBridgeTest extends AbstractMappingTest {
 
   /** DTOs */
@@ -39,6 +41,7 @@ public class PhoneBridgeTest extends AbstractMappingTest {
   /**
    * Test bean to REST
    */
+  @DisplayName("Bean to REST customer")
   @Test
   public void testToRest() {
     final List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> phones = PhoneBridge.toRest(dtos);

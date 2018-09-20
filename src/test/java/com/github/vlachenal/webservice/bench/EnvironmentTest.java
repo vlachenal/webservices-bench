@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Miscellaneous test suite")
 public class EnvironmentTest {
 
   // Attributes +
@@ -44,6 +46,7 @@ public class EnvironmentTest {
   /**
    * Get environment informations
    */
+  @DisplayName("Environment variables")
   @Test
   public void testGetEnvironmentInformations() {
     for(final Map.Entry<String, String> entry : System.getenv().entrySet()) {
@@ -68,6 +71,7 @@ public class EnvironmentTest {
   /**
    * Optional unit tests
    */
+  @DisplayName("Java Optional")
   @Test
   public void testOptional() {
     final List<String> emptyList = new ArrayList<>();
@@ -102,6 +106,7 @@ public class EnvironmentTest {
   /**
    * Lambda 'binding' unit test
    */
+  @DisplayName("Lambda")
   @Test
   public void testLambdaBinding() {
     LOG.debug("Enter in testLambdaBinding");

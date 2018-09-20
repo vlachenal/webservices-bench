@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Search request manual mapping test suite")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class SearchRequestBridgeTest extends AbstractMappingTest {
@@ -35,6 +37,7 @@ public class SearchRequestBridgeTest extends AbstractMappingTest {
    *
    * @throws DatatypeConfigurationException can not happened ?
    */
+  @DisplayName("SOAP to bean search request")
   @Test
   public void testFromSoap() throws DatatypeConfigurationException {
     LOG.debug("Enter in testFromSoap");
@@ -49,6 +52,7 @@ public class SearchRequestBridgeTest extends AbstractMappingTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.mapping.manual.SearchRequestBridge#fromThrift(com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest)}.
    */
+  @DisplayName("Thrift to bean search request")
   @Test
   public void testFromThrift() {
     LOG.debug("Enter in testThriftToDTOSearchRequest");

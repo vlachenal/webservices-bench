@@ -3,6 +3,7 @@ package com.github.vlachenal.webservice.bench.mapping.manual;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
  *
  * @author Vincent Lachenal
  */
+@DisplayName("Customer manual mapping test suite")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class CustomerBridgeTest extends AbstractMappingTest {
@@ -32,6 +34,7 @@ public class CustomerBridgeTest extends AbstractMappingTest {
   /**
    * Customer bean to SOAP conversion unit test
    */
+  @DisplayName("Bean to SOAP customer")
   @Test
   public void testBeanToSOAPCustomer() {
     LOG.debug("Enter in testBeanToSOAPCustomer");
@@ -45,6 +48,7 @@ public class CustomerBridgeTest extends AbstractMappingTest {
   /**
    * Customer bean to Thrift conversion unit test
    */
+  @DisplayName("Bean to Thrift customer")
   @Test
   public void testBeanToThriftCustomer() {
     LOG.debug("Enter in testBeanToThriftCustomer");
@@ -58,6 +62,7 @@ public class CustomerBridgeTest extends AbstractMappingTest {
   /**
    * Customer bean to REST conversion unit test
    */
+  @DisplayName("Bean to REST customer")
   @Test
   public void testBeanToRESTCustomer() {
     LOG.debug("Enter in testBeanToRESTCustomer");
@@ -71,6 +76,7 @@ public class CustomerBridgeTest extends AbstractMappingTest {
   /**
    * Customer bean to Protocol Buffer conversion unit test
    */
+  @DisplayName("Bean to Protocol Buffers customer")
   @Test
   public void testBeanToProtobufCustomer() {
     LOG.debug("Enter in testBeanToProtobufCustomer");

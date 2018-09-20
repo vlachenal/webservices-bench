@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@DisplayName("Customer DAO test suite")
 public class CustomerDAOTest {
 
   // Attributes +
@@ -140,6 +141,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
    */
+  @DisplayName("Create customer")
   @Test
   public void testCreate() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -148,6 +150,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("List all customers")
   @Test
   public void testListAll() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -163,6 +166,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by first name pattern")
   @Test
   public void testSearchMatchFirstName() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -180,6 +184,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by first name")
   @Test
   public void testSearchEqualsFirstName() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -197,6 +202,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by last name pattern")
   @Test
   public void testSearchMatchLastName() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -214,6 +220,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by last name")
   @Test
   public void testSearchEqualsLastName() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -231,6 +238,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by birth date")
   @Test
   public void testSearchEqualsBirthDate() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -248,6 +256,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by maximum birth date")
   @Test
   public void testSearchBornBefore() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -265,6 +274,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Search customer by minimum birth date")
   @Test
   public void testSearchBornAfter() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -282,6 +292,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#getDetails(java.lang.String)}.
    */
+  @DisplayName("Retrieve customer's details")
   @Test
   public void testGetDetails() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -306,6 +317,7 @@ public class CustomerDAOTest {
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints
    */
+  @DisplayName("Create empty customer - FAIL")
   @Test
   public void testCreateFail() {
     final CustomerDTO cust = new CustomerDTO();
@@ -319,6 +331,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#deleteAll()}.
    */
+  @DisplayName("Delete all customers")
   @Test
   public void testDeleteAll() {
     dao.deleteAll();
@@ -329,6 +342,7 @@ public class CustomerDAOTest {
    * This should fail due to database integrity constraints.<br>
    * This will test transaction annotation.
    */
+  @DisplayName("Create duplicate customer - FAIL")
   @Test
   public void testCreateFailDuplicate() {
     assertNotNull(createCustomer(), "Customer identifier is null");
@@ -362,6 +376,7 @@ public class CustomerDAOTest {
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
+  @DisplayName("Delete customer")
   @Test
   public void testEmpty() {
     assertNotNull(createCustomer(), "Customer identifier is null");
