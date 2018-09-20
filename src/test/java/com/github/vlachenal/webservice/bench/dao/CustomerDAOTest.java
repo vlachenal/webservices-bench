@@ -131,6 +131,118 @@ public class CustomerDAOTest {
   }
 
   /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchMatchFirstName() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setFirstName("C%k");
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchEqualsFirstName() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setFirstName("Chuck");
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchMatchLastName() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setLastName("N%s");
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchEqualsLastName() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setLastName("Norris");
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchEqualsBirthDate() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setBirthDate(Date.from(LocalDate.parse("1940-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchBornBefore() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setBornBefore(Date.from(LocalDate.parse("1941-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @Test
+  public void test2SearchBornAfter() {
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setBirthDate(Date.from(LocalDate.parse("1939-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue("New customer has not been found in database", chuck.isPresent());
+  }
+
+  /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#getDetails(java.lang.String)}.
    */
   @Test
