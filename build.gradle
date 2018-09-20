@@ -5,6 +5,7 @@ plugins {
   //id 'com.ewerk.gradle.plugins.jaxb2' version '1.0.9'
   id "net.ltgt.apt" version "0.15"
   //id "com.google.protobuf" version "0.8.5" apply false
+  id 'jacoco'
 }
 
 apply plugin: 'java'
@@ -133,16 +134,26 @@ repositories {
   mavenCentral()
 }
 
+jacocoTestReport {
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+}
+
+check.dependsOn jacocoTestReport
+
+// Use JUnit5 +
 configurations {
   all {
     exclude group: 'junit', module: 'junit'
   }
 }
 
-// Use JUnit5 +
 test {
   useJUnitPlatform()
 }
+// Use JUnit5 -
 
 ext {
   mapstructVersion = "1.2.0.Final"
@@ -150,7 +161,6 @@ ext {
   jaxbVersion = "2.2.11"
   swaggerVersion = "2.9.2"
 }
-// Use JUnit5 -
 
 dependencies {
   // REST
