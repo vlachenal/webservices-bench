@@ -1,13 +1,14 @@
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
@@ -17,7 +18,7 @@ import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
  *
  * @author Vincent Lachenal
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class CustomerBridgeTest extends AbstractMappingTest {
 
@@ -36,8 +37,8 @@ public class CustomerBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToSOAPCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.soap.api.Customer customer = CustomerBridge.toSoap(bean);
-    assertNotNull("SOAP customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "SOAP customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToSOAPCustomer");
   }
 
@@ -49,8 +50,8 @@ public class CustomerBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = CustomerBridge.toThrift(bean);
-    assertNotNull("Thrift customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "Thrift customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToThriftCustomer");
   }
 
@@ -62,8 +63,8 @@ public class CustomerBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.rest.api.model.Customer customer = CustomerBridge.toRest(bean);
-    assertNotNull("REST customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "REST customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToRESTCustomer");
   }
 
@@ -75,8 +76,8 @@ public class CustomerBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToProtobufCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = CustomerBridge.toProtobuf(bean);
-    assertNotNull("Protocol Buffers customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "Protocol Buffers customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToProtobufCustomer");
   }
   // Tests -

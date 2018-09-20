@@ -133,12 +133,24 @@ repositories {
   mavenCentral()
 }
 
+configurations {
+  all {
+    exclude group: 'junit', module: 'junit'
+  }
+}
+
+// Use JUnit5 +
+test {
+  useJUnitPlatform()
+}
+
 ext {
   mapstructVersion = "1.2.0.Final"
   protobufVersion = "3.6.1"
   jaxbVersion = "2.2.11"
   swaggerVersion = "2.9.2"
 }
+// Use JUnit5 -
 
 dependencies {
   // REST
@@ -162,6 +174,8 @@ dependencies {
   // tests
   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
   testCompile 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
   // Continous integration
   compile 'org.hsqldb:hsqldb:2.4.1'
   // JAXB

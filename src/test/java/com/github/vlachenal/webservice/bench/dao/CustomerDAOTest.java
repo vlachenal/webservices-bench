@@ -6,9 +6,10 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -21,18 +22,18 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -45,9 +46,9 @@ import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
  *
  * @author Vincent Lachenal
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CustomerDAOTest {
 
   // Attributes +
@@ -58,7 +59,7 @@ public class CustomerDAOTest {
   private static DateTimeFormatter dateFormat;
 
   /** Newly created customer identifier */
-  private static String customerId;
+  private String customerId;
 
   /** Customer datasource */
   @Qualifier("ds.customer")
@@ -75,19 +76,39 @@ public class CustomerDAOTest {
   /**
    * Unit tests initialization
    */
-  @BeforeClass
+  @BeforeAll
   public static void setUpBeforeClass() {
     dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  }
+
+  /**
+   * Before each test
+   */
+  @BeforeEach
+  public void beforeEach() {
+    customerId = null; // Ensure customer identifier is null
+  }
+
+  /**
+   * After each test
+   */
+  @AfterEach
+  public void afterEach() {
+    if(customerId != null) {
+      dao.deleteCustomer(UUID.fromString(customerId));
+      customerId = null;
+    }
   }
   // Unit tests (un)initialization -
 
 
   // Tests +
   /**
-   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
+   * Create Chuck Norris as customer
+   *
+   * @return the new custome's identifier
    */
-  @Test
-  public void test1Create() {
+  private String createCustomer() {
     final CustomerDTO cust = new CustomerDTO();
     cust.setFirstName("Chuck");
     cust.setLastName("Norris");
@@ -111,30 +132,40 @@ public class CustomerDAOTest {
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
-    final String uuid = dao.createCustomer(cust);
-    LOG.debug("New customer UUID is {}", uuid);
-    customerId = uuid;
+    customerId = dao.createCustomer(cust);
+    LOG.debug("New customer UUID is {}", customerId);
+    return customerId;
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.
+   */
+  @Test
+  public void testCreate() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2ListAll() {
+  public void testListAll() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final List<CustomerDTO> customers = dao.search(new SearchRequestDTO());
     customers.forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchMatchFirstName() {
+  public void testSearchMatchFirstName() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setFirstName("C%k");
     final List<CustomerDTO> customers = dao.search(req);
@@ -143,14 +174,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchEqualsFirstName() {
+  public void testSearchEqualsFirstName() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setFirstName("Chuck");
     final List<CustomerDTO> customers = dao.search(req);
@@ -159,14 +191,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchMatchLastName() {
+  public void testSearchMatchLastName() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setLastName("N%s");
     final List<CustomerDTO> customers = dao.search(req);
@@ -175,14 +208,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchEqualsLastName() {
+  public void testSearchEqualsLastName() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setLastName("Norris");
     final List<CustomerDTO> customers = dao.search(req);
@@ -191,14 +225,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchEqualsBirthDate() {
+  public void testSearchEqualsBirthDate() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setBirthDate(Date.from(LocalDate.parse("1940-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     final List<CustomerDTO> customers = dao.search(req);
@@ -207,14 +242,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchBornBefore() {
+  public void testSearchBornBefore() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setBornBefore(Date.from(LocalDate.parse("1941-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     final List<CustomerDTO> customers = dao.search(req);
@@ -223,14 +259,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test2SearchBornAfter() {
+  public void testSearchBornAfter() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setBornAfter(Date.from(LocalDate.parse("1939-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
     final List<CustomerDTO> customers = dao.search(req);
@@ -239,14 +276,15 @@ public class CustomerDAOTest {
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertTrue("New customer has not been found in database", chuck.isPresent());
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#getDetails(java.lang.String)}.
    */
   @Test
-  public void test3GetDetails() {
+  public void testGetDetails() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     assertNotNull("Customer identifier is not set", customerId);
     final UUID id = UUID.fromString(customerId);
     final CustomerDTO customer = dao.getDetails(id);
@@ -268,19 +306,21 @@ public class CustomerDAOTest {
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#createCustomer(com.github.vlachenal.webservice.bench.dto.CustomerDTO)}.<br>
    * This should fail due to database integrity constraints
    */
-  @Test(expected=DataAccessException.class)
-  public void test4CreateFail() {
+  @Test
+  public void testCreateFail() {
     final CustomerDTO cust = new CustomerDTO();
-    final String uuid = dao.createCustomer(cust);
-    LOG.debug("New customer UUID is {}", uuid);
-    customerId = uuid;
+    assertThrows(DataAccessException.class, () -> {
+      final String uuid = dao.createCustomer(cust);
+      LOG.debug("New customer UUID is {}", uuid);
+      customerId = uuid;
+    });
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#deleteAll()}.
    */
   @Test
-  public void test5DeleteAll() {
+  public void testDeleteAll() {
     dao.deleteAll();
   }
 
@@ -289,8 +329,9 @@ public class CustomerDAOTest {
    * This should fail due to database integrity constraints.<br>
    * This will test transaction annotation.
    */
-  @Test(expected=DataAccessException.class)
-  public void test6CreateFail() {
+  @Test
+  public void testCreateFailDuplicate() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
     final CustomerDTO cust = new CustomerDTO();
     cust.setFirstName("Chuck");
     cust.setLastName("Norris");
@@ -311,23 +352,27 @@ public class CustomerDAOTest {
     phone.setNumber("+33836656565");
     phones.add(phone);
     cust.setPhones(phones);
-    final String uuid = dao.createCustomer(cust);
-    LOG.debug("New customer UUID is {}", uuid);
-    customerId = uuid;
+    assertThrows(DataAccessException.class, () -> {
+      final String uuid = dao.createCustomer(cust);
+      LOG.debug("New customer UUID is {}", uuid);
+      customerId = uuid;
+    });
   }
 
   /**
    * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
    */
   @Test
-  public void test7ListAll() {
+  public void testEmpty() {
+    assertNotNull(createCustomer(), "Customer identifier is null");
+    dao.deleteCustomer(UUID.fromString(customerId));
     final List<CustomerDTO> customers = dao.search(new SearchRequestDTO());
     customers.stream().forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
     });
     final Optional<CustomerDTO> chuck = customers.stream()
         .filter(customer -> customer.getId().equals(customerId)).findFirst();
-    assertFalse("New customer has not been found in database", chuck.isPresent());
+    assertFalse(chuck.isPresent(), "New customer has not been found in database");
   }
   // Tests -
 

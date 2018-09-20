@@ -1,15 +1,16 @@
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
@@ -22,7 +23,7 @@ import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
  *
  * @author Vincent Lachenal
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class SearchRequestBridgeTest extends AbstractMappingTest {
 
@@ -39,8 +40,9 @@ public class SearchRequestBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testFromSoap");
     final ListCustomersRequest soap = makeSOAPSearchRequest();
     final SearchRequestDTO dto = SearchRequestBridge.fromSoap(soap);
-    assertNotNull("DTO is null", dto);
-    compareSearchRequest(dto, soap);
+    assertAll(() -> assertNotNull(dto, "DTO is null"),
+              () -> compareSearchRequest(dto, soap)
+        );
     LOG.debug("Exit testFromSoap");
   }
 
@@ -52,8 +54,8 @@ public class SearchRequestBridgeTest extends AbstractMappingTest {
     LOG.debug("Enter in testThriftToDTOSearchRequest");
     final ListAllRequest thrift = makeThriftSearchRequest();
     final SearchRequestDTO dto = SearchRequestBridge.fromThrift(thrift);
-    assertNotNull("DTO is null", dto);
-    compareSearchRequest(dto, thrift);
+    assertAll(() -> assertNotNull(dto, "DTO is null"),
+              () -> compareSearchRequest(dto, thrift));
     LOG.debug("Exit testThriftToDTOSearchRequest");
   }
 

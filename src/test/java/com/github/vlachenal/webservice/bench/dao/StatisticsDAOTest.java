@@ -10,15 +10,15 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
@@ -29,7 +29,7 @@ import com.github.vlachenal.webservice.bench.dto.TestSuiteDTO;
  *
  * @author Vincent Lachenal
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class StatisticsDAOTest {
 

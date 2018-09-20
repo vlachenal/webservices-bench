@@ -1,13 +1,14 @@
 package com.github.vlachenal.webservice.bench.mapping.manual;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import com.github.vlachenal.webservice.bench.dto.PhoneDTO;
 import com.github.vlachenal.webservice.bench.mapping.AbstractMappingTest;
@@ -23,7 +24,10 @@ public class PhoneBridgeTest extends AbstractMappingTest {
   /** DTOs */
   private static List<PhoneDTO> dtos;
 
-  @BeforeClass
+  /**
+   * Initialization
+   */
+  @BeforeAll
   public static void setUpBeforeClass() {
     dtos = new ArrayList<>();
     final PhoneDTO phone = new PhoneDTO();
@@ -32,11 +36,16 @@ public class PhoneBridgeTest extends AbstractMappingTest {
     dtos.add(phone);
   }
 
+  /**
+   * Test bean to REST
+   */
   @Test
   public void testToRest() {
     final List<com.github.vlachenal.webservice.bench.rest.api.model.Phone> phones = PhoneBridge.toRest(dtos);
-    assertNotNull("Converted result is null", phones);
-    assertEquals(dtos.size(), phones.size());
+    assertAll("Compare phones",
+              () -> assertNotNull(phones, "Converted result is null"),
+              () -> assertEquals(dtos.size(), phones.size())
+        );
     for(int i = 0 ; i < dtos.size() ; ++i) {
       comparePhone(dtos.get(i), phones.get(i));
     }

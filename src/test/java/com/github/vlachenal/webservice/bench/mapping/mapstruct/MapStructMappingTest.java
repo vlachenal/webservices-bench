@@ -6,17 +6,18 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
@@ -30,7 +31,7 @@ import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
  *
  * @author Vincent Lachenal
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class MapStructMappingTest extends AbstractMappingTest {
 
@@ -53,8 +54,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToSOAPCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.soap.api.Customer customer = mapstruct.customer().toSoap(bean);
-    assertNotNull("SOAP customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "SOAP customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToSOAPCustomer");
   }
 
@@ -66,8 +67,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = mapstruct.customer().toThrift(bean);
-    assertNotNull("Thrift customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "Thrift customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToThriftCustomer");
   }
 
@@ -79,8 +80,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToRESTCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.rest.api.model.Customer customer = mapstruct.customer().toRest(bean);
-    assertNotNull("REST customer is null", customer);
-    compareCustomer(bean, customer);
+    assertAll(() -> assertNotNull(customer, "REST customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToRESTCustomer");
   }
 
@@ -92,7 +93,7 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToProtobufCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().dtoToProtobuf(bean);
-    assertNotNull("Protocol buffers customer is null", customer);
+    assertNotNull(customer, "Protocol buffers customer is null");
     //    compareCustomer(bean, customer);
     LOG.debug("Exit testBeanToProtobufCustomer");
   }
@@ -105,8 +106,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testThriftToDTOSearchRequest");
     final ListAllRequest thrift = makeThriftSearchRequest();
     final SearchRequestDTO dto = mapstruct.search().fromThrift(thrift);
-    assertNotNull("DTO is null", dto);
-    compareSearchRequest(dto, thrift);
+    assertAll(() -> assertNotNull(dto, "DTO is null"),
+              () -> compareSearchRequest(dto, thrift));
     LOG.debug("Exit testThriftToDTOSearchRequest");
   }
 
@@ -120,8 +121,8 @@ public class MapStructMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testSOAPToDTOSearchRequest");
     final ListCustomersRequest soap = makeSOAPSearchRequest();
     final SearchRequestDTO dto = mapstruct.search().fromSoap(soap);
-    assertNotNull("DTO is null", dto);
-    compareSearchRequest(dto, soap);
+    assertAll(() -> assertNotNull(dto, "DTO is null"),
+              () -> compareSearchRequest(dto, soap));
     LOG.debug("Exit testSOAPToDTOSearchRequest");
   }
   // Tests -

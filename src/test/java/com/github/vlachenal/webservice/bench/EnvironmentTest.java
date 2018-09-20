@@ -6,11 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,14 +55,14 @@ public class EnvironmentTest {
       LOG.info("PROP: {}={}", key, System.getProperty(key));
     }
     final String version = System.getProperty("java.version");
-    assertNotNull("JAVA version is null", version);
     final String vendor = System.getProperty("java.vendor");
-    assertNotNull("JAVA vendor is null", vendor);
     final String os = System.getProperty("os.name");
-    assertNotNull("OS is null", os);
     final String osVersion = System.getProperty("os.version");
-    assertNotNull("OS versions is null", osVersion);
     LOG.info("Summary: JRE {} by {} on {} {}", version, vendor, os, osVersion);
+    assertAll(() -> assertNotNull(version, "JAVA version is null"),
+              () -> assertNotNull(vendor, "JAVA vendor is null"),
+              () -> assertNotNull(os, "OS is null"),
+              () -> assertNotNull(osVersion, "OS versions is null"));
   }
 
   /**
