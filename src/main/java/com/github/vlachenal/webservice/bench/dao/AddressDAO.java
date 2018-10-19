@@ -86,12 +86,12 @@ public class AddressDAO {
    * @throws SQLException any error
    */
   public void setAddressValues(final PreparedStatement stmt, final UUID customerId, final UUID addressId, final AddressDTO address) throws SQLException {
-    stmt.setString(1, getLine(address.getLines(),0));
-    stmt.setString(2, getLine(address.getLines(),1));
-    stmt.setString(3, getLine(address.getLines(),2));
-    stmt.setString(4, getLine(address.getLines(),3));
-    stmt.setString(5, getLine(address.getLines(),4));
-    stmt.setString(6, getLine(address.getLines(),5));
+    stmt.setString(1, getLine(address.getLines(), 0));
+    stmt.setString(2, getLine(address.getLines(), 1));
+    stmt.setString(3, getLine(address.getLines(), 2));
+    stmt.setString(4, getLine(address.getLines(), 3));
+    stmt.setString(5, getLine(address.getLines(), 4));
+    stmt.setString(6, getLine(address.getLines(), 5));
     stmt.setString(7, address.getZipCode());
     stmt.setString(8, address.getCity());
     stmt.setString(9, address.getCountry());
@@ -109,7 +109,7 @@ public class AddressDAO {
    */
   public String registerAddress(final UUID customerId, final AddressDTO address) {
     final UUID addressId = UUID.randomUUID();
-    jdbc.update(AddressDAO.REQ_ADD_ADDRESS, stmt -> setAddressValues(stmt, customerId, addressId, address));
+    jdbc.update(REQ_ADD_ADDRESS, stmt -> setAddressValues(stmt, customerId, addressId, address));
     return addressId.toString();
   }
 
@@ -121,16 +121,17 @@ public class AddressDAO {
    * @return the address
    */
   public AddressDTO getAddress(final UUID customerId) {
-    return jdbc.query(REQ_GET_ADDRESS, res -> res.next() ? new AddressDTO(res.getString(7).trim(),
-                                                                          res.getString(8),
-                                                                          res.getString(9),
-                                                                          res.getString(1),
-                                                                          res.getString(2),
-                                                                          res.getString(3),
-                                                                          res.getString(4),
-                                                                          res.getString(5),
-                                                                          res.getString(6))
-                                                         : null, customerId);
+    return jdbc.query(REQ_GET_ADDRESS,
+                      res -> res.next() ? new AddressDTO(res.getString(7).trim(),
+                                                         res.getString(8),
+                                                         res.getString(9),
+                                                         res.getString(1),
+                                                         res.getString(2),
+                                                         res.getString(3),
+                                                         res.getString(4),
+                                                         res.getString(5),
+                                                         res.getString(6))
+                                        : null, customerId);
   }
 
   /**
