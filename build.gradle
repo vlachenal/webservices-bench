@@ -27,7 +27,7 @@ configurations {
 eclipse {
   wtp {
     facet {
-      facet name: 'jst.java', version: '10'
+      facet name: 'jst.java', version: '11'
       facet name: 'jst.web', version: '4.0'
       def oldJstWebFacet = facets.findAll {
         it.name == 'jst.web' && it.version == '2.4' || it.name == 'jst.java' && it.version == '1.8' || it.name == 'jst.java' && it.version == '1.9' || it.name == 'jst.java' && it.version == '1.10'
