@@ -20,6 +20,7 @@ public class PhoneDTO {
    * @author Vincent Lachenal
    */
   public enum Type {
+
     // Values +
     /** Landline phone */
     LANDLINE((short)1),
