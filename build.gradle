@@ -203,5 +203,5 @@ dependencies {
   // Protocol buffer
   compile "com.google.protobuf:protobuf-java:${protobufVersion}"
   compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
-  compile "com.github.vlachenal:sql-request-builder:0.11"
+  compile "com.github.vlachenal:sql-request-builder:0.12"
 }
