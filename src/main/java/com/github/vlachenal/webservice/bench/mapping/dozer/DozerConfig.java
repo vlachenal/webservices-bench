@@ -61,6 +61,7 @@ public class DozerConfig {
         .withMappingBuilder(thriftCustomer())
         .withMappingBuilder(soapSearchRequest())
         .withMappingBuilder(thriftSearchRequest())
+        .withMappingBuilder(protobufCustomer())
         .build();
   }
 
@@ -157,6 +158,26 @@ public class DozerConfig {
         mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.thrift.api.Customer.class)
         .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
         .exclude("__isset_bitfield");
+      }
+    };
+  }
+
+  /**
+   * Thrift customer mapping configuration
+   *
+   * @return the SOAP address mapping
+   */
+  private BeanMappingBuilder protobufCustomer() {
+    return new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(AddressDTO.class, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.class)
+        .fields("zipCode", "zipCode");
+        mapping(PhoneDTO.class, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.class);
+        mapping(CustomerDTO.class, com.github.vlachenal.webservice.bench.protobuf.api.Customer.class)
+        .fields("birthDate", "birthDate", FieldsMappingOptions.customConverterId(LONG_DATE_CONV))
+        .fields("firstName", "firstName")
+        .fields("lastName", "lastName");
       }
     };
   }

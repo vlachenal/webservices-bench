@@ -72,9 +72,23 @@ public class DozerMappingTest extends AbstractMappingTest {
     LOG.debug("Enter in testBeanToThriftCustomer");
     final CustomerDTO bean = makeCustomerBean();
     final com.github.vlachenal.webservice.bench.thrift.api.Customer customer = dozer.map(bean, com.github.vlachenal.webservice.bench.thrift.api.Customer.class);
-    assertAll(() -> assertNotNull(customer, "SOAP customer is null"),
+    assertAll(() -> assertNotNull(customer, "Thrift customer is null"),
               () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToThriftCustomer");
+  }
+
+  /**
+   * Customer bean to Protocol Buffers conversion unit test
+   */
+  @DisplayName("Bean to Protocol Buffers customer")
+  @Test
+  public void testBeanToProtobufCustomer() {
+    LOG.debug("Enter in testBeanToProtobufCustomer");
+    final CustomerDTO bean = makeCustomerBean();
+    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = dozer.map(bean, com.github.vlachenal.webservice.bench.protobuf.api.Customer.class);
+    assertAll(() -> assertNotNull(customer, "Protocol Buffers customer is null"),
+              () -> compareCustomer(bean, customer));
+    LOG.debug("Exit testBeanToProtobufCustomer");
   }
 
   /**

@@ -14,6 +14,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ import com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest;
 @DisplayName("MapStruct mapping test suite")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Execution(ExecutionMode.CONCURRENT)
 public class MapStructMappingTest extends AbstractMappingTest {
 
   // Attributes +
@@ -98,9 +101,9 @@ public class MapStructMappingTest extends AbstractMappingTest {
   public void testBeanToProtobufCustomer() {
     LOG.debug("Enter in testBeanToProtobufCustomer");
     final CustomerDTO bean = makeCustomerBean();
-    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().dtoToProtobuf(bean);
-    assertNotNull(customer, "Protocol buffers customer is null");
-    //    compareCustomer(bean, customer);
+    final com.github.vlachenal.webservice.bench.protobuf.api.Customer customer = mapstruct.protobuf().toProtobuf(bean);
+    assertAll(() -> assertNotNull(customer, "Protocol buffers customer is null"),
+              () -> compareCustomer(bean, customer));
     LOG.debug("Exit testBeanToProtobufCustomer");
   }
 

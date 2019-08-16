@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.github.vlachenal.webservice.bench.AbstractBenchService;
 import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
@@ -31,6 +30,7 @@ import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
+import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.protobuf.ProtobufType;
 import com.github.vlachenal.webservice.bench.rest.api.model.Mapper;
 
@@ -47,6 +47,12 @@ public class CustomerProtobufController extends AbstractBenchService {
   // Attributes +
   /** Customer service */
   private final CustomerBusiness business;
+
+  /** MapStruct mappers */
+  private final MapStructMappers mapstruct;
+
+  /** Dozer mapper */
+  private final com.github.dozermapper.core.Mapper dozer;
   // Attributes -
 
 
@@ -57,9 +63,14 @@ public class CustomerProtobufController extends AbstractBenchService {
    * @param stats the statistics cache to use
    * @param business the customer service to use
    */
-  public CustomerProtobufController(final StatisticsCache stats, final CustomerBusiness business) {
+  public CustomerProtobufController(final StatisticsCache stats,
+                                    final CustomerBusiness business,
+                                    final com.github.dozermapper.core.Mapper dozer,
+                                    final MapStructMappers mapstruct) {
     super(stats);
     this.business = business;
+    this.dozer = dozer;
+    this.mapstruct = mapstruct;
   }
   // Constructors -
 
@@ -77,9 +88,11 @@ public class CustomerProtobufController extends AbstractBenchService {
     Customer cust = null;
     switch(mapper) {
       case DOZER:
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
+        cust = dozer.map(dto, Customer.class);
+        break;
       case MAPSTRUCT:
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+        cust = mapstruct.protobuf().toProtobuf(dto);
+        break;
       default:
         cust = CustomerBridge.toProtobuf(dto);
     }
@@ -98,9 +111,11 @@ public class CustomerProtobufController extends AbstractBenchService {
     CustomerDTO dto = null;
     switch(mapper) {
       case DOZER:
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "Dozer is not supported for now");
+        dto = dozer.map(customer, CustomerDTO.class);
+        break;
       case MAPSTRUCT:
-        throw new HttpClientErrorException(HttpStatus.NOT_IMPLEMENTED, "MapStruct is not supported for now");
+        dto = mapstruct.protobuf().fromProtobuf(customer);
+        break;
       default:
         dto = CustomerBridge.fromProtobuf(customer);
     }

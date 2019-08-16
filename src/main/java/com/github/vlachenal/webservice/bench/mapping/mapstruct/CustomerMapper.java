@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
 
@@ -66,12 +65,13 @@ public interface CustomerMapper {
    *
    * @return the Thrift customer
    */
-  @Mappings({
-    @Mapping(target = "addressIsSet", ignore = true), @Mapping(target = "birthDateIsSet", ignore = true),
-    @Mapping(target = "emailIsSet", ignore = true), @Mapping(target = "firstNameIsSet", ignore = true),
-    @Mapping(target = "idIsSet", ignore = true), @Mapping(target = "lastNameIsSet", ignore = true),
-    @Mapping(target = "phonesIsSet", ignore = true)
-  })
+  @Mapping(target = "addressIsSet", ignore = true)
+  @Mapping(target = "birthDateIsSet", ignore = true)
+  @Mapping(target = "emailIsSet", ignore = true)
+  @Mapping(target = "firstNameIsSet", ignore = true)
+  @Mapping(target = "idIsSet", ignore = true)
+  @Mapping(target = "lastNameIsSet", ignore = true)
+  @Mapping(target = "phonesIsSet", ignore = true)
   com.github.vlachenal.webservice.bench.thrift.api.Customer toThrift(CustomerDTO customer);
 
   /**

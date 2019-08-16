@@ -6,16 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.mapping.mapstruct;
 
-import java.util.List;
-
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.ReportingPolicy;
 import org.mapstruct.ValueMapping;
-import org.mapstruct.ValueMappings;
 
 import com.github.vlachenal.webservice.bench.dto.AddressDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
@@ -30,8 +26,7 @@ import com.github.vlachenal.webservice.bench.protobuf.api.Customer;
  * @author Vincent Lachenal
  */
 @Mapper(componentModel = "spring",
-        uses = { ProtobufMessageFactory.class, LongDateMapper.class },
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = { LongDateMapper.class },
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface ProtobufMapper {
@@ -43,7 +38,8 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  PhoneDTO protobufToDTO(Customer.Phone phone);
+  @Mapping(target = "id", ignore = true)
+  PhoneDTO fromProtobuf(Customer.Phone phone);
 
   /**
    * Convert Protocol buffer phone type to DTO
@@ -52,22 +48,9 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  @ValueMappings({
-    @ValueMapping(source="UNKNOWN",target=MappingConstants.NULL),
-    @ValueMapping(source="UNRECOGNIZED",target=MappingConstants.NULL)
-  })
-  PhoneDTO.Type toDTO(Customer.Phone.PhoneType type);
-
-  /**
-   * Convert DTO address to Protocol buffer
-   *
-   * @param address the DTO address
-   *
-   * @return the Protocol buffer address
-   */
-  default Customer.Phone dtoToProtobuf(final PhoneDTO phone) {
-    return dtoToProtobufForBuilder(phone).build();
-  }
+  @ValueMapping(source = "UNKNOWN", target = MappingConstants.NULL)
+  @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
+  PhoneDTO.Type fromProtobuf(Customer.Phone.PhoneType type);
 
   /**
    * Convert DTO phone to Protocol buffer
@@ -76,7 +59,15 @@ public interface ProtobufMapper {
    *
    * @return the Protocol buffer phone
    */
-  Customer.Phone.Builder dtoToProtobufForBuilder(PhoneDTO phone);
+  @Mapping(target = "mergeFrom", ignore = true)
+  @Mapping(target = "clearField", ignore = true)
+  @Mapping(target = "clearOneof", ignore = true)
+  @Mapping(target = "mergeUnknownFields", ignore = true)
+  @Mapping(target = "unknownFields", ignore = true)
+  @Mapping(target = "allFields", ignore = true)
+  @Mapping(target = "numberBytes", ignore = true)
+  @Mapping(target = "typeValue", ignore = true)
+  Customer.Phone toProtobuf(PhoneDTO phone);
 
   /**
    * Convert Protocol buffer address to DTO
@@ -85,7 +76,8 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  AddressDTO protobufToDTO(Customer.Address address);
+  @Mapping(target = "lines", source = "linesList")
+  AddressDTO fromProtobuf(Customer.Address address);
 
   /**
    * DTO to protocol buffer for builder
@@ -94,19 +86,17 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
-  @Mapping(source="lines",target="linesList",ignore=true)
-  Customer.Address.Builder dtoToProtobufForBuilder(AddressDTO address);
-
-  /**
-   * Convert DTO address to Protocol buffer
-   *
-   * @param address the DTO address
-   *
-   * @return the Protocol buffer address
-   */
-  default Customer.Address dtoToProtobuf(final AddressDTO address) {
-    return dtoToProtobufForBuilder(address).build();
-  }
+  @Mapping(source="lines",target="linesList")
+  @Mapping(target = "mergeFrom", ignore = true)
+  @Mapping(target = "clearField", ignore = true)
+  @Mapping(target = "clearOneof", ignore = true)
+  @Mapping(target = "mergeUnknownFields", ignore = true)
+  @Mapping(target = "unknownFields", ignore = true)
+  @Mapping(target = "allFields", ignore = true)
+  @Mapping(target = "cityBytes", ignore = true)
+  @Mapping(target = "countryBytes", ignore = true)
+  @Mapping(target = "zipCodeBytes", ignore = true)
+  Customer.Address toProtobuf(AddressDTO address);
 
   /**
    * Convert Protocol buffer customer to DTO
@@ -115,7 +105,8 @@ public interface ProtobufMapper {
    *
    * @return the DTO
    */
-  CustomerDTO protobufToDTO(Customer customer);
+  @Mapping(target = "phones", source = "phonesList")
+  CustomerDTO fromProtobuf(Customer customer);
 
   /**
    * DTO to protocol buffer for builder
@@ -124,27 +115,21 @@ public interface ProtobufMapper {
    *
    * @return the builder
    */
-  @Mapping(source="phones",target="phonesList")
-  Customer.Builder dtoToProtobufForBuilder(CustomerDTO customer);
-
-  /**
-   * Convert DTO customer to Protocol buffer
-   *
-   * @param customer the DTO customer
-   *
-   * @return the Protocol buffer customer
-   */
-  default Customer dtoToProtobuf(final CustomerDTO customer) {
-    return dtoToProtobufForBuilder(customer).build();
-  }
-
-  /**
-   * Convert DTO customer to Protocol buffer
-   *
-   * @param customer the DTO customer
-   *
-   * @return the Protocol buffer customer
-   */
-  List<Customer> dtoListToProtobuf(List<CustomerDTO> customer);
+  @Mapping(target = "phonesList", source = "phones")
+  @Mapping(target = "mergeFrom", ignore = true)
+  @Mapping(target = "clearField", ignore = true)
+  @Mapping(target = "clearOneof", ignore = true)
+  @Mapping(target = "mergeUnknownFields", ignore = true)
+  @Mapping(target = "unknownFields", ignore = true)
+  @Mapping(target = "allFields", ignore = true)
+  @Mapping(target = "mergeAddress", ignore = true)
+  @Mapping(target = "removePhones", ignore = true)
+  @Mapping(target = "emailBytes", ignore = true)
+  @Mapping(target = "firstNameBytes", ignore = true)
+  @Mapping(target = "lastNameBytes", ignore = true)
+  @Mapping(target = "idBytes", ignore = true)
+  @Mapping(target = "phonesBuilderList", ignore = true)
+  @Mapping(target = "phonesOrBuilderList", ignore = true)
+  Customer toProtobuf(CustomerDTO customer);
 
 }
