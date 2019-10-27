@@ -82,6 +82,7 @@ public class SearchRequestBridge {
       if(thrift.getBornAfter() != 0) {
         dto.setBornAfter(new Date(thrift.getBornAfter()));
       }
+      dto.setIds(thrift.getIds());
     }
     return dto;
   }

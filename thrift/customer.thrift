@@ -172,6 +172,9 @@ struct ListAllRequest {
 
     /** Minimum birth date */
     7: i64 bornAfter,
+
+    /** Customers' UUIDs filter */
+    8: list<string> ids,
 }
 
 /**
