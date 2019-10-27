@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -72,6 +73,10 @@ public class CustomerDAOTest {
   /** Customer DAO */
   @Autowired
   private CustomerDAO dao;
+
+  /** Active profiles ... */
+  @Value("${spring.profiles.active:}")
+  private String activeProfiles;
   // Attributes -
 
 
@@ -297,6 +302,9 @@ public class CustomerDAOTest {
   @DisplayName("Search customer by ids")
   @Test
   public void testSearchIds() {
+    if(activeProfiles.contains("ci")) { // Do not run this test when HSQLDB ...
+      return;
+    }
     final String uid = createCustomer();
     assertNotNull(uid, "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
