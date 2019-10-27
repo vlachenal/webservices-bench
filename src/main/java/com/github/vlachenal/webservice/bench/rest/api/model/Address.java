@@ -12,8 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 /**
@@ -21,26 +20,26 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Vincent Lachenal
  */
-@ApiModel(description="Customer's address")
+@Schema(description = "Customer's address")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Address {
 
   // Attributes +
   /** Address lines */
-  @ApiModelProperty(notes="Address lines",required=true,example="[1 rue des Nuages]")
+  @Schema(description="Address lines",required=true,example="[1 rue des Nuages]")
   private List<String> lines;
 
   /** Address ZIP code */
-  @ApiModelProperty(notes="ZIP code",required=true,example="33500")
+  @Schema(description="ZIP code",required=true,example="33500")
   @JsonProperty(value="zip_code")
   private String zipCode;
 
   /** City */
-  @ApiModelProperty(notes="City",required=true,example="Libourne")
+  @Schema(description="City",required=true,example="Libourne")
   private String city;
 
   /** Country */
-  @ApiModelProperty(notes="Country",required=true,example="France")
+  @Schema(description="Country",required=true,example="France")
   private String country;
 
   /** Customer's identifier: used for HATEOAS only */

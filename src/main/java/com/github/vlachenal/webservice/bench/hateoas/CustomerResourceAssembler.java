@@ -6,16 +6,16 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas;
 
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.LinkBuilder;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.LinkBuilder;
+import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.hateoas.api.CustomerHATEOASController;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.AddressResource;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.CustomerResource;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.PhoneResource;
+import com.github.vlachenal.webservice.bench.rest.api.model.Address;
 import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
+import com.github.vlachenal.webservice.bench.rest.api.model.Phone;
 
 
 /**
@@ -24,7 +24,7 @@ import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
  * @author Vincent Lachenal
  */
 @Component
-public class CustomerResourceAssembler extends ResourceAssemblerSupport<Customer, CustomerResource> {
+public class CustomerResourceAssembler implements SimpleRepresentationModelAssembler<Customer> {
 
   // Attributes +
   /** Entity links */
@@ -39,37 +39,62 @@ public class CustomerResourceAssembler extends ResourceAssemblerSupport<Customer
    * @param entityLinks the {@link EntityLinks} to use
    */
   public CustomerResourceAssembler(final EntityLinks entityLinks) {
-    super(CustomerHATEOASController.class, CustomerResource.class);
+//    super(CustomerHATEOASController.class, CustomerResource.class);
     this.entityLinks = entityLinks;
   }
   // Constructors -
 
 
   // Methods +
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.springframework.hateoas.ResourceAssembler#toResource(java.lang.Object)
-   */
+//  /**
+//   * {@inheritDoc}
+//   *
+//   * @see org.springframework.hateoas.server.RepresentationModelAssembler#toModel(java.lang.Object)
+//   */
+//  @Override
+//  public CustomerResource toModel(final Customer entity) {
+//    final CustomerResource res = new CustomerResource(entity);
+//    if(entity != null) {
+//      res.add(entityLinks.linkFor(CustomerResource.class).slash(entity.getId()).withSelfRel());
+//      if(entity.getAddress() != null) {
+//        res.add(entityLinks.linkFor(AddressResource.class, entity.getId()).withRel("address"));
+//        entity.setAddress(null);
+//      }
+//      if(entity.getPhones() != null && !entity.getPhones().isEmpty()) {
+//        final LinkBuilder phoneLnkBuilder = entityLinks.linkFor(PhoneResource.class, entity.getId());
+//        res.add(phoneLnkBuilder.withRel("phones"));
+//        entity.getPhones().stream().forEach(phone -> {
+//          res.add(phoneLnkBuilder.slash(phone.getId()).withRel("phone"));
+//        });
+//        entity.setPhones(null);
+//      }
+//    }
+//    return res;
+//  }
+
   @Override
-  public CustomerResource toResource(final Customer entity) {
-    final CustomerResource res = new CustomerResource(entity);
-    if(entity != null) {
-      res.add(entityLinks.linkFor(CustomerResource.class).slash(entity.getId()).withSelfRel());
+  public void addLinks(final EntityModel<Customer> resource) {
+    if(resource.getContent() != null) {
+      final Customer entity = resource.getContent();
+      resource.add(entityLinks.linkFor(Customer.class).slash(entity.getId()).withSelfRel());
       if(entity.getAddress() != null) {
-        res.add(entityLinks.linkFor(AddressResource.class, entity.getId()).withRel("address"));
+        resource.add(entityLinks.linkFor(Address.class, entity.getId()).withRel("address"));
         entity.setAddress(null);
       }
       if(entity.getPhones() != null && !entity.getPhones().isEmpty()) {
-        final LinkBuilder phoneLnkBuilder = entityLinks.linkFor(PhoneResource.class, entity.getId());
-        res.add(phoneLnkBuilder.withRel("phones"));
+        final LinkBuilder phoneLnkBuilder = entityLinks.linkFor(Phone.class, entity.getId());
+        resource.add(phoneLnkBuilder.withRel("phones"));
         entity.getPhones().stream().forEach(phone -> {
-          res.add(phoneLnkBuilder.slash(phone.getId()).withRel("phone"));
+          resource.add(phoneLnkBuilder.slash(phone.getId()).withRel("phone"));
         });
         entity.setPhones(null);
       }
     }
-    return res;
+  }
+
+  @Override
+  public void addLinks(final CollectionModel<EntityModel<Customer>> resources) {
+    resources.forEach(this::addLinks);
   }
   // Methods -
 

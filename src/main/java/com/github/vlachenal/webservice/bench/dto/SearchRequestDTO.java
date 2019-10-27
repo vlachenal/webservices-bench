@@ -7,6 +7,7 @@
 package com.github.vlachenal.webservice.bench.dto;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -34,6 +35,9 @@ public class SearchRequestDTO {
 
   /** Minimum birth date */
   private Date bornAfter;
+
+  /** Customer's identifiers */
+  private List<String> ids;
   // Attributes -
 
 
@@ -144,6 +148,24 @@ public class SearchRequestDTO {
    */
   public final void setBornAfter(final Date bornAfter) {
     this.bornAfter = bornAfter;
+  }
+
+  /**
+   * Customer's identifiers getter
+   *
+   * @return the identifiers
+   */
+  public final List<String> getIds() {
+    return ids;
+  }
+
+  /**
+   * Customer's identifiers setter
+   *
+   * @param ids the identifiers to set
+   */
+  public final void setIds(final List<String> ids) {
+    this.ids = ids;
   }
   // Accessors -
 

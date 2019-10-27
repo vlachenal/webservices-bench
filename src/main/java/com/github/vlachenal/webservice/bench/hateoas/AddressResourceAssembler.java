@@ -6,12 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas;
 
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.hateoas.api.AddressHATEOASController;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.AddressResource;
 import com.github.vlachenal.webservice.bench.rest.api.model.Address;
 
 
@@ -21,7 +21,7 @@ import com.github.vlachenal.webservice.bench.rest.api.model.Address;
  * @author Vincent Lachenal
  */
 @Component
-public class AddressResourceAssembler extends ResourceAssemblerSupport<Address, AddressResource> {
+public class AddressResourceAssembler implements SimpleRepresentationModelAssembler<Address> {
 
   // Attributes +
   /** Entity links */
@@ -36,25 +36,38 @@ public class AddressResourceAssembler extends ResourceAssemblerSupport<Address, 
    * @param entityLinks the {@link EntityLinks} to use
    */
   public AddressResourceAssembler(final EntityLinks entityLinks) {
-    super(AddressHATEOASController.class, AddressResource.class);
     this.entityLinks = entityLinks;
   }
   // Constructors -
 
 
   // Methods +
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.springframework.hateoas.ResourceAssembler#toResource(java.lang.Object)
-   */
+//  /**
+//   * {@inheritDoc}
+//   *
+//   * @see org.springframework.hateoas.server.RepresentationModelAssembler#toModel(java.lang.Object)
+//   */
+//  @Override
+//  public AddressResource toModel(final Address entity) {
+//    final AddressResource res = new AddressResource(entity);
+//    if(entity != null) {
+//      res.add(entityLinks.linkFor(AddressResource.class, entity.getCustomerId()).withSelfRel());
+//    }
+//    return res;
+//  }
+
+
   @Override
-  public AddressResource toResource(final Address entity) {
-    final AddressResource res = new AddressResource(entity);
-    if(entity != null) {
-      res.add(entityLinks.linkFor(AddressResource.class, entity.getCustomerId()).withSelfRel());
+  public void addLinks(final EntityModel<Address> resource) {
+    if(resource.getContent() != null) {
+      resource.add(entityLinks.linkFor(Address.class, resource.getContent().getCustomerId()).withSelfRel());
     }
-    return res;
+  }
+
+
+  @Override
+  public void addLinks(final CollectionModel<EntityModel<Address>> resources) {
+    resources.forEach(this::addLinks);
   }
   // Methods -
 

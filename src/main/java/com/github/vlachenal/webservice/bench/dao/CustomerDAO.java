@@ -6,6 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.dao;
 
+import java.sql.Array;
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
@@ -114,6 +116,7 @@ public class CustomerDAO {
    * @return the customers
    */
   public List<CustomerDTO> search(final SearchRequestDTO request) {
+    final Array ids = request.getIds() == null ? null : jdbc.execute((final Connection conn) -> conn.createArrayOf("uuid", request.getIds().toArray()));
     final SQLQuery query = SQL.select().field("id").field("first_name").field("last_name")
         .from("Customer")
         .where(SQL.clauses("first_name", Clauses::like, request.getFirstName())
@@ -121,7 +124,8 @@ public class CustomerDAO {
                .and("email", Clauses::equalsTo, request.getEmail())
                .and("birth_date", Clauses::equalsTo, request.getBirthDate())
                .and("birth_date", Clauses::greaterEquals, request.getBornAfter())
-               .and("birth_date", Clauses::lesserEquals, request.getBornBefore()))
+               .and("birth_date", Clauses::lesserEquals, request.getBornBefore())
+               .and("id", Clauses::equalsAny, ids))
         .build();
     return jdbc.query(query.getQuery(), (res, rowNum) -> new CustomerDTO(res.getString(1), res.getString(2), res.getString(3)), query.values());
   }

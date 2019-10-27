@@ -6,12 +6,12 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas;
 
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import com.github.vlachenal.webservice.bench.hateoas.api.PhoneHATEOASController;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.PhoneResource;
 import com.github.vlachenal.webservice.bench.rest.api.model.Phone;
 
 
@@ -21,7 +21,7 @@ import com.github.vlachenal.webservice.bench.rest.api.model.Phone;
  * @author Vincent Lachenal
  */
 @Component
-public class PhoneResourceAssembler extends ResourceAssemblerSupport<Phone, PhoneResource> {
+public class PhoneResourceAssembler implements SimpleRepresentationModelAssembler<Phone> {
 
   // Attributes +
   /** Entity links */
@@ -36,25 +36,38 @@ public class PhoneResourceAssembler extends ResourceAssemblerSupport<Phone, Phon
    * @param entityLinks the {@link EntityLinks} to use
    */
   public PhoneResourceAssembler(final EntityLinks entityLinks) {
-    super(PhoneHATEOASController.class, PhoneResource.class);
+//    super(PhoneHATEOASController.class, PhoneResource.class);
     this.entityLinks = entityLinks;
   }
   // Constructors -
 
 
   // Methods +
-  /**
-   * {@inheritDoc}
-   *
-   * @see org.springframework.hateoas.ResourceAssembler#toResource(java.lang.Object)
-   */
+//  /**
+//   * {@inheritDoc}
+//   *
+//   * @see org.springframework.hateoas.server.RepresentationModelAssembler#toModel(java.lang.Object)
+//   */
+//  @Override
+//  public PhoneResource toModel(final Phone entity) {
+//    final PhoneResource res = new PhoneResource(entity);
+//    if(entity != null) {
+//      res.add(entityLinks.linkFor(PhoneResource.class, entity.getCustomerId()).slash(entity.getId()).withSelfRel());
+//    }
+//    return res;
+//  }
+
   @Override
-  public PhoneResource toResource(final Phone entity) {
-    final PhoneResource res = new PhoneResource(entity);
-    if(entity != null) {
-      res.add(entityLinks.linkFor(PhoneResource.class, entity.getCustomerId()).slash(entity.getId()).withSelfRel());
+  public void addLinks(final EntityModel<Phone> resource) {
+    if(resource.getContent() != null) {
+      resource.add(entityLinks.linkFor(Phone.class, resource.getContent().getCustomerId())
+                   .slash(resource.getContent().getId()).withSelfRel());
     }
-    return res;
+  }
+
+  @Override
+  public void addLinks(final CollectionModel<EntityModel<Phone>> resources) {
+    resources.forEach(this::addLinks);
   }
   // Methods -
 

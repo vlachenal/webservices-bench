@@ -7,9 +7,10 @@
 package com.github.vlachenal.webservice.bench.protobuf.api;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,7 +58,7 @@ public class StatsProtobufController {
    *
    * @param test the client-side test suite to consolidate
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes={ProtobufType.PROTOBUF_UTF8_VALUE})
+  @PutMapping(consumes={ProtobufType.PROTOBUF_UTF8_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void consolidate(@RequestBody final TestSuite test) {
     business.consolidate(TestSuiteBridge.fromProtobuf(test));
@@ -66,7 +67,8 @@ public class StatsProtobufController {
   /**
    * Purge statistics cache
    */
-  @RequestMapping(method=RequestMethod.DELETE)
+  @DeleteMapping
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void purge() {
     cache.clean();
   }

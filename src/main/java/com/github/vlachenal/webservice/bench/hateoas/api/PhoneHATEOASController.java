@@ -9,27 +9,30 @@ package com.github.vlachenal.webservice.bench.hateoas.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.vlachenal.webservice.bench.business.PhoneBusiness;
 import com.github.vlachenal.webservice.bench.hateoas.PhoneResourceAssembler;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.PhoneResource;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.model.Phone;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 /**
@@ -38,9 +41,9 @@ import io.swagger.annotations.ApiResponses;
  * @author Vincent Lachenal
  */
 @RestController
-@ExposesResourceFor(PhoneResource.class)
+@ExposesResourceFor(Phone.class)
 @RequestMapping(path="/hateoas/customer/{customerId}/phone")
-@Api("RESTful API to manage customers' phones")
+@Tag(name="HATEOAS - Phones",description="RESTful API to manage customers' phones")
 public class PhoneHATEOASController {
 
   // Attributes +
@@ -79,19 +82,17 @@ public class PhoneHATEOASController {
    *
    * @return the phones
    */
-  @RequestMapping(method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("List all phone numbers for a customer")
-  @ApiResponses(value= {
-    @ApiResponse(code=200,message="Phones have been successfully retrieved"),
-    @ApiResponse(code=400,message="Customer identifier is not an UUID")
-  })
-  public HttpEntity<List<PhoneResource>> listPhones(@PathVariable("customerId") final String customerId) {
+  @GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description="List all phone numbers for a customer")
+  @ApiResponse(responseCode="200",description="Phones have been successfully retrieved")
+  @ApiResponse(responseCode="400",description="Customer identifier is not an UUID")
+  public HttpEntity<CollectionModel<EntityModel<Phone>>> listPhones(@PathVariable("customerId") final String customerId) {
     final List<Phone> phones = business.listAll(customerId).stream().map(p -> {
       final Phone phone = mapstruct.phone().toRest(p);
       phone.setCustomerId(customerId);
       return phone;
     }).collect(Collectors.toList());
-    return new ResponseEntity<>(resAssembler.toResources(phones), HttpStatus.OK);
+    return new ResponseEntity<>(resAssembler.toCollectionModel(phones), HttpStatus.OK);
   }
 
   /**
@@ -102,13 +103,12 @@ public class PhoneHATEOASController {
    *
    * @return the phones
    */
-  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
-  @ApiOperation("Register a new phone for a customer")
-  @ApiResponses(value={
-    @ApiResponse(code=201,message="Phone has been successfully registered"),
-    @ApiResponse(code=400,message="Invalid parameters"),
-    @ApiResponse(code=404,message="Customer does not exist")
-  })
+  @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_VALUE})
+  @ResponseStatus(HttpStatus.CREATED)
+  @Operation(description="Register a new phone for a customer")
+  @ApiResponse(responseCode="201",description="Phone has been successfully registered")
+  @ApiResponse(responseCode="400",description="Invalid parameters")
+  @ApiResponse(responseCode="404",description="Customer does not exist")
   public String addPhone(@PathVariable("customerId") final String customerId, @RequestBody final Phone phone) {
     return business.registerPhone(customerId, mapstruct.phone().fromRest(phone));
   }
@@ -121,17 +121,15 @@ public class PhoneHATEOASController {
    *
    * @return the phone
    */
-  @RequestMapping(path="/{phoneId}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("Get phone")
-  @ApiResponses(value={
-    @ApiResponse(code=200,message="Phones have been successfully retrieved"),
-    @ApiResponse(code=400,message="Invalid UUID"),
-    @ApiResponse(code=404,message="Phone does not exist")
-  })
-  public HttpEntity<PhoneResource> get(@PathVariable("customerId") final String customerId, @PathVariable("phoneId") final String phoneId) {
+  @GetMapping(path="/{phoneId}",produces=MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description="Get phone")
+  @ApiResponse(responseCode="200",description="Phones have been successfully retrieved")
+  @ApiResponse(responseCode="400",description="Invalid UUID")
+  @ApiResponse(responseCode="404",description="Phone does not exist")
+  public HttpEntity<EntityModel<Phone>> get(@PathVariable("customerId") final String customerId, @PathVariable("phoneId") final String phoneId) {
     final Phone phone = mapstruct.phone().toRest(business.getPhone(customerId, phoneId));
     phone.setCustomerId(customerId);
-    return new ResponseEntity<>(resAssembler.toResource(phone), HttpStatus.OK);
+    return new ResponseEntity<>(resAssembler.toModel(phone), HttpStatus.OK);
   }
 
   /**
@@ -142,13 +140,12 @@ public class PhoneHATEOASController {
    *
    * @return the phone
    */
-  @RequestMapping(path="/{phoneId}",method=RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("Delete phone")
-  @ApiResponses(value={
-    @ApiResponse(code=200,message="Phones have been successfully retrieved"),
-    @ApiResponse(code=400,message="Invalid UUID"),
-    @ApiResponse(code=404,message="Phone does not exist")
-  })
+  @DeleteMapping(path="/{phoneId}",produces=MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @Operation(description="Delete phone")
+  @ApiResponse(responseCode="204",description="Phone have been successfully deleted")
+  @ApiResponse(responseCode="400",description="Invalid UUID")
+  @ApiResponse(responseCode="404",description="Phone does not exist")
   public void delete(@PathVariable("customerId") final String customerId, @PathVariable("phoneId") final String phoneId) {
     business.deletePhone(customerId, phoneId);
   }

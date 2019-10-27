@@ -8,9 +8,10 @@ package com.github.vlachenal.webservice.bench.rest.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +20,8 @@ import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.mapping.manual.TestSuiteBridge;
 import com.github.vlachenal.webservice.bench.rest.api.model.TestSuite;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 
 /**
@@ -62,13 +62,11 @@ public class StatsController {
    *
    * @param test the client-side test suite to consolidate
    */
-  @RequestMapping(method=RequestMethod.PUT,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
+  @PutMapping(consumes={MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation("Consolidate client/server statistics")
-  @ApiResponses(value= {
-    @ApiResponse(code=201,message="Customer has been successfully created"),
-    @ApiResponse(code=400,message="Missing or invalid field")
-  })
+  @Operation(description="Consolidate client/server statistics")
+  @ApiResponse(responseCode="201",description="Customer has been successfully created")
+  @ApiResponse(responseCode="400",description="Missing or invalid field")
   public void consolidate(@RequestBody final TestSuite test) {
     business.consolidate(TestSuiteBridge.fromRest(test));
   }
@@ -76,8 +74,9 @@ public class StatsController {
   /**
    * Purge statistics cache
    */
-  @RequestMapping(method=RequestMethod.DELETE)
-  @ApiOperation("Purge gathered statistcs")
+  @DeleteMapping
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @Operation(description="Purge gathered statistcs")
   public void purge() {
     cache.clean();
   }

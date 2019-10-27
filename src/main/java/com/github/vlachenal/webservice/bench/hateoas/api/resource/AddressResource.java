@@ -6,8 +6,8 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas.api.resource;
 
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
 
 import com.github.vlachenal.webservice.bench.rest.api.model.Address;
 
@@ -17,7 +17,7 @@ import com.github.vlachenal.webservice.bench.rest.api.model.Address;
  *
  * @author Vincent Lachenal
  */
-public class AddressResource extends Resource<Address> {
+public class AddressResource extends EntityModel<Address> {
 
   /**
    * {@link AddressResource} constructor

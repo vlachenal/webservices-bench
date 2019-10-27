@@ -6,27 +6,29 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas.api;
 
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.vlachenal.webservice.bench.business.AddressBusiness;
 import com.github.vlachenal.webservice.bench.hateoas.AddressResourceAssembler;
-import com.github.vlachenal.webservice.bench.hateoas.api.resource.AddressResource;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.model.Address;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 /**
@@ -35,9 +37,9 @@ import io.swagger.annotations.ApiResponses;
  * @author Vincent Lachenal
  */
 @RestController
-@ExposesResourceFor(AddressResource.class)
+@ExposesResourceFor(Address.class)
 @RequestMapping(path="/hateoas/customer/{customerId}/address")
-@Api("RESTful API to manage customers' address")
+@Tag(name = "HATEOAS - Address", description = "RESTful API to manage customers' address")
 public class AddressHATEOASController {
 
   // Attributes +
@@ -77,13 +79,12 @@ public class AddressHATEOASController {
    *
    * @return the phones
    */
-  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
-  @ApiOperation("Register a new address for a customer")
-  @ApiResponses(value={
-    @ApiResponse(code=201,message="Address has been successfully registered"),
-    @ApiResponse(code=400,message="Invalid parameters"),
-    @ApiResponse(code=404,message="Customer does not exist")
-  })
+  @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_VALUE})
+  @ResponseStatus(HttpStatus.CREATED)
+  @Operation(description="Register a new address for a customer")
+  @ApiResponse(responseCode="201",description="Address has been successfully registered")
+  @ApiResponse(responseCode="400",description="Invalid parameters")
+  @ApiResponse(responseCode="404",description="Customer does not exist")
   public void registerAddress(@PathVariable("customerId") final String customerId, @RequestBody final Address address) {
     business.registerAddress(customerId, mapstruct.address().fromRest(address));
   }
@@ -95,17 +96,15 @@ public class AddressHATEOASController {
    *
    * @return the phone
    */
-  @RequestMapping(method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("Get address")
-  @ApiResponses(value={
-    @ApiResponse(code=200,message="Address has been successfully retrieved"),
-    @ApiResponse(code=400,message="Invalid UUID"),
-    @ApiResponse(code=404,message="Phone does not exist")
-  })
-  public HttpEntity<AddressResource> get(@PathVariable("customerId") final String customerId) {
+  @GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description="Get address")
+  @ApiResponse(responseCode="200",description="Address has been successfully retrieved")
+  @ApiResponse(responseCode="400",description="Invalid UUID")
+  @ApiResponse(responseCode="404",description="Phone does not exist")
+  public HttpEntity<EntityModel<Address>> get(@PathVariable("customerId") final String customerId) {
     final Address address = mapstruct.address().toRest(business.getAddress(customerId));
     address.setCustomerId(customerId);
-    return new ResponseEntity<>(resAssembler.toResource(address), HttpStatus.OK);
+    return new ResponseEntity<>(resAssembler.toModel(address), HttpStatus.OK);
   }
 
   /**
@@ -115,13 +114,12 @@ public class AddressHATEOASController {
    *
    * @return the address
    */
-  @RequestMapping(method=RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("Delete address")
-  @ApiResponses(value={
-    @ApiResponse(code=200,message="Address has been successfully deleted"),
-    @ApiResponse(code=400,message="Invalid UUID"),
-    @ApiResponse(code=404,message="Phone does not exist")
-  })
+  @DeleteMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @Operation(description="Delete address")
+  @ApiResponse(responseCode="200",description="Address has been successfully deleted")
+  @ApiResponse(responseCode="400",description="Invalid UUID")
+  @ApiResponse(responseCode="404",description="Phone does not exist")
   public void delete(@PathVariable("customerId") final String customerId) {
     business.deleteAddress(customerId);
   }

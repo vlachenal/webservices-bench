@@ -6,9 +6,11 @@
  */
 package com.github.vlachenal.webservice.bench.hateoas;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 
 /**
@@ -20,6 +22,14 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 @EnableHypermediaSupport(type = { HypermediaType.HAL })
 public class HATEOASConfig {
 
-  // Nothing more for now ...
+  /**
+   * Forwarded headers management filter (links will be computed according to caller URL when behind proxy)
+   *
+   * @return the filter
+   */
+  @Bean
+  public ForwardedHeaderFilter forwardedHeaderFilter() {
+    return new ForwardedHeaderFilter();
+  }
 
 }

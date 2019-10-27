@@ -7,7 +7,7 @@
 package com.github.vlachenal.webservice.bench.hateoas.api.resource;
 
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
 
 import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
 
@@ -17,7 +17,7 @@ import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
  *
  * @author Vincent Lachenal
  */
-public class CustomerResource extends Resource<Customer> {
+public class CustomerResource extends EntityModel<Customer> {
 
   /**
    * {@link CustomerResource} constructor

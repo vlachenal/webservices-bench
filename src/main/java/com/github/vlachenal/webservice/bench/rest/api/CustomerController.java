@@ -14,11 +14,13 @@ import javax.validation.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +36,9 @@ import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 import com.github.vlachenal.webservice.bench.rest.api.model.Customer;
 import com.github.vlachenal.webservice.bench.rest.api.model.Mapper;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 /**
@@ -46,8 +47,8 @@ import io.swagger.annotations.ApiResponses;
  * @author Vincent Lachenal
  */
 @RestController
-@RequestMapping(path="/rest/customer")
-@Api("RESTful API to manage customers")
+@RequestMapping(path="/rest/customer/")
+@Tag(name="RESTful - Customer",description = "RESTful API to manage customers")
 public class CustomerController extends AbstractBenchService {
 
   // Attributes +
@@ -147,12 +148,10 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("List all customers stored in database")
-  @ApiResponses(value= {
-    @ApiResponse(code=200,message="Customers have been successfully retrieved"),
-    @ApiResponse(code=400,message="Invalid filter format (date or email)")
-  })
+  @GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description="List all customers stored in database")
+  @ApiResponse(responseCode="200",description="Customers have been successfully retrieved")
+  @ApiResponse(responseCode="400",description="Invalid filter format (date or email)")
   public List<Customer> listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                                       @RequestParam(name="first_name",required=false) final String firstName,
@@ -185,13 +184,11 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return the customer details
    */
-  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiOperation("Retrieve customer details")
-  @ApiResponses(value= {
-    @ApiResponse(code=200,message="Customer has been successfully retrieved"),
-    @ApiResponse(code=400,message="Invalid customer identifier format (should be UUID)"),
-    @ApiResponse(code=404,message="Customer has not been found in database")
-  })
+  @GetMapping(path="/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description = "Retrieve customer details")
+  @ApiResponse(responseCode = "200",description = "Customer has been successfully retrieved")
+  @ApiResponse(responseCode="400",description="Invalid customer identifier format (should be UUID)")
+  @ApiResponse(responseCode="404",description="Customer has not been found in database")
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
@@ -212,13 +209,11 @@ public class CustomerController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE})
+  @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE,produces= {MediaType.TEXT_PLAIN_VALUE,MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiOperation(value="Create new customer",notes="Success will produce " + MediaType.TEXT_PLAIN_VALUE + " ; errors will be produce " + MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ApiResponses(value= {
-    @ApiResponse(code=201,message="Customer has been successfully created"),
-    @ApiResponse(code=400,message="Missing or invalid field")
-  })
+  @Operation(description="Create new customer. Success will produce " + MediaType.TEXT_PLAIN_VALUE + " ; errors will be produce " + MediaType.APPLICATION_JSON_VALUE)
+  @ApiResponse(responseCode="201",description="Customer has been successfully created")
+  @ApiResponse(responseCode="400",description="Missing or invalid field")
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                        @RequestBody final Customer customer) {
@@ -233,8 +228,8 @@ public class CustomerController extends AbstractBenchService {
   /**
    * Delete all customers
    */
-  @RequestMapping(method=RequestMethod.DELETE)
-  @ApiOperation("Delete all customers stored in database")
+  @DeleteMapping
+  @Operation(description="Delete all customers stored in database")
   public void deleteAll() {
     business.deleteAll();
   }

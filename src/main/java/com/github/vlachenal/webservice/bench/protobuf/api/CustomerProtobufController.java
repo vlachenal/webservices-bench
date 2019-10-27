@@ -14,11 +14,13 @@ import javax.validation.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -139,7 +141,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return customers
    */
-  @RequestMapping(method=RequestMethod.GET,produces=ProtobufType.PROTOBUF_UTF8_VALUE)
+  @GetMapping(produces=ProtobufType.PROTOBUF_UTF8_VALUE)
   public ListAllResponse listCustomers(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                                        @RequestParam(name="first_name",required=false) final String firstName,
@@ -179,7 +181,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the customer details
    */
-  @RequestMapping(path="/{id}",method=RequestMethod.GET,produces=ProtobufType.PROTOBUF_UTF8_VALUE)
+  @GetMapping(path="/{id}",produces=ProtobufType.PROTOBUF_UTF8_VALUE)
   public Customer get(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                       @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
                       @PathVariable("id") final String id) {
@@ -202,7 +204,7 @@ public class CustomerProtobufController extends AbstractBenchService {
    *
    * @return the new customer's identifier
    */
-  @RequestMapping(method=RequestMethod.POST,consumes={ProtobufType.PROTOBUF_UTF8_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
+  @PostMapping(consumes={ProtobufType.PROTOBUF_UTF8_VALUE},produces=MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public String create(@RequestHeader(name="request_seq",required=false,defaultValue="-1") final int requestSeq,
                        @RequestHeader(name="mapper",required=false,defaultValue="MANUAL") final Mapper mapper,
@@ -220,7 +222,8 @@ public class CustomerProtobufController extends AbstractBenchService {
   /**
    * Delete all customers
    */
-  @RequestMapping(method=RequestMethod.DELETE)
+  @DeleteMapping
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteAll() {
     business.deleteAll();
   }

@@ -9,8 +9,7 @@ package com.github.vlachenal.webservice.bench.rest.api.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 /**
@@ -18,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author Vincent Lachenal
  */
-@ApiModel(description="Customer's phone")
+@Schema(description="Customer's phone")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Phone {
 
@@ -34,15 +33,15 @@ public class Phone {
 
   // Attributes +
   /** Customer identifier */
-  @ApiModelProperty(notes="Phone's UUID",example="4064dddd-19b2-435d-97bd-6851ff728821")
+  @Schema(description="Phone's UUID",example="4064dddd-19b2-435d-97bd-6851ff728821")
   private String id;
 
   /** Phone type */
-  @ApiModelProperty(notes="Phone type (LANDLINE or MOBILE)",required=true,example="LANDLINE")
+  @Schema(description="Phone type (LANDLINE or MOBILE)",required=true,example="LANDLINE")
   private Type type;
 
   /** Phone number */
-  @ApiModelProperty(notes="Phone number",required=true,example="+33636656565")
+  @Schema(description="Phone number",required=true,example="+33636656565")
   private String number;
 
   /** Customer's identifier: used for HATEOAS only */

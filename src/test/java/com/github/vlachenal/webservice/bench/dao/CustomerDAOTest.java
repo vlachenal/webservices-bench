@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -280,6 +282,25 @@ public class CustomerDAOTest {
     assertNotNull(createCustomer(), "Customer identifier is null");
     final SearchRequestDTO req = new SearchRequestDTO();
     req.setBornAfter(Date.from(LocalDate.parse("1939-03-10", dateFormat).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    final List<CustomerDTO> customers = dao.search(req);
+    customers.forEach(customer -> {
+      LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
+    });
+    final Optional<CustomerDTO> chuck = customers.stream()
+        .filter(customer -> customer.getId().equals(customerId)).findFirst();
+    assertTrue(chuck.isPresent(), "New customer has not been found in database");
+  }
+
+  /**
+   * Test method for {@link com.github.vlachenal.webservice.bench.dao.CustomerDAO#search()}.
+   */
+  @DisplayName("Search customer by ids")
+  @Test
+  public void testSearchIds() {
+    final String uid = createCustomer();
+    assertNotNull(uid, "Customer identifier is null");
+    final SearchRequestDTO req = new SearchRequestDTO();
+    req.setIds(Stream.of(uid).collect(Collectors.toList()));
     final List<CustomerDTO> customers = dao.search(req);
     customers.forEach(customer -> {
       LOG.info("Found customer {}: {} {} in database", customer.getId(), customer.getFirstName(), customer.getLastName());
