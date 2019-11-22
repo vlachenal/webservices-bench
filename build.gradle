@@ -1,8 +1,8 @@
 plugins {
   id "org.springframework.boot" version "2.2.1.RELEASE"
   id 'java'
-  id 'com.intershop.gradle.jaxb' version '4.0.0' // run with JDK8 ...
-  id "net.ltgt.apt" version "0.15"
+  //id 'com.intershop.gradle.jaxb' version '4.0.0' // run with JDK8 ...
+  id "net.ltgt.apt" version "0.21"
   //id "com.google.protobuf" version "0.8.5" apply false
   id 'jacoco'
 }
@@ -77,16 +77,16 @@ sourceSets {
   }
 }
 
-jaxb {
-  javaGen {
-    posConfig {
-      packageName = 'com.github.vlachenal.webservice.bench.soap.api'
-      schemas = fileTree(dir: 'src/main/resources', include: '**/*.xsd')
-      outputDir = file("${projectDir}/src/soap.generated/java")
-      encoding = 'UTF-8'
-    }
-  }
-}
+//jaxb {
+//  javaGen {
+//    posConfig {
+//      packageName = 'com.github.vlachenal.webservice.bench.soap.api'
+//      schemas = fileTree(dir: 'src/main/resources', include: '**/*.xsd')
+//      outputDir = file("${projectDir}/src/soap.generated/java")
+//      encoding = 'UTF-8'
+//    }
+//  }
+//}
 
 /*protobuf {
   generatedFilesBaseDir = "$projectDir/src/protobuf.generated"
