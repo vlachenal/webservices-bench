@@ -1,8 +1,8 @@
 //
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7-b41 
+// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2018.09.19 à 12:42:37 PM CEST 
+// Généré le : 2019.11.22 à 07:11:29 PM CET 
 //
 
 
@@ -13,6 +13,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -22,27 +23,27 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="test-suite">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="nb-thread" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="cpu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="memory" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="jvm" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="vendor" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="os-family" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="os-version" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="protocol" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="calls" type="{http://github.com/vlachenal/webservices-bench}client-call" maxOccurs="unbounded"/>
- *         &lt;element name="mapper" type="{http://github.com/vlachenal/webservices-bench}mapper" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="test-suite"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="nb-thread" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="cpu" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="memory" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="jvm" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="vendor" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="os-family" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="os-version" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="protocol" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="calls" type="{http://github.com/vlachenal/webservices-bench}client-call" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="mapper" type="{http://github.com/vlachenal/webservices-bench}mapper" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -87,6 +88,7 @@ public class TestSuite {
     protected String comment;
     @XmlElement(required = true)
     protected List<ClientCall> calls;
+    @XmlSchemaType(name = "string")
     protected Mapper mapper;
 
     /**

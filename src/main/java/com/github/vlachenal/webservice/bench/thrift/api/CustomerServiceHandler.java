@@ -18,9 +18,11 @@ import com.github.vlachenal.webservice.bench.business.CustomerBusiness;
 import com.github.vlachenal.webservice.bench.cache.StatisticsCache;
 import com.github.vlachenal.webservice.bench.dto.CallDTO;
 import com.github.vlachenal.webservice.bench.dto.CustomerDTO;
+import com.github.vlachenal.webservice.bench.dto.SearchRequestDTO;
 import com.github.vlachenal.webservice.bench.errors.InvalidParametersException;
 import com.github.vlachenal.webservice.bench.errors.NotFoundException;
 import com.github.vlachenal.webservice.bench.mapping.manual.CustomerBridge;
+import com.github.vlachenal.webservice.bench.mapping.manual.SearchRequestBridge;
 import com.github.vlachenal.webservice.bench.mapping.mapstruct.MapStructMappers;
 
 
@@ -148,6 +150,29 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
   }
 
   /**
+   * Convert Thrift customer to DTO according to mapper
+   *
+   * @param customer the Thrift customer
+   * @param mapper the mapper
+   *
+   * @return the customer DTO
+   */
+  private SearchRequestDTO fromThrift(final ListAllRequest customer, final Mapper mapper) {
+    SearchRequestDTO dto = null;
+    switch(mapper) {
+      case DOZER:
+        dto = dozer.map(customer, SearchRequestDTO.class);
+        break;
+      case MAPSTRUCT:
+        dto = mapstruct.search().fromThrift(customer);
+        break;
+      default:
+        dto = SearchRequestBridge.fromThrift(customer);
+    }
+    return dto;
+  }
+
+  /**
    * {@inheritDoc}
    *
    * @see com.github.vlachenal.webservice.bench.thrift.api.CustomerService.Iface#listCustomers(com.github.vlachenal.webservice.bench.thrift.api.ListAllRequest)
@@ -157,7 +182,7 @@ public class CustomerServiceHandler extends AbstractBenchService implements Cust
     checkRequest(request);
     final Header header = getHeader(request.getHeader());
     final CallDTO call = initializeCall(header.getRequestSeq(), "list");
-    final List<Customer> customers = map(business.search(mapstruct.search().fromThrift(request)), header.getMapper(), this::toThrift);
+    final List<Customer> customers = map(business.search(fromThrift(request, header.getMapper())), header.getMapper(), this::toThrift);
     registerCall(call);
     return customers;
   }

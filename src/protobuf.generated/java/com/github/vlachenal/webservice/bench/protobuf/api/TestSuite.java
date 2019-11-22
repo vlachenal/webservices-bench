@@ -31,6 +31,13 @@ private static final long serialVersionUID = 0L;
   }
 
   @java.lang.Override
+  @SuppressWarnings({"unused"})
+  protected java.lang.Object newInstance(
+      UnusedPrivateParameter unused) {
+    return new TestSuite();
+  }
+
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -120,9 +127,9 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 98: {
-            if (!((mutable_bitField0_ & 0x00000800) != 0)) {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               calls_ = new java.util.ArrayList<com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall>();
-              mutable_bitField0_ |= 0x00000800;
+              mutable_bitField0_ |= 0x00000001;
             }
             calls_.add(
                 input.readMessage(com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.parser(), extensionRegistry));
@@ -149,7 +156,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000800) != 0)) {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
         calls_ = java.util.Collections.unmodifiableList(calls_);
       }
       this.unknownFields = unknownFields.build();
@@ -179,6 +186,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int32 requestSeq = 1;</code>
+     * @return The requestSeq.
      */
     int getRequestSeq();
 
@@ -188,6 +196,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 2;</code>
+     * @return The protocol.
      */
     java.lang.String getProtocol();
     /**
@@ -196,6 +205,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 2;</code>
+     * @return The bytes for protocol.
      */
     com.google.protobuf.ByteString
         getProtocolBytes();
@@ -206,6 +216,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string method = 3;</code>
+     * @return The method.
      */
     java.lang.String getMethod();
     /**
@@ -214,6 +225,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string method = 3;</code>
+     * @return The bytes for method.
      */
     com.google.protobuf.ByteString
         getMethodBytes();
@@ -224,6 +236,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 clientStart = 4;</code>
+     * @return The clientStart.
      */
     long getClientStart();
 
@@ -233,6 +246,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 clientEnd = 5;</code>
+     * @return The clientEnd.
      */
     long getClientEnd();
 
@@ -242,6 +256,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>bool ok = 6;</code>
+     * @return The ok.
      */
     boolean getOk();
 
@@ -251,6 +266,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string errMsg = 7;</code>
+     * @return The errMsg.
      */
     java.lang.String getErrMsg();
     /**
@@ -259,6 +275,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string errMsg = 7;</code>
+     * @return The bytes for errMsg.
      */
     com.google.protobuf.ByteString
         getErrMsgBytes();
@@ -282,6 +299,13 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ClientCall();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -294,7 +318,6 @@ private static final long serialVersionUID = 0L;
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -383,6 +406,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int32 requestSeq = 1;</code>
+     * @return The requestSeq.
      */
     public int getRequestSeq() {
       return requestSeq_;
@@ -396,6 +420,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 2;</code>
+     * @return The protocol.
      */
     public java.lang.String getProtocol() {
       java.lang.Object ref = protocol_;
@@ -415,6 +440,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 2;</code>
+     * @return The bytes for protocol.
      */
     public com.google.protobuf.ByteString
         getProtocolBytes() {
@@ -438,6 +464,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string method = 3;</code>
+     * @return The method.
      */
     public java.lang.String getMethod() {
       java.lang.Object ref = method_;
@@ -457,6 +484,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string method = 3;</code>
+     * @return The bytes for method.
      */
     public com.google.protobuf.ByteString
         getMethodBytes() {
@@ -480,6 +508,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 clientStart = 4;</code>
+     * @return The clientStart.
      */
     public long getClientStart() {
       return clientStart_;
@@ -493,6 +522,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 clientEnd = 5;</code>
+     * @return The clientEnd.
      */
     public long getClientEnd() {
       return clientEnd_;
@@ -506,6 +536,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>bool ok = 6;</code>
+     * @return The ok.
      */
     public boolean getOk() {
       return ok_;
@@ -519,6 +550,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string errMsg = 7;</code>
+     * @return The errMsg.
      */
     public java.lang.String getErrMsg() {
       java.lang.Object ref = errMsg_;
@@ -538,6 +570,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string errMsg = 7;</code>
+     * @return The bytes for errMsg.
      */
     public com.google.protobuf.ByteString
         getErrMsgBytes() {
@@ -967,6 +1000,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int32 requestSeq = 1;</code>
+       * @return The requestSeq.
        */
       public int getRequestSeq() {
         return requestSeq_;
@@ -977,6 +1011,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int32 requestSeq = 1;</code>
+       * @param value The requestSeq to set.
+       * @return This builder for chaining.
        */
       public Builder setRequestSeq(int value) {
         
@@ -990,6 +1026,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int32 requestSeq = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRequestSeq() {
         
@@ -1005,6 +1042,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string protocol = 2;</code>
+       * @return The protocol.
        */
       public java.lang.String getProtocol() {
         java.lang.Object ref = protocol_;
@@ -1024,6 +1062,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string protocol = 2;</code>
+       * @return The bytes for protocol.
        */
       public com.google.protobuf.ByteString
           getProtocolBytes() {
@@ -1044,6 +1083,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string protocol = 2;</code>
+       * @param value The protocol to set.
+       * @return This builder for chaining.
        */
       public Builder setProtocol(
           java.lang.String value) {
@@ -1061,6 +1102,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string protocol = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearProtocol() {
         
@@ -1074,6 +1116,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string protocol = 2;</code>
+       * @param value The bytes for protocol to set.
+       * @return This builder for chaining.
        */
       public Builder setProtocolBytes(
           com.google.protobuf.ByteString value) {
@@ -1094,6 +1138,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string method = 3;</code>
+       * @return The method.
        */
       public java.lang.String getMethod() {
         java.lang.Object ref = method_;
@@ -1113,6 +1158,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string method = 3;</code>
+       * @return The bytes for method.
        */
       public com.google.protobuf.ByteString
           getMethodBytes() {
@@ -1133,6 +1179,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string method = 3;</code>
+       * @param value The method to set.
+       * @return This builder for chaining.
        */
       public Builder setMethod(
           java.lang.String value) {
@@ -1150,6 +1198,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string method = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMethod() {
         
@@ -1163,6 +1212,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string method = 3;</code>
+       * @param value The bytes for method to set.
+       * @return This builder for chaining.
        */
       public Builder setMethodBytes(
           com.google.protobuf.ByteString value) {
@@ -1183,6 +1234,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientStart = 4;</code>
+       * @return The clientStart.
        */
       public long getClientStart() {
         return clientStart_;
@@ -1193,6 +1245,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientStart = 4;</code>
+       * @param value The clientStart to set.
+       * @return This builder for chaining.
        */
       public Builder setClientStart(long value) {
         
@@ -1206,6 +1260,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientStart = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClientStart() {
         
@@ -1221,6 +1276,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientEnd = 5;</code>
+       * @return The clientEnd.
        */
       public long getClientEnd() {
         return clientEnd_;
@@ -1231,6 +1287,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientEnd = 5;</code>
+       * @param value The clientEnd to set.
+       * @return This builder for chaining.
        */
       public Builder setClientEnd(long value) {
         
@@ -1244,6 +1302,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>int64 clientEnd = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClientEnd() {
         
@@ -1259,6 +1318,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>bool ok = 6;</code>
+       * @return The ok.
        */
       public boolean getOk() {
         return ok_;
@@ -1269,6 +1329,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>bool ok = 6;</code>
+       * @param value The ok to set.
+       * @return This builder for chaining.
        */
       public Builder setOk(boolean value) {
         
@@ -1282,6 +1344,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>bool ok = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOk() {
         
@@ -1297,6 +1360,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string errMsg = 7;</code>
+       * @return The errMsg.
        */
       public java.lang.String getErrMsg() {
         java.lang.Object ref = errMsg_;
@@ -1316,6 +1380,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string errMsg = 7;</code>
+       * @return The bytes for errMsg.
        */
       public com.google.protobuf.ByteString
           getErrMsgBytes() {
@@ -1336,6 +1401,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string errMsg = 7;</code>
+       * @param value The errMsg to set.
+       * @return This builder for chaining.
        */
       public Builder setErrMsg(
           java.lang.String value) {
@@ -1353,6 +1420,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string errMsg = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearErrMsg() {
         
@@ -1366,6 +1434,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string errMsg = 7;</code>
+       * @param value The bytes for errMsg to set.
+       * @return This builder for chaining.
        */
       public Builder setErrMsgBytes(
           com.google.protobuf.ByteString value) {
@@ -1431,7 +1501,6 @@ private static final long serialVersionUID = 0L;
 
   }
 
-  private int bitField0_;
   public static final int ID_FIELD_NUMBER = 1;
   private volatile java.lang.Object id_;
   /**
@@ -1440,6 +1509,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The id.
    */
   public java.lang.String getId() {
     java.lang.Object ref = id_;
@@ -1459,6 +1529,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The bytes for id.
    */
   public com.google.protobuf.ByteString
       getIdBytes() {
@@ -1482,6 +1553,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>int32 nbThread = 2;</code>
+   * @return The nbThread.
    */
   public int getNbThread() {
     return nbThread_;
@@ -1495,6 +1567,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string compression = 3;</code>
+   * @return The compression.
    */
   public java.lang.String getCompression() {
     java.lang.Object ref = compression_;
@@ -1514,6 +1587,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string compression = 3;</code>
+   * @return The bytes for compression.
    */
   public com.google.protobuf.ByteString
       getCompressionBytes() {
@@ -1537,6 +1611,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string cpu = 4;</code>
+   * @return The cpu.
    */
   public java.lang.String getCpu() {
     java.lang.Object ref = cpu_;
@@ -1556,6 +1631,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string cpu = 4;</code>
+   * @return The bytes for cpu.
    */
   public com.google.protobuf.ByteString
       getCpuBytes() {
@@ -1579,6 +1655,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string memory = 5;</code>
+   * @return The memory.
    */
   public java.lang.String getMemory() {
     java.lang.Object ref = memory_;
@@ -1598,6 +1675,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string memory = 5;</code>
+   * @return The bytes for memory.
    */
   public com.google.protobuf.ByteString
       getMemoryBytes() {
@@ -1621,6 +1699,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string jvm = 6;</code>
+   * @return The jvm.
    */
   public java.lang.String getJvm() {
     java.lang.Object ref = jvm_;
@@ -1640,6 +1719,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string jvm = 6;</code>
+   * @return The bytes for jvm.
    */
   public com.google.protobuf.ByteString
       getJvmBytes() {
@@ -1663,6 +1743,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string vendor = 7;</code>
+   * @return The vendor.
    */
   public java.lang.String getVendor() {
     java.lang.Object ref = vendor_;
@@ -1682,6 +1763,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string vendor = 7;</code>
+   * @return The bytes for vendor.
    */
   public com.google.protobuf.ByteString
       getVendorBytes() {
@@ -1705,6 +1787,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string osFamily = 8;</code>
+   * @return The osFamily.
    */
   public java.lang.String getOsFamily() {
     java.lang.Object ref = osFamily_;
@@ -1724,6 +1807,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string osFamily = 8;</code>
+   * @return The bytes for osFamily.
    */
   public com.google.protobuf.ByteString
       getOsFamilyBytes() {
@@ -1747,6 +1831,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string osVersion = 9;</code>
+   * @return The osVersion.
    */
   public java.lang.String getOsVersion() {
     java.lang.Object ref = osVersion_;
@@ -1766,6 +1851,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string osVersion = 9;</code>
+   * @return The bytes for osVersion.
    */
   public com.google.protobuf.ByteString
       getOsVersionBytes() {
@@ -1789,6 +1875,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string protocol = 10;</code>
+   * @return The protocol.
    */
   public java.lang.String getProtocol() {
     java.lang.Object ref = protocol_;
@@ -1808,6 +1895,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string protocol = 10;</code>
+   * @return The bytes for protocol.
    */
   public com.google.protobuf.ByteString
       getProtocolBytes() {
@@ -1831,6 +1919,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string comment = 11;</code>
+   * @return The comment.
    */
   public java.lang.String getComment() {
     java.lang.Object ref = comment_;
@@ -1850,6 +1939,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string comment = 11;</code>
+   * @return The bytes for comment.
    */
   public com.google.protobuf.ByteString
       getCommentBytes() {
@@ -1928,6 +2018,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>.webservicebench.Mapper mapper = 13;</code>
+   * @return The enum numeric value on the wire for mapper.
    */
   public int getMapperValue() {
     return mapper_;
@@ -1938,6 +2029,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>.webservicebench.Mapper mapper = 13;</code>
+   * @return The mapper.
    */
   public com.github.vlachenal.webservice.bench.protobuf.api.Mapper getMapper() {
     @SuppressWarnings("deprecation")
@@ -2286,7 +2378,7 @@ private static final long serialVersionUID = 0L;
 
       if (callsBuilder_ == null) {
         calls_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
         callsBuilder_.clear();
       }
@@ -2319,7 +2411,6 @@ private static final long serialVersionUID = 0L;
     public com.github.vlachenal.webservice.bench.protobuf.api.TestSuite buildPartial() {
       com.github.vlachenal.webservice.bench.protobuf.api.TestSuite result = new com.github.vlachenal.webservice.bench.protobuf.api.TestSuite(this);
       int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       result.id_ = id_;
       result.nbThread_ = nbThread_;
       result.compression_ = compression_;
@@ -2332,16 +2423,15 @@ private static final long serialVersionUID = 0L;
       result.protocol_ = protocol_;
       result.comment_ = comment_;
       if (callsBuilder_ == null) {
-        if (((bitField0_ & 0x00000800) != 0)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           calls_ = java.util.Collections.unmodifiableList(calls_);
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.calls_ = calls_;
       } else {
         result.calls_ = callsBuilder_.build();
       }
       result.mapper_ = mapper_;
-      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -2437,7 +2527,7 @@ private static final long serialVersionUID = 0L;
         if (!other.calls_.isEmpty()) {
           if (calls_.isEmpty()) {
             calls_ = other.calls_;
-            bitField0_ = (bitField0_ & ~0x00000800);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureCallsIsMutable();
             calls_.addAll(other.calls_);
@@ -2450,7 +2540,7 @@ private static final long serialVersionUID = 0L;
             callsBuilder_.dispose();
             callsBuilder_ = null;
             calls_ = other.calls_;
-            bitField0_ = (bitField0_ & ~0x00000800);
+            bitField0_ = (bitField0_ & ~0x00000001);
             callsBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getCallsFieldBuilder() : null;
@@ -2499,6 +2589,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
     public java.lang.String getId() {
       java.lang.Object ref = id_;
@@ -2518,6 +2609,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
@@ -2538,6 +2630,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
      */
     public Builder setId(
         java.lang.String value) {
@@ -2555,6 +2649,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return This builder for chaining.
      */
     public Builder clearId() {
       
@@ -2568,6 +2663,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @param value The bytes for id to set.
+     * @return This builder for chaining.
      */
     public Builder setIdBytes(
         com.google.protobuf.ByteString value) {
@@ -2588,6 +2685,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int32 nbThread = 2;</code>
+     * @return The nbThread.
      */
     public int getNbThread() {
       return nbThread_;
@@ -2598,6 +2696,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int32 nbThread = 2;</code>
+     * @param value The nbThread to set.
+     * @return This builder for chaining.
      */
     public Builder setNbThread(int value) {
       
@@ -2611,6 +2711,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int32 nbThread = 2;</code>
+     * @return This builder for chaining.
      */
     public Builder clearNbThread() {
       
@@ -2626,6 +2727,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string compression = 3;</code>
+     * @return The compression.
      */
     public java.lang.String getCompression() {
       java.lang.Object ref = compression_;
@@ -2645,6 +2747,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string compression = 3;</code>
+     * @return The bytes for compression.
      */
     public com.google.protobuf.ByteString
         getCompressionBytes() {
@@ -2665,6 +2768,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string compression = 3;</code>
+     * @param value The compression to set.
+     * @return This builder for chaining.
      */
     public Builder setCompression(
         java.lang.String value) {
@@ -2682,6 +2787,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string compression = 3;</code>
+     * @return This builder for chaining.
      */
     public Builder clearCompression() {
       
@@ -2695,6 +2801,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string compression = 3;</code>
+     * @param value The bytes for compression to set.
+     * @return This builder for chaining.
      */
     public Builder setCompressionBytes(
         com.google.protobuf.ByteString value) {
@@ -2715,6 +2823,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string cpu = 4;</code>
+     * @return The cpu.
      */
     public java.lang.String getCpu() {
       java.lang.Object ref = cpu_;
@@ -2734,6 +2843,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string cpu = 4;</code>
+     * @return The bytes for cpu.
      */
     public com.google.protobuf.ByteString
         getCpuBytes() {
@@ -2754,6 +2864,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string cpu = 4;</code>
+     * @param value The cpu to set.
+     * @return This builder for chaining.
      */
     public Builder setCpu(
         java.lang.String value) {
@@ -2771,6 +2883,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string cpu = 4;</code>
+     * @return This builder for chaining.
      */
     public Builder clearCpu() {
       
@@ -2784,6 +2897,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string cpu = 4;</code>
+     * @param value The bytes for cpu to set.
+     * @return This builder for chaining.
      */
     public Builder setCpuBytes(
         com.google.protobuf.ByteString value) {
@@ -2804,6 +2919,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string memory = 5;</code>
+     * @return The memory.
      */
     public java.lang.String getMemory() {
       java.lang.Object ref = memory_;
@@ -2823,6 +2939,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string memory = 5;</code>
+     * @return The bytes for memory.
      */
     public com.google.protobuf.ByteString
         getMemoryBytes() {
@@ -2843,6 +2960,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string memory = 5;</code>
+     * @param value The memory to set.
+     * @return This builder for chaining.
      */
     public Builder setMemory(
         java.lang.String value) {
@@ -2860,6 +2979,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string memory = 5;</code>
+     * @return This builder for chaining.
      */
     public Builder clearMemory() {
       
@@ -2873,6 +2993,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string memory = 5;</code>
+     * @param value The bytes for memory to set.
+     * @return This builder for chaining.
      */
     public Builder setMemoryBytes(
         com.google.protobuf.ByteString value) {
@@ -2893,6 +3015,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string jvm = 6;</code>
+     * @return The jvm.
      */
     public java.lang.String getJvm() {
       java.lang.Object ref = jvm_;
@@ -2912,6 +3035,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string jvm = 6;</code>
+     * @return The bytes for jvm.
      */
     public com.google.protobuf.ByteString
         getJvmBytes() {
@@ -2932,6 +3056,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string jvm = 6;</code>
+     * @param value The jvm to set.
+     * @return This builder for chaining.
      */
     public Builder setJvm(
         java.lang.String value) {
@@ -2949,6 +3075,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string jvm = 6;</code>
+     * @return This builder for chaining.
      */
     public Builder clearJvm() {
       
@@ -2962,6 +3089,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string jvm = 6;</code>
+     * @param value The bytes for jvm to set.
+     * @return This builder for chaining.
      */
     public Builder setJvmBytes(
         com.google.protobuf.ByteString value) {
@@ -2982,6 +3111,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string vendor = 7;</code>
+     * @return The vendor.
      */
     public java.lang.String getVendor() {
       java.lang.Object ref = vendor_;
@@ -3001,6 +3131,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string vendor = 7;</code>
+     * @return The bytes for vendor.
      */
     public com.google.protobuf.ByteString
         getVendorBytes() {
@@ -3021,6 +3152,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string vendor = 7;</code>
+     * @param value The vendor to set.
+     * @return This builder for chaining.
      */
     public Builder setVendor(
         java.lang.String value) {
@@ -3038,6 +3171,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string vendor = 7;</code>
+     * @return This builder for chaining.
      */
     public Builder clearVendor() {
       
@@ -3051,6 +3185,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string vendor = 7;</code>
+     * @param value The bytes for vendor to set.
+     * @return This builder for chaining.
      */
     public Builder setVendorBytes(
         com.google.protobuf.ByteString value) {
@@ -3071,6 +3207,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osFamily = 8;</code>
+     * @return The osFamily.
      */
     public java.lang.String getOsFamily() {
       java.lang.Object ref = osFamily_;
@@ -3090,6 +3227,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osFamily = 8;</code>
+     * @return The bytes for osFamily.
      */
     public com.google.protobuf.ByteString
         getOsFamilyBytes() {
@@ -3110,6 +3248,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osFamily = 8;</code>
+     * @param value The osFamily to set.
+     * @return This builder for chaining.
      */
     public Builder setOsFamily(
         java.lang.String value) {
@@ -3127,6 +3267,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osFamily = 8;</code>
+     * @return This builder for chaining.
      */
     public Builder clearOsFamily() {
       
@@ -3140,6 +3281,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osFamily = 8;</code>
+     * @param value The bytes for osFamily to set.
+     * @return This builder for chaining.
      */
     public Builder setOsFamilyBytes(
         com.google.protobuf.ByteString value) {
@@ -3160,6 +3303,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osVersion = 9;</code>
+     * @return The osVersion.
      */
     public java.lang.String getOsVersion() {
       java.lang.Object ref = osVersion_;
@@ -3179,6 +3323,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osVersion = 9;</code>
+     * @return The bytes for osVersion.
      */
     public com.google.protobuf.ByteString
         getOsVersionBytes() {
@@ -3199,6 +3344,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osVersion = 9;</code>
+     * @param value The osVersion to set.
+     * @return This builder for chaining.
      */
     public Builder setOsVersion(
         java.lang.String value) {
@@ -3216,6 +3363,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osVersion = 9;</code>
+     * @return This builder for chaining.
      */
     public Builder clearOsVersion() {
       
@@ -3229,6 +3377,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string osVersion = 9;</code>
+     * @param value The bytes for osVersion to set.
+     * @return This builder for chaining.
      */
     public Builder setOsVersionBytes(
         com.google.protobuf.ByteString value) {
@@ -3249,6 +3399,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 10;</code>
+     * @return The protocol.
      */
     public java.lang.String getProtocol() {
       java.lang.Object ref = protocol_;
@@ -3268,6 +3419,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 10;</code>
+     * @return The bytes for protocol.
      */
     public com.google.protobuf.ByteString
         getProtocolBytes() {
@@ -3288,6 +3440,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 10;</code>
+     * @param value The protocol to set.
+     * @return This builder for chaining.
      */
     public Builder setProtocol(
         java.lang.String value) {
@@ -3305,6 +3459,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 10;</code>
+     * @return This builder for chaining.
      */
     public Builder clearProtocol() {
       
@@ -3318,6 +3473,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string protocol = 10;</code>
+     * @param value The bytes for protocol to set.
+     * @return This builder for chaining.
      */
     public Builder setProtocolBytes(
         com.google.protobuf.ByteString value) {
@@ -3338,6 +3495,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string comment = 11;</code>
+     * @return The comment.
      */
     public java.lang.String getComment() {
       java.lang.Object ref = comment_;
@@ -3357,6 +3515,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string comment = 11;</code>
+     * @return The bytes for comment.
      */
     public com.google.protobuf.ByteString
         getCommentBytes() {
@@ -3377,6 +3536,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string comment = 11;</code>
+     * @param value The comment to set.
+     * @return This builder for chaining.
      */
     public Builder setComment(
         java.lang.String value) {
@@ -3394,6 +3555,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string comment = 11;</code>
+     * @return This builder for chaining.
      */
     public Builder clearComment() {
       
@@ -3407,6 +3569,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string comment = 11;</code>
+     * @param value The bytes for comment to set.
+     * @return This builder for chaining.
      */
     public Builder setCommentBytes(
         com.google.protobuf.ByteString value) {
@@ -3423,9 +3587,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall> calls_ =
       java.util.Collections.emptyList();
     private void ensureCallsIsMutable() {
-      if (!((bitField0_ & 0x00000800) != 0)) {
+      if (!((bitField0_ & 0x00000001) != 0)) {
         calls_ = new java.util.ArrayList<com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall>(calls_);
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00000001;
        }
     }
 
@@ -3619,7 +3783,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearCalls() {
       if (callsBuilder_ == null) {
         calls_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
         callsBuilder_.clear();
@@ -3724,7 +3888,7 @@ private static final long serialVersionUID = 0L;
         callsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCall.Builder, com.github.vlachenal.webservice.bench.protobuf.api.TestSuite.ClientCallOrBuilder>(
                 calls_,
-                ((bitField0_ & 0x00000800) != 0),
+                ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
         calls_ = null;
@@ -3739,6 +3903,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Mapper mapper = 13;</code>
+     * @return The enum numeric value on the wire for mapper.
      */
     public int getMapperValue() {
       return mapper_;
@@ -3749,6 +3914,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Mapper mapper = 13;</code>
+     * @param value The enum numeric value on the wire for mapper to set.
+     * @return This builder for chaining.
      */
     public Builder setMapperValue(int value) {
       mapper_ = value;
@@ -3761,6 +3928,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Mapper mapper = 13;</code>
+     * @return The mapper.
      */
     public com.github.vlachenal.webservice.bench.protobuf.api.Mapper getMapper() {
       @SuppressWarnings("deprecation")
@@ -3773,6 +3941,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Mapper mapper = 13;</code>
+     * @param value The mapper to set.
+     * @return This builder for chaining.
      */
     public Builder setMapper(com.github.vlachenal.webservice.bench.protobuf.api.Mapper value) {
       if (value == null) {
@@ -3789,6 +3959,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Mapper mapper = 13;</code>
+     * @return This builder for chaining.
      */
     public Builder clearMapper() {
       

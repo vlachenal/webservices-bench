@@ -1,8 +1,8 @@
 //
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7-b41 
+// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2018.09.19 à 12:42:37 PM CEST 
+// Généré le : 2019.11.22 à 07:11:29 PM CET 
 //
 
 
@@ -37,27 +37,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ConsolidateRequest }
+     * Create an instance of {@link ListCustomersRequest }
      * 
      */
-    public ConsolidateRequest createConsolidateRequest() {
-        return new ConsolidateRequest();
+    public ListCustomersRequest createListCustomersRequest() {
+        return new ListCustomersRequest();
     }
 
     /**
-     * Create an instance of {@link TestSuite }
+     * Create an instance of {@link ListCustomersResponse }
      * 
      */
-    public TestSuite createTestSuite() {
-        return new TestSuite();
-    }
-
-    /**
-     * Create an instance of {@link CreateRequest }
-     * 
-     */
-    public CreateRequest createCreateRequest() {
-        return new CreateRequest();
+    public ListCustomersResponse createListCustomersResponse() {
+        return new ListCustomersResponse();
     }
 
     /**
@@ -66,6 +58,30 @@ public class ObjectFactory {
      */
     public Customer createCustomer() {
         return new Customer();
+    }
+
+    /**
+     * Create an instance of {@link GetDetailsRequest }
+     * 
+     */
+    public GetDetailsRequest createGetDetailsRequest() {
+        return new GetDetailsRequest();
+    }
+
+    /**
+     * Create an instance of {@link GetDetailsResponse }
+     * 
+     */
+    public GetDetailsResponse createGetDetailsResponse() {
+        return new GetDetailsResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateRequest }
+     * 
+     */
+    public CreateRequest createCreateRequest() {
+        return new CreateRequest();
     }
 
     /**
@@ -85,35 +101,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDetailsResponse }
+     * Create an instance of {@link DeleteAllResponse }
      * 
      */
-    public GetDetailsResponse createGetDetailsResponse() {
-        return new GetDetailsResponse();
-    }
-
-    /**
-     * Create an instance of {@link PurgeResponse }
-     * 
-     */
-    public PurgeResponse createPurgeResponse() {
-        return new PurgeResponse();
-    }
-
-    /**
-     * Create an instance of {@link ConsolidateResponse }
-     * 
-     */
-    public ConsolidateResponse createConsolidateResponse() {
-        return new ConsolidateResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListCustomersResponse }
-     * 
-     */
-    public ListCustomersResponse createListCustomersResponse() {
-        return new ListCustomersResponse();
+    public DeleteAllResponse createDeleteAllResponse() {
+        return new DeleteAllResponse();
     }
 
     /**
@@ -125,22 +117,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDetailsRequest }
-     * 
-     */
-    public GetDetailsRequest createGetDetailsRequest() {
-        return new GetDetailsRequest();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAllResponse }
-     * 
-     */
-    public DeleteAllResponse createDeleteAllResponse() {
-        return new DeleteAllResponse();
-    }
-
-    /**
      * Create an instance of {@link PurgeRequest }
      * 
      */
@@ -149,11 +125,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ListCustomersRequest }
+     * Create an instance of {@link PurgeResponse }
      * 
      */
-    public ListCustomersRequest createListCustomersRequest() {
-        return new ListCustomersRequest();
+    public PurgeResponse createPurgeResponse() {
+        return new PurgeResponse();
+    }
+
+    /**
+     * Create an instance of {@link ConsolidateRequest }
+     * 
+     */
+    public ConsolidateRequest createConsolidateRequest() {
+        return new ConsolidateRequest();
+    }
+
+    /**
+     * Create an instance of {@link TestSuite }
+     * 
+     */
+    public TestSuite createTestSuite() {
+        return new TestSuite();
+    }
+
+    /**
+     * Create an instance of {@link ConsolidateResponse }
+     * 
+     */
+    public ConsolidateResponse createConsolidateResponse() {
+        return new ConsolidateResponse();
     }
 
     /**

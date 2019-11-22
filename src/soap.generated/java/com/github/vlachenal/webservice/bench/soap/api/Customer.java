@@ -1,8 +1,8 @@
 //
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7-b41 
+// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2018.09.19 à 12:42:37 PM CEST 
+// Généré le : 2019.11.22 à 07:11:29 PM CET 
 //
 
 
@@ -24,21 +24,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="customer">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="first-name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="last-name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="birth-date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="address" type="{http://github.com/vlachenal/webservices-bench}address" minOccurs="0"/>
- *         &lt;element name="phones" type="{http://github.com/vlachenal/webservices-bench}phone" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="customer"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="first-name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="last-name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="birth-date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="address" type="{http://github.com/vlachenal/webservices-bench}address" minOccurs="0"/&gt;
+ *         &lt;element name="phones" type="{http://github.com/vlachenal/webservices-bench}phone" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

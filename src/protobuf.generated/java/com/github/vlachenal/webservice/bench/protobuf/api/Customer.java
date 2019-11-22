@@ -29,6 +29,13 @@ private static final long serialVersionUID = 0L;
   }
 
   @java.lang.Override
+  @SuppressWarnings({"unused"})
+  protected java.lang.Object newInstance(
+      UnusedPrivateParameter unused) {
+    return new Customer();
+  }
+
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -95,9 +102,9 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 58: {
-            if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               phones_ = new java.util.ArrayList<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone>();
-              mutable_bitField0_ |= 0x00000040;
+              mutable_bitField0_ |= 0x00000001;
             }
             phones_.add(
                 input.readMessage(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.parser(), extensionRegistry));
@@ -118,7 +125,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000040) != 0)) {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
         phones_ = java.util.Collections.unmodifiableList(phones_);
       }
       this.unknownFields = unknownFields.build();
@@ -148,6 +155,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @return A list containing the lines.
      */
     java.util.List<java.lang.String>
         getLinesList();
@@ -157,6 +165,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @return The count of lines.
      */
     int getLinesCount();
     /**
@@ -165,6 +174,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @param index The index of the element to return.
+     * @return The lines at the given index.
      */
     java.lang.String getLines(int index);
     /**
@@ -173,6 +184,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the lines at the given index.
      */
     com.google.protobuf.ByteString
         getLinesBytes(int index);
@@ -183,6 +196,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string zipCode = 2;</code>
+     * @return The zipCode.
      */
     java.lang.String getZipCode();
     /**
@@ -191,6 +205,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string zipCode = 2;</code>
+     * @return The bytes for zipCode.
      */
     com.google.protobuf.ByteString
         getZipCodeBytes();
@@ -201,6 +216,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string city = 3;</code>
+     * @return The city.
      */
     java.lang.String getCity();
     /**
@@ -209,6 +225,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string city = 3;</code>
+     * @return The bytes for city.
      */
     com.google.protobuf.ByteString
         getCityBytes();
@@ -219,6 +236,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string country = 4;</code>
+     * @return The country.
      */
     java.lang.String getCountry();
     /**
@@ -227,6 +245,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string country = 4;</code>
+     * @return The bytes for country.
      */
     com.google.protobuf.ByteString
         getCountryBytes();
@@ -253,6 +272,13 @@ private static final long serialVersionUID = 0L;
       zipCode_ = "";
       city_ = "";
       country_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Address();
     }
 
     @java.lang.Override
@@ -341,7 +367,6 @@ private static final long serialVersionUID = 0L;
               com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.class, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.Builder.class);
     }
 
-    private int bitField0_;
     public static final int LINES_FIELD_NUMBER = 1;
     private com.google.protobuf.LazyStringList lines_;
     /**
@@ -350,6 +375,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @return A list containing the lines.
      */
     public com.google.protobuf.ProtocolStringList
         getLinesList() {
@@ -361,6 +387,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @return The count of lines.
      */
     public int getLinesCount() {
       return lines_.size();
@@ -371,6 +398,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @param index The index of the element to return.
+     * @return The lines at the given index.
      */
     public java.lang.String getLines(int index) {
       return lines_.get(index);
@@ -381,6 +410,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string lines = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the lines at the given index.
      */
     public com.google.protobuf.ByteString
         getLinesBytes(int index) {
@@ -395,6 +426,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string zipCode = 2;</code>
+     * @return The zipCode.
      */
     public java.lang.String getZipCode() {
       java.lang.Object ref = zipCode_;
@@ -414,6 +446,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string zipCode = 2;</code>
+     * @return The bytes for zipCode.
      */
     public com.google.protobuf.ByteString
         getZipCodeBytes() {
@@ -437,6 +470,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string city = 3;</code>
+     * @return The city.
      */
     public java.lang.String getCity() {
       java.lang.Object ref = city_;
@@ -456,6 +490,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string city = 3;</code>
+     * @return The bytes for city.
      */
     public com.google.protobuf.ByteString
         getCityBytes() {
@@ -479,6 +514,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string country = 4;</code>
+     * @return The country.
      */
     public java.lang.String getCountry() {
       java.lang.Object ref = country_;
@@ -498,6 +534,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string country = 4;</code>
+     * @return The bytes for country.
      */
     public com.google.protobuf.ByteString
         getCountryBytes() {
@@ -782,7 +819,6 @@ private static final long serialVersionUID = 0L;
       public com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address buildPartial() {
         com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address result = new com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((bitField0_ & 0x00000001) != 0)) {
           lines_ = lines_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -791,7 +827,6 @@ private static final long serialVersionUID = 0L;
         result.zipCode_ = zipCode_;
         result.city_ = city_;
         result.country_ = country_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -905,6 +940,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @return A list containing the lines.
        */
       public com.google.protobuf.ProtocolStringList
           getLinesList() {
@@ -916,6 +952,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @return The count of lines.
        */
       public int getLinesCount() {
         return lines_.size();
@@ -926,6 +963,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param index The index of the element to return.
+       * @return The lines at the given index.
        */
       public java.lang.String getLines(int index) {
         return lines_.get(index);
@@ -936,6 +975,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the lines at the given index.
        */
       public com.google.protobuf.ByteString
           getLinesBytes(int index) {
@@ -947,6 +988,9 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The lines to set.
+       * @return This builder for chaining.
        */
       public Builder setLines(
           int index, java.lang.String value) {
@@ -964,6 +1008,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param value The lines to add.
+       * @return This builder for chaining.
        */
       public Builder addLines(
           java.lang.String value) {
@@ -981,6 +1027,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param values The lines to add.
+       * @return This builder for chaining.
        */
       public Builder addAllLines(
           java.lang.Iterable<java.lang.String> values) {
@@ -996,6 +1044,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLines() {
         lines_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -1009,6 +1058,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>repeated string lines = 1;</code>
+       * @param value The bytes of the lines to add.
+       * @return This builder for chaining.
        */
       public Builder addLinesBytes(
           com.google.protobuf.ByteString value) {
@@ -1029,6 +1080,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string zipCode = 2;</code>
+       * @return The zipCode.
        */
       public java.lang.String getZipCode() {
         java.lang.Object ref = zipCode_;
@@ -1048,6 +1100,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string zipCode = 2;</code>
+       * @return The bytes for zipCode.
        */
       public com.google.protobuf.ByteString
           getZipCodeBytes() {
@@ -1068,6 +1121,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string zipCode = 2;</code>
+       * @param value The zipCode to set.
+       * @return This builder for chaining.
        */
       public Builder setZipCode(
           java.lang.String value) {
@@ -1085,6 +1140,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string zipCode = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearZipCode() {
         
@@ -1098,6 +1154,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string zipCode = 2;</code>
+       * @param value The bytes for zipCode to set.
+       * @return This builder for chaining.
        */
       public Builder setZipCodeBytes(
           com.google.protobuf.ByteString value) {
@@ -1118,6 +1176,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string city = 3;</code>
+       * @return The city.
        */
       public java.lang.String getCity() {
         java.lang.Object ref = city_;
@@ -1137,6 +1196,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string city = 3;</code>
+       * @return The bytes for city.
        */
       public com.google.protobuf.ByteString
           getCityBytes() {
@@ -1157,6 +1217,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string city = 3;</code>
+       * @param value The city to set.
+       * @return This builder for chaining.
        */
       public Builder setCity(
           java.lang.String value) {
@@ -1174,6 +1236,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string city = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCity() {
         
@@ -1187,6 +1250,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string city = 3;</code>
+       * @param value The bytes for city to set.
+       * @return This builder for chaining.
        */
       public Builder setCityBytes(
           com.google.protobuf.ByteString value) {
@@ -1207,6 +1272,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string country = 4;</code>
+       * @return The country.
        */
       public java.lang.String getCountry() {
         java.lang.Object ref = country_;
@@ -1226,6 +1292,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string country = 4;</code>
+       * @return The bytes for country.
        */
       public com.google.protobuf.ByteString
           getCountryBytes() {
@@ -1246,6 +1313,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string country = 4;</code>
+       * @param value The country to set.
+       * @return This builder for chaining.
        */
       public Builder setCountry(
           java.lang.String value) {
@@ -1263,6 +1332,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string country = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCountry() {
         
@@ -1276,6 +1346,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string country = 4;</code>
+       * @param value The bytes for country to set.
+       * @return This builder for chaining.
        */
       public Builder setCountryBytes(
           com.google.protobuf.ByteString value) {
@@ -1351,6 +1423,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string number = 1;</code>
+     * @return The number.
      */
     java.lang.String getNumber();
     /**
@@ -1359,6 +1432,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string number = 1;</code>
+     * @return The bytes for number.
      */
     com.google.protobuf.ByteString
         getNumberBytes();
@@ -1369,6 +1443,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
@@ -1377,6 +1452,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+     * @return The type.
      */
     com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType getType();
   }
@@ -1403,6 +1479,13 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Phone();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1415,7 +1498,6 @@ private static final long serialVersionUID = 0L;
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1542,6 +1624,8 @@ private static final long serialVersionUID = 0L;
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -1549,6 +1633,10 @@ private static final long serialVersionUID = 0L;
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static PhoneType forNumber(int value) {
         switch (value) {
           case 0: return UNKNOWN;
@@ -1614,6 +1702,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string number = 1;</code>
+     * @return The number.
      */
     public java.lang.String getNumber() {
       java.lang.Object ref = number_;
@@ -1633,6 +1722,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string number = 1;</code>
+     * @return The bytes for number.
      */
     public com.google.protobuf.ByteString
         getNumberBytes() {
@@ -1656,6 +1746,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
     public int getTypeValue() {
       return type_;
@@ -1666,6 +1757,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+     * @return The type.
      */
     public com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType getType() {
       @SuppressWarnings("deprecation")
@@ -2003,6 +2095,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string number = 1;</code>
+       * @return The number.
        */
       public java.lang.String getNumber() {
         java.lang.Object ref = number_;
@@ -2022,6 +2115,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string number = 1;</code>
+       * @return The bytes for number.
        */
       public com.google.protobuf.ByteString
           getNumberBytes() {
@@ -2042,6 +2136,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string number = 1;</code>
+       * @param value The number to set.
+       * @return This builder for chaining.
        */
       public Builder setNumber(
           java.lang.String value) {
@@ -2059,6 +2155,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string number = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumber() {
         
@@ -2072,6 +2169,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>string number = 1;</code>
+       * @param value The bytes for number to set.
+       * @return This builder for chaining.
        */
       public Builder setNumberBytes(
           com.google.protobuf.ByteString value) {
@@ -2092,6 +2191,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
        */
       public int getTypeValue() {
         return type_;
@@ -2102,6 +2202,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
         type_ = value;
@@ -2114,6 +2216,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+       * @return The type.
        */
       public com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType getType() {
         @SuppressWarnings("deprecation")
@@ -2126,6 +2229,8 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.PhoneType value) {
         if (value == null) {
@@ -2142,6 +2247,7 @@ private static final long serialVersionUID = 0L;
        * </pre>
        *
        * <code>.webservicebench.Customer.Phone.PhoneType type = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -2202,7 +2308,6 @@ private static final long serialVersionUID = 0L;
 
   }
 
-  private int bitField0_;
   public static final int ID_FIELD_NUMBER = 1;
   private volatile java.lang.Object id_;
   /**
@@ -2211,6 +2316,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The id.
    */
   public java.lang.String getId() {
     java.lang.Object ref = id_;
@@ -2230,6 +2336,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The bytes for id.
    */
   public com.google.protobuf.ByteString
       getIdBytes() {
@@ -2253,6 +2360,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string firstName = 2;</code>
+   * @return The firstName.
    */
   public java.lang.String getFirstName() {
     java.lang.Object ref = firstName_;
@@ -2272,6 +2380,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string firstName = 2;</code>
+   * @return The bytes for firstName.
    */
   public com.google.protobuf.ByteString
       getFirstNameBytes() {
@@ -2295,6 +2404,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string lastName = 3;</code>
+   * @return The lastName.
    */
   public java.lang.String getLastName() {
     java.lang.Object ref = lastName_;
@@ -2314,6 +2424,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string lastName = 3;</code>
+   * @return The bytes for lastName.
    */
   public com.google.protobuf.ByteString
       getLastNameBytes() {
@@ -2337,6 +2448,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>int64 birthDate = 4;</code>
+   * @return The birthDate.
    */
   public long getBirthDate() {
     return birthDate_;
@@ -2350,6 +2462,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string email = 5;</code>
+   * @return The email.
    */
   public java.lang.String getEmail() {
     java.lang.Object ref = email_;
@@ -2369,6 +2482,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string email = 5;</code>
+   * @return The bytes for email.
    */
   public com.google.protobuf.ByteString
       getEmailBytes() {
@@ -2392,6 +2506,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>.webservicebench.Customer.Address address = 6;</code>
+   * @return Whether the address field is set.
    */
   public boolean hasAddress() {
     return address_ != null;
@@ -2402,6 +2517,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>.webservicebench.Customer.Address address = 6;</code>
+   * @return The address.
    */
   public com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address getAddress() {
     return address_ == null ? com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address.getDefaultInstance() : address_;
@@ -2759,7 +2875,7 @@ private static final long serialVersionUID = 0L;
       }
       if (phonesBuilder_ == null) {
         phones_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
         phonesBuilder_.clear();
       }
@@ -2790,7 +2906,6 @@ private static final long serialVersionUID = 0L;
     public com.github.vlachenal.webservice.bench.protobuf.api.Customer buildPartial() {
       com.github.vlachenal.webservice.bench.protobuf.api.Customer result = new com.github.vlachenal.webservice.bench.protobuf.api.Customer(this);
       int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       result.id_ = id_;
       result.firstName_ = firstName_;
       result.lastName_ = lastName_;
@@ -2802,15 +2917,14 @@ private static final long serialVersionUID = 0L;
         result.address_ = addressBuilder_.build();
       }
       if (phonesBuilder_ == null) {
-        if (((bitField0_ & 0x00000040) != 0)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           phones_ = java.util.Collections.unmodifiableList(phones_);
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.phones_ = phones_;
       } else {
         result.phones_ = phonesBuilder_.build();
       }
-      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -2885,7 +2999,7 @@ private static final long serialVersionUID = 0L;
         if (!other.phones_.isEmpty()) {
           if (phones_.isEmpty()) {
             phones_ = other.phones_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensurePhonesIsMutable();
             phones_.addAll(other.phones_);
@@ -2898,7 +3012,7 @@ private static final long serialVersionUID = 0L;
             phonesBuilder_.dispose();
             phonesBuilder_ = null;
             phones_ = other.phones_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000001);
             phonesBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getPhonesFieldBuilder() : null;
@@ -2944,6 +3058,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
     public java.lang.String getId() {
       java.lang.Object ref = id_;
@@ -2963,6 +3078,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
@@ -2983,6 +3099,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
      */
     public Builder setId(
         java.lang.String value) {
@@ -3000,6 +3118,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return This builder for chaining.
      */
     public Builder clearId() {
       
@@ -3013,6 +3132,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @param value The bytes for id to set.
+     * @return This builder for chaining.
      */
     public Builder setIdBytes(
         com.google.protobuf.ByteString value) {
@@ -3033,6 +3154,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string firstName = 2;</code>
+     * @return The firstName.
      */
     public java.lang.String getFirstName() {
       java.lang.Object ref = firstName_;
@@ -3052,6 +3174,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string firstName = 2;</code>
+     * @return The bytes for firstName.
      */
     public com.google.protobuf.ByteString
         getFirstNameBytes() {
@@ -3072,6 +3195,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string firstName = 2;</code>
+     * @param value The firstName to set.
+     * @return This builder for chaining.
      */
     public Builder setFirstName(
         java.lang.String value) {
@@ -3089,6 +3214,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string firstName = 2;</code>
+     * @return This builder for chaining.
      */
     public Builder clearFirstName() {
       
@@ -3102,6 +3228,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string firstName = 2;</code>
+     * @param value The bytes for firstName to set.
+     * @return This builder for chaining.
      */
     public Builder setFirstNameBytes(
         com.google.protobuf.ByteString value) {
@@ -3122,6 +3250,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string lastName = 3;</code>
+     * @return The lastName.
      */
     public java.lang.String getLastName() {
       java.lang.Object ref = lastName_;
@@ -3141,6 +3270,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string lastName = 3;</code>
+     * @return The bytes for lastName.
      */
     public com.google.protobuf.ByteString
         getLastNameBytes() {
@@ -3161,6 +3291,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string lastName = 3;</code>
+     * @param value The lastName to set.
+     * @return This builder for chaining.
      */
     public Builder setLastName(
         java.lang.String value) {
@@ -3178,6 +3310,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string lastName = 3;</code>
+     * @return This builder for chaining.
      */
     public Builder clearLastName() {
       
@@ -3191,6 +3324,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string lastName = 3;</code>
+     * @param value The bytes for lastName to set.
+     * @return This builder for chaining.
      */
     public Builder setLastNameBytes(
         com.google.protobuf.ByteString value) {
@@ -3211,6 +3346,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 birthDate = 4;</code>
+     * @return The birthDate.
      */
     public long getBirthDate() {
       return birthDate_;
@@ -3221,6 +3357,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 birthDate = 4;</code>
+     * @param value The birthDate to set.
+     * @return This builder for chaining.
      */
     public Builder setBirthDate(long value) {
       
@@ -3234,6 +3372,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 birthDate = 4;</code>
+     * @return This builder for chaining.
      */
     public Builder clearBirthDate() {
       
@@ -3249,6 +3388,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string email = 5;</code>
+     * @return The email.
      */
     public java.lang.String getEmail() {
       java.lang.Object ref = email_;
@@ -3268,6 +3408,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string email = 5;</code>
+     * @return The bytes for email.
      */
     public com.google.protobuf.ByteString
         getEmailBytes() {
@@ -3288,6 +3429,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string email = 5;</code>
+     * @param value The email to set.
+     * @return This builder for chaining.
      */
     public Builder setEmail(
         java.lang.String value) {
@@ -3305,6 +3448,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string email = 5;</code>
+     * @return This builder for chaining.
      */
     public Builder clearEmail() {
       
@@ -3318,6 +3462,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string email = 5;</code>
+     * @param value The bytes for email to set.
+     * @return This builder for chaining.
      */
     public Builder setEmailBytes(
         com.google.protobuf.ByteString value) {
@@ -3340,6 +3486,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Address address = 6;</code>
+     * @return Whether the address field is set.
      */
     public boolean hasAddress() {
       return addressBuilder_ != null || address_ != null;
@@ -3350,6 +3497,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>.webservicebench.Customer.Address address = 6;</code>
+     * @return The address.
      */
     public com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address getAddress() {
       if (addressBuilder_ == null) {
@@ -3487,9 +3635,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone> phones_ =
       java.util.Collections.emptyList();
     private void ensurePhonesIsMutable() {
-      if (!((bitField0_ & 0x00000040) != 0)) {
+      if (!((bitField0_ & 0x00000001) != 0)) {
         phones_ = new java.util.ArrayList<com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone>(phones_);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000001;
        }
     }
 
@@ -3683,7 +3831,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearPhones() {
       if (phonesBuilder_ == null) {
         phones_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
         phonesBuilder_.clear();
@@ -3788,7 +3936,7 @@ private static final long serialVersionUID = 0L;
         phonesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone, com.github.vlachenal.webservice.bench.protobuf.api.Customer.Phone.Builder, com.github.vlachenal.webservice.bench.protobuf.api.Customer.PhoneOrBuilder>(
                 phones_,
-                ((bitField0_ & 0x00000040) != 0),
+                ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
         phones_ = null;

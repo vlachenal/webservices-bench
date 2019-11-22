@@ -13,6 +13,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The id.
    */
   java.lang.String getId();
   /**
@@ -21,6 +22,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The bytes for id.
    */
   com.google.protobuf.ByteString
       getIdBytes();
@@ -31,6 +33,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>int32 nbThread = 2;</code>
+   * @return The nbThread.
    */
   int getNbThread();
 
@@ -40,6 +43,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string compression = 3;</code>
+   * @return The compression.
    */
   java.lang.String getCompression();
   /**
@@ -48,6 +52,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string compression = 3;</code>
+   * @return The bytes for compression.
    */
   com.google.protobuf.ByteString
       getCompressionBytes();
@@ -58,6 +63,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string cpu = 4;</code>
+   * @return The cpu.
    */
   java.lang.String getCpu();
   /**
@@ -66,6 +72,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string cpu = 4;</code>
+   * @return The bytes for cpu.
    */
   com.google.protobuf.ByteString
       getCpuBytes();
@@ -76,6 +83,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string memory = 5;</code>
+   * @return The memory.
    */
   java.lang.String getMemory();
   /**
@@ -84,6 +92,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string memory = 5;</code>
+   * @return The bytes for memory.
    */
   com.google.protobuf.ByteString
       getMemoryBytes();
@@ -94,6 +103,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string jvm = 6;</code>
+   * @return The jvm.
    */
   java.lang.String getJvm();
   /**
@@ -102,6 +112,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string jvm = 6;</code>
+   * @return The bytes for jvm.
    */
   com.google.protobuf.ByteString
       getJvmBytes();
@@ -112,6 +123,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string vendor = 7;</code>
+   * @return The vendor.
    */
   java.lang.String getVendor();
   /**
@@ -120,6 +132,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string vendor = 7;</code>
+   * @return The bytes for vendor.
    */
   com.google.protobuf.ByteString
       getVendorBytes();
@@ -130,6 +143,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string osFamily = 8;</code>
+   * @return The osFamily.
    */
   java.lang.String getOsFamily();
   /**
@@ -138,6 +152,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string osFamily = 8;</code>
+   * @return The bytes for osFamily.
    */
   com.google.protobuf.ByteString
       getOsFamilyBytes();
@@ -148,6 +163,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string osVersion = 9;</code>
+   * @return The osVersion.
    */
   java.lang.String getOsVersion();
   /**
@@ -156,6 +172,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string osVersion = 9;</code>
+   * @return The bytes for osVersion.
    */
   com.google.protobuf.ByteString
       getOsVersionBytes();
@@ -166,6 +183,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string protocol = 10;</code>
+   * @return The protocol.
    */
   java.lang.String getProtocol();
   /**
@@ -174,6 +192,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string protocol = 10;</code>
+   * @return The bytes for protocol.
    */
   com.google.protobuf.ByteString
       getProtocolBytes();
@@ -184,6 +203,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string comment = 11;</code>
+   * @return The comment.
    */
   java.lang.String getComment();
   /**
@@ -192,6 +212,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>string comment = 11;</code>
+   * @return The bytes for comment.
    */
   com.google.protobuf.ByteString
       getCommentBytes();
@@ -246,6 +267,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>.webservicebench.Mapper mapper = 13;</code>
+   * @return The enum numeric value on the wire for mapper.
    */
   int getMapperValue();
   /**
@@ -254,6 +276,7 @@ public interface TestSuiteOrBuilder extends
    * </pre>
    *
    * <code>.webservicebench.Mapper mapper = 13;</code>
+   * @return The mapper.
    */
   com.github.vlachenal.webservice.bench.protobuf.api.Mapper getMapper();
 }

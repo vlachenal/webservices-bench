@@ -1,8 +1,8 @@
 //
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7-b41 
+// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.11 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2018.09.19 à 12:42:37 PM CEST 
+// Généré le : 2019.11.22 à 07:11:29 PM CET 
 //
 
 
@@ -20,21 +20,21 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="client-call">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="request-seq" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="protocol" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="method" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="client-start" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="client-end" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="ok" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="err-msg" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="client-call"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="request-seq" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="protocol" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="method" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="client-start" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="client-end" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="ok" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="err-msg" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

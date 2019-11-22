@@ -10,6 +10,7 @@
         <xs:element name="birth-date" type="xs:date" minOccurs="0" />
         <xs:element name="born-before" type="xs:date" minOccurs="0" />
         <xs:element name="born-after" type="xs:date" minOccurs="0" />
+        <xs:element name="ids" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

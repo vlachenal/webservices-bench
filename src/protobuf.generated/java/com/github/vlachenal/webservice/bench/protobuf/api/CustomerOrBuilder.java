@@ -13,6 +13,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The id.
    */
   java.lang.String getId();
   /**
@@ -21,6 +22,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string id = 1;</code>
+   * @return The bytes for id.
    */
   com.google.protobuf.ByteString
       getIdBytes();
@@ -31,6 +33,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string firstName = 2;</code>
+   * @return The firstName.
    */
   java.lang.String getFirstName();
   /**
@@ -39,6 +42,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string firstName = 2;</code>
+   * @return The bytes for firstName.
    */
   com.google.protobuf.ByteString
       getFirstNameBytes();
@@ -49,6 +53,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string lastName = 3;</code>
+   * @return The lastName.
    */
   java.lang.String getLastName();
   /**
@@ -57,6 +62,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string lastName = 3;</code>
+   * @return The bytes for lastName.
    */
   com.google.protobuf.ByteString
       getLastNameBytes();
@@ -67,6 +73,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>int64 birthDate = 4;</code>
+   * @return The birthDate.
    */
   long getBirthDate();
 
@@ -76,6 +83,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string email = 5;</code>
+   * @return The email.
    */
   java.lang.String getEmail();
   /**
@@ -84,6 +92,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>string email = 5;</code>
+   * @return The bytes for email.
    */
   com.google.protobuf.ByteString
       getEmailBytes();
@@ -94,6 +103,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>.webservicebench.Customer.Address address = 6;</code>
+   * @return Whether the address field is set.
    */
   boolean hasAddress();
   /**
@@ -102,6 +112,7 @@ public interface CustomerOrBuilder extends
    * </pre>
    *
    * <code>.webservicebench.Customer.Address address = 6;</code>
+   * @return The address.
    */
   com.github.vlachenal.webservice.bench.protobuf.api.Customer.Address getAddress();
   /**
