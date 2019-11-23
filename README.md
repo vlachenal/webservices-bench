@@ -159,7 +159,7 @@ However, I will prefer Apache CXF for REST and SOAP clients. I find it more intu
 Don't use SOAP and don't use Dozer.
 
 SOAP has an really heavy overhead for serialization and deserialization.
-When I have implemented Protocol Buffers webservice, tests did not run anymore while running server side from Eclipse/bootRun on my laptop due to insufficient memory ... and when I monitored processus on my deskstop, I saw that SOAP test runs have an heavy memory overload (+1.5GB on server ...). So I don't not if Spring/SOAP protocol implementation has flaws compared to others but I suggest to not use Spring/SOAP + service/client (either for performance and memory usage).
+When I have implemented Protocol Buffers webservice, tests did not run anymore while running server side from Eclipse/bootRun on my laptop due to insufficient memory ... and when I monitored processus on my deskstop, I saw that SOAP test runs have an heavy memory overload (+1.5GB on server ...). So I don't know if Spring/SOAP protocol implementation has flaws compared to others but I suggest to not use Spring/SOAP + service/client (either for performance and memory usage).
 
 ~~Protocol Buffers with RESTful API has poor performance comparing to RESTful/JSON API. Surprisingly, the number of simultaneous calls does not improve response time from 3 calls and above.~~
 JSON serialization is done with pretty print format which has no interest ...
